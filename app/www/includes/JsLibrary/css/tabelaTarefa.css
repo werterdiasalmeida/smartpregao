@@ -1,0 +1,115 @@
+@CHARSET "ISO-8859-1";
+			table.tabelaTarefas
+			{
+				width: 100%;
+				border-spacing: 1px;
+				background-color: rgb( 192, 192, 192);
+			}
+			table.tabelaTarefasTitulo
+			{
+				width: 100%;
+				background-color:  rgb( 128, 128, 128);
+				border-spacing: 1px;
+			}
+			.tabelaTarefas td
+			{
+				text-align: center;
+			}
+			.tabelaTarefasTitulo th
+			{
+				font-family: sans-serif;
+				font-size: 13px;
+				font-weight: normal;
+				text-align: left;
+				border-color: white;
+				border-style: solid;
+				border-width: 1px;
+				border-left-color: white;
+				border-right-color: rgb( 192, 192, 192 );
+				border-top-color: white;
+				border-bottom-color: rgb( 192, 192, 192 );
+				background-color: rgb( 212, 208, 200 );
+			}
+			.tabelaTarefas input, .tabelaTarefas select
+			{
+				height: 17px;
+				background-color: white;
+				border-color: blue;
+				border-style: solid;
+				border-width: 1px;
+				font-family: sans-serif;
+				font-size: 13px;
+				font-weight: normal;
+			}
+			.tabelaTarefas td
+			{
+				background-color: white;
+				border-color: white;
+				border-style: solid;
+				border-width: 1px;
+				font-family: sans-serif;
+				font-size: 13px;
+				font-weight: normal;
+			}
+			.tabelaTarefas div
+			{
+			}
+			.tarefasFilhas
+			{
+				display: none;
+			}
+			.tarefasFilhasAberto
+			{
+				background-color: white;
+			}
+			.tarefasFilhasFechado
+			{
+				background-color: #EEEEFF;
+			}
+			.tarefaMais
+			{			
+				width: 15px;
+			}
+			.tarefaMais span
+			{
+				width: 15px;
+				white-space: nowrap;
+			}
+			.tarefaTipo
+			{
+				width: 40px;
+			}
+			.tarefaCodigo
+			{
+				width: 40px;
+			}
+			td.tarefaNome 
+			{
+				text-align: left;
+			}
+			.tarefaDescricao
+			{
+				width: 150px;
+			}
+			.tarefaPredecessora
+			{
+				width: 80px;
+			}
+			.tarefaInicio , .tarefaTermino
+			{
+				width: 80px;
+			}
+			.tarefaAprovada
+			{
+				width: 75px;
+			}
+			.tarefaDuracao
+			{
+				width: 50px;
+				text-align: left; 
+				padding-left: 0px;
+			}
+			.tarefaFechada
+			{
+				width: 50px;
+			}

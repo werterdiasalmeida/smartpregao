@@ -1,0 +1,57 @@
+.menuSelect
+{
+	position:absolute;
+}
+.menuSelect table
+{
+	width: 100px;
+	border-collapse: collapse;
+	background-color:  white;
+	border-spacing: 0px;
+	cellspacing: 0px;
+	border-width: 0px;
+	float: left;
+	position: relative;
+	z-index: 1;
+}
+.menuSelect div
+{
+	width: 100px;
+	background-color: rgb( 30, 30, 30); 
+	opacity: .3;
+	filter: alpha(opacity=50);
+	position: relative; 
+	*position: absolute; 
+	top: 5px; 
+	left: 5px; 			
+}
+.menuSelect table 
+{
+	
+}
+.menuSelect table tr
+{
+	font-family: sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	text-align: left;
+	border-width: 1px;
+	border-left-color: yellow;
+	border-right-color: rgb( 192, 192, 192 );
+	border-top-color: white;
+	border-bottom-color: rgb( 192, 192, 192 );
+	background-color: rgb( 212, 208, 200 );
+}
+.menuSelect td
+{
+padding-left: 5px;
+padding-right: 5px;
+}
+.menuSelectOut
+{
+}
+.menuSelectOver
+{
+	background-color: rgb( 12, 38 , 108);
+	color: white;
+}

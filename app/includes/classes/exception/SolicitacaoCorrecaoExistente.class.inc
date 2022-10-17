@@ -1,0 +1,8 @@
+<?php
+class SolicitacaoCorrecaoExistente extends AbstractException
+{
+    protected function getDefaultErrorMessage()
+    {
+        return 'Não foi possível cadastrar o registro pois já consta no sistema uma solicitação de correção pendente.';
+    }
+}

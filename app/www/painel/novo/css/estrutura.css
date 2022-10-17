@@ -1,0 +1,122 @@
+@charset "utf-8";
+/* CSS Document */
+
+#topo{
+	height:53px;
+}
+#geral {
+	width:98%;
+	margin:0 0 0 8px ;
+	background:#FFFFFF;
+
+}
+
+#conteudo{
+	margin-left:8px;
+}
+
+#geral_top_esq {
+	width:98%;
+	margin:0 0 0 8px ;
+	background:#FFFFFF;
+	background:url(../images/top_bg_esq.png) no-repeat left ;
+	height: 4px;
+	padding:0 0 0 -10px;
+	*position:relative;
+}
+
+#geral_top_dir{
+	background:url(../images/top_bg_dir.png) no-repeat right ;
+	height:4px;
+	float:right;
+	width:98%;
+}
+
+#geral_base_esq {
+	width:98%;
+	margin:0 0 0 8px ;
+	background:url(../images/base_bg_esq.png) no-repeat left ;
+	height: 4px;
+	padding:0 0 0 -10px;
+	*position:relative;
+}
+
+#geral_base_dir{
+	background:url(../images/base_bg_dir.png) no-repeat right ;
+	height:4px;
+	float:right;
+	width:98%;
+}
+
+#login{
+	float:right;
+	margin:8px 10px 0 0;
+	width:450px;
+	text-align:right;
+}
+
+#tema{
+	float:right;
+	margin:0 10px 0 0;
+}
+.input_search{
+	border:#abc8dc 1px solid;
+	vertical-align:middle;
+	height:16px;
+	color:#006699;
+	padding:0 0 0 10px;
+}
+.busca_bt{
+	background:url(../temas/padrao/images/bt_busca.png) no-repeat center;
+	border:none;
+	cursor:pointer;
+	vertical-align:middle;
+	height: 19px;
+	width:19px;
+}
+.busca_bt:hover{
+	background:url(../temas/padrao/images/bt_busca_on.png) no-repeat center;
+}
+
+#botoes_topo{
+	float:left;
+	margin:0 15px 0 0;
+	cursor:pointer;
+}
+#botoessistema{
+	float:right;
+	margin:0 15px 0 0;
+	cursor:pointer;
+}
+
+#rodape {
+	color:#FFFFFF;
+	padding-left:10px;
+	clear:both;
+	margin:0 auto;
+	height:25px;
+}
+
+.tabela
+{
+    FONT-SIZE: 8pt;
+
+	WIDTH: 100%;
+	TEXT-COLOR: #000000;
+}
+
+input,select {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

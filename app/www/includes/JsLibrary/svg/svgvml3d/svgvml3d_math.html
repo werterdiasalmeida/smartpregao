@@ -1,0 +1,280 @@
+<HTML>
+<HEAD>
+<TITLE>SVG-VML-3D-MATH - EASY EXPLAINED</TITLE>
+<style type="text/css">
+pre { font-size:12pt; color=#000080 }
+th { color=#806060 }
+td { color=#806060 }
+</style>
+</HEAD>
+<BODY>
+<BR>
+<DIV ALIGN="CENTER">
+<H2><I>SVG-VML-3D-MATH - EASY EXPLAINED</I></H2>
+</DIV>
+<basefont face='Arial' size=3>
+Once upon a time, a friend and dedicated hobby-programmer asked me, how do I all this 3 dimensional drawing stuff, 
+and as I found out he was not the only one, who had problems getting the math in the right way. So here's a little
+explanation of the underlying math of my SVG-VML-3D pages for all those, who are also fiddling around whith this topic.
+<BR><BR>
+Let's say you have your 3D objects in the range of the box
+<pre>
+{ x<sub>min</sub>, x<sub>max</sub>, y<sub>min</sub>, y<sub>max</sub>, z<sub>min</sub>, z<sub>max</sub> }
+</pre>
+By a first coordinate transformation shift the box, so that its center is in the origin: 
+<pre>
+x<sub>d</sub>=(x<sub>min</sub>+x<sub>max</sub>)/2, 
+y<sub>d</sub>=(y<sub>min</sub>+y<sub>max</sub>)/2, 
+z<sub>d</sub>=(z<sub>min</sub>+z<sub>max</sub>)/2
+
+x'=x-x<sub>d</sub>, y'=y-y<sub>d</sub>, z'=z-z<sub>d</sub>
+</pre>
+So you get your objects now in the range of the box
+<pre>
+{ -x'<sub>m</sub>, x'<sub>m</sub>, -y'<sub>m</sub>, y'<sub>m</sub>, -z'<sub>m</sub>, z'<sub>m</sub> }
+</pre>
+Now its time to introduce our 3D coordinate system:
+<pre>
+    z
+    |
+    |
+    |
+    |_______ y
+    /
+   /
+  /
+ x
+</pre>
+Let's say you stand at (1000,0,0) and look at the origin (0,0,0) where you see all your 3D objects which are near to (0,0,0).
+Now let's turn the objects around the z-axis by an angle of &Phi;. What will be the new position of a point (x', y' z')
+after that? As it is easy to see, the z-component doesn't change, so we get z''=z'. But what about x' and y'?
+When we look from the top of the coordinate system, we see this:
+<pre>
+   _______________ y
+  |. .
+  | .   .
+  |  .     .
+  |   .___/   .
+  |    .  &Phi;     * (x'', y'')
+  |     .
+  |      .
+  |       * (x', y')
+  |    
+  x
+</pre>
+It seems to be difficult to find a formula which calculates x'' and y'' from x', y' and &Phi;, but when we do a separate
+calculation for x' and y', it get's easier, look at this:  
+<pre>
+   _______________ y                                       * (x'', y'') 
+  |.                                                   .                    x''= - y' sin(&Phi;)
+  | .                                               .                       y''=   y' cos(&Phi;)
+  |  .               x'' = x' cos(&Phi;)              |----------*---- y
+  |   .              y'' = x' sin(&Phi;)              |        (0, y')
+  |    .                                          |
+  |     * (x'', y'')                              |
+  * (x', 0)                                       |
+  |                                               |
+  x                                               x
+</pre>
+Now we can add the components for x, y and z and write it down properly:
+<pre>
+x'' = x'*cos(&Phi;) - y'*sin(&Phi;) + z'*0
+y'' = x'*sin(&Phi;) + y'*cos(&Phi;) + z'*0
+z'' = x'*0      + y'*0      + z'*1
+</pre>
+It's a fine thing to do this with matrix and vector, so it will look like this:
+<BR><BR>
+<table noborder cellpadding=0 cellspacing=0>
+<tr><td rowspan=3><font style="font-size:80px; font-weight:100">(</font></td> 
+    <th width=20><font size="+1">x''</font></th>
+    <td rowspan=3><font style="font-size:80px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=60>cos&Phi;</th><th width=50>-sin&Phi;</th><th width=40>0</th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=20><font size="+1">x'</font></th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>    
+</tr>
+<tr>
+<th><font size="+1">y''</font></th>
+<th><font size="+2">=</font></th>
+<th>sin&Phi;</th><th>cos&Phi;</th><th>0</th>
+<th valign=bottom><font size="+2">*</font></th>
+<th><font size="+1">y'</font></th></tr>
+<tr>
+<th><font size="+1">z''</font></th>
+<td>&nbsp;</td>
+<th>0</th><th>0</th><th>1</th>
+<td>&nbsp;</td>
+<th><font size="+1">z'</font></th></tr>
+</table>
+<BR><BR>
+OK, but how about turning all the stuff additionally around the y-axis by an angle of &Theta;, so it looks as if you view
+from a higher position down to the 3D objects (view from a higher position down to the objects - doesn't it sound
+great?). Also in this way the z-axis will still remain vertically, so this is what
+you often will need for 3D-representations when the z-axis should always point to the top of the screen. So lets try to 
+apply the same math that we used for the rotation around the z-axis. When we look from the right side, the coordinate system
+looks like this:
+<pre>
+                z                                        z
+                |                                        |
+   (x''', z''') |                               (0, z'') *  (x''', z''')  
+          *     |  x'''=x'' cos(&Theta;)                       |    *
+            .   |  z'''=x'' sin(&Theta;)                       |  .       x'''= - z'' sin(&Theta;)
+              . |                                        |.         z'''=   z'' cos(&Theta;)
+   x ---*-------|                           x ------------
+    (x'', 0)
+</pre>
+Writing the stuff fine together, we get
+<pre>
+x''' = x''*cos(&Theta;) - y''*0 - z''*sin(&Theta;)
+y''' = x''*0      + y''*1 + z''*0
+z''' = x''*sin(&Theta;) + y''*0 + z''*cos(&Theta;)
+</pre>
+And in matrix notation:
+<BR><BR>
+<table noborder cellpadding=0 cellspacing=0>
+<tr><td rowspan=3><font style="font-size:80px; font-weight:100">(</font></td> 
+    <th width=20><font size="+1">x'''</font></th>
+    <td rowspan=3><font style="font-size:80px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=60>cos&Theta;</th><th width=40>0</th><th width=50>-sin&Theta;</th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=20><font size="+1">x''</font></th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>    
+</tr>
+<tr>
+<th><font size="+1">y'''</font></th>
+<th><font size="+2">=</font></th>
+<th>0</th><th>1</th><th>0</th>
+<th valign=bottom><font size="+2">*</font></th>
+<th><font size="+1">y''</font></th></tr>
+<tr>
+<th><font size="+1">z'''</font></th>
+<td>&nbsp;</td>
+<th>sin&Theta;</th><th>0</th><th>cos&Theta;</th>
+<td>&nbsp;</td>
+<th><font size="+1">z''</font></th></tr>
+</table>
+<BR><BR>
+Now let's do the two rotations in one step whithout calculating the (x'', y'', z'') vector:
+<BR><BR>
+<table noborder cellpadding=0 cellspacing=0>
+<tr><td rowspan=3><font style="font-size:80px; font-weight:100">(</font></td> 
+    <th width=20><font size="+1">x'''</font></th>
+    <td rowspan=3><font style="font-size:80px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=60>cos&Theta;</th><th width=40>0</th><th width=50>-sin&Theta;</th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">[</font></td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=60>cos&Phi;</th><th width=50>-sin&Phi;</th><th width=40>0</th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=20><font size="+1">x'</font></th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">]</font></td>    
+</tr>
+<tr>
+<th><font size="+1">y'''</font></th>
+<th><font size="+2">=</font></th>
+<th>0</th><th>1</th><th>0</th>
+<th valign=bottom><font size="+2">*</font></th>
+<th>sin&Phi;</th><th>cos&Phi;</th><th>0</th>
+<th valign=bottom><font size="+2">*</font></th>
+<th><font size="+1">y'</font></th></tr>
+<tr></tr>
+<tr>
+<th><font size="+1">z'''</font></th>
+<td>&nbsp;</td>
+<th>sin&Theta;</th><th>0</th><th>cos&Theta;</th>
+<td>&nbsp;</td>
+<th>0</th><th>0</th><th>1</th>
+<td>&nbsp;</td>
+<th><font size="+1">z'</font></th></tr>
+</table>
+<BR><BR>
+You probably know from your Algebra lessons, that we can use A*(B*C)=(A*B)*C to simplify the matrix multiplication,
+so we get:
+<BR><BR>
+<table noborder cellpadding=0 cellspacing=0>
+<tr><td rowspan=3><font style="font-size:80px; font-weight:100">(</font></td> 
+    <th width=20><font size="+1">x'''</font></th>
+    <td rowspan=3><font style="font-size:80px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=120>cos&Phi;cos&Theta;</th><th width=120>-sin&Phi;cos&Theta;</th><th width=80>-sin&Theta;</th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>
+    <td>&nbsp;</td>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">(</font></td>
+    <th width=20><font size="+1">x'</font></th>
+    <td rowspan=3><font style="font-size:72px; font-weight:100">)</font></td>    
+</tr>
+<tr>
+<th><font size="+1">y'''</font></th>
+<th><font size="+2">=</font></th>
+<th>sin&Phi;</th><th>cos&Phi;</th><th>0</th>
+<th valign=bottom><font size="+2">*</font></th>
+<th><font size="+1">y'</font></th></tr>
+<tr>
+<th><font size="+1">z'''</font></th>
+<td>&nbsp;</td>
+<th>cos&Phi;sin&Theta;</th><th>-sin&Phi;sin&Theta;</th><th>cos&Theta;</th>
+<td>&nbsp;</td>
+<th><font size="+1">z'</font></th></tr>
+</table>
+<BR><BR>
+Finally, we get the position of a point in the screen coordinate system by
+<pre>
+x<sup>s</sup> = y''' = sin&Phi; x' + cos&Phi; y'
+y<sup>s</sup> = z''' = cos&Phi;sin&Theta; x' - sin&Phi;sin&Theta; y' + cos&Theta; z'
+z<sup>s</sup> = x''' = cos&Phi;cos&Theta; x' - sin&Phi;cos&Theta; y' + sin&Theta; z'
+</pre>
+The pixel count in y is from top to down, so you will get the appropriate pixel numbers by
+x<sup>pixel</sup>=x<sup>center</sup>+x<sup>s</sup> and y<sup>pixel</sup>=y<sup>center</sup>-y<sup>s</sup>.
+The z<sup>s</sup> can be used to order the objects before drawing, so you would start the drawing with the
+object which has the smallest z<sup>s</sup>.<BR>
+The current picture will not show any perspective, it looks as if you were standing very far away.
+If you want to get a more realistic impression, you must change the formula just a little bit.
+Assume your position is (0,0,d), so d is your distance from the origin. When you look at a point (x<sup>s</sup>, 0, z<sup>s</sup>),
+then its picture will be (x'<sup>s</sup>, 0, 0), as all picture points are located in the same plane, where z=0:
+<pre>
+        |       (x'<sup>s</sup>,0,0)
+     ---|--------*---------- x         
+        |       .
+        |      .
+        |     * (x<sup>s</sup>,0,z<sup>s</sup>)
+        |    .
+        |   .
+        |  . 
+        | .
+        |.
+        o (0,0,d)
+        |
+        z
+</pre>
+Then you get by similar triangles
+<pre>
+(x'<sup>s</sup>-x<sup>s</sup>)/z<sup>s</sup> = x<sup>s</sup>/(d-z<sup>s</sup>)
+</pre>
+so the new screen coordinate with perspective is
+<pre>
+x'<sup>s</sup> = x<sup>s</sup> * (d /(d-z<sup>s</sup>))
+y'<sup>s</sup> = y<sup>s</sup> * (d /(d-z<sup>s</sup>))
+</pre>
+Note, that now also the drawing order must be changed: Instead of sorting the objects according to their z<sup>s</sup>,
+the objects should now be sorted according to their distance to (0,0,d).<BR>
+O.k. folks, that's enough for the beginning, if you want to see how I implemented this, then have a look at my
+<a href="index.html">SVG-VML-3D examples</a>.
+<BR><BR>
+<I><font size="-2">&copy; Lutz Tautenhahn, 2002</font></I>
+</BODY>
+</HTML>

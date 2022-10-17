@@ -1,0 +1,160 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Insert title here</title>
+		<script type="text/javascript" src="../../includes/JsLibrary/_start.js"></script>
+		<script type="text/javascript" src="../../includes/JsLibrary/dragdrop/dragDropColumn.js"></script>
+		<style>
+			.opcaoArrastadoPossivel
+			{
+				background-color: lime;
+			}
+			.opcaoArrastadoImPossivel
+			{
+				background-color: oragen;
+			}
+			.opcaoArrastadoSelecionado
+			{
+				background-color: red;
+			}
+			.opcaoArrastaSoltaPossivel
+			{
+				background-color: yellow;
+			}
+			.opcaoArrastaSoltaImpossivel
+			{
+				background-color: green;
+			}
+			.opcaoSeta
+			{
+				visibility: hidden;
+				position: relative; 
+				top: +15px;
+			}
+			.opcaoArrastaSoltaPossivel td .opcaoSeta
+			{
+				visibility: visible;
+				
+			}
+		</style>
+		<script>
+		window.dragDropItem.classDragIsPossible		= "opcaoArrastadoPossivel";
+		window.dragDropItem.classDragIsImpossible	= "opcaoArrastadoInpossivel";
+		window.dragDropItem.classDragIsHappening	= "opcaoArrastadoSelecionado";
+		window.dragDropItem.classDropIsPossible		= "opcaoArrastaSoltaPossivel";
+		window.dragDropItem.classDropIsImpossible	= "opcaoArrastaSoltaImpossivel";
+
+		window.dragDropReceiver.onmouseup = function onmouseup( objTagReceiver )
+		{
+			alert( 
+				window.dragDropColumn.actualDragDropElement.strValueFrom + 
+				' ' + 
+				window.dragDropColumn.actualDragDropElement.strValueTo
+			);
+		}
+
+		window.dragDropReceiver.changeColumn = function changeColumn( strFrom , strTo )
+		{
+			alert( strFrom + ' # ' + strTo );
+		}
+		</script>
+	</head>
+	<body>
+		<div id="container" style="width: 500px; height: 500px;">
+			<div id="dragDropColumn" style=" position: absolute; z-index: 10; background-color: blue">
+			</div>
+			<table border=1 >
+				<tbody>
+					<tr 
+						onmouseup="window.dragDropReceiver.onmouseup( this )" 
+						onmouseover="window.dragDropReceiver.onmouseover( this )" 
+						onmouseout="window.dragDropReceiver.onmouseout( this )" 
+						id="a1"
+					>
+						<td>
+							<span class="opcaoSeta">
+								=>
+							</span>
+						</td>
+						<td
+							id="b1"
+							onmousedown="window.dragDropItem.onmousedown( this , '1.1 1.2' )" 
+							onmouseover="window.dragDropItem.onmouseover( this )" 
+							onmouseout="window.dragDropItem.onmouseout( this )" 
+						>
+							1.1
+						</td>
+						<td>
+							1.2
+						</td>
+					</tr>
+					<tr 
+						onmouseup="window.dragDropReceiver.onmouseup( this )" 
+						onmouseover="window.dragDropReceiver.onmouseover( this )" 
+						onmouseout="window.dragDropReceiver.onmouseout( this )" 
+						id="a2">
+						<td>
+							<span class="opcaoSeta">
+								=>
+							</span>
+						</td>
+						<td
+							id="b2"
+							onmousedown="window.dragDropItem.onmousedown( this , '2.1 2.2' )" 
+							onmouseover="window.dragDropItem.onmouseover( this )" 
+							onmouseout="window.dragDropItem.onmouseout( this )" 
+						>
+							2.1
+						</td>
+						<td>
+							2.2
+						</td>
+					</tr>
+					<tr 
+						onmouseup="window.dragDropReceiver.onmouseup( this )" 
+						onmouseover="window.dragDropReceiver.onmouseover( this )" 
+						onmouseout="window.dragDropReceiver.onmouseout( this )" 
+						id="a3">
+						<td>
+							<span class="opcaoSeta">
+								=>
+							</span>
+						</td>
+						<td
+							 onmousedown="window.dragDropItem.onmousedown( this , '3.1 3.2' , '3' )" 
+							 onmouseover="window.dragDropItem.onmouseover( this , '3' , false )" 
+							 onmouseout="window.dragDropItem.onmouseout( this , '3' )" 
+						>
+								3.1
+						</td>
+						<td>
+							3.2
+						</td>
+					</tr>
+					<tr 
+						onmouseup="window.dragDropReceiver.onmouseup( this )" 
+						onmouseover="window.dragDropReceiver.onmouseover( this )" 
+						onmouseout="window.dragDropReceiver.onmouseout( this )" 
+						id="a4">
+						<td>
+							<span class="opcaoSeta">
+								=>
+							</span>
+						</td>
+						<td
+							id="b4"
+							onmousedown="window.dragDropItem.onmousedown( this , '4.1 4.2' )" 
+							onmouseover="window.dragDropItem.onmouseover( this )" 
+							onmouseout="window.dragDropItem.onmouseout( this )" 
+						>
+							4.1
+						</td>
+						<td>
+							4.2
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

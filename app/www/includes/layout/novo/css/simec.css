@@ -1,0 +1,56 @@
+/* Utilize este arquivo para sobrescrever as classes CSS para o tema */
+body {
+    background-color: #E5E5E6;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #1e4262;
+}
+
+#main {
+    background-color: #E5E5E6;
+}
+
+#avisochat_lista {
+    right: 47px;
+}
+
+#menubackmenu1 {
+    /*background: url(../img/fundoMenu.jpg) repeat-x;*/
+    border-bottom: 2px solid #617fa5;
+}
+
+.barraAmbienteDivPrincipal {
+    top: 5px;
+}
+
+.rodape {
+    margin-top: 10px;
+    background: #999;
+    color: #FFF;
+}
+
+.rodape a {
+    color: #FFFFFF !important;
+    font-weight: bold;
+}
+
+.rodape td {
+    padding: 10px 20px;
+    color: #ddd;
+    /*     font-style: italic; */
+    font-size: 12px;
+}
+
+#menu_theme {
+    padding: 10px;
+    color: 333;
+    position: absolute;
+    background-color: #FFFFFF;
+    border: solid 1px #364150;
+    top: 13px;
+    right: 200px;
+    border-radius: 4px;
+    z-index: 4;
+    height: 45px !important;
+}

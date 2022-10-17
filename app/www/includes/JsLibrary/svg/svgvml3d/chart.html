@@ -1,0 +1,252 @@
+<html xmlns:v ="urn:schemas-microsoft-com:vml">
+<head>
+<title>SVG-VML-3D-Example - Chart</title>
+<style>
+v\:* { behavior: url(#default#VML); }
+input { width:44; font-family:'Times New Roman'; font-size:10pt; background-color:#ffffff }
+input.button { background-color:#cccccc; width:28; height:28; font-family:'Times New Roman'; font-size:14pt; }
+</style>
+<script src="svgvml3d.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script src="boundingbox.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script>
+function random(vv)
+{ return(Math.floor(Math.random()*vv));
+}
+var S, B, Xmax=5, Ymax=9;
+//useSVG=true;//you can also change this by hand
+function Init()
+{ if (useSVG)
+  { if (! SVGObjects[0])
+    { setTimeout("Init()",100);
+      return;
+    }  
+    S=new Scene3D(SVGObjects[0],0,500,500);
+  }
+  else S=new Scene3D(document.getElementById("Scene1"),1);
+  S.Zoom.y=8/(Date.UTC(2002,8,15,0,0,0)-Date.UTC(2002,0,15,0,0,0)) 
+  S.Zoom.z=0.1;
+  B=new BoundingBox(S, "#80ff80", "#0000ff");
+  Color=new Array("#FF0000","#FF8000","#FFFF00");
+  Price=new Array(3);
+  var i, j;
+  for (i=0; i<3; i++) Price[i]=new Array(8);
+  for (i=0; i<3; i++)
+  { Price[i][0]=60-20*i+random(5);
+    for (j=1; j<=7; j++)
+    { Price[i][j]=Price[i][j-1]+random(10)-4+2*i-random(2*i+1);
+      b=new Box3D(S, i+0.7, Date.UTC(2002,j-1,23,0,0,0), 0, i+1.3, Date.UTC(2002,j,9,0,0,0), Price[i][j], Color[i], Color[i], "#000000", 1);
+      b.SetId(Price[i][j]);
+      b.SetEventAction("click",parent.ClickMsg);
+    }
+  }
+  S.AutoCenter();
+  S.Dist*=1.8;
+  S.YM+=50;
+  S.ZoomAll*=0.9;
+  B.SetBorder(0,Date.UTC(2002,0,2,0,0,0),0, 4,Date.UTC(2002,7,30,0,0,0),70);
+  B.GridDelta.x=1;
+  B.Scale.x="function ApplesOrangesBananas";
+  B.Label.x="";
+  B.Scale.y=4;
+  B.Label.y="";
+  B.Scale.z="$";
+  B.Label.z="Price";
+  S.ChangeViewer(-40,60);
+  S.ChangeLight(-30,30);
+  S.OrderWeight.z=0.05;
+  S.Sort();
+  S.Draw();
+}
+function ClickMsg(evt)
+{ if (evt) alert(evt.target.id+" $"); //SVG
+  else alert(this.id+" $"); //VML
+}
+function ApplesOrangesBananas(xx)
+{ if (xx==1) return("Apples");
+  if (xx==2) return("Oranges");
+  if (xx==3) return("Bananas");
+  return("");
+}
+function ChangeViewer(ttheta, ffi)
+{ S.ChangeViewer(ttheta, ffi);
+  S.Sort();
+  S.Draw();
+}
+function ChangeLight(ttheta, ffi)
+{ S.ChangeLight(ttheta, ffi);
+  S.Draw();
+}
+var viewerzoomed=0;
+function ZoomViewer(vv)
+{ if ((viewerzoomed+vv>5)||(viewerzoomed+vv<-5)) return;
+  viewerzoomed+=vv;
+  if (vv>0) S.Dist*=0.8;
+  else S.Dist/=0.8;
+  S.Sort();
+  S.Draw();
+}
+function Shift(hh, vv)
+{ S.XM+=hh;
+  S.YM+=vv;
+  S.Draw();
+}
+var picturezoomed=0;
+function ZoomPicture(vv)
+{ if ((picturezoomed+vv>5)||(picturezoomed+vv<-5)) return;
+  picturezoomed+=vv;
+  if (vv>0) S.ZoomAll*=1.1;
+  else S.ZoomAll/=1.1;
+  S.Draw();
+}
+onload=Init;
+</script>
+</head>
+<body bgcolor=#ffffff>
+<form>
+<table border=0><tr>
+<td><input type="button" class="button" onClick="ZoomPicture(1)" value="[+]" title="zoom picture in" /></td>
+<td><input type="button" class="button" onClick="ZoomPicture(-1)" value="[-]" title="zoom picture out" /></td>
+<td><input type="button" class="button" onClick="Shift(-20,0)" value="&#9668;" title="move picture left" /></td>
+<td><input type="button" class="button" onClick="Shift(0,-20)" value="&#9650;" title="move picture up" /></td>
+<td><input type="button" class="button" onClick="Shift(0,20)" value="&#9660;" title="move picture down" /></td>
+<td><input type="button" class="button" onClick="Shift(20,0)" value="&#9658;" title="move move picture right" /></td>
+<td><input type="button" class="button" onClick="ChangeLight(0,10)" value="&#8592;" title="rotate light to the left" /></td>
+<td><input type="button" class="button" onClick="ChangeLight(-10,0)" value="&#8593;" title="move light up" /></td>
+<td><input type="button" class="button" onClick="ChangeLight(10,0)" value="&#8595;" title="move light down" /></td>
+<td><input type="button" class="button" onClick="ChangeLight(0,-10)" value="&#8594;" title="rotate light to the right" /></td>
+<td><input type="button" class="button" onClick="ZoomViewer(1)" value="(+)" title="zoom viewer in" /></td>
+<td><input type="button" class="button" onClick="ZoomViewer(-1)" value="(-)" title="zoom viewer out" /></td>
+<td><input type="button" class="button" onClick="ChangeViewer(0,5)" value="&lt;=" title="move viewer position left" /></td>
+<td><input type="button" class="button" onClick="ChangeViewer(-10,0)" value="&#9794;" title="move viewer position up" /></td>
+<td><input type="button" class="button" onClick="ChangeViewer(10,0)" value="&#9792;" title="move viewer position down" /></td>
+<td><input type="button" class="button" onClick="ChangeViewer(0,-5)" value="=&gt;" title="move viewer position right" /></td>
+</tr></table>
+<script language="JavaScript">
+document.writeln("<table border=1><tr><td>");
+if (useSVG) document.writeln("<embed width='500' height='500' name='Scene1' src='scene.svg' wmode='transparent' type='image/svg+xml' />");
+else document.writeln("<div id='Scene1' style='position: relative; width:500; height:500; overflow: hidden;'></div>");
+document.writeln("</td></tr></table>");
+document.writeln("<table border=0 cellpadding=0 cellspacing=0>");
+document.write("<tr><th>Z</th>");
+for(j=0; j<Ymax; j++) document.write("<th>Y"+j+"</th>");
+document.writeln("<th>Scale</th><th>Color</th></tr>");
+for (i=0; i<Xmax; i++)
+{ document.write("<tr><th>X"+i+"</th>");
+  for(j=0; j<Ymax; j++) document.write("<th><input name='v"+i+"_"+j+"' value='"+Math.floor(80-10*i-10*Math.random())+"'></th>");
+  document.writeln("<th><input name='s_x"+i+"' value='"+eval(i+1)+"'></th><th><input name='c_x"+i+"' value='"+GetCol(i)+"'></th></tr>");
+}
+document.write("<tr><th>Scale</th>");
+for(j=0; j<Ymax; j++) document.write("<th><input name='s_y"+j+"' value='"+String.fromCharCode(65+j)+"'></th>");
+document.writeln("<th><input type='button' onClick='ClearGrid()' style='width:44' value='Clear' /></th><th><input type='button' onClick='DrawScene()' style='width:44' value='Draw' /></th></tr>");
+document.writeln("</table>");
+
+function GetCol(ii)
+{ if (ii==0) return("#8080ff");
+  if (ii==1) return("#ff8080");
+  if (ii==2) return("#80ff80");
+  if (ii==3) return("#ff80ff");
+  if (ii==4) return("#ffff80");
+  return("#ffffff");
+}
+
+function ClearGrid()
+{ var ii, jj;
+  for (ii=0; ii<Xmax; ii++)
+  { for (jj=0; jj<Ymax; jj++)
+      document.forms[0]['v'+ii+'_'+jj].value="";
+  }
+}
+
+function DrawScene()
+{ var ii, jj, cc, vv, xmin=-1, xmax=0, ymin=-1, ymax=0, zmin=0, zmax=0;
+  for (ii=0; ii<Xmax; ii++)
+  { for (jj=0; jj<Ymax; jj++)
+    { vv=document.forms[0]['v'+ii+'_'+jj].value;
+      if (vv!="")
+      { vv=parseFloat(vv);
+        if (xmax<ii) xmax=ii;
+        if (ymax<jj) ymax=jj;
+        if (zmin>vv) zmin=vv;
+        if (zmax<vv) zmax=vv;
+      }
+    }
+  }
+  xmax++;
+  ymax++;
+  if (zmin==zmax)
+  { alert("You must input some data before drawing.");
+    return;
+  }
+  S.Delete();
+  S.Init();
+  //either use S.Init() to keep the rotation and zoom settings or use the following 2 lines to make all new 
+  //if (useSVG) S=new Scene3D(SVGObjects[0],0,500,500);
+  //else S=new Scene3D(document.getElementById("Scene1"),1);
+  if (S.Zoom.y!=1)
+  { S.Zoom.y=1;
+    S.YM-=30;
+  }  
+  S.Zoom.z=8/(zmax-zmin);
+  B=new BoundingBox(S, "#ffffff", "#000000");
+  for (ii=0; ii<Xmax; ii++)
+  { cc=document.forms[0]['c_x'+ii].value;
+    if (cc=="") cc="#cccccc";
+    for (jj=0; jj<Ymax; jj++)
+    { vv=document.forms[0]['v'+ii+'_'+jj].value;
+      if (vv!="")
+      { vv=parseFloat(vv);
+        if (vv>0) bb=new Box3D(S, ii-0.3, jj-0.3, 0, ii+0.3, jj+0.3, vv, cc, cc, "#000000", 1);
+        if (vv<0) bb=new Box3D(S, ii-0.3, jj-0.3, vv, ii+0.3, jj+0.3, 0, cc, cc, "#000000", 1);
+        bb.SetId(ii+"_"+jj);
+        bb.SetEventAction("mouseover",parent.MouseOver);
+        bb.SetEventAction("mouseout",parent.MouseOut);
+      }  
+    }
+  }
+  S.AutoCenter();
+  S.Dist*=1.8;
+  B.SetBorder(xmin,ymin,zmin,xmax,ymax,zmax);
+  B.GridDelta.x=1;
+  B.GridDelta.y=1;
+  B.Scale.x="function MyXScale";
+  B.Label.x="";
+  B.Scale.y="function MyYScale";
+  B.Label.y="";
+  B.Label.z="";
+  S.OrderWeight.z=0.05;
+  S.Sort();
+  S.Draw();
+  viewerzoomed=0;
+  picturezoomed=0;
+}
+function MouseOver(evt)
+{ var ii, cc="#ff8080";
+  if (evt)
+  {ii=evt.target.id; //SVG
+   cc=evt.target.getAttributeNS(null,"fill");
+  }
+  else
+  { ii=this.id; //VML
+    cc=""+this.fillcolor;
+    //or cc=""+event.srcElement.fillcolor;
+  }
+  document.forms[0]['v'+ii].style.backgroundColor=cc;
+}
+function MouseOut(evt)
+{ var ii;
+  if (evt) ii=evt.target.id; //SVG
+  else ii=this.id; //VML
+  document.forms[0]['v'+ii].style.backgroundColor="#ffffff";
+}
+function MyXScale(xx)
+{ if ((xx>=0)&&(xx<Xmax)) return(document.forms[0]['s_x'+xx].value);
+  return("");
+}
+function MyYScale(yy)
+{ if ((yy>=0)&&(yy<Ymax)) return(document.forms[0]['s_y'+yy].value);
+  return("");
+}
+</script>
+</form>
+</body>
+</html>

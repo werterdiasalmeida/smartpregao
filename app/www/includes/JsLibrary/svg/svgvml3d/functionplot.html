@@ -1,0 +1,246 @@
+<html xmlns:v ="urn:schemas-microsoft-com:vml">
+<head>
+<title>SVG-VML-3D-Example - Function Plot</title>
+<style>
+v\:* { behavior: url(#default#VML); }
+input { width:44; font-family:'Times New Roman'; font-size:10pt; }
+input.button { background-color:#cccccc; width:28; height:28; font-family:'Times New Roman'; font-size:14pt; }
+</style>
+<script src="svgvml3d.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script src="boundingbox.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script>
+function random(vv)
+{ return(Math.floor(Math.random()*vv));
+}
+var S, B;
+var i, j, xmin, xmax, n_x=10, ymin, ymax, n_y=10, zmin, zmax, x0, x1, y0, y1, z, x, y;
+var viewerzoomed=0, picturezoomed=0;
+zPoly=new Array(n_x);
+for (i=0; i<n_x; i++) zPoly[i]=new Array(n_y);
+//useSVG=true;//you can also change this by hand
+function Init()
+{ if (useSVG)
+  { if (! SVGObjects[0])
+    { setTimeout("Init()",100);
+      return;
+    }  
+    S=new Scene3D(SVGObjects[0],0,370,370);
+  }
+  else S=new Scene3D(document.getElementById("Scene1"),1);
+  B=new BoundingBox(S, "#ffffff", "#000000");
+  n_f=0;
+  xmin=-1;
+  xmax=1;
+  ymin=-1;
+  ymax=1;
+  zmin=f(xmin,ymin);
+  zmax=zmin;  
+  var i, j;
+  for (i=0; i<n_x; i++)
+  { for (j=0; j<n_y; j++)
+    { x0=xmin+i*(xmax-xmin)/n_x;
+      x1=xmin+(i+1)*(xmax-xmin)/n_x;
+      y0=ymin+j*(ymax-ymin)/n_y;
+      y1=ymin+(j+1)*(ymax-ymin)/n_y;
+      zPoly[i][j]=new Poly3D(S, "#ff6666", "#6666ff", "#808080", 1);
+      z=f(x0,y1);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].AddPoint(x0,y1,z); 
+      z=f(x1,y1);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].AddPoint(x1,y1,z); 
+      z=f(x1,y0);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].AddPoint(x1,y0,z); 
+      z=f(x0,y0);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].AddPoint(x0,y0,z);
+      zPoly[i][j].Update();
+    }
+  }
+  S.AutoCenter();
+  B.SetBorder(xmin,ymin,zmin,xmax,ymax,zmax);
+  S.ChangeViewer(-25,60);
+  S.ChangeLight(-30,30);
+  S.OrderWeight.z=0.01;
+  S.Sort();
+  S.Draw();
+}
+function UpdateFunction()
+{ xmin=parseFloat(document.forms[0].xmin.value);
+  xmax=parseFloat(document.forms[0].xmax.value);
+  ymin=parseFloat(document.forms[0].ymin.value);
+  ymax=parseFloat(document.forms[0].ymax.value);
+  if (isNaN(xmin)) { alert("x-min is not a number"); return; }
+  if (isNaN(xmax)) { alert("x-max is not a number"); return; }
+  if (isNaN(ymin)) { alert("y-min is not a number"); return; }
+  if (isNaN(ymax)) { alert("y-max is not a number"); return; }
+  zmin=f(xmin,ymin);
+  zmax=zmin;
+  if ((zmin=="")&&(isNaN(parseInt(zmin))))
+  { alert(document.forms[0].z.value+" can not be evaluated.");
+    return; 
+  }
+  for (i=0; i<n_x; i++)
+  { for (j=0; j<n_y; j++)
+    { x0=xmin+i*(xmax-xmin)/n_x;
+      x1=xmin+(i+1)*(xmax-xmin)/n_x;
+      y0=ymin+j*(ymax-ymin)/n_y;
+      y1=ymin+(j+1)*(ymax-ymin)/n_y;
+      z=f(x0,y1);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].SetPoint(0,x0,y1,z); 
+      z=f(x1,y1);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].SetPoint(1,x1,y1,z); 
+      z=f(x1,y0);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].SetPoint(2,x1,y0,z); 
+      z=f(x0,y0);
+      if (zmin>z) zmin=z;
+      if (zmax<z) zmax=z; 
+      zPoly[i][j].SetPoint(3,x0,y0,z);
+      //zPoly[i][j].Update();
+    }
+  }
+  S.Zoom.x=(1/(xmax-xmin));
+  S.Zoom.y=(1/(ymax-ymin));
+  if (zmin<zmax) S.Zoom.z=(1/(zmax-zmin));
+  else S.Zoom.z=1;
+  S.ZoomUpdate();
+  S.AutoCenter();
+  B.SetBorder(xmin,ymin,zmin,xmax,ymax,zmax);
+  S.Sort();
+  S.Draw();
+  viewerzoomed=0;
+  picturezoomed=0;
+}
+
+function SelectFunction(nn)
+{ if ((nn==0)||(nn==1))
+  { document.forms[0].xmin.value=-1;
+    document.forms[0].xmax.value=1;
+    document.forms[0].ymin.value=-1;
+    document.forms[0].ymax.value=1;
+  }
+  else
+  { document.forms[0].xmin.value=-5;
+    document.forms[0].xmax.value=5;
+    document.forms[0].ymin.value=-5;
+    document.forms[0].ymax.value=5;
+  }
+  if (nn==0) document.forms[0].z.value="x*x-y*y";
+  if (nn==1) document.forms[0].z.value="4*x*x+4*y*y";
+  if (nn==2) document.forms[0].z.value="(cos(x)+cos(y))/(4+abs(x)+abs(y))";
+  if (nn==3) document.forms[0].z.value="10-abs(x)-abs(y)";
+  UpdateFunction();
+}
+function f(xx,yy)
+{ x=xx;
+  y=yy;
+  var ff;
+  ff=EvalSafe(document.forms[0].z.value);
+  return(ff);
+}
+function EvalSafe(ss)
+{ var jj="";
+  if (ss.indexOf("^")>=0) return("");
+  try
+  { with (Math) jj=eval(ss);
+  }
+  catch(error)
+  { return("");
+  }
+  return(jj);
+}
+function ChangeViewer(ttheta, ffi)
+{ S.ChangeViewer(ttheta, ffi);
+  S.Sort();
+  S.Draw();
+}
+function ChangeLight(ttheta, ffi)
+{ S.ChangeLight(ttheta, ffi);
+  S.Draw();
+}
+function ZoomViewer(vv)
+{ if ((viewerzoomed+vv>5)||(viewerzoomed+vv<-5)) return;
+  viewerzoomed+=vv;
+  if (vv>0) S.Dist*=0.8;
+  else S.Dist/=0.8;
+  S.Sort();
+  S.Draw();
+}
+function Shift(hh, vv)
+{ S.XM+=hh;
+  S.YM+=vv;
+  S.Draw();
+}
+function ZoomPicture(vv)
+{ if ((picturezoomed+vv>5)||(picturezoomed+vv<-5)) return;
+  picturezoomed+=vv;
+  if (vv>0) S.ZoomAll*=1.1;
+  else S.ZoomAll/=1.1;
+  S.Draw();
+}
+onload=Init;
+</script>
+</head>
+<body bgcolor=#ffffff>
+<form>
+<table border=0 cellpadding=2 cellspacing=2 bgcolor='#dddddd'>
+<tr><th>x-min</th>
+    <th>x-max</th>
+    <th>y-min</th>
+    <th>y-max</th>
+    <th>z=<input name="z" style='width:166' value="x*x-y*y" /></th>
+</tr>
+<tr><th><input name="xmin" value="-1" /></th>
+    <th><input name="xmax" value="1" /></th>
+    <th><input name="ymin" value="-1" /></th>
+    <th><input name="ymax" value="1" /></th>
+    <th align="right"><input type='button' onClick='UpdateFunction()' style='background-color:#cccccc;width:94' value='Update' /></th>
+</tr>
+</table>  
+<table border=0><tr>
+<td><input type="button" class="button" onClick="ZoomPicture(1)" value="[+]" title="zoom picture in" \></td>
+<td><input type="button" class="button" onClick="ZoomPicture(-1)" value="[-]" title="zoom picture out" \></td>
+<td><input type="button" class="button" onClick="Shift(-20,0)" value="&#9668;" title="move picture left" \></td>
+<td><input type="button" class="button" onClick="Shift(0,-20)" value="&#9650;" title="move picture up" \></td>
+<td><input type="button" class="button" onClick="Shift(0,20)" value="&#9660;" title="move picture down" \></td>
+<td><input type="button" class="button" onClick="Shift(20,0)" value="&#9658;" title="move move picture right" \></td>
+<td><input type="button" class="button" onClick="ChangeLight(0,10)" value="&#8592;" title="rotate light to the left" \></td>
+<td><input type="button" class="button" onClick="ChangeLight(-10,0)" value="&#8593;" title="move light up" \></td>
+<td><input type="button" class="button" onClick="ChangeLight(10,0)" value="&#8595;" title="move light down" \></td>
+<td><input type="button" class="button" onClick="ChangeLight(0,-10)" value="&#8594;" title="rotate light to the right" \></td>
+<td><input type="button" class="button" onClick="ZoomViewer(1)" value="(+)" title="zoom viewer in" \></td>
+<td><input type="button" class="button" onClick="ZoomViewer(-1)" value="(-)" title="zoom viewer out" \></td>
+</tr>
+<tr>
+<td><input type="button" class="button" onClick="ChangeViewer(0,5)" value="&lt;=" title="move viewer position left" \></td>
+<td><input type="button" class="button" onClick="ChangeViewer(-10,0)" value="&#9794;" title="move viewer position up" \></td>
+<td><input type="button" class="button" onClick="ChangeViewer(10,0)" value="&#9792;" title="move viewer position down" \></td>
+<td><input type="button" class="button" onClick="ChangeViewer(0,-5)" value="=&gt;" title="move viewer position right" \></td>
+<td colspan=8><select onChange="SelectFunction(this.value)" style="width:255" \>
+<option value=0>z = x*x - y*y
+<option value=1>z = 4 * (x*x + y*y)
+<option value=2>z = (cos(x) + cos(y)) / (4 + |x| + |y|)
+<option value=3>z = 10 - |x| - |y|
+</select></td>
+</tr>
+</table>  
+</form>
+<table noborder><tr><td>
+<script language="JavaScript">
+if (useSVG) document.writeln("<embed width='370' height='370' name='Scene1' src='scene.svg' wmode='transparent' type='image/svg+xml' />");
+else document.writeln("<div id='Scene1' style='position: relative; width:370; height:370; overflow: hidden;'></div>");
+</script>
+</td></tr></table>
+</body>
+</html>

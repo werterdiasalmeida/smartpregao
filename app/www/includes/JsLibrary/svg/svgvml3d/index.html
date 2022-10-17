@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>SVG-VML-3D</TITLE>
+<script language="JavaScript">
+function OpenWindow(AppName,ww,hh,ss)
+{ window.open(AppName.toLowerCase()+".html","","width="+ww+",height="+hh+",menubar=no,locationbar=no,resizable=yes,status=no,scrollbars="+ss);
+}
+</script>
+</HEAD>
+<BODY BGCOLOR=#c0c0ff bgproperties="fixed" text=#000000>
+<B>
+<DIV ALIGN="CENTER">
+<H1>SVG-VML-3D 1.3</H1>
+(<A HREF="svgvml3d_math.html">click here for the math behind it</A>)
+<BR>
+(<A HREF="svgvml3d_doc.html">click here for some documentation</A>)
+<BR>
+<H2>What is SVG and what is VML ?</H2>
+SVG (Scalable Vector Graphics) is a format which is recomended by the W3C for the description of vector graphics, especially
+for the use in Web pages. In order to view a page with included SVG objects, you must install a plugin for your
+webbrowser. You can get one for free from <a href="http://www.adobe.com/svg/" target="_blank">http://www.adobe.com/svg/</a>.
+There are plugins available for many webbrowsers.<br>
+VML (Vector Markup Language) is another format for the description of vector graphics, which is currently only 
+used by Microsoft Internet Explorer. You can view a web page with vml code with any Internet Explorer 5.x or higher, no need
+to install anything before viewing. 
+<H2>What is SVG-VML-3D ?</H2>
+SVG-VML-3D is a free JavaScript library which can be used to draw and manipulate 3D objects in html pages by using
+SVG or VML. The JavaScript code which has to be typed into the html page to define the Scene (3D Objects, Viewer Position, Light, ...)
+is the same for SVG and VML. If the browser is IE, then automatically VML will be used, otherwise SVG will be used.
+<H2>What can I do with this library?</H2> 
+One pic is more than 1000 words, so have a look at this examples by clicking on the pictures.
+Make sure, you use Internet Explorer or have installed a SVG plugin for your browser. For a first impression,
+how easy it is to display 3D objects using this library, have a look at the source code of the respective html files.
+The file svgvml3d.js is the core of the library and must always be included. If you want to use a 3D chart, then the file 
+boundingbox.js must be included. Additionally, you can define your own classes for specific 3D objects. The objects, which
+are defined in the files platonic.js and colorbox3d.js are only used in their specific context. Have a look at those 2 files,
+to see how you can define your own objects for the use with this library.
+<BR><BR>
+<table noborder width=100%>
+<tr><th>
+<A NAME="platonic"></A>
+<A HREF="javascript:eval('if(window.OpenWindow) OpenWindow(\'platonic\',540,570,\'no\'); else location.replace(\'platonic.html\')')"><IMG SRC="platonic.gif" ALT="platonic.gif"></A>
+<BR>Platonic solids<BR>
+</th><th>
+<A NAME="chart"></A>
+<A HREF="javascript:eval('if(window.OpenWindow) OpenWindow(\'chart\',560,600,\'yes\'); else location.replace(\'chart.html\')')"><IMG SRC="chart.gif" ALT="chart.gif"></A>
+<BR>3D chart<BR>
+</th></tr>
+<tr><th>
+<A NAME="functionplot"></A>
+<A HREF="javascript:eval('if(window.OpenWindow) OpenWindow(\'functionplot\',420,550,\'no\'); else location.replace(\'functionplot.html\')')"><IMG SRC="functionplot.gif" ALT="functionplot.gif"></A>
+<BR>Function plotter<BR>
+</th><th>
+<A NAME="rubikscube"></A>
+<A HREF="javascript:eval('if(window.OpenWindow) OpenWindow(\'rubikscube\',480,420,\'no\'); else location.replace(\'rubikscube.html\')')"><IMG SRC="rubikscube.gif" ALT="rubikscube.gif"></A>
+<BR>Rubiks cube<BR>
+</th></tr>
+</table>
+<H2>Where do I get this library?</H2> 
+If you have clicked on one of the pictures, then you already have it in the cache of your webbrowser ;-)
+But for your convenience I give you a link to <a href="../svgvml3d.zip">download the whole stuff</a>.</DIV>
+<P><I>&copy; Lutz Tautenhahn, 10/2002</I>
+<P>update 02/2004: <A HREF="javascript:eval('if(window.OpenWindow) OpenWindow(\'platonic1\',540,570,\'no\'); else location.replace(\'platonic1.html\')')">transparent objects and line objects are available</A>
+<P>update 02/2005: added methods to delete and redraw scene, improved sample files, fixed some bugs and added documentation
+<P>update 02/2006, 08/2006, 10/2006: <A HREF="javascript:eval('if(window.OpenWindow) OpenWindow(\'changes\',800,600,\'yes\'); else location.replace(\'changes.html\')')">changed some code</A> to get the SVG branch of the script working with ASV3/Mozilla
+<P>update 11/2006: <A HREF="javascript:eval('if(window.OpenWindow) OpenWindow(\'changes\',800,600,\'yes\'); else location.replace(\'changes.html\')')">changed some code</A> for support of user interaction via mouse events
+<P><I><A HREF="../index.html" target="_top">go to my homepage</A> or <A HREF="mailto:lutz.tautenhahn@lutanho.net">write me an email</A></I> 
+<BR>
+<P>
+</B>
+</BODY>
+</HTML>

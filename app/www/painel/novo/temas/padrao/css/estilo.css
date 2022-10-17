@@ -1,0 +1,115 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	font-size: 100%;
+	color: #666666;
+	background:#3987bd url("../images/bg_img.jpg") top left no-repeat;
+	font: 12px Trebuchet Ms, Arial, Tahoma, Verdana, Helvetica, Sans-Serif;
+	margin:0 auto;
+	text-align:justify;
+}
+
+#logo{
+	background:url("../images/logo_bg.png") no-repeat center;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:2;
+	height:80px;
+	width:269px;
+}
+
+#logo img{
+	margin-left: 10px;
+}
+
+.input_login{
+	border:none;
+	padding:1px 0 0 5px;
+	color:#006699;
+	vertical-align:middle;
+	height: 18px;
+	background:url("../images/input_bg.gif") repeat-x bottom;
+}
+.login_bt{
+	vertical-align:middle;
+	cursor:pointer;
+	background:url(../images/bt_ok.png) no-repeat center;
+	border:none;
+	height:22px;
+	width:22px;
+	
+}
+.login_bt:hover{
+	background:url(../images/bt_ok_on.png) no-repeat center;	
+}
+
+
+/* Menu em Abas*/
+#menu {
+	min-width:700px;
+	height: 27px;
+	display: table;
+	position:relative;
+	margin:0 0 -1px 250px;
+	*margin:0 0 0 250px;
+
+  }
+#menu ul {
+  margin:0;
+  padding:0px 0px 0;
+  list-style:none;
+  }
+#menu li {
+  float:left;
+  background:url("../images/aba_off_esq.png") no-repeat left top;
+  margin:0;
+  padding:0 0 0 20px;
+  }
+#menu a {
+  float:left;
+  display:block;
+  background:url("../images/aba_off_dir.png") no-repeat right top;
+  padding:5px 21px 4px 6px;
+  text-decoration:none;
+  font-weight:bold;
+  color:#3677a3;
+  }
+   
+  
+/* hack IE-Mac \*/
+#menu a {float:none;}
+/* fim hack IE-Mac */
+#menu a:hover {
+  color:#333;
+  }
+#menu .aba_on {
+  background-image:url("../images/aba_on_esq.png");
+  }
+#menu .aba_on a {
+  background-image:url("../images/aba_on_dir.png");
+  color:#3677a3;
+  padding-bottom:5px;
+  }
+
+
+
+/*background ferramentas*/
+#ferramentas{
+	background:#f0f7ff;
+	color:#3677a3;
+	height:28px;
+	width:97%;
+	margin:0 auto;
+	padding: 8px 0 0 15px;
+}
+
+
+
+
+
+
+
+
+

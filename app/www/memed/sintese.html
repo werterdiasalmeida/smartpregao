@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memed Sintese</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+
+    <style type="text/css">
+        .text{
+            width: 90% !important;
+            height: 300px !important;
+        }
+
+        #detalhes li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="aguarde">Carregando...</div>
+    <script type="text/javascript" src="//memed.com.br/modulos/plataforma.sinapse/build/sinapse.min.js"
+            data-api-key="$2y$10$r75QRT0YCGXn3QI8qdL/w.YL3B0GWk7Fn1BCYLD071CF7tdlGaWOm" data-usuario="-1" data-cidade="Brasília" data-nascimento="30/12/1900"
+            data-especialidade="Dermatologia" data-estado="DF" data-sexo="M" data-profissao="Médico"
+            data-width="90%" data-font="Open Sans" data-color="#0A6FFF" data-modulos="sintese"></script>
+
+
+    <script type="text/javascript">
+        setTimeout(function(){
+            MdSinapse.command.send('plataforma.medicamento', 'verMedicamento', {
+                id: 'awwv3M1dCPeo4DX8re'
+            });
+
+            document.querySelector('.aguarde').innerHTML = '';
+        }, 3000);
+    </script>
+</body>
+</html>

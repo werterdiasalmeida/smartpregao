@@ -1,0 +1,80 @@
+<VirtualHost *:80>
+    DocumentRoot "/var/www/app/www"
+    ErrorLog /dev/stdout
+    CustomLog /dev/stdout combined
+
+    DirectoryIndex login.php index.php
+   	Header Set Access-Control-Allow-Origin "*"
+   	Header Set Access-Control-Allow-Headers "Content-Type"
+
+   	<Directory "/var/www/app/www">
+        Require all granted
+        AllowOverride All
+    </Directory>
+
+    Alias /seguranca/ "/var/www/app/seguranca/www/"
+
+    AddDefaultCharset ISO-8859-1
+    
+    php_admin_value default_charset ISO-8859-1
+    php_admin_value output_buffering on
+    php_admin_flag display_errors on
+    php_admin_flag max_execution_time 0
+    # php_admin_value error_reporting 22517
+    php_admin_flag short_open_tag on
+    php_admin_value include_path ".:/var/www/app/global"
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName localhost
+    DocumentRoot "/var/www/app/www"
+    ErrorLog /dev/stdout
+    CustomLog /dev/stdout combined
+
+    DirectoryIndex login.php index.php
+    Header Set Access-Control-Allow-Origin "*"
+    Header Set Access-Control-Allow-Headers "Content-Type"
+
+    <Directory "/var/www/app/www">
+        Require all granted
+        AllowOverride All
+    </Directory>
+
+    Alias /seguranca/ "/var/www/app/seguranca/www/"
+
+    AddDefaultCharset ISO-8859-1
+
+    php_admin_value default_charset ISO-8859-1
+    php_admin_value output_buffering on
+    php_admin_flag display_errors on
+    php_admin_flag max_execution_time 0
+    php_admin_value error_reporting 22517
+    php_admin_flag short_open_tag on
+    php_admin_value include_path ".:/var/www/app/global"
+
+    SSLEngine on
+    SSLCertificateFile "/etc/apache2/ssl/server.crt"
+    SSLCertificateKeyFile "/etc/apache2/ssl/server.key"
+</VirtualHost>
+
+
+Listen 4433
+<VirtualHost *:4433>
+    ServerName localhost
+    Header Set Access-Control-Allow-Origin "https://localhost"
+    Header Set Access-Control-Allow-Headers "Content-Type"
+    ProxyRequests off
+    ProxyPreserveHost On
+    SSLProxyEngine on
+
+    <Location />
+        ProxyPass http://node:9001/
+        ProxyPassReverse http://node:9001/
+        Order allow,deny
+        Allow from all
+    </Location>
+
+    SSLEngine on
+    SSLCertificateFile "/etc/apache2/ssl/server.crt"
+    SSLCertificateKeyFile "/etc/apache2/ssl/server.key"
+</VirtualHost>

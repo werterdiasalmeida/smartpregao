@@ -1,0 +1,128 @@
+Id;Nome;Duração;Início;Término;Predecessoras;Nível da estrutura de tópicos;Anotações
+1;Acompanhamento do Desenvolvimento dos Manuais;83,5d;1/1/2007 09:00;3/5/2007 14:00;;1;
+2;Acompanhamento do Desenvolvimento dos Manuais 1;,2d;29/3/2007 09:00;29/3/2007 10:36;;2;
+3;Acompanhamento do Desenvolvimento dos Manuais 2;,2d;5/4/2007 09:00;5/4/2007 10:36;;2;
+4;Acompanhamento do Desenvolvimento dos Manuais 3;,2d;12/4/2007 09:00;12/4/2007 10:36;;2;
+5;Acompanhamento do Desenvolvimento dos Manuais 4;,2d;19/4/2007 09:00;19/4/2007 10:36;;2;
+6;Acompanhamento do Desenvolvimento dos Manuais 5;,2d;26/4/2007 09:00;26/4/2007 10:36;;2;
+7;Arquitetura e Padrões SIMEC ;15,d;9/4/2007 09:00;30/4/2007 09:00;;2;
+8;Documento de arquitetura de software;5,d;9/4/2007 09:00;13/4/2007 18:00;;3;
+9;Padrões de Interface;2,d;9/4/2007 09:00;10/4/2007 18:00;;3;
+10;Padrões de banco de dados;,d;30/4/2007 09:00;30/4/2007 09:00;9;3;
+11;Organização do Manual;,d;30/4/2007 09:00;30/4/2007 09:00;;4;
+12;Manual impresso disponível;,d;30/4/2007 09:00;30/4/2007 09:00;;5;
+13;Módulo de Segurança;22,d;28/3/2007 09:00;30/4/2007 09:00;;2;
+14;Documento de Visão;1,d;28/3/2007 09:00;28/3/2007 18:00;;3;
+15;Diagrama de caso de uso;2,d;29/3/2007 09:00;30/3/2007 18:00;14;3;
+16;Modelo de Dados;1,d;2/4/2007 09:00;2/4/2007 18:00;15;3;
+17;Dicionário de Dados;1,d;3/4/2007 09:00;3/4/2007 18:00;16;3;
+18;Layout de arquivos - (para o caso de integração com outros sistemas;,d;3/4/2007 18:00;3/4/2007 18:00;17;3;
+19;Especificação dos Casos de Uso;2,d;4/4/2007 09:00;5/4/2007 18:00;18;3;
+20;Organização da documentação;2,d;9/4/2007 09:00;10/4/2007 18:00;19;3;
+21;Manual impresso disponível;,d;30/4/2007 09:00;30/4/2007 09:00;;3;
+22;MÓDULO DE ELABORAÇÃO E REVISÃO DO PPA;13,5d;1/1/2007 09:00;18/1/2007 14:00;;2;Gestores: CPS - Prof. Leo Kessel...
+23;Documento de Visão;2,d;1/1/2007 09:00;2/1/2007 18:00;;3;
+24;Diagrama de caso de uso;2,d;3/1/2007 09:00;4/1/2007 18:00;23;3;
+25;Modelo de Dados;2,d;5/1/2007 09:00;8/1/2007 18:00;24;3;
+26;Dicionário de Dados;4,d;9/1/2007 09:00;12/1/2007 18:00;25;3;
+27;Layout de arquivos - (para o caso de integração com outros sistemas;1,d;15/1/2007 09:00;15/1/2007 18:00;26;3;
+28;Especificação dos Casos de Uso;2,d;16/1/2007 09:00;17/1/2007 18:00;27;3;
+29;Organização do Manual;,5d;18/1/2007 09:00;18/1/2007 14:00;28;3;
+30;Manual impresso disponível;,d;18/1/2007 14:00;18/1/2007 14:00;29;3;
+31;MÓDULO DE GERENCIAMENTO FINANCEIRO;3,5d;2/4/2007 09:00;5/4/2007 14:00;;2;Gestores: CGF - Solange
+32;Documento de Visão;1,d;2/4/2007 09:00;2/4/2007 18:00;;3;
+33;Diagrama de caso de uso;,d;2/4/2007 18:00;2/4/2007 18:00;32;3;
+34;Modelo de Dados;,d;2/4/2007 18:00;2/4/2007 18:00;33;3;
+35;Dicionário de Dados;,d;2/4/2007 18:00;2/4/2007 18:00;34;3;
+36;Layout de arquivos - (para o caso de integração com outros sistemas);2,d;3/4/2007 09:00;4/4/2007 18:00;35;3;
+37;Especificação dos Casos de Uso;,d;4/4/2007 18:00;4/4/2007 18:00;36;3;
+38;Organização do Manual;,5d;5/4/2007 09:00;5/4/2007 14:00;37;3;
+39;Manual impresso disponível;,d;5/4/2007 14:00;5/4/2007 14:00;38;3;
+40;MÓDULO DE PROJETOS ESPECIAIS;15,5d;28/3/2007 09:00;19/4/2007 14:00;;2;O módulo de projetos especiais tem por finalidade permitir aos usuários do Simec criar, planejar e acompanhar os projetos, afetos ou não ao PPA, dentro da metodologia de gerência preconizada pelo PMI. Deste modo, ele aborda as áreas de conhecimento com...
+41;Documento de Visão;2,d;28/3/2007 09:00;29/3/2007 18:00;;3;
+42;Diagrama de caso de uso;2,d;5/4/2007 14:00;10/4/2007 14:00;39;3;
+43;Modelo de Dados;2,d;10/4/2007 14:00;12/4/2007 14:00;42;3;
+44;Dicionário de Dados;2,d;12/4/2007 14:00;16/4/2007 14:00;43;3;
+45;Layout de arquivos - (para o caso de integração com outros sistemas;,d;16/4/2007 14:00;16/4/2007 14:00;44;3;
+46;Especificação dos Casos de Uso;2,d;16/4/2007 14:00;18/4/2007 14:00;45;3;
+47;Organização do Manual;1,d;18/4/2007 14:00;19/4/2007 14:00;46;3;
+48;Manual impresso disponível;,d;19/4/2007 14:00;19/4/2007 14:00;47;3;
+49;MÓDULO DE MONITORAMENTO E AVALIAÇÃO DO PPA;4,5d;9/4/2007 09:00;13/4/2007 14:00;;2;Gestores: CPS - Prof. Leo Kessel...
+50;Documento de Visão;1,d;9/4/2007 09:00;9/4/2007 18:00;19;3;
+51;Diagrama de caso de uso;,5d;10/4/2007 09:00;10/4/2007 14:00;50;3;
+52;Modelo de Dados;,5d;10/4/2007 14:00;10/4/2007 18:00;51;3;
+53;Dicionário de Dados;,5d;11/4/2007 09:00;11/4/2007 14:00;52;3;
+54;Layout de arquivos - (para o caso de integração com outros sistemas;,5d;11/4/2007 14:00;11/4/2007 18:00;53;3;
+55;Especificação dos Casos de Uso;,5d;12/4/2007 09:00;12/4/2007 14:00;54;3;
+56;Organização do Manual;1,d;12/4/2007 14:00;13/4/2007 14:00;55;3;
+57;Manual impresso disponível;,d;13/4/2007 14:00;13/4/2007 14:00;56;3;
+58;MÓDULO DE PROGRAMAÇÃO ORÇAMENTÁRIA;3,5d;13/4/2007 14:00;18/4/2007 18:00;;2;Gestores: CGO - Julio / Orlando...
+59;Documento de Visão;,5d;13/4/2007 14:00;13/4/2007 18:00;57;3;
+60;Diagrama de caso de uso;,5d;16/4/2007 09:00;16/4/2007 14:00;59;3;
+61;Modelo de Dados;,5d;16/4/2007 14:00;16/4/2007 18:00;60;3;
+62;Dicionário de Dados;,5d;17/4/2007 09:00;17/4/2007 14:00;61;3;
+63;Layout de arquivos - (para o caso de integração com outros sistemas;,5d;17/4/2007 14:00;17/4/2007 18:00;62;3;
+64;Especificação dos Casos de Uso;,5d;18/4/2007 09:00;18/4/2007 14:00;63;3;
+65;Organização do Manual;,5d;18/4/2007 14:00;18/4/2007 18:00;64;3;
+66;Manual impresso disponível;,d;18/4/2007 18:00;18/4/2007 18:00;65;3;
+67;MÓDULO DE CRÉDITOS ADICIONAIS;3,d;19/4/2007 09:00;23/4/2007 18:00;;2;Gestores: CGO - Julio / Orlando...
+68;Documento de Visão;,5d;19/4/2007 09:00;19/4/2007 14:00;66;3;
+69;Diagrama de caso de uso;,5d;19/4/2007 14:00;19/4/2007 18:00;68;3;
+70;Modelo de Dados;,5d;20/4/2007 09:00;20/4/2007 14:00;69;3;
+71;Dicionário de Dados;,5d;20/4/2007 14:00;20/4/2007 18:00;70;3;
+72;Layout de arquivos - (para o caso de integração com outros sistemas;,d;20/4/2007 18:00;20/4/2007 18:00;71;3;
+73;Especificação dos Casos de Uso;,5d;23/4/2007 09:00;23/4/2007 14:00;72;3;
+74;Organização do Manual;,5d;23/4/2007 14:00;23/4/2007 18:00;73;3;
+75;Manual impresso disponível;,d;23/4/2007 18:00;23/4/2007 18:00;74;3;
+76;MÓDULO DE EXECUÇÃO ORÇAMENTÁRIA (solicitar apoio Santicioli);9,d;11/4/2007 09:00;23/4/2007 18:00;;2;Getsores:  CGO - Julio / Orlando...
+77;Documento de Visão;2,d;11/4/2007 09:00;12/4/2007 18:00;20;3;
+78;Diagrama de caso de uso;1,d;13/4/2007 09:00;13/4/2007 18:00;77;3;
+79;Modelo de Dados;1,d;16/4/2007 09:00;16/4/2007 18:00;78;3;
+80;Dicionário de Dados;1,d;17/4/2007 09:00;17/4/2007 18:00;79;3;
+81;Layout de arquivos - (para o caso de integração com outros sistemas;2,d;18/4/2007 09:00;19/4/2007 18:00;80;3;
+82;Especificação dos Casos de Uso;1,d;20/4/2007 09:00;20/4/2007 18:00;81;3;
+83;Organização do Manual;1,d;23/4/2007 09:00;23/4/2007 18:00;82;3;
+84;Manual impresso disponível;,d;23/4/2007 18:00;23/4/2007 18:00;83;3;
+85;Módulo de Monitoramento do PDE (Plano de Desenvolvimento da Educação);3,d;24/4/2007 09:00;26/4/2007 18:00;;2;
+86;Documento de Visão;,5d;24/4/2007 09:00;24/4/2007 14:00;75;3;
+87;Diagrama de caso de uso;,5d;24/4/2007 14:00;24/4/2007 18:00;86;3;
+88;Modelo de Dados;,5d;25/4/2007 09:00;25/4/2007 14:00;87;3;
+89;Dicionário de Dados;,5d;25/4/2007 14:00;25/4/2007 18:00;88;3;
+90;Layout de arquivos - (para o caso de integração com outros sistemas;,d;25/4/2007 18:00;25/4/2007 18:00;89;3;
+91;Especificação dos Casos de Uso;,5d;26/4/2007 09:00;26/4/2007 14:00;90;3;
+92;Organização do Manual;,5d;26/4/2007 14:00;26/4/2007 18:00;91;3;
+93;Manual impresso disponível;,d;26/4/2007 18:00;26/4/2007 18:00;92;3;
+94;MÓDULO DE EMENDAS;3,5d;27/4/2007 09:00;3/5/2007 14:00;;2;Gestores:  CGO - Julio / CGF - Solange...
+95;Documento de Visão;,5d;27/4/2007 09:00;27/4/2007 14:00;93;3;
+96;Diagrama de caso de uso;,5d;27/4/2007 14:00;27/4/2007 18:00;95;3;
+97;Modelo de Dados;,5d;30/4/2007 09:00;30/4/2007 14:00;96;3;
+98;Dicionário de Dados;,5d;30/4/2007 14:00;30/4/2007 18:00;97;3;
+99;Layout de arquivos - (para o caso de integração com outros sistemas;,5d;2/5/2007 09:00;2/5/2007 14:00;98;3;
+100;Especificação dos Casos de Uso;,5d;2/5/2007 14:00;2/5/2007 18:00;99;3;
+101;Organização do Manual;,5d;3/5/2007 09:00;3/5/2007 14:00;100;3;
+102;Manual impresso disponível;,d;3/5/2007 14:00;3/5/2007 14:00;101;3;
+103;MODULO DE CONVENIOS (não iniciado);,d;1/1/2007 09:00;1/1/2007 09:00;;2;Gestores: a ser definido...
+104;MÓDULO DE INTEGRAÇÃO DA EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA com Monitoramento do PPA;1,d;1/1/2007 09:00;1/1/2007 18:00;;2;Gestores: CGO - Julio / CGF - Solange / CPS - Prof. Leo...
+105;Documento de Visão;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+106;Diagrama de caso de uso;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+107;Documento de arquitetura de software;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+108;Modelo de Dados;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+109;Dicionário de Dados;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+110;Layout de arquivos - (para o caso de integração com outros sistemas;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+111;Especificação dos Casos de Uso;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+112;MÓDULO DE PESSOAL, ENCARGOS E BENEFÍCIOS;1,d;1/1/2007 09:00;1/1/2007 18:00;;2;Gestores:  CGO - Julio / CGF - Neydna...
+113;Documento de Visão;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+114;Diagrama de caso de uso;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+115;Documento de arquitetura de software;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+116;Modelo de Dados;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+117;Dicionário de Dados;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+118;Layout de arquivos - (para o caso de integração com outros sistemas;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+119;Especificação dos Casos de Uso;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+120;MÓDULO DE RECEITA PRÓPRIA;1,d;1/1/2007 09:00;1/1/2007 18:00;;2;Gestores: CGO - Julio / Orlando...
+121;Documento de Visão;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+122;Diagrama de caso de uso;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+123;Documento de arquitetura de software;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+124;Modelo de Dados;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+125;Dicionário de Dados;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+126;Layout de arquivos - (para o caso de integração com outros sistemas;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;
+127;Especificação dos Casos de Uso;1,d;1/1/2007 09:00;1/1/2007 18:00;;3;

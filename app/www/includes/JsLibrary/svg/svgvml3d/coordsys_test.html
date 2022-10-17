@@ -1,0 +1,155 @@
+<html xmlns:v ="urn:schemas-microsoft-com:vml">
+<head>
+<style>
+v\:* { behavior: url(#default#VML); }
+</style>
+<script language="JavaScript" src="svgvml3d.js"></script>
+<script LANGUAGE="JavaScript">
+//original first version by Ray Norrish
+//corrected by Lutz Tautenhahn (added some bits here, removed some bytes there)
+
+var scene,pf,bas,coos;
+
+function Cube(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight)
+{ this.Parent=aParentScene;
+  this.ClassName="Cube";
+  this.Center=new Vector(0,0,0);
+  this.FrontColor=aFrontColor;
+  this.BackColor=aBackColor;
+  this.StrokeColor=aStrokeColor;
+  this.StrokeWeight=aStrokeWeight;
+  this.Zoom=_Object3DZoom;
+  this.Shift=_Object3DShift;
+  this.SetFrontColor=_Object3DSetFrontColor;
+  this.SetBackColor=_Object3DSetBackColor;
+  this.SetStrokeColor=_Object3DSetStrokeColor;
+  this.SetStrokeWeight=_Object3DSetStrokeWeight;
+  this.SetVisibility=_Object3DSetVisibility;
+  this.RotateX=_Object3DRotateX;
+  this.RotateY=_Object3DRotateY;
+  this.RotateZ=_Object3DRotateZ;
+  this.Poly3D=new Array();
+  var a=50;
+  this.Poly3D[0]=new Poly3D(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight);
+  with (this.Poly3D[0])
+  { AddPoint(-a,-a,a); AddPoint(a,-a,a); AddPoint(a,-a,-a); AddPoint(-a,-a,-a); Update(); }
+  this.Poly3D[1]=new Poly3D(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight);
+  with (this.Poly3D[1])
+  { AddPoint(-a,a,-a); AddPoint(-a,a,a); AddPoint(-a,-a,a); AddPoint(-a,-a,-a); Update(); }
+  this.Poly3D[2]=new Poly3D(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight);
+  with (this.Poly3D[2])
+  { AddPoint(-a,a,a); AddPoint(a,a,a); AddPoint(a,-a,a); AddPoint(-a,-a,a); Update(); }
+  this.Poly3D[3]=new Poly3D(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight);
+  with (this.Poly3D[3])
+  { AddPoint(a,a,-a); AddPoint(a,a,a); AddPoint(-a,a,a); AddPoint(-a,a,-a); Update(); }
+  this.Poly3D[4]=new Poly3D(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight);
+  with (this.Poly3D[4])
+  { AddPoint(a,-a,a); AddPoint(a,a,a); AddPoint(a,a,-a); AddPoint(a,-a,-a); Update(); }
+  this.Poly3D[5]=new Poly3D(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight);
+  with (this.Poly3D[5])
+  { AddPoint(a,-a,-a); AddPoint(a,a,-a); AddPoint(-a,a,-a); AddPoint(-a,-a,-a); Update(); }
+}
+function Spline(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight)
+{ this.Parent=aParentScene;
+  this.ClassName="Spline";
+  this.Center=new Vector(0,0,0);
+  this.FrontColor=aFrontColor;
+  this.BackColor=aBackColor;
+  this.StrokeColor=aStrokeColor;
+  this.StrokeWeight=aStrokeWeight;
+  this.Zoom=_Object3DZoom;
+  this.Shift=_Object3DShift;
+  this.SetFrontColor=_Object3DSetFrontColor;
+  this.SetBackColor=_Object3DSetBackColor;
+  this.SetStrokeColor=_Object3DSetStrokeColor;
+  this.SetStrokeWeight=_Object3DSetStrokeWeight;
+  this.SetVisibility=_Object3DSetVisibility;
+  this.RotateX=_Object3DRotateX;
+  this.RotateY=_Object3DRotateY;
+  this.RotateZ=_Object3DRotateZ;
+  this.Poly3D=new Array();
+  var a=50;
+  var p1=0;
+  var bsi=4;
+  for (x=-50;x<=(50-bsi);x+=bsi)
+  { this.Poly3D[p1]=new Poly3D(aParentScene, aFrontColor, aBackColor, aStrokeColor, aStrokeWeight);
+    with (this.Poly3D[p1])
+    { AddPoint(x,x,x); AddPoint(x+bsi,x+bsi,x+bsi); Update(); 
+    }
+    p1++;
+  } 
+}
+
+var m=0;
+
+function initvex()
+{ if (useSVG)
+  { if (! SVGObjects[0])
+    { setTimeout("Init()",100);
+      return;
+    }  
+    scene=new Scene3D(SVGObjects[0],0,320,240);
+  }
+  else scene=new Scene3D(document.getElementById("Scene1"),1);
+  pf=new Cube(scene, "", "", "#ffffff", 1);
+  bas=new Spline(scene, "", "", "#ff0000", 2);
+  pf.CoordSys=new CoordSys(scene,"");
+  Rotate();
+  m=0;
+}
+
+function Rotate()
+{ pf.RotateX(-1.2,1);
+  pf.RotateY(.3,1);
+  pf.RotateZ(-1,1);
+  pf.CoordSys.RotateX(-1.2,1);
+  pf.CoordSys.RotateY(.3,1);
+  pf.CoordSys.RotateZ(-1,1);
+
+  bas.RotateX(-1.2,1);
+  bas.RotateY(.3,1);
+  bas.RotateZ(-1,1);
+
+  effect();
+  scene.Sort();
+  scene.Draw();
+  m++;
+  setTimeout("Rotate()",25);
+}
+
+var twopi=Math.PI*2;
+var initialy=0;
+var frame=50,frame2=22;
+var amplitude1=1.7,amplitude2=2.9;
+var offset=1.05,offset2=-0.05,speed=0.12,speed2=-0.03;
+
+function effect() {
+ frame+=speed;frame2+=speed2;
+ if (frame>twopi)frame-=twopi;
+ if (frame2>twopi)frame2-=twopi;
+ var angle=frame;
+ var angle2=frame2;
+ var x=-50;
+ var vv;
+ for (i=0;i<24;i++) 
+ { bsp=initialy+amplitude1*Math.sin(angle)+amplitude2*Math.sin(angle2);
+   vv=pf.CoordSys.TransformCoord(new Vector(x+bsp,x-bsp,x+bsp));
+   bas.Poly3D[i].SetPoint(1,vv.x,vv.y,vv.z);
+   vv=pf.CoordSys.TransformCoord(new Vector(x+bsp,x-bsp,x+bsp));
+   bas.Poly3D[i+1].SetPoint(0,vv.x,vv.y,vv.z);
+   bas.Poly3D[i].Update;
+   bas.Poly3D[i+1].Update;
+   angle+=offset;angle2+=offset2;
+   x+=4;
+  }
+}
+
+</script>
+</head>
+<body bgcolor=#404040 onload="initvex();">
+<script language="JavaScript">
+if (useSVG) document.writeln("<embed width='320' height='240' name='Scene1' src='scene.svg' wmode='transparent' type='image/svg+xml' />");
+else document.writeln("<div id='Scene1' style='position: relative; width:320; height:240; overflow: hidden;'></div>");
+</script>
+</body>
+</html>

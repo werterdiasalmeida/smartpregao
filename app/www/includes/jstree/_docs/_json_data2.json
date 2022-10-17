@@ -1,0 +1,4 @@
+[
+	{ "data" : "T 1", "children" : [ { "data" : "T 1.1", "state" : "closed" } ], "state" : "open" },
+	"T 2", "T3"
+]

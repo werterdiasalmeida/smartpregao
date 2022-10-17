@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^consultorio-virtual/(.*) /meeting/room.php?r=$1 [L]

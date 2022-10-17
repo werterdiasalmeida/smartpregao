@@ -1,0 +1,37 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jsTree v.1.0 - Demo</title>
+	<script type="text/javascript" src="../_lib/jquery.js"></script>
+	<script type="text/javascript" src="../_lib/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../_lib/jquery.hotkeys.js"></script>
+	<script type="text/javascript" src="../jquery.jstree.js"></script>
+	<link type="text/css" rel="stylesheet" href="../_docs/syntax/!style.css"/>
+	<link type="text/css" rel="stylesheet" href="../_docs/!style.css"/>
+	<script type="text/javascript" src="../_docs/syntax/!script.js"></script>
+</head>
+<body id="demo_body">
+<!-- the tree container (notice NOT an UL node) -->
+<div id="demo2" class="demo" style="height:200px;"></div>
+
+<script>
+$(function () {
+	    $("#demo2").jstree({
+	        "json_data" : {
+	            "ajax" : {
+	                "url" : "../_docs/_json_data2.json",
+	                "data" : function (n) {
+	                    return { id : n.attr ? n.attr("id") : 0 };
+	                }
+	            }
+	        },
+	        "plugins" : [ "themes", "json_data" ]
+	    });
+	});
+</script>
+
+</body>
+</html>

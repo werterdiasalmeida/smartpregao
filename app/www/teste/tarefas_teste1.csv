@@ -1,0 +1,425 @@
+Id;Nome;Duração;Início;Término;Predecessoras;Nível da estrutura de tópicos;Anotações
+1;PDE - Plano de Desenvolvimento da Educação;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;1;
+2;Educação Básica;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;2;Nova Descrição
+3;Estabelece critérios para o apoio técnico e financeiro do MEC e MDS aos municípios beneficiados pelo Programa Mais Escola;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+4;teste;0,0d; 00:00; 00:00;;4;
+4;Amplia o atendimento do Programa Bolsa-Família para os jovens até 17 anos e institui prêmio pela aprovação dos jovens de 15 a 17 anos.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+5;Cria o programa MAIS ESCOLA de apoio técnico e financeiro aos municípios para ampliação do tempo do aluno na escola, nos moldes do que se faz em Nova Iguaçu e Belo Horizonte.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+6;Fixa o piso salarial nacional do magistério em cumprimento ao disposto pela Emenda Constitucional que cria o FUNDEB.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+7;Estabelece regras para assistência financeira ao poder público no Programa Brasil Alfabetizado, bem como a exigência de articulação entre as secretarias de educação e saúde para cadastro e assistência dos alfabetizandos.;34,0d;01/01/2007 00:00;04/02/2007 00:00;;3;Nova Descrição
+8;Ação 0909;0,0d; 00:00; 00:00;;4;
+9;Estabelece regras para pagamento de bolsa aos alfabetizadores.;0,0d; 00:00; 00:00;;4;
+8;Regulamenta o apoio técnico, financeiro e institucional do MEC aos estados e municípios, a partir do Compromisso todos pela Educação.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+9;Institui, no âmbito da União, o programa Compromisso Todos pela Educação e altera a lógica das transferências voluntárias da União para Estados e Municípios.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+10;Acompanhamento do Desenvolvimento dos Manuais;122,0d;01/01/2007 00:00;03/05/2007 00:00;;4;
+11;Acompanhamento do Desenvolvimento dos Manuais 1;0,0d;29/03/2007 00:00;29/03/2007 00:00;;5;
+12;Acompanhamento do Desenvolvimento dos Manuais 2;0,0d;05/04/2007 00:00;05/04/2007 00:00;;5;
+13;Acompanhamento do Desenvolvimento dos Manuais 3;0,0d;12/04/2007 00:00;12/04/2007 00:00;;5;
+14;Acompanhamento do Desenvolvimento dos Manuais 4;0,0d;19/04/2007 00:00;19/04/2007 00:00;;5;
+15;Acompanhamento do Desenvolvimento dos Manuais 5;0,0d;26/04/2007 00:00;26/04/2007 00:00;;5;
+16;Arquitetura e Padrões SIMEC;21,0d;09/04/2007 00:00;30/04/2007 00:00;;5;
+17;Documento de arquitetura de software;4,0d;09/04/2007 00:00;13/04/2007 00:00;;6;
+18;Padrões de Interface;1,0d;09/04/2007 00:00;10/04/2007 00:00;;6;
+19;Padrões de banco de dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;6;
+20;Organização do Manual;0,0d;30/04/2007 00:00;30/04/2007 00:00;;7;
+21;Manual impresso disponível;0,0d;30/04/2007 00:00;30/04/2007 00:00;;8;
+17;Módulo de Segurança;33,0d;28/03/2007 00:00;30/04/2007 00:00;;5;
+18;Documento de Visão;0,0d;28/03/2007 00:00;28/03/2007 00:00;;6;
+19;Diagrama de caso de uso;1,0d;29/03/2007 00:00;30/03/2007 00:00;;6;
+20;Modelo de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;6;
+21;Dicionário de Dados;0,0d;03/04/2007 00:00;03/04/2007 00:00;;6;
+22;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;03/04/2007 00:00;03/04/2007 00:00;;6;
+23;Especificação dos Casos de Uso;1,0d;04/04/2007 00:00;05/04/2007 00:00;;6;
+24;Organização da documentação;1,0d;09/04/2007 00:00;10/04/2007 00:00;;6;
+25;Manual impresso disponível;0,0d;30/04/2007 00:00;30/04/2007 00:00;;6;
+18;MÓDULO DE ELABORAÇÃO E REVISÃO DO PPA;17,0d;01/01/2007 00:00;18/01/2007 00:00;;5;Gestores: CPS - Prof. Leo Kessel...
+19;Documento de Visão;1,0d;01/01/2007 00:00;02/01/2007 00:00;;6;
+20;Diagrama de caso de uso;1,0d;03/01/2007 00:00;04/01/2007 00:00;;6;
+21;Modelo de Dados;3,0d;05/01/2007 00:00;08/01/2007 00:00;;6;
+22;Dicionário de Dados;3,0d;09/01/2007 00:00;12/01/2007 00:00;;6;
+23;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;15/01/2007 00:00;15/01/2007 00:00;;6;
+24;Especificação dos Casos de Uso;1,0d;16/01/2007 00:00;17/01/2007 00:00;;6;
+25;Organização do Manual;0,0d;18/01/2007 00:00;18/01/2007 00:00;;6;
+26;Manual impresso disponível;0,0d;18/01/2007 00:00;18/01/2007 00:00;;6;
+19;MÓDULO DE GERENCIAMENTO FINANCEIRO;3,0d;02/04/2007 00:00;05/04/2007 00:00;;5;Gestores: CGF - Solange
+20;Documento de Visão;0,0d;02/04/2007 00:00;02/04/2007 00:00;;6;
+21;Diagrama de caso de uso;0,0d;02/04/2007 00:00;02/04/2007 00:00;;6;
+22;Modelo de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;6;
+23;Dicionário de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;6;
+24;Layout de arquivos - (para o caso de integração com outros sistemas);1,0d;03/04/2007 00:00;04/04/2007 00:00;;6;
+25;Especificação dos Casos de Uso;0,0d;04/04/2007 00:00;04/04/2007 00:00;;6;
+26;Organização do Manual;0,0d;05/04/2007 00:00;05/04/2007 00:00;;6;
+27;Manual impresso disponível;0,0d;05/04/2007 00:00;05/04/2007 00:00;;6;
+20;MÓDULO DE PROJETOS ESPECIAIS;22,0d;28/03/2007 00:00;19/04/2007 00:00;;5;O módulo de projetos especiais tem por finalidade permitir aos usuários do Simec criar, planejar e acompanhar os projetos, afetos ou não ao PPA, dentro da metodologia de gerência preconizada pelo PMI. Deste modo, ele aborda as áreas de conhecimento com...
+21;Documento de Visão;1,0d;28/03/2007 00:00;29/03/2007 00:00;;6;
+22;Diagrama de caso de uso;5,0d;05/04/2007 00:00;10/04/2007 00:00;;6;
+23;Modelo de Dados;2,0d;10/04/2007 00:00;12/04/2007 00:00;;6;
+24;Dicionário de Dados;4,0d;12/04/2007 00:00;16/04/2007 00:00;;6;
+25;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;16/04/2007 00:00;16/04/2007 00:00;;6;
+26;Especificação dos Casos de Uso;2,0d;16/04/2007 00:00;18/04/2007 00:00;;6;
+27;Organização do Manual;1,0d;18/04/2007 00:00;19/04/2007 00:00;;6;
+28;Manual impresso disponível;0,0d;19/04/2007 00:00;19/04/2007 00:00;;6;
+21;MÓDULO DE MONITORAMENTO E AVALIAÇÃO DO PPA;4,0d;09/04/2007 00:00;13/04/2007 00:00;;5;Gestores: CPS - Prof. Leo Kessel...
+22;Documento de Visão;0,0d;09/04/2007 00:00;09/04/2007 00:00;;6;
+23;Diagrama de caso de uso;0,0d;10/04/2007 00:00;10/04/2007 00:00;;6;
+24;Modelo de Dados;0,0d;10/04/2007 00:00;10/04/2007 00:00;;6;
+25;Dicionário de Dados;0,0d;11/04/2007 00:00;11/04/2007 00:00;;6;
+26;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;11/04/2007 00:00;11/04/2007 00:00;;6;
+27;Especificação dos Casos de Uso;0,0d;12/04/2007 00:00;12/04/2007 00:00;;6;
+28;Organização do Manual;1,0d;12/04/2007 00:00;13/04/2007 00:00;;6;
+29;Manual impresso disponível;0,0d;13/04/2007 00:00;13/04/2007 00:00;;6;
+22;MÓDULO DE PROGRAMAÇÃO ORÇAMENTÁRIA;5,0d;13/04/2007 00:00;18/04/2007 00:00;;5;Gestores: CGO - Julio / Orlando...
+23;Documento de Visão;0,0d;13/04/2007 00:00;13/04/2007 00:00;;6;
+24;Diagrama de caso de uso;0,0d;16/04/2007 00:00;16/04/2007 00:00;;6;
+25;Modelo de Dados;0,0d;16/04/2007 00:00;16/04/2007 00:00;;6;
+26;Dicionário de Dados;0,0d;17/04/2007 00:00;17/04/2007 00:00;;6;
+27;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;17/04/2007 00:00;17/04/2007 00:00;;6;
+28;Especificação dos Casos de Uso;0,0d;18/04/2007 00:00;18/04/2007 00:00;;6;
+29;Organização do Manual;0,0d;18/04/2007 00:00;18/04/2007 00:00;;6;
+30;Manual impresso disponível;0,0d;18/04/2007 00:00;18/04/2007 00:00;;6;
+23;MÓDULO DE CRÉDITOS ADICIONAIS;4,0d;19/04/2007 00:00;23/04/2007 00:00;;5;Gestores: CGO - Julio / Orlando...
+24;Documento de Visão;0,0d;19/04/2007 00:00;19/04/2007 00:00;;6;
+25;Diagrama de caso de uso;0,0d;19/04/2007 00:00;19/04/2007 00:00;;6;
+26;Modelo de Dados;0,0d;20/04/2007 00:00;20/04/2007 00:00;;6;
+27;Dicionário de Dados;0,0d;20/04/2007 00:00;20/04/2007 00:00;;6;
+28;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;20/04/2007 00:00;20/04/2007 00:00;;6;
+29;Especificação dos Casos de Uso;0,0d;23/04/2007 00:00;23/04/2007 00:00;;6;
+30;Organização do Manual;0,0d;23/04/2007 00:00;23/04/2007 00:00;;6;
+31;Manual impresso disponível;0,0d;23/04/2007 00:00;23/04/2007 00:00;;6;
+24;MÓDULO DE EXECUÇÃO ORÇAMENTÁRIA (solicitar apoio Santicioli);12,0d;11/04/2007 00:00;23/04/2007 00:00;;5;Getsores:  CGO - Julio / Orlando...
+25;Documento de Visão;1,0d;11/04/2007 00:00;12/04/2007 00:00;;6;
+26;Diagrama de caso de uso;0,0d;13/04/2007 00:00;13/04/2007 00:00;;6;
+27;Modelo de Dados;0,0d;16/04/2007 00:00;16/04/2007 00:00;;6;
+28;Dicionário de Dados;0,0d;17/04/2007 00:00;17/04/2007 00:00;;6;
+29;Layout de arquivos - (para o caso de integração com outros sistemas;1,0d;18/04/2007 00:00;19/04/2007 00:00;;6;
+30;Especificação dos Casos de Uso;0,0d;20/04/2007 00:00;20/04/2007 00:00;;6;
+31;Organização do Manual;0,0d;23/04/2007 00:00;23/04/2007 00:00;;6;
+32;Manual impresso disponível;0,0d;23/04/2007 00:00;23/04/2007 00:00;;6;
+25;Módulo de Monitoramento do PDE (Plano de Desenvolvimento da Educação);2,0d;24/04/2007 00:00;26/04/2007 00:00;;5;
+26;Documento de Visão;0,0d;24/04/2007 00:00;24/04/2007 00:00;;6;
+27;Diagrama de caso de uso;0,0d;24/04/2007 00:00;24/04/2007 00:00;;6;
+28;Modelo de Dados;0,0d;25/04/2007 00:00;25/04/2007 00:00;;6;
+29;Dicionário de Dados;0,0d;25/04/2007 00:00;25/04/2007 00:00;;6;
+30;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;25/04/2007 00:00;25/04/2007 00:00;;6;
+31;Especificação dos Casos de Uso;0,0d;26/04/2007 00:00;26/04/2007 00:00;;6;
+32;Organização do Manual;0,0d;26/04/2007 00:00;26/04/2007 00:00;;6;
+33;Manual impresso disponível;0,0d;26/04/2007 00:00;26/04/2007 00:00;;6;
+26;MÓDULO DE EMENDAS;6,0d;27/04/2007 00:00;03/05/2007 00:00;;5;Gestores:  CGO - Julio / CGF - Solange...
+27;Documento de Visão;0,0d;27/04/2007 00:00;27/04/2007 00:00;;6;
+28;Diagrama de caso de uso;0,0d;27/04/2007 00:00;27/04/2007 00:00;;6;
+29;Modelo de Dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;6;
+30;Dicionário de Dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;6;
+31;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;02/05/2007 00:00;02/05/2007 00:00;;6;
+32;Especificação dos Casos de Uso;0,0d;02/05/2007 00:00;02/05/2007 00:00;;6;
+33;Organização do Manual;0,0d;03/05/2007 00:00;03/05/2007 00:00;;6;
+34;Manual impresso disponível;0,0d;03/05/2007 00:00;03/05/2007 00:00;;6;
+27;MODULO DE CONVENIOS (não iniciado);0,0d;01/01/2007 00:00;01/01/2007 00:00;;5;Gestores: a ser definido...
+28;MÓDULO DE INTEGRAÇÃO DA EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA com Monitoramento do PPA;0,0d;01/01/2007 00:00;01/01/2007 00:00;;5;Gestores: CGO - Julio / CGF - Solange / CPS - Prof. Leo...
+29;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+30;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+31;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+32;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+33;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+34;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+35;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+29;MÓDULO DE PESSOAL, ENCARGOS E BENEFÍCIOS;0,0d;01/01/2007 00:00;01/01/2007 00:00;;5;Gestores:  CGO - Julio / CGF - Neydna...
+30;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+31;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+32;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+33;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+34;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+35;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+36;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+30;MÓDULO DE RECEITA PRÓPRIA;0,0d;01/01/2007 00:00;01/01/2007 00:00;;5;Gestores: CGO - Julio / Orlando...
+31;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+32;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+33;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+34;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+35;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+36;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+37;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;
+10;Teste de edição de atividade;-13.515,0d;01/01/2007 00:00;31/12/1969 00:00;;3;Nova Descrição
+11;outro teste;0,0d; 00:00; 00:00;;4;
+12;outra;0,0d; 00:00; 00:00;;4;
+13;teste;0,0d; 00:00; 00:00;;4;
+14;outro teste;0,0d; 00:00; 00:00;;4;
+15;abc2;0,0d; 00:00; 00:00;;5;def2
+15;qualquer;0,0d; 00:00; 00:00;;4;coisa
+11;Regulamenta o apoio técnico, financeiro e institucional do MEC aos estados e municípios para o programa Proinfância.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+12;Publicação do edital de pregão por registro de preços para aquisição dos veículos escolares do Programa Caminho da Escola.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;
+13;Instituí o programa Caminho da Escola, em conjunto com o BNDES, para a aquisição de veículos de transporte Escolar, bem como excepcionaliza limite global de crédito.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+3;Alfabetização;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;2;Nova Descrição
+4;Estabelece regras para assistência financeira as ONGs no Programa Brasil Alfabetizado.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+5;Estabelece regras para pagamento de bolsa aos alfabetizadores.;0,0d; 00:00; 00:00;;4;
+6;Acompanhamento do Desenvolvimento dos Manuais;122,0d;01/01/2007 00:00;03/05/2007 00:00;;5;
+7;Acompanhamento do Desenvolvimento dos Manuais 1;0,0d;29/03/2007 00:00;29/03/2007 00:00;;6;
+8;Acompanhamento do Desenvolvimento dos Manuais 2;0,0d;05/04/2007 00:00;05/04/2007 00:00;;6;
+9;Acompanhamento do Desenvolvimento dos Manuais 3;0,0d;12/04/2007 00:00;12/04/2007 00:00;;6;
+10;Acompanhamento do Desenvolvimento dos Manuais 4;0,0d;19/04/2007 00:00;19/04/2007 00:00;;6;
+11;Acompanhamento do Desenvolvimento dos Manuais 5;0,0d;26/04/2007 00:00;26/04/2007 00:00;;6;
+12;Arquitetura e Padrões SIMEC;21,0d;09/04/2007 00:00;30/04/2007 00:00;;6;
+13;Documento de arquitetura de software;4,0d;09/04/2007 00:00;13/04/2007 00:00;;7;
+14;Padrões de Interface;1,0d;09/04/2007 00:00;10/04/2007 00:00;;7;
+15;Padrões de banco de dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;7;
+16;Organização do Manual;0,0d;30/04/2007 00:00;30/04/2007 00:00;;8;
+17;Manual impresso disponível;0,0d;30/04/2007 00:00;30/04/2007 00:00;;9;
+13;Módulo de Segurança;33,0d;28/03/2007 00:00;30/04/2007 00:00;;6;
+14;Documento de Visão;0,0d;28/03/2007 00:00;28/03/2007 00:00;;7;
+15;Diagrama de caso de uso;1,0d;29/03/2007 00:00;30/03/2007 00:00;;7;
+16;Modelo de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;7;
+17;Dicionário de Dados;0,0d;03/04/2007 00:00;03/04/2007 00:00;;7;
+18;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;03/04/2007 00:00;03/04/2007 00:00;;7;
+19;Especificação dos Casos de Uso;1,0d;04/04/2007 00:00;05/04/2007 00:00;;7;
+20;Organização da documentação;1,0d;09/04/2007 00:00;10/04/2007 00:00;;7;
+21;Manual impresso disponível;0,0d;30/04/2007 00:00;30/04/2007 00:00;;7;
+14;MÓDULO DE ELABORAÇÃO E REVISÃO DO PPA;17,0d;01/01/2007 00:00;18/01/2007 00:00;;6;Gestores: CPS - Prof. Leo Kessel...
+15;Documento de Visão;1,0d;01/01/2007 00:00;02/01/2007 00:00;;7;
+16;Diagrama de caso de uso;1,0d;03/01/2007 00:00;04/01/2007 00:00;;7;
+17;Modelo de Dados;3,0d;05/01/2007 00:00;08/01/2007 00:00;;7;
+18;Dicionário de Dados;3,0d;09/01/2007 00:00;12/01/2007 00:00;;7;
+19;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;15/01/2007 00:00;15/01/2007 00:00;;7;
+20;Especificação dos Casos de Uso;1,0d;16/01/2007 00:00;17/01/2007 00:00;;7;
+21;Organização do Manual;0,0d;18/01/2007 00:00;18/01/2007 00:00;;7;
+22;Manual impresso disponível;0,0d;18/01/2007 00:00;18/01/2007 00:00;;7;
+15;MÓDULO DE GERENCIAMENTO FINANCEIRO;3,0d;02/04/2007 00:00;05/04/2007 00:00;;6;Gestores: CGF - Solange
+16;Documento de Visão;0,0d;02/04/2007 00:00;02/04/2007 00:00;;7;
+17;Diagrama de caso de uso;0,0d;02/04/2007 00:00;02/04/2007 00:00;;7;
+18;Modelo de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;7;
+19;Dicionário de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;7;
+20;Layout de arquivos - (para o caso de integração com outros sistemas);1,0d;03/04/2007 00:00;04/04/2007 00:00;;7;
+21;Especificação dos Casos de Uso;0,0d;04/04/2007 00:00;04/04/2007 00:00;;7;
+22;Organização do Manual;0,0d;05/04/2007 00:00;05/04/2007 00:00;;7;
+23;Manual impresso disponível;0,0d;05/04/2007 00:00;05/04/2007 00:00;;7;
+16;MÓDULO DE PROJETOS ESPECIAIS;22,0d;28/03/2007 00:00;19/04/2007 00:00;;6;O módulo de projetos especiais tem por finalidade permitir aos usuários do Simec criar, planejar e acompanhar os projetos, afetos ou não ao PPA, dentro da metodologia de gerência preconizada pelo PMI. Deste modo, ele aborda as áreas de conhecimento com...
+17;Documento de Visão;1,0d;28/03/2007 00:00;29/03/2007 00:00;;7;
+18;Diagrama de caso de uso;5,0d;05/04/2007 00:00;10/04/2007 00:00;;7;
+19;Modelo de Dados;2,0d;10/04/2007 00:00;12/04/2007 00:00;;7;
+20;Dicionário de Dados;4,0d;12/04/2007 00:00;16/04/2007 00:00;;7;
+21;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;16/04/2007 00:00;16/04/2007 00:00;;7;
+22;Especificação dos Casos de Uso;2,0d;16/04/2007 00:00;18/04/2007 00:00;;7;
+23;Organização do Manual;1,0d;18/04/2007 00:00;19/04/2007 00:00;;7;
+24;Manual impresso disponível;0,0d;19/04/2007 00:00;19/04/2007 00:00;;7;
+17;MÓDULO DE MONITORAMENTO E AVALIAÇÃO DO PPA;4,0d;09/04/2007 00:00;13/04/2007 00:00;;6;Gestores: CPS - Prof. Leo Kessel...
+18;Documento de Visão;0,0d;09/04/2007 00:00;09/04/2007 00:00;;7;
+19;Diagrama de caso de uso;0,0d;10/04/2007 00:00;10/04/2007 00:00;;7;
+20;Modelo de Dados;0,0d;10/04/2007 00:00;10/04/2007 00:00;;7;
+21;Dicionário de Dados;0,0d;11/04/2007 00:00;11/04/2007 00:00;;7;
+22;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;11/04/2007 00:00;11/04/2007 00:00;;7;
+23;Especificação dos Casos de Uso;0,0d;12/04/2007 00:00;12/04/2007 00:00;;7;
+24;Organização do Manual;1,0d;12/04/2007 00:00;13/04/2007 00:00;;7;
+25;Manual impresso disponível;0,0d;13/04/2007 00:00;13/04/2007 00:00;;7;
+18;MÓDULO DE PROGRAMAÇÃO ORÇAMENTÁRIA;5,0d;13/04/2007 00:00;18/04/2007 00:00;;6;Gestores: CGO - Julio / Orlando...
+19;Documento de Visão;0,0d;13/04/2007 00:00;13/04/2007 00:00;;7;
+20;Diagrama de caso de uso;0,0d;16/04/2007 00:00;16/04/2007 00:00;;7;
+21;Modelo de Dados;0,0d;16/04/2007 00:00;16/04/2007 00:00;;7;
+22;Dicionário de Dados;0,0d;17/04/2007 00:00;17/04/2007 00:00;;7;
+23;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;17/04/2007 00:00;17/04/2007 00:00;;7;
+24;Especificação dos Casos de Uso;0,0d;18/04/2007 00:00;18/04/2007 00:00;;7;
+25;Organização do Manual;0,0d;18/04/2007 00:00;18/04/2007 00:00;;7;
+26;Manual impresso disponível;0,0d;18/04/2007 00:00;18/04/2007 00:00;;7;
+19;MÓDULO DE CRÉDITOS ADICIONAIS;4,0d;19/04/2007 00:00;23/04/2007 00:00;;6;Gestores: CGO - Julio / Orlando...
+20;Documento de Visão;0,0d;19/04/2007 00:00;19/04/2007 00:00;;7;
+21;Diagrama de caso de uso;0,0d;19/04/2007 00:00;19/04/2007 00:00;;7;
+22;Modelo de Dados;0,0d;20/04/2007 00:00;20/04/2007 00:00;;7;
+23;Dicionário de Dados;0,0d;20/04/2007 00:00;20/04/2007 00:00;;7;
+24;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;20/04/2007 00:00;20/04/2007 00:00;;7;
+25;Especificação dos Casos de Uso;0,0d;23/04/2007 00:00;23/04/2007 00:00;;7;
+26;Organização do Manual;0,0d;23/04/2007 00:00;23/04/2007 00:00;;7;
+27;Manual impresso disponível;0,0d;23/04/2007 00:00;23/04/2007 00:00;;7;
+20;MÓDULO DE EXECUÇÃO ORÇAMENTÁRIA (solicitar apoio Santicioli);12,0d;11/04/2007 00:00;23/04/2007 00:00;;6;Getsores:  CGO - Julio / Orlando...
+21;Documento de Visão;1,0d;11/04/2007 00:00;12/04/2007 00:00;;7;
+22;Diagrama de caso de uso;0,0d;13/04/2007 00:00;13/04/2007 00:00;;7;
+23;Modelo de Dados;0,0d;16/04/2007 00:00;16/04/2007 00:00;;7;
+24;Dicionário de Dados;0,0d;17/04/2007 00:00;17/04/2007 00:00;;7;
+25;Layout de arquivos - (para o caso de integração com outros sistemas;1,0d;18/04/2007 00:00;19/04/2007 00:00;;7;
+26;Especificação dos Casos de Uso;0,0d;20/04/2007 00:00;20/04/2007 00:00;;7;
+27;Organização do Manual;0,0d;23/04/2007 00:00;23/04/2007 00:00;;7;
+28;Manual impresso disponível;0,0d;23/04/2007 00:00;23/04/2007 00:00;;7;
+21;Módulo de Monitoramento do PDE (Plano de Desenvolvimento da Educação);2,0d;24/04/2007 00:00;26/04/2007 00:00;;6;
+22;Documento de Visão;0,0d;24/04/2007 00:00;24/04/2007 00:00;;7;
+23;Diagrama de caso de uso;0,0d;24/04/2007 00:00;24/04/2007 00:00;;7;
+24;Modelo de Dados;0,0d;25/04/2007 00:00;25/04/2007 00:00;;7;
+25;Dicionário de Dados;0,0d;25/04/2007 00:00;25/04/2007 00:00;;7;
+26;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;25/04/2007 00:00;25/04/2007 00:00;;7;
+27;Especificação dos Casos de Uso;0,0d;26/04/2007 00:00;26/04/2007 00:00;;7;
+28;Organização do Manual;0,0d;26/04/2007 00:00;26/04/2007 00:00;;7;
+29;Manual impresso disponível;0,0d;26/04/2007 00:00;26/04/2007 00:00;;7;
+22;MÓDULO DE EMENDAS;6,0d;27/04/2007 00:00;03/05/2007 00:00;;6;Gestores:  CGO - Julio / CGF - Solange...
+23;Documento de Visão;0,0d;27/04/2007 00:00;27/04/2007 00:00;;7;
+24;Diagrama de caso de uso;0,0d;27/04/2007 00:00;27/04/2007 00:00;;7;
+25;Modelo de Dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;7;
+26;Dicionário de Dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;7;
+27;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;02/05/2007 00:00;02/05/2007 00:00;;7;
+28;Especificação dos Casos de Uso;0,0d;02/05/2007 00:00;02/05/2007 00:00;;7;
+29;Organização do Manual;0,0d;03/05/2007 00:00;03/05/2007 00:00;;7;
+30;Manual impresso disponível;0,0d;03/05/2007 00:00;03/05/2007 00:00;;7;
+23;MODULO DE CONVENIOS (não iniciado);0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;Gestores: a ser definido...
+24;MÓDULO DE INTEGRAÇÃO DA EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA com Monitoramento do PPA;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;Gestores: CGO - Julio / CGF - Solange / CPS - Prof. Leo...
+25;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+26;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+27;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+28;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+29;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+30;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+31;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+25;MÓDULO DE PESSOAL, ENCARGOS E BENEFÍCIOS;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;Gestores:  CGO - Julio / CGF - Neydna...
+26;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+27;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+28;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+29;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+30;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+31;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+32;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+26;MÓDULO DE RECEITA PRÓPRIA;0,0d;01/01/2007 00:00;01/01/2007 00:00;;6;Gestores: CGO - Julio / Orlando...
+27;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+28;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+29;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+30;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+31;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+32;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+33;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;7;
+5;Institui o Programa Olhar Brasil com prioridade para os alfabetizandos do Brasil Alfabetizado;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+6;teste de nova tarefa;0,0d; 00:00; 00:00;;4;
+7;aaaaaaa;0,0d; 00:00; 00:00;;4;
+6;Institui o Programa Nacional do Livro Didático para Alfabetização de Jovens e Adultos - PNLA, regulamenta o programa em 2008 e rege a aquisição de material didático para o Programa Brasil Alfabetizado;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+7;Altera normas de operacionalização do Brasil Alfabetizado, garantindo o pagamento de bolsa ao professor da rede pública e apoio para execução do programa.;1.460,0d;01/01/2007 00:00;31/12/2010 00:00;;3;Nova Descrição
+8;teste;0,0d; 00:00; 00:00;;4;
+8;qualquer;0,0d; 00:00; 00:00;;3;
+9;testes;0,0d; 00:00; 00:00;;3;
+10;outro;0,0d; 00:00; 00:00;;3;
+11;um dois três;0,0d; 00:00; 00:00;;3;
+12;mais;0,0d; 00:00; 00:00;;3;
+4;qualquer uma;0,0d; 00:00; 00:00;;2;asfasf
+5;será?;0,0d; 00:00; 00:00;;3;
+5;teste qualquer;0,0d; 00:00; 00:00;;2;
+6;teste;0,0d;20/04/2007 00:00;20/04/2007 00:00;;2;teste
+7;teste segundo nivel;1,0d;23/04/2007 00:00;24/04/2007 00:00;;3;teste
+7;Acompanhamento do Desenvolvimento dos Manuais;122,0d;01/01/2007 00:00;03/05/2007 00:00;;2;
+8;Acompanhamento do Desenvolvimento dos Manuais 1;0,0d;29/03/2007 00:00;29/03/2007 00:00;;3;
+9;Acompanhamento do Desenvolvimento dos Manuais 2;0,0d;05/04/2007 00:00;05/04/2007 00:00;;3;
+10;Acompanhamento do Desenvolvimento dos Manuais 3;0,0d;12/04/2007 00:00;12/04/2007 00:00;;3;
+11;Acompanhamento do Desenvolvimento dos Manuais 4;0,0d;19/04/2007 00:00;19/04/2007 00:00;;3;
+12;Acompanhamento do Desenvolvimento dos Manuais 5;0,0d;26/04/2007 00:00;26/04/2007 00:00;;3;
+13;Arquitetura e Padrões SIMEC;21,0d;09/04/2007 00:00;30/04/2007 00:00;;3;
+14;Documento de arquitetura de software;4,0d;09/04/2007 00:00;13/04/2007 00:00;;4;
+15;Padrões de Interface;1,0d;09/04/2007 00:00;10/04/2007 00:00;;4;
+16;Padrões de banco de dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;4;
+17;Organização do Manual;0,0d;30/04/2007 00:00;30/04/2007 00:00;;5;
+18;Manual impresso disponível;0,0d;30/04/2007 00:00;30/04/2007 00:00;;6;
+14;Módulo de Segurança;33,0d;28/03/2007 00:00;30/04/2007 00:00;;3;
+15;Documento de Visão;0,0d;28/03/2007 00:00;28/03/2007 00:00;;4;
+16;Diagrama de caso de uso;1,0d;29/03/2007 00:00;30/03/2007 00:00;;4;
+17;Modelo de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;4;
+18;Dicionário de Dados;0,0d;03/04/2007 00:00;03/04/2007 00:00;;4;
+19;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;03/04/2007 00:00;03/04/2007 00:00;;4;
+20;Especificação dos Casos de Uso;1,0d;04/04/2007 00:00;05/04/2007 00:00;;4;
+21;Organização da documentação;1,0d;09/04/2007 00:00;10/04/2007 00:00;;4;
+22;Manual impresso disponível;0,0d;30/04/2007 00:00;30/04/2007 00:00;;4;
+15;MÓDULO DE ELABORAÇÃO E REVISÃO DO PPA;17,0d;01/01/2007 00:00;18/01/2007 00:00;;3;Gestores: CPS - Prof. Leo Kessel...
+16;Documento de Visão;1,0d;01/01/2007 00:00;02/01/2007 00:00;;4;
+17;Diagrama de caso de uso;1,0d;03/01/2007 00:00;04/01/2007 00:00;;4;
+18;Modelo de Dados;3,0d;05/01/2007 00:00;08/01/2007 00:00;;4;
+19;Dicionário de Dados;3,0d;09/01/2007 00:00;12/01/2007 00:00;;4;
+20;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;15/01/2007 00:00;15/01/2007 00:00;;4;
+21;Especificação dos Casos de Uso;1,0d;16/01/2007 00:00;17/01/2007 00:00;;4;
+22;Organização do Manual;0,0d;18/01/2007 00:00;18/01/2007 00:00;;4;
+23;Manual impresso disponível;0,0d;18/01/2007 00:00;18/01/2007 00:00;;4;
+16;MÓDULO DE GERENCIAMENTO FINANCEIRO;3,0d;02/04/2007 00:00;05/04/2007 00:00;;3;Gestores: CGF - Solange
+17;Documento de Visão;0,0d;02/04/2007 00:00;02/04/2007 00:00;;4;
+18;Diagrama de caso de uso;0,0d;02/04/2007 00:00;02/04/2007 00:00;;4;
+19;Modelo de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;4;
+20;Dicionário de Dados;0,0d;02/04/2007 00:00;02/04/2007 00:00;;4;
+21;Layout de arquivos - (para o caso de integração com outros sistemas);1,0d;03/04/2007 00:00;04/04/2007 00:00;;4;
+22;Especificação dos Casos de Uso;0,0d;04/04/2007 00:00;04/04/2007 00:00;;4;
+23;Organização do Manual;0,0d;05/04/2007 00:00;05/04/2007 00:00;;4;
+24;Manual impresso disponível;0,0d;05/04/2007 00:00;05/04/2007 00:00;;4;
+17;MÓDULO DE PROJETOS ESPECIAIS;22,0d;28/03/2007 00:00;19/04/2007 00:00;;3;O módulo de projetos especiais tem por finalidade permitir aos usuários do Simec criar, planejar e acompanhar os projetos, afetos ou não ao PPA, dentro da metodologia de gerência preconizada pelo PMI. Deste modo, ele aborda as áreas de conhecimento com...
+18;Documento de Visão;1,0d;28/03/2007 00:00;29/03/2007 00:00;;4;
+19;Diagrama de caso de uso;5,0d;05/04/2007 00:00;10/04/2007 00:00;;4;
+20;Modelo de Dados;2,0d;10/04/2007 00:00;12/04/2007 00:00;;4;
+21;Dicionário de Dados;4,0d;12/04/2007 00:00;16/04/2007 00:00;;4;
+22;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;16/04/2007 00:00;16/04/2007 00:00;;4;
+23;Especificação dos Casos de Uso;2,0d;16/04/2007 00:00;18/04/2007 00:00;;4;
+24;Organização do Manual;1,0d;18/04/2007 00:00;19/04/2007 00:00;;4;
+25;Manual impresso disponível;0,0d;19/04/2007 00:00;19/04/2007 00:00;;4;
+18;MÓDULO DE MONITORAMENTO E AVALIAÇÃO DO PPA;4,0d;09/04/2007 00:00;13/04/2007 00:00;;3;Gestores: CPS - Prof. Leo Kessel...
+19;Documento de Visão;0,0d;09/04/2007 00:00;09/04/2007 00:00;;4;
+20;Diagrama de caso de uso;0,0d;10/04/2007 00:00;10/04/2007 00:00;;4;
+21;Modelo de Dados;0,0d;10/04/2007 00:00;10/04/2007 00:00;;4;
+22;Dicionário de Dados;0,0d;11/04/2007 00:00;11/04/2007 00:00;;4;
+23;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;11/04/2007 00:00;11/04/2007 00:00;;4;
+24;Especificação dos Casos de Uso;0,0d;12/04/2007 00:00;12/04/2007 00:00;;4;
+25;Organização do Manual;1,0d;12/04/2007 00:00;13/04/2007 00:00;;4;
+26;Manual impresso disponível;0,0d;13/04/2007 00:00;13/04/2007 00:00;;4;
+19;MÓDULO DE PROGRAMAÇÃO ORÇAMENTÁRIA;5,0d;13/04/2007 00:00;18/04/2007 00:00;;3;Gestores: CGO - Julio / Orlando...
+20;Documento de Visão;0,0d;13/04/2007 00:00;13/04/2007 00:00;;4;
+21;Diagrama de caso de uso;0,0d;16/04/2007 00:00;16/04/2007 00:00;;4;
+22;Modelo de Dados;0,0d;16/04/2007 00:00;16/04/2007 00:00;;4;
+23;Dicionário de Dados;0,0d;17/04/2007 00:00;17/04/2007 00:00;;4;
+24;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;17/04/2007 00:00;17/04/2007 00:00;;4;
+25;Especificação dos Casos de Uso;0,0d;18/04/2007 00:00;18/04/2007 00:00;;4;
+26;Organização do Manual;0,0d;18/04/2007 00:00;18/04/2007 00:00;;4;
+27;Manual impresso disponível;0,0d;18/04/2007 00:00;18/04/2007 00:00;;4;
+20;MÓDULO DE CRÉDITOS ADICIONAIS;4,0d;19/04/2007 00:00;23/04/2007 00:00;;3;Gestores: CGO - Julio / Orlando...
+21;Documento de Visão;0,0d;19/04/2007 00:00;19/04/2007 00:00;;4;
+22;Diagrama de caso de uso;0,0d;19/04/2007 00:00;19/04/2007 00:00;;4;
+23;Modelo de Dados;0,0d;20/04/2007 00:00;20/04/2007 00:00;;4;
+24;Dicionário de Dados;0,0d;20/04/2007 00:00;20/04/2007 00:00;;4;
+25;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;20/04/2007 00:00;20/04/2007 00:00;;4;
+26;Especificação dos Casos de Uso;0,0d;23/04/2007 00:00;23/04/2007 00:00;;4;
+27;Organização do Manual;0,0d;23/04/2007 00:00;23/04/2007 00:00;;4;
+28;Manual impresso disponível;0,0d;23/04/2007 00:00;23/04/2007 00:00;;4;
+29;MÓDULO DE EXECUÇÃO ORÇAMENTÁRIA (solicitar apoio Santicioli);12,0d;11/04/2007 00:00;23/04/2007 00:00;;4;Getsores:  CGO - Julio / Orlando...
+30;Documento de Visão;1,0d;11/04/2007 00:00;12/04/2007 00:00;;5;
+31;Diagrama de caso de uso;0,0d;13/04/2007 00:00;13/04/2007 00:00;;5;
+32;Modelo de Dados;0,0d;16/04/2007 00:00;16/04/2007 00:00;;5;
+33;Dicionário de Dados;0,0d;17/04/2007 00:00;17/04/2007 00:00;;5;
+34;Layout de arquivos - (para o caso de integração com outros sistemas;1,0d;18/04/2007 00:00;19/04/2007 00:00;;5;
+35;Especificação dos Casos de Uso;0,0d;20/04/2007 00:00;20/04/2007 00:00;;5;
+36;Organização do Manual;0,0d;23/04/2007 00:00;23/04/2007 00:00;;5;
+37;Manual impresso disponível;0,0d;23/04/2007 00:00;23/04/2007 00:00;;5;
+21;Módulo de Monitoramento do PDE (Plano de Desenvolvimento da Educação);2,0d;24/04/2007 00:00;26/04/2007 00:00;;3;
+22;Documento de Visão;0,0d;24/04/2007 00:00;24/04/2007 00:00;;4;
+23;Diagrama de caso de uso;0,0d;24/04/2007 00:00;24/04/2007 00:00;;4;
+24;Modelo de Dados;0,0d;25/04/2007 00:00;25/04/2007 00:00;;4;
+25;Dicionário de Dados;0,0d;25/04/2007 00:00;25/04/2007 00:00;;4;
+26;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;25/04/2007 00:00;25/04/2007 00:00;;4;
+27;Especificação dos Casos de Uso;0,0d;26/04/2007 00:00;26/04/2007 00:00;;4;
+28;Organização do Manual;0,0d;26/04/2007 00:00;26/04/2007 00:00;;4;
+29;Manual impresso disponível;0,0d;26/04/2007 00:00;26/04/2007 00:00;;4;
+22;MÓDULO DE EMENDAS;6,0d;27/04/2007 00:00;03/05/2007 00:00;;3;Gestores:  CGO - Julio / CGF - Solange...
+23;Documento de Visão;0,0d;27/04/2007 00:00;27/04/2007 00:00;;4;
+24;Diagrama de caso de uso;0,0d;27/04/2007 00:00;27/04/2007 00:00;;4;
+25;Modelo de Dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;4;
+26;Dicionário de Dados;0,0d;30/04/2007 00:00;30/04/2007 00:00;;4;
+27;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;02/05/2007 00:00;02/05/2007 00:00;;4;
+28;Especificação dos Casos de Uso;0,0d;02/05/2007 00:00;02/05/2007 00:00;;4;
+29;Organização do Manual;0,0d;03/05/2007 00:00;03/05/2007 00:00;;4;
+30;Manual impresso disponível;0,0d;03/05/2007 00:00;03/05/2007 00:00;;4;
+23;MODULO DE CONVENIOS (não iniciado);0,0d;01/01/2007 00:00;01/01/2007 00:00;;3;Gestores: a ser definido...
+24;MÓDULO DE INTEGRAÇÃO DA EXECUÇÃO ORÇAMENTÁRIA E FINANCEIRA com Monitoramento do PPA;0,0d;01/01/2007 00:00;01/01/2007 00:00;;3;Gestores: CGO - Julio / CGF - Solange / CPS - Prof. Leo...
+25;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+26;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+27;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+28;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+29;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+30;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+31;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+25;MÓDULO DE PESSOAL, ENCARGOS E BENEFÍCIOS;0,0d;01/01/2007 00:00;01/01/2007 00:00;;3;Gestores:  CGO - Julio / CGF - Neydna...
+26;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+27;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+28;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+29;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+30;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+31;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+32;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+26;MÓDULO DE RECEITA PRÓPRIA;0,0d;01/01/2007 00:00;01/01/2007 00:00;;3;Gestores: CGO - Julio / Orlando...
+27;Documento de Visão;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+28;Diagrama de caso de uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+29;Documento de arquitetura de software;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+30;Modelo de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+31;Dicionário de Dados;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+32;Layout de arquivos - (para o caso de integração com outros sistemas;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+33;Especificação dos Casos de Uso;0,0d;01/01/2007 00:00;01/01/2007 00:00;;4;
+8;outra pra teste de navegação;0,0d; 00:00; 00:00;;2;
+9;última;0,0d; 00:00; 00:00;;2;

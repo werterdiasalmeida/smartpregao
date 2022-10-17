@@ -1,0 +1,37 @@
+
+create table cte.labdisciplina (
+    ldiid serial not null primary key,
+    ldidsc char varying (250) not null unique
+);
+
+alter table cte.laboratorio add column ldiid integer references
+cte.labdisciplina(ldiid);
+
+begin transaction;
+insert into cte.labdisciplina
+    select distinct
+        nextval('cte.labdisciplina_ldiid_seq') as ldiid,
+        initcap(labdisciplinasatendida) as ldidsc
+    FROM
+        cte.laboratorio
+    group by
+        labdisciplinasatendida;
+
+update cte.laboratorio s set
+    ldiid = a.idlabdisc
+from
+    (
+        select
+            l.labid as idlab,
+            d.ldiid as idlabdisc
+        from
+            cte.laboratorio l
+        inner join cte.labdisciplina d ON upper(trim(d.ldidsc)) =
+upper(trim(l.labdisciplinasatendida))
+    ) a
+where
+    a.idlab = s.labid
+
+-- commit;
+-- rollback;
+-- alter table cte.laboratorio drop column labdisciplinasatendida

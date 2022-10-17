@@ -1,0 +1,195 @@
+TABLE.listagem2
+			{
+			/*padding: 3px;*/
+			/*text-align: center;*/
+			/*width: 98%;*/
+			border-top: 3px solid #c1c1c1;
+			border-bottom: 1px solid #dfdfdf;
+			/*table-layout: fixed;*/
+			border-collapse: collapse;
+			}
+	
+TABLE.listagem2 P
+			{
+			font-size: 11px;
+			margin: 0px;
+			padding: 3px;
+	/*		text-align: center;*/
+			}
+	
+TABLE.listagem2 COL.marcada
+			{	
+			font-weight: bold; 
+			color: #133368;
+			}
+			
+TABLE.listagem2 COL.order
+			{	
+			background-color: #ececec;
+			}
+	
+TABLE.listagem2 P STRONG
+			{		
+			color: #D90000;	
+			}
+
+/************************** CABEÇALHO */	
+TABLE.listagem2 THEAD{}
+TABLE.listagem2 THEAD P
+			{	
+			color: #6A6A6A;
+			}
+			
+TABLE.listagem2 THEAD TD
+			{	
+			border-right: 1px solid white; 
+			padding: 10px 5px 10px 7px;
+			border-bottom: 1px solid #c9c9c9;
+			}
+			
+TABLE.listagem2 THEAD TD A, 
+TABLE.listagem THEAD TD A:visited
+			{	
+			color: #6A6A6A;
+			}											 
+			
+TABLE.listagem2 THEAD TD A:hover
+			{	
+			color: red;
+			}
+
+TABLE.listagem2 THEAD TD.order
+			{	
+			background-color: #133368;	
+			border-right: 1px solid #ff9000;
+			}														
+				
+TABLE.listagem2 THEAD TD.order P
+			{	
+			color: #A2AFC6;
+			}
+TABLE.listagem2 THEAD TD.order A
+			{	
+			color: white;
+			}
+TABLE.listagem2 THEAD TD.order A:visited
+			{	
+			color: #BFBFBF;
+			}
+			
+TABLE.listagem2 THEAD TD.order STRONG
+			{	
+			color: white;
+			}
+			
+
+
+			
+			
+/**************************** CORPO */
+TABLE.listagem2 TBODY TD,
+TABLE.listagem2 TFOOT TD 
+			{	
+			border-top :1px solid #f1f1f1;
+			padding:4px;
+			}
+
+TABLE.listagem2 TBODY TR.marcada
+			{				
+			border :0px;
+			background-color :#FAFAFA;
+			border-bottom :1px dashed white;
+			border-left:1px solid #ececec;
+			border-right:1px solid #ececec;
+			}
+
+			
+TABLE.listagem2 TBODY TD P A, 
+TABLE.listagem2 TBODY TD P
+				{	
+				color: #133368;
+				}
+				
+TABLE.listagem2 TBODY TD P.disabled
+			{
+			color:gray;
+			}
+				
+				
+	TABLE.listagem2 TBODY TD A:visited
+				{	
+				color: black;
+				}
+	TABLE.listagem2 TBODY TD A:hover, 
+	TABLE.listagem TBODY TD A:visited:hover
+				{	
+				color: red;
+				}
+
+TABLE.listagem2 TBODY P STRONG
+			{		
+			color: #133368;	
+			}
+			
+TABLE.listagem2 TBODY TD DIV.treeview
+			{	
+			border:0px solid white; 
+			padding:0px; 
+			margin:0px;	  
+			font-weight :normal;
+			}
+
+TABLE.listagem2 TBODY TD DIV.treeview IMG
+			{	
+			margin:0px 5px 0px 0px;
+			float :left;
+			}
+
+		
+/**************************** linhas marcadas */
+TABLE.listagem2 TBODY TR TD A
+			{	
+			padding: 2px;
+			}
+
+
+			/* HOVER DA LINHA INTEIRA */
+	TABLE.listagem2 TBODY TR.hover
+			{	
+			background-color: #F6F6F6;
+			}
+			/* HOVER DO TD */
+	TABLE.listagem2 TBODY TR TD.hover A IMG
+			{	
+			filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='#a9a9a9', Positive='true'); 
+			}
+
+			/*
+			TFOOT
+			*/
+TABLE.listagem2 TFOOT TD P
+			{
+			font-weight: bold;
+			color:#6A6A6A;
+			}
+	
+						
+	 /* Listagem Ação */		
+	
+	
+	TABLE.listagem_acao TR TD 
+	             {
+	  	          vertical-align : top;
+					 background: Blue;
+					 }
+    TABLE.listagem_acao	 TR TD UL.normal LI.acao 
+	            {
+		  		  	border-bottom:1px solid #cccccc;
+	  	  		  	padding-bottom:8px;
+	            }
+					 
+  
+	  
+	 /* FIM LISTAGEM */		
+		
+		

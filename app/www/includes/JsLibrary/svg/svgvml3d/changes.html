@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+<PRE>
+Changes in SVG-VML-3D from v.1.1 to v.1.2 (02/2006):
+----------------------------------------------------
+
+
+The header of the file scene.svg had to be changed, to get it working in Mozilla
+
+&lt;?xml ...&gt;
+&lt;!DOCTYPE ...&gt;
+&lt;svg ...&gt;
+
+=========================================================================================
+
+To get transparent background with IE and ASV3
+
+	if (useSVG) document.writeln("&lt;embed ... src='scene.svg' /&gt;");
+
+had to be changed in
+
+	if (useSVG) document.writeln("&lt;embed ... src='scene.svg' wmode='transparent' /&gt;");
+
+in the sample html files.
+
+=========================================================================================
+
+To get the SVG branch working with Mozilla
+
+	createElementNS("http://www.w3.org/2000/svg","...")
+
+had to be used instead of 
+
+	createElement("...")
+
+in svgvml3d.js and boundingbox.js.
+
+=========================================================================================
+
+To get the text for the scale in the 3D chart and function plotter with Mozilla
+
+	oo.firstChild.replaceData(0,108,vv);
+
+had to be used instead of
+
+	oo.getFirstChild().setData(vv);
+
+in boundingbox.js.
+
+=========================================================================================
+
+evt.getTarget() and if (window.browserEval) had to be removed from scene.svg, because it
+caused script errors with ASV3/Mozilla. The script now uses the method
+document.embeds[this.idx].getSVGDocument(), which is defined in svgvml3d.js,
+in order to get the svg document handle.
+
+=========================================================================================
+
+Changes in SVG-VML-3D from v.1.2 to v.1.21 (08/2006):
+----------------------------------------------------
+
+César Sancho Arribas mailed me, that after an automatic update of Firefox the script
+didn't work anymore. He found that the code
+
+	if (useSVG) document.writeln("&lt;embed ... src='scene.svg' ... /&gt;");
+
+had to be changed in
+
+	if (useSVG) document.writeln("&lt;embed ... src='scene.svg' ... type='image/svg+xml' /&gt;");
+
+Thanks for pointing that out.
+
+=========================================================================================
+
+Changes in SVG-VML-3D from v.1.21 to v.1.22 (10/2006):
+----------------------------------------------------
+
+Val Polyakh mailed me, that the script doesn't work in Firefox 1.5. I checked it and found
+that it only works with Firefox on the local computer but not via http.
+First I thought it was a security or timing issue, until I found that the code
+
+	document.embeds[this.idx].getSVGDocument()
+
+didn't work. The script uses now
+
+	function OnLoadEvent(evt)
+	{ parent.AddSVGObject(evt.target.ownerDocument);
+	}
+
+in the onload event of the svg file and in the JavaScript file
+
+	this.SVGDocument
+
+Thanks for the bug report.
+
+=========================================================================================
+
+Changes in SVG-VML-3D from v.1.22 to v.1.3 (11/2006):
+----------------------------------------------------
+
+Wang Zhaoyan mailed me some code, how to get support for onclick events. This is now added to
+the new version of the library and extended to be usable also with onmouseover, onmouseout, etc.
+Thanks for the very valuable suggestion.
+</PRE>
+</BODY>
+</HTML>

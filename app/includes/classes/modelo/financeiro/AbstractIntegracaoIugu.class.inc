@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Qualquer implementação adicional que precisa ser feita com a integração do Iugu deve ser extendida
+ * dessa classe, lembrando que deve ser adiconando nas variáveis da fatura do iugu o módulo e a classe de integração
+ */
+abstract class AbstractIntegracaoIugu {
+
+    /**
+     * Método utlizado para implementar uma mudança na situação da fatura
+     * @param $arrDadosFatura mixed Dados da Fatura alterada
+     * @return null
+     */
+    public function processarMudancaDeSituacaoDaFatura($arrDadosFatura){
+        return null;
+    }
+}

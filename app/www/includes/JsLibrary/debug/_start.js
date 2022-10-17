@@ -1,0 +1,1 @@
+require_once( 'debug/debuggerClass.js' );

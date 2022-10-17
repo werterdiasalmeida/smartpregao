@@ -1,0 +1,263 @@
+@CHARSET "ISO-8859-1";
+
+body
+	{
+		background:#7d3ea3 url(../img/bg.png) repeat top;
+		margin:0;
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+		color:#2e2e2e;
+	}
+
+.tbl_conteudo
+	{
+	background:#ffffff;
+	}
+
+.migalha
+	{
+		background:#cdcdcd;
+	}
+
+
+a { outline:0; }
+
+.fundo_verde_padrao
+	{
+		background-color:#006400;
+	}
+	
+/*menu*/
+.td_on a
+	{
+		color:#285e78;
+		text-decoration:none;
+	}
+
+.td_on a:hover
+	{
+		color: #92BED3;
+		text-decoration:none;
+	}
+
+.td_on
+	{
+		background:url(../img/aba_on.png) repeat-x top;
+		color:#285e78;
+		font-weight:bold;
+		text-align:center;
+		height:18px;
+	}
+
+.td_off
+	{
+		background:url(../img/aba_off.png) repeat-x top;
+		color:#fff;
+		text-align:center;
+		height:18px;
+	}
+
+.td_off a
+	{
+		color:#fff;
+		text-decoration:none;
+	}
+
+.td_off a:hover
+	{
+		color: #FFCC00;
+		text-decoration:none;
+	}
+
+.td2_on
+	{
+		background:#e09b08;
+		color:#fff;
+		font-weight:bold;
+		text-align:center;
+	}
+
+.td2_on a
+	{
+		color:#fff;
+		text-decoration:none;
+	}
+
+.td2_on a:hover
+	{
+		color: #FFFF99;
+		text-decoration:none;
+	}
+
+.td2_off
+	{
+		background:#f7ce5f;
+		color:#a77e11;
+		text-align:center;
+	}
+
+.td2_off a
+	{
+		color:#a77e11;
+		text-decoration:none;
+	}
+	
+.td2_off a:hover
+	{
+		color:#fff;
+		text-decoration:none;
+	}
+
+.bg_linha_cinza
+	{
+		background:url(../img/bg_flutua1.jpg) bottom repeat-x;
+		border:0px;
+		margin:0px;
+	}
+	
+.submenu
+	{
+		height:29px;
+		*height:25px;
+		background:#e5eaed url(../img/submenu_bg.gif) bottom repeat-x;
+		/*background-color:#FFFFFF;*/
+	}
+
+.submenu2
+	{
+		background-color:#e5eaed;
+		/*background:#e09b08 url(../img/submenu2_bg.gif) repeat-x;
+		color:#fff;
+		font-size:14px;
+		font-weight:bold;
+		height:22px;*/
+	}
+
+.titleModulo
+	{
+		font-weight:bold;
+		font-size: 18px;
+		color:#FFFFFF;
+		font-family: Helvetica, Arial, sans-serif;
+	}
+
+#usrs
+	{
+		width:300px;
+	}
+
+#menubackmenu1
+	{
+		width:98%;
+		background:#e5eaed url(../img/submenu_bg.gif) bottom repeat-x;
+		padding-bottom:5px;
+	}
+
+/*table .tabela {width:98%}
+table .listagem {width:98%}*/
+
+#barra_governo {
+	background-color: #ffcc00;
+	height: 23px;
+	width: 100%;
+}
+#barra_governo h1{
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	width:30%;
+}
+#barra_governo #menu_brasil {
+	float: left;
+	width: 35%;
+	text-align:center;
+	padding-right:5%;
+	margin:0 0 0 -86px
+}
+#barra_governo #selo_brasil {
+	float: right;
+	width:5%;
+	text-align:right;
+	margin-right:5px;
+}
+#barra_governo img {
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+#menu_brasil select {
+	font-size:10px;
+	background:#FC0;
+	margin-top: 2px;
+}
+
+
+#menu_theme {
+	width: 170px;
+	height:30px;
+	padding:5px;
+	font-weight: bold;
+	color: #000000;
+	position:absolute;
+	background-color: #FFFFFF;
+	border: solid 1px black;;
+	text-align: left;
+	margin-top:-30px;
+	*margin-top:0px;
+	*right:220px;
+	*font-size:12px;
+}
+
+#formTheme{margin:0px;padding:0px}
+
+.select_ylw
+	{
+	font-size:10px;
+	background:#FC0;
+	margin-top: 2px;
+	}
+
+#menubackmenu1
+	{	
+		margin-left:7px;
+	}
+
+.tbl_conteudo
+	{
+	min-height: 100%;  
+    height: auto !important; /*Cause footer to stick to bottom in IE 6*/ 
+    height: 100%;  
+    margin: 0 auto; 
+	}
+
+.rodape
+	{
+		font-size:12px;
+		margin-top:10px;
+		background:#43178b;
+		color:#FFF;
+		font-weight:bold;
+	}
+
+.rodape a
+	{
+		color:#FFFFFF;
+		font-weight:bold;
+	}
+
+.rodape td
+	{
+		color:#FFF;
+		font-weight:bold;
+	}
+
+.error_msg{
+	background-color:#CD2626;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin: 10px;
+	padding: 5px;
+	border:3px double #fff;
+	*border:3px double #CD2626;
+}

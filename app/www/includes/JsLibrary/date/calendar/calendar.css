@@ -1,0 +1,108 @@
+@CHARSET "ISO-8859-1";
+
+.calendar
+{
+	width: 180px;
+	border-collapse: collapse;
+	text-align: center;
+	background-color: rgb( 220, 220, 255 );
+	border-color: blue;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.calendar .title
+{
+	text-align: center;
+}
+
+.calendar .tableMonth
+{
+	width: 100%;
+	text-align: center;
+	background-color: rgb( 255, 255, 255 );
+}
+
+.calendar table
+{
+	border-collapse: collapse;
+}
+.calendar td
+{
+	background-color: rgb( 240, 240, 255 );
+	border-color: white;
+	border-width: 1px;
+	border-bottom-width: 0px;
+	border-style: solid;
+	color: rgb( 10, 10, 30 );
+}
+
+.selectDate
+{
+	width: 100%;
+	background-color: rgb( 140, 140, 255 );
+}
+
+.usedDate
+{
+	width: 100%;
+	background-color: rgb( 110, 110, 215 );
+}
+
+.workDay
+{
+	width: 100%;
+	background-color: rgb( 140, 140, 225 );
+}
+
+.holiday
+{
+	width: 100%;
+	background-color: rgb( 140, 225 ,140 );
+}
+
+.today
+{
+	width: 100%;
+	background-color: rgb( 80, 80, 235 );
+}
+
+.calendar .navigatorCalendar
+{
+	background-color: rgb( 166, 178 , 202 );
+	height: 20px;
+}
+
+.calendar .pastMonth
+{
+	float: left; 
+	height: 20px;
+	width: 20px;
+}
+
+.calendar .nextMonth
+{
+	height: 20px;
+	width: 20px;
+	float: right;
+}
+
+.calendar .tableContainer
+{
+	border-color: white;
+	border-width: 1px;
+	border-style: solid;
+}
+.debug
+{
+	border-color: red;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.botaoExtremoDireito
+{
+	position: relative;
+	position: absolute;
+	right: 2px;
+}

@@ -1,0 +1,12 @@
+.TitleClass
+{
+	border-style:		solid;
+	border-width:		1px;
+	border-color:		#003399;
+	padding:			0px 2px 1px 2px;
+	font-size:			small;
+	background-color: 	#e6ecff;
+	color:				#000066;
+	font-size:			11px;
+	font-weight: 		normal;
+}

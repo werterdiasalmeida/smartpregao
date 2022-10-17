@@ -1,0 +1,29 @@
+<svg width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_22">
+   <g stroke="null" transform="matrix(2.9395049424264994,0,0,2.607944971424383,-2265.31827852181,-1408.088165275967) " id="svg_11">
+    <rect stroke="null" x="752.335938" y="500.265198" fill="#0059b2" rx="15.19" height="226.15" width="230.628" id="svg_18"/>
+    <rect stroke="null" x="767.185944" y="538.066101" fill="#fff" height="155.881" width="200.927" id="svg_17"/>
+    <path stroke="null" fill="#ff7e14" d="m767.218935,676.363155l56.109,-18.176l8.693,13.7l66.91,0l20.415,-55.187l-11.722,0l-17.518,34.772l-40.83,0l-9.483,-16.859l-72.574,0l0,41.75z" id="svg_16"/>
+    <path stroke="null" fill="#ff7e14" d="m968.148936,557.033155l-56.109,18.176l-8.693,-13.7l-66.91,0l-20.415,55.187l11.722,0l17.518,-34.772l40.827,0l9.483,16.859l72.577,0l0,-41.75z" id="svg_15"/>
+    <path stroke="null" fill="#0059b2" d="m841.816935,630.034156l51.664,0l-25.832,-42.378l-25.832,42.378z" id="svg_14"/>
+    <text stroke="null" x="767.062927" y="528.952209" font-weight="800" font-family="Arial-Black, Arial" font-size="25" fill="#fff" id="svg_13">
+     <tspan stroke="null" id="svg_20" y="0" x="0">DEFESA CIVIL</tspan>
+    </text>
+    <text stroke="null" x="819.370941" y="720.301208" font-weight="800" font-family="Arial-Black, Arial" font-size="26" fill="#fff" id="svg_12">
+     <tspan stroke="null" id="svg_21" y="0" x="0">ITAJAÍ</tspan>
+    </text>
+   </g>
+  </g>
+ </g>
+</svg>

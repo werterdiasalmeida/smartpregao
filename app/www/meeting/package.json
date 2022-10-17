@@ -1,0 +1,39 @@
+{
+  "name": "meeting",
+  "preferGlobal": false,
+  "version": "1.0.0",
+  "author": {
+    "name": "Mesotec"
+  },
+  "description": "Meeting.",
+  "scripts": {
+    "start": "node server.js",
+    "contrib-prerequisites": "npm install grunt@0.4.5 && npm install grunt-bump@0.7.0 && npm install grunt-cli@0.1.13 && npm install grunt-contrib-clean@0.6.0 && npm install grunt-contrib-concat@0.5.1 && npm install grunt-contrib-copy@0.8.2 && npm install grunt-contrib-uglify@0.11.0 && npm install grunt-contrib-watch@1.1.0 && npm install grunt-jsbeautifier@0.2.10 && npm install grunt-replace@0.11.0 && npm install load-grunt-tasks@3.4.0"
+  },
+  "engines": {
+    "node": "latest"
+  },
+  "main": "js/RTCMultiConnection.js",
+  "keywords": [],
+  "dependencies": {
+    "recordrtc": "latest",
+    "webrtc-adapter": "latest",
+    "webrtc-screen-capturing": "latest"
+  },
+  "analyze": false,
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "0.4.5",
+    "grunt-bump": "0.7.0",
+    "grunt-cli": "0.1.13",
+    "grunt-contrib-clean": "0.6.0",
+    "grunt-contrib-concat": "0.5.1",
+    "grunt-contrib-copy": "0.8.2",
+    "grunt-contrib-uglify": "0.11.0",
+    "grunt-contrib-watch": "1.1.0",
+    "grunt-jsbeautifier": "0.2.10",
+    "grunt-replace": "0.11.0",
+    "load-grunt-tasks": "3.4.0"
+  }
+}

@@ -1,0 +1,129 @@
+<html xmlns:v ="urn:schemas-microsoft-com:vml">
+<head>
+<title>SVG-VML-3D-Example - Platonic Solids</title>
+<style>
+v\:* { behavior: url(#default#VML); }
+input { background-color:#c0c0ff; width:28; height:28; font-family:'Times New Roman'; font-size:14pt; }
+</style>
+<script src="svgvml3d.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script src="platonic.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script LANGUAGE="JavaScript" TYPE="text/javascript">
+var S, T, O, C, I, D, L;
+//useSVG=true;//you can also change this by hand
+function Init()
+{ if (useSVG)
+  { if (! SVGObjects[0])
+    { setTimeout("Init()",100);
+      return;
+    }
+    S=new Scene3D(SVGObjects[0],0,500,500);
+  }
+  else S=new Scene3D(document.getElementById("Scene1"),1);
+  T=new Tetrahedron(S, "#0080ff", "#0000ff", "#000000", 1);
+  T.Shift(1,1,1);
+  O=new Octahedron(S, "#0080ff", "#0000ff", "#000000", 1);
+  O.Zoom(1.4);
+  O.Shift(-1,1,-1);
+  C=new Cube(S, "#0080ff", "#0000ff", "#000000", 1);
+  C.Zoom(0.9);
+  C.Shift(1,-1,-1);
+  I=new Icosahedron(S, "#0080ff", "#0000ff", "#000000", 1);
+  I.Shift(-1,-1,1);
+  D=new Dodecahedron(S, "", "", "#ff0000", 2);
+  new Line(S, 2,2,-2, 2,-2,2, "#008000", 4);
+  new Line(S, 2,2,-2, -2,2,2, "#008000", 4);
+  new Line(S, 2,2,-2, -2,-2,-2, "#008000", 4);
+  new Line(S, 2,-2,2, -2,2,2, "#008000", 4);
+  new Line(S, 2,-2,2, -2,-2,-2, "#008000", 4);
+  new Line(S, -2,2,2, -2,-2,-2, "#008000", 4);
+  S.AutoCenter();
+  S.Center.Zoom(0.0);
+  S.ZoomAll*=1.4;
+  S.ChangeViewer(-15,0);
+  S.ChangeLight(-20,-30);
+  S.Sort();
+  S.Draw();
+}
+function Rotate()
+{ if (! isRotating) return;
+  D.RotateZ(10,1);
+  S.ChangeViewer(0,-5);
+  S.ChangeLight(0,-5);
+  S.Sort();
+  S.Draw();
+  setTimeout("Rotate()",100);
+}
+function ChangeViewer(vv)
+{ S.ChangeViewer(vv, 0);
+  if (! isRotating)
+  { S.Sort();
+    S.Draw();
+  }
+}
+function ChangeLight(ttheta, ffi)
+{ S.ChangeLight(ttheta, ffi);
+  if (! isRotating) S.Draw();
+}
+var viewerzoomed=0;
+function ZoomViewer(vv)
+{ if ((viewerzoomed+vv>5)||(viewerzoomed+vv<-5)) return;
+  viewerzoomed+=vv;
+  if (vv>0) S.Dist*=0.8;
+  else S.Dist/=0.8;
+  if (! isRotating)
+  { S.Sort();
+    S.Draw();
+  }
+}
+function Shift(hh, vv)
+{ S.XM+=hh;
+  S.YM+=vv;
+  if (! isRotating) S.Draw();
+}
+var picturezoomed=0;
+function ZoomPicture(vv)
+{ if ((picturezoomed+vv>5)||(picturezoomed+vv<-5)) return;
+  picturezoomed+=vv;
+  if (vv>0) S.ZoomAll*=1.1;
+  else S.ZoomAll/=1.1;
+  if (! isRotating) S.Draw();
+}
+var isRotating=false;
+function StartStop()
+{ if (isRotating)
+  { isRotating=false;
+    document.getElementById("StartStop").value="rotate";
+  }
+  else
+  { isRotating=true;
+    document.getElementById("StartStop").value="stop";
+    Rotate();
+  }
+}
+onload=Init;
+</script>
+</head>
+<body bgcolor=#404040>
+<input type="button" onClick="ZoomPicture(1)" value="[+]" title="zoom picture in" />
+<input type="button" onClick="ZoomPicture(-1)" value="[-]" title="zoom picture out" />
+<input type="button" onClick="Shift(-20,0)" value="&#9668;" title="move picture left" />
+<input type="button" onClick="Shift(0,-20)" value="&#9650;" title="move picture up" />
+<input type="button" onClick="Shift(0,20)" value="&#9660;" title="move picture down" />
+<input type="button" onClick="Shift(20,0)" value="&#9658;" title="move move picture right" />
+<input type="button" onClick="ChangeLight(0,10)" value="&#8592;" title="rotate light to the left" />
+<input type="button" onClick="ChangeLight(-10,0)" value="&#8593;" title="move light up" />
+<input type="button" onClick="ChangeLight(10,0)" value="&#8595;" title="move light down" />
+<input type="button" onClick="ChangeLight(0,-10)" value="&#8594;" title="rotate light to the right" />
+<input type="button" onClick="ZoomViewer(1)" value="(+)" title="zoom viewer in" />
+<input type="button" onClick="ZoomViewer(-1)" value="(-)" title="zoom viewer out" />
+<input type="button" onClick="ChangeViewer(-10)" value="&#9794;" title="move viewer position up" />
+<input type="button" onClick="ChangeViewer(10)" value="&#9792;" title="move viewer position down" />
+<input type="button" id="StartStop" onClick="StartStop()" value="rotate" style="width:60" />
+<table noborder bgcolor=#404040><tr><td>
+<script language="JavaScript">
+if (useSVG) document.writeln("<embed width='500' height='500' name='Scene1' src='scene.svg' wmode='transparent' type='image/svg+xml' />");
+else document.writeln("<div id='Scene1' style='position: relative; width:500; height:500; overflow: hidden;'></div>");
+</script>
+</td></tr></table>
+</body>
+</html>

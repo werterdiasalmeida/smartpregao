@@ -1,0 +1,893 @@
+	
+@media screen{
+	div.div_rolagem{ overflow-x: auto; overflow-y: scroll; }
+}			
+TD
+{
+    FONT: 8pt Arial,verdana
+}
+BODY
+{
+    SCROLLBAR-FACE-COLOR: white;
+    FONT: 11pt Arial;
+    SCROLLBAR-HIGHLIGHT-COLOR: white;
+    SCROLLBAR-SHADOW-COLOR: #ccccff;
+    SCROLLBAR-ARROW-COLOR: #868dc6;
+    SCROLLBAR-TRACK-COLOR: #f5f5f5;
+    SCROLLBAR-DARKSHADOW-COLOR: #336699;
+    BACKGROUND-COLOR: white
+}
+FORM
+{
+margin:0px;
+}
+input,select {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:10px;
+}
+
+
+input.normal, input.text, input.password{
+    BORDER-RIGHT: #cccccc 1px solid;
+    BORDER-TOP: #cccccc 1px solid;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #000000 3px solid;
+    BORDER-BOTTOM: #cccccc 1px solid;
+    FONT-FAMILY: verdana;
+    BACKGROUND-COLOR: #ffffff;
+}
+
+input.erroInput{
+    FONT-SIZE: 10px;
+	BORDER: none;
+	BORDER-LEFT: #ff0000 3px solid;
+	COLOR: #404040;
+	FONT-FAMILY: verdana;
+	BACKGROUND-COLOR: #ffffff;
+}
+
+input.disabled{
+	FONT-SIZE: 10px;
+	BORDER: none;
+	BORDER-LEFT: #888888 3px solid;
+	COLOR: #404040;
+	FONT-FAMILY: verdana;
+	BACKGROUND-COLOR: #ffffff;
+}
+
+input.clsMouseOver{
+	BORDER-RIGHT: #000000 1px solid;
+    BORDER-TOP: #000000 1px solid;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #FF9900 3px solid;
+    BORDER-BOTTOM: #000000 1px solid;
+    FONT-FAMILY: verdana;
+	BACKGROUND-COLOR: #ffffff;
+}
+
+input.clsMouseFocus{
+	BORDER-RIGHT: #000000 1px solid;
+    BORDER-TOP: #000000 1px solid;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #FF9900 3px solid;
+    BORDER-BOTTOM: #000000 1px solid;
+    FONT-FAMILY: verdana;
+	BACKGROUND-COLOR: #ffffcc;
+}
+
+textarea, textarea.txareanormal{
+    BORDER-RIGHT: #cccccc 1px solid;
+    BORDER-TOP: #cccccc 1px solid;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #000000 3px solid;
+    BORDER-BOTTOM: #cccccc 1px solid;
+    FONT-FAMILY: verdana;
+    BACKGROUND-COLOR: #ffffff
+}
+
+textarea.txareaclsMouseOver{
+	BORDER-RIGHT: #000000 1px solid;
+    BORDER-TOP: #000000 1px solid;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #FF9900 3px solid;
+    BORDER-BOTTOM: #000000 1px solid;
+    FONT-FAMILY: verdana;
+	BACKGROUND-COLOR: #ffffff;
+}
+
+textarea.txareaclsMouseFocus{
+	BORDER-RIGHT: #000000 1px solid;
+    BORDER-TOP: #000000 1px solid;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #FF9900 3px solid;
+    BORDER-BOTTOM: #000000 1px solid;
+    FONT-FAMILY: verdana;
+	BACKGROUND-COLOR: #ffffcc;
+}
+
+
+.botao
+			{
+			FONT-FAMILY: Verdana;
+			HEIGHT: 20px;
+			FONT-SIZE: 8pt;
+    	    COLOR: #000000;
+			}
+
+A
+{
+	TEXT-DECORATION: none
+}
+A:active
+{
+    CURSOR: hand
+}
+A:hover
+{
+    CURSOR: hand;
+    COLOR: #0f55a9;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: transparent;
+    TEXT-DECORATION: underline
+}
+A:link
+{
+    CURSOR: hand;
+    COLOR: #0f55a9;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: transparent
+}
+.Caixa
+{
+    BORDER-RIGHT: black thin solid;
+    BORDER-TOP: black thin solid;
+    BORDER-LEFT: black thin solid;
+    BORDER-BOTTOM: black thin solid
+}
+.CaixaDupla
+{
+    BORDER-RIGHT: black double;
+    BORDER-TOP: black double;
+    BORDER-LEFT: black double;
+    BORDER-BOTTOM: black double;
+    HEIGHT: 28cm
+}
+.CampoEstilo
+{
+    BORDER-RIGHT: #888888 1px solid;
+    BORDER-TOP: #888888 1px solid;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: #000000 3px solid;
+    BORDER-BOTTOM: #888888 1px solid;
+    FONT-FAMILY: verdana;
+    BACKGROUND-COLOR: #FFFFFF
+}
+
+.SemBordaCimaBaixo
+{
+    BORDER-TOP: medium none;
+    BORDER-BOTTOM: medium none;
+}
+.SemBordaCimaBaixoDireita
+{
+    BORDER-TOP: medium none;
+    BORDER-BOTTOM: medium none;
+    BORDER-RIGHT: medium none;
+}
+.SemBorda
+{
+    BORDER: medium none;
+}
+
+.CampoSemBorda
+{
+    BORDER-RIGHT: medium none;
+    BORDER-TOP: medium none;
+    FONT-SIZE: 10px;
+    VERTICAL-ALIGN: middle;
+    BORDER-LEFT: medium none;
+    COLOR: blue;
+    BORDER-BOTTOM: medium none;
+    FONT-FAMILY: verdana;
+    BACKGROUND-COLOR: white;
+    FONT-WEIGHT: bold;
+}
+.CampoFoco
+{
+    BORDER-RIGHT: #000000 1px solid;
+    BORDER-TOP: #000000 1px solid;
+    FONT-SIZE: 10px;
+    BORDER-LEFT: #000000 1px solid;
+    BORDER-BOTTOM: #000000 1px solid;
+    FONT-FAMILY: verdana;
+    BACKGROUND-COLOR: #ffffff
+}
+.BotaoPadraoCinza
+{
+    BORDER-RIGHT: lightgrey thin outset;
+    BORDER-TOP: lightgrey thin outset;
+    FONT-SIZE: 9pt;
+    BORDER-LEFT: lightgrey thin outset;
+    CURSOR: hand;
+    BORDER-BOTTOM: lightgrey thin outset;
+    FONT-FAMILY: Tahoma, Arial, Helvetica;
+    BACKGROUND-COLOR: #e3e6e3
+}
+.formatoA4
+{
+    HEIGHT: 28cm
+}
+.Wizard
+{
+    BACKGROUND-POSITION: right bottom;
+    BACKGROUND-IMAGE: url(../images/bgWizard.gif);
+    BACKGROUND-REPEAT: no-repeat
+}
+.Tabela
+{
+    FONT-SIZE: xx-small;
+    BORDER-RIGHT: #cccccc 1px solid;
+    BORDER-TOP: #cccccc 1px solid;
+    BORDER-LEFT: #cccccc 1px solid;
+    BORDER-BOTTOM: #cccccc 1px solid;
+	TEXT-DECORATION: none;
+	WIDTH: 95%;
+	TEXT-COLOR: #000000;
+}
+
+.Tabela a
+{
+    color: #133368;
+	TEXT-DECORATION: none;
+}
+
+.Tabela a:hover
+{
+    color: #E47100;
+	TEXT-DECORATION: underline;
+}
+
+.SubTituloCentroAzul
+{
+    FONT-SIZE: xx-small;
+    COLOR: #304692;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: center
+}
+.SubTituloDireita
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    TEXT-ALIGN: right;
+	BACKGROUND-COLOR: #dcdcdc;
+}
+.SubTituloEsquerda
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #dcdcdc;
+    TEXT-ALIGN: left
+}
+.SubTituloJustificado
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: justify
+}
+.SubTituloCentro
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: center
+}
+.CampoEsquerda
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: left
+}
+.CampoEsquerdaHiLight
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: #c3d6e6;
+    TEXT-ALIGN: left
+}
+.CampoDireita
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: right
+}
+.CampoDireitaHiLight
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: #c3d6e6;
+    TEXT-ALIGN: right
+}
+.CampoJustificado
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: justify
+}
+.CampoJustificadoMenor
+{
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: justify
+}
+.CampoEsquerdaMenor
+{
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: left
+}
+.CampoDireitaMenor
+{
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial,Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: right
+}
+
+.CampoCentroMenor
+{
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: center
+}
+.SubTituloDireitaMenor
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: right
+}
+.SubTituloEsquerdaMenor
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: left
+}
+.SubTituloJustificadoMenor
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: justify
+}
+.SubTituloCentroMenor
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 7pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: center
+}
+
+.Titulo
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    COLOR: gray;
+    FONT-FAMILY: Tahoma;
+    BACKGROUND-COLOR: #f4faff;
+    TEXT-ALIGN: center
+}
+.CampoCentro
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: center
+}
+.CampoCentroNavy
+{
+    FONT-SIZE: 8pt;
+    COLOR: Navy;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: center
+}
+.CampoCentroRed
+{
+    FONT-SIZE: 8pt;
+    COLOR: Red;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: center
+}
+.CampoCentroHiLight
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: #c3d6e6;
+    TEXT-ALIGN: center
+}
+.TituloColunaTabela
+{
+    BORDER-RIGHT: black 1pt solid;
+    BORDER-TOP: black 1pt solid;
+    FONT-SIZE: 8pt;
+    BORDER-LEFT: black 1pt solid;
+    COLOR: black;
+    BORDER-BOTTOM: black 1pt solid;
+    FONT-FAMILY: Arial, Verdana;
+    TEXT-ALIGN: center
+}
+.TabelaBorda
+{
+    BORDER-RIGHT: black 1pt solid;
+    BORDER-TOP: black 1pt solid;
+    BORDER-LEFT: black 1pt solid;
+    BORDER-BOTTOM: black 1pt solid
+}
+.lin
+{
+    HEIGHT: 1pt;
+    BACKGROUND-COLOR: black
+}
+LEGEND
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    FONT-FAMILY: arial, Verdana
+}
+UNKNOWN
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #ffffff;
+    FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+.textoAzul1
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: xx-small;
+    COLOR: #0f55a9;
+    FONT-FAMILY: Arial, Verdana, Geneva, Helvetica, sans-serif;
+    TEXT-DECORATION: none
+}
+.textoAzul2
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #0f55a9;
+    FONT-FAMILY: Arial, Geneva, Verdana, Helvetica, sans-serif;
+    TEXT-DECORATION: none
+}
+.textoAzul3
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 15px;
+    COLOR: #0f55a9;
+    FONT-FAMILY: Arial, Geneva, Verdana, Helvetica, sans-serif;
+    TEXT-DECORATION: none
+}
+.TituloTela
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 11pt;
+    COLOR: black;
+    FONT-FAMILY: Tahoma, Arial;
+}
+.TituloAjuda
+{
+    FONT-SIZE: 10pt;
+    COLOR: red;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Tahoma;
+    TEXT-DECORATION: none
+}
+.textoVermelho
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11px;
+    COLOR: #ff0055;
+    FONT-FAMILY: Arial, Verdana;
+    TEXT-DECORATION: none
+}
+.CampoEsquerdaBold
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    VERTICAL-ALIGN: middle;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: left
+}
+.SubTituloTela
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11pt;
+    COLOR: #0f55a9;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Tahoma;
+    TEXT-DECORATION: none
+}
+.SubTituloTelaEsquerda
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 11pt;
+    COLOR: #0f55a9;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Tahoma;
+    BACKGROUND-COLOR: #f0f0f0;
+    TEXT-ALIGN: left;
+    TEXT-DECORATION: none
+}
+.LabelTela
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #0f55a9;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Verdana;
+    BACKGROUND-COLOR: white
+}
+.LabelTelaEsquerda
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #0f55a9;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: left
+}
+.LabelTelaDireita
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #0f55a9;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: right
+}
+.LabelTelaJustificado
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #0f55a9;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: justify;
+}
+.LabelTelaCentro
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #0f55a9;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: center;
+}
+.LabelTelaErro
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    WIDTH: 70%;
+    COLOR: red;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Verdana;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: left
+}
+.CabecalhoRelatorio
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12pt;
+    COLOR: black;
+    FONT-FAMILY: 'Trebuchet MS', Arial, Tahoma;
+    BACKGROUND-COLOR: white;
+    TEXT-ALIGN: left
+}
+.bordaBoleto
+{
+    BORDER-RIGHT: black 1pt;
+    BORDER-TOP: black 1pt solid;
+    BORDER-LEFT: black 1pt solid;
+    BORDER-BOTTOM: black 1pt
+}
+.TDBordaBoleto
+{
+    BORDER-RIGHT: black 1pt solid;
+    BORDER-TOP: black 1pt;
+    FONT-SIZE: 6pt;
+    BORDER-LEFT: black 1pt;
+    COLOR: black;
+    BORDER-BOTTOM: black 1pt solid;
+    FONT-FAMILY: Verdana
+}
+.lin
+{
+    BACKGROUND-COLOR: #0f55a9
+}
+.lic_hr
+{
+    BORDER-RIGHT: black 1pt;
+    BORDER-TOP: black 1pt solid;
+    BORDER-LEFT: black 1pt;
+    BORDER-BOTTOM: black 1pt;
+    BACKGROUND-COLOR: transparent
+}
+TABLE#tblCoolbar
+{
+    BORDER-RIGHT: buttonshadow 1px solid;
+    PADDING-RIGHT: 1px;
+    BORDER-TOP: buttonhighlight 1px solid;
+    PADDING-LEFT: 1px;
+    PADDING-BOTTOM: 1px;
+    BORDER-LEFT: buttonhighlight 1px solid;
+    COLOR: menutext;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: buttonshadow 1px solid;
+    BACKGROUND-COLOR: buttonface
+}
+TABLE#tblCoolbar TABLE
+{
+    BORDER-RIGHT: buttonface 1px solid;
+    PADDING-RIGHT: 1px;
+    BORDER-TOP: buttonface 1px solid;
+    PADDING-LEFT: 1px;
+    FONT-SIZE: 70%;
+    PADDING-BOTTOM: 1px;
+    BORDER-LEFT: buttonface 1px solid;
+    CURSOR: hand;
+    COLOR: menutext;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: buttonface 1px solid;
+    FONT-FAMILY: tahoma
+}
+.SeparadorCool
+{
+    WIDTH: 2pt
+}
+.ColunaCool
+{
+    BORDER-RIGHT: buttonhighlight 1pt solid;
+    BORDER-LEFT: buttonshadow 1pt solid;
+    HEIGHT: 16px
+}
+TABLE#tblMenuPopUp
+{
+    BORDER-RIGHT: buttonshadow 1px solid;
+    PADDING-RIGHT: 1px;
+    BORDER-TOP: buttonhighlight 1px solid;
+    PADDING-LEFT: 1px;
+    PADDING-BOTTOM: 1px;
+    BORDER-LEFT: buttonhighlight 1px solid;
+    COLOR: menutext;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: buttonshadow 1px solid;
+    BACKGROUND-COLOR: buttonface
+}
+TABLE#tblMenuPopUp TABLE
+{
+    BORDER-RIGHT: buttonface 1px solid;
+    PADDING-RIGHT: 1px;
+    BORDER-TOP: buttonface 1px solid;
+    PADDING-LEFT: 1px;
+    FONT-SIZE: 70%;
+    PADDING-BOTTOM: 1px;
+    BORDER-LEFT: buttonface 1px solid;
+    CURSOR: hand;
+    COLOR: menutext;
+    PADDING-TOP: 1px;
+    BORDER-BOTTOM: buttonface 1px solid;
+    FONT-FAMILY: tahoma
+}
+.FundoTitulo
+{
+    BACKGROUND-COLOR: #f0f0f0
+}
+.BotaoCoolBar
+{
+    BORDER-LEFT-COLOR: buttonshadow;
+    BORDER-BOTTOM-COLOR: buttonhighlight;
+    BORDER-TOP-COLOR: buttonshadow;
+    BACKGROUND-COLOR: window;
+    BORDER-RIGHT-COLOR: buttonhighlight
+}
+.LinkColuna
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    CURSOR: hand;
+    COLOR: black;
+    FONT-FAMILY: Arial, Verdana, Tahoma;
+    BACKGROUND-COLOR: transparent;
+    TEXT-DECORATION: none
+}
+.TituloAlerta
+{
+    FONT-SIZE: 11px;
+    FONT-FAMILY: 'Trebuchet MS', Arial;
+    BACKGROUND-COLOR: #fff6bb
+}
+.ConteudoAlerta
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: 'Trebuchet MS', Arial;
+    BACKGROUND-COLOR: #ebe6ec;
+    TEXT-ALIGN: justify
+}
+.BotaoTamanhofixo
+{
+    FONT-SIZE: 8pt;
+    OVERFLOW: scroll;
+    WIDTH: 85%;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana, Arial;
+    POSITION: relative;
+    HEIGHT: 20px;
+    TEXT-ALIGN: center
+}
+
+/* LiveSearch */
+.divcampoajax {
+	clear: both;
+}
+.LSResult {    
+	position: absolute;
+	min-width: 180px;
+	max-height: 100px;
+	width: 400px !important;
+	height: 150px !important;
+	margin: 0px 0px 2px 0px;
+	padding: 2px;
+	overflow: auto;
+	scroll: auto;
+	border: 1px solid #CCCCCC;  
+	background-color: #FFFFFF; 
+	text-align: left;
+}
+.LSResultInner {
+	overflow: visible;
+}
+
+table.lsLista {
+	font-size: 10px;
+	font-family:verdana,arial,helvetica,sans-serif;
+	padding: 2px;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+td.lsResultado {
+	width: 100%;
+	color: #000000;
+}
+
+td.lsResultado:hover {
+	cursor: pointer;
+	cursor: hand;
+	color: #000000;
+	background-color: #CCCCCC;
+}
+
+td.lsResultado_hover {
+	color: #FFFFFF;
+	background-color: #000099; 
+}
+td.lsResultado_hover:hover {
+	cursor: pointer;
+	cursor: hand;
+	color: #000000;
+	background-color: #CCCCCC;
+}
+
+/* Abas */
+div#abas{	
+	width: 95%;
+	margin:10px 0 0 0;
+	position:relative;
+	left:2.5%;
+	border-left:1px solid #ccc;
+	display: block;
+	z-index: 0;
+}
+html>body div#abas{width:94.85%;}
+div#abas div{
+	clear:both;
+	
+	text-align:left;
+	border-collapse:collapse;
+}
+div#abas div.conteudoAba{
+	text-align:center;
+	padding-top:30px;
+	padding-bottom:10px;
+	border-bottom:1px solid #ccc;
+	border-right:1px solid #ccc;
+	background:#f5f5f5;
+}
+.abaMenu {
+	width: 100%;
+}
+div#abas ul#listaAbas{
+	margin:0;
+	padding:0;
+	display:block;
+	height:21px;
+	border-bottom:1px solid #ccc;
+	list-style:none;
+}
+li.abaItemMenu {
+	border-top:1px solid #ccc;
+	float: left;
+	width: 100px;
+	height: 17px;
+	text-align:center;
+	border-right:1px solid #ccc;
+	background-color: #dcdcdc;
+	padding: 3px 0 0 0;
+}
+
+div#avisochat{ 
+	position: fixed;
+	_position: absolute;
+	bottom:30px;
+	margin: 0;
+	filter: alpha(opacity=80);
+	opacity: .8
+}
+
+/*
+li.abaItemMenu a{
+	display:block;
+	padding:3px 0 0 0;
+	color:#000;
+}
+
+li.abaItemMenu a:link, li.abaItemMenu a:visited{
+	color:#0063A5;
+	text-decoration:none;
+}
+li.abaItemMenu a:hover, li.abaItemMenu a:active{
+	color:#E47100;
+	text-decoration:underline;
+}
+*/
+/* Fim Abas */
+
+@media print {.notprint { display: none }}
+@media screen {.notscreen { display: none }}

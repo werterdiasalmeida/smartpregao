@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>DIY Map</title>
+</head>
+<body style="font-family:verdana;color:#999;">
+
+<script type="text/javascript" src="js/JavaScriptFlashGateway.js"></script>
+<script type="text/javascript" src="js/Exception.js"></script>
+<script type="text/javascript" src="js/FlashTag.js"></script>
+<script type="text/javascript" src="js/FlashSerializer.js"></script>
+<script type="text/javascript" src="js/FlashProxy.js"></script>
+
+<script type="text/javascript">
+	var uid = new Date().getTime();
+	var flashProxy = new FlashProxy(uid, 'js/JavaScriptFlashGateway.swf');
+    var tag = new FlashTag('../brazil.swf?data_file=../data.xml', 600, 325);
+    tag.setFlashvars('lcId='+uid);
+    tag.write(document);
+</script>
+
+
+<p><a href="javascript:flashProxy.call('zoomOut');">Zoom Out</a>
+&nbsp; | &nbsp; 
+<select onchange="javascript:flashProxy.call('zoomTo', this.options[this.selectedIndex].value)">
+<option value="">Zoom to State:</option>
+<option value="AC">Acre</option>
+<option value="AL">Alagoas</option>
+<option value="AP">Amap&#225;</option>
+<option value="AM">Amazonas</option>
+<option value="AMPA">Amazonas / Para</option>
+<option value="BA">Bahia</option>
+<option value="CE">Cear&#225;</option>
+<option value="CEPI">Cear&#225; / Piaui</option>
+<option value="DF">Distrito Federal</option>
+<option value="ES">Esp&#237;rito Santo</option>
+<option value="GO">Goi&#225;s</option>
+<option value="MA">Maranh&#227;o</option>
+<option value="MT">Mato Grosso</option>
+<option value="MS">Mato Grosso do Sul</option>
+<option value="MG">Minas Gerais</option>
+<option value="PA">Par&#225;</option>
+<option value="PB">Para&#237;ba</option>
+<option value="PR">Paran&#225;</option>
+<option value="PE">Pernambuco</option>
+<option value="PI">Piau&#237;</option>
+<option value="RJ">Rio de Janeiro</option>
+<option value="RN">Rio Grande do Norte</option>
+<option value="RS">Rio Grande do Sul</option>
+<option value="RO">Rond&#244;nia</option>
+<option value="RR">Roraima</option>
+<option value="SC">Santa Catarina</option>
+<option value="SP">S&#227;o Paulo</option>
+<option value="SE">Sergipe</option>
+<option value="TO">Tocantins</option>
+</select>
+
+&nbsp; | &nbsp; 
+
+<select onchange="javascript:flashProxy.call('zoomPoint', this.options[this.selectedIndex].value)">
+<option value="">Zoom to City:</option>
+<option value="Belem">Belem</option>
+<option value="Brasilia">Brasilia</option>
+<option value="Manaus">Manaus</option>
+<option value="Natal">Natal</option>
+<option value="Porto Alegre">Porto Alegre</option>
+<option value="Recife">Recife</option>
+<option value="Rio de Janeiro">Rio de Janeiro</option>
+<option value="São Paulo">São Paulo</option>
+</select>
+
+</p>
+
+
+<p style="font-family:sans;font-size:small;"><a href="http://backspace.com/mapapp/">Powered by DIY Map</a></p>
+
+</body>
+</html>

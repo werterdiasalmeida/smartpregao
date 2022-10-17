@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memed JS</title>
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+          type="text/css"/>
+
+    <style type="text/css">
+        .text{
+            width: 90% !important;
+            height: 300px !important;
+        }
+
+        #detalhes li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <textarea class="text memed-autocomplete"></textarea>
+    <script type="text/javascript" src="//memed.com.br/modulos/plataforma.sinapse/build/sinapse.min.js"
+            data-api-key="$2y$10$r75QRT0YCGXn3QI8qdL/w.YL3B0GWk7Fn1BCYLD071CF7tdlGaWOm" data-usuario="-1" data-cidade="Brasília" data-nascimento="30/12/1900"
+            data-especialidade="Dermatologia" data-estado="DF" data-sexo="M" data-profissao="Médico"
+            data-width="90%" data-font="Open Sans" data-color="#0A6FFF"></script>
+
+    <ul id="detalhes">
+
+    </ul>
+
+    <a href="https://github.com/MemedDev/sinapse" target="_blank">Doc</a>
+    <script type="text/javascript">
+        MdSinapse.event.add('medicamentoAdicionado', function (medicamento) {
+            console.log(medicamento);
+            document.querySelector('#detalhes').innerHTML += '<li>' + JSON.stringify(medicamento) + '</li>';
+        });
+    </script>
+</body>
+</html>

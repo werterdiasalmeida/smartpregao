@@ -1,0 +1,140 @@
+div#divItem
+			{
+		/*	border: 3px solid #B2B2B2;*/
+		/*	background-color: Aqua;*/
+			/******************* scrollbar */
+			SCROLLBAR-FACE-COLOR: #EFEBEF;
+			SCROLLBAR-HIGHLIGHT-COLOR: HighlightText;
+			SCROLLBAR-SHADOW-COLOR: #EFEBEF;
+			SCROLLBAR-3DLIGHT-COLOR: #D8D5D8;
+			SCROLLBAR-ARROW-COLOR: #C6C3C6;
+			SCROLLBAR-TRACK-COLOR: #D8D5D8;
+			SCROLLBAR-DARKSHADOW-COLOR: #C6C3C6;
+			}
+
+TABLE.listagem
+			{
+			font-size: 11px;
+			padding: 3px;
+			/*text-align: center;*/
+			/*width: 98%;*/
+			border-top: 2px solid #404040;
+			border-bottom: 3px solid #dfdfdf;
+			/*table-layout: fixed;*/
+			border-collapse: collapse;
+			}
+	
+TABLE.listagem P
+			{
+			font-size: 11px;
+			margin: 0px;
+			padding: 3px;
+		/*	text-align: center;*/
+			}
+	
+TABLE.listagem P.marcado
+			{
+			color: #D90000;
+			}
+
+TABLE.listagem IMG
+			{
+			margin-left: 0px;
+			}
+	
+		
+TABLE.listagem THEAD
+			{
+			background-color: #E3E3E3;
+			}
+		
+TABLE.listagem THEAD P
+			{
+			color: #6A6A6A;
+			}
+
+TABLE.listagem THEAD P B
+			{
+			color: #D90000;
+			}
+	
+TABLE.listagem THEAD TD
+			{
+			border-right: 1px solid white;
+			padding: 2px;
+			padding-left: 3px;
+			}
+	
+	
+TABLE.listagem THEAD TD.order
+			{
+			background-color: #133368;
+			border-right: 1px solid #ff9000;
+			}
+
+TABLE.listagem THEAD TD A, 
+TABLE.listagem THEAD TD A:visited
+			{
+			color: #6A6A6A;
+			}
+
+TABLE.listagem THEAD TD A:hover
+			{
+			color: red;
+			}
+
+TABLE.listagem THEAD TD.order A
+			{
+			color: white;
+			}
+
+TABLE.listagem THEAD TD.order A:visited
+			{
+			color: #BFBFBF;
+			}
+
+	
+TABLE.listagem TBODY TD
+			{
+			border-right: 1px solid #f1f1f1;
+			border-left: 1px solid white;
+			border-collapse: collapse;
+			border: 1px solid #ffffff;
+			}
+
+TABLE.listagem TBODY TD P A
+			{
+			color: #133368;
+			}
+
+TABLE.listagem TBODY TD A:visited
+			{
+			color: black;
+			}
+
+TABLE.listagem TBODY TD A:hover, 
+TABLE.listagem TBODY TD A:visited:hover
+			{
+			color: #E47100;
+			}
+
+TABLE.listagem TBODY TD P A.alerta, 
+TABLE.listagem TBODY TD P A.alerta:visited
+			{
+			color: #E47100;
+			font-weight: bold;
+			}
+
+TABLE.listagem TBODY TD P A.alerta:hover, 
+TABLE.listagem TBODY TD P A.alerta:visited:hover
+			{
+			color: black;
+			font-weight: bold;
+			text-decoration: none;
+			}
+
+TABLE.listagem TBODY TR.marcado
+			{
+			background-color: #f5f5f5;
+			}
+

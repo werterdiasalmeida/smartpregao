@@ -1,0 +1,452 @@
+<html xmlns:v ="urn:schemas-microsoft-com:vml">
+<head>
+<title>SVG-VML-3D-Example - Rubik's Cube</title>
+<style>
+v\:* { behavior: url(#default#VML); }
+input { background-color:#c0c0ff; width:28; height:28; font-family:'Times New Roman'; font-size:14pt; }
+tr { height:30px; }
+td { width:30px; }
+</style>
+<script src="svgvml3d.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script src="colorbox3d.js" LANGUAGE="JavaScript" TYPE="text/javascript"></script>
+<script>
+
+var i, j, k, n, S, X0Col, Y0Col, Z0Col, X1Col, Y1Col, Z1Col, isRotating=false;
+var MoveCount=0, MaxMoveCount=0, ScrambleMove=9999, StartTime, EndTime;
+History=new Array(3);
+for (i=0; i<3; i++) History[i]=new Array();
+ColCube=new Array(3);
+for (i=0; i<3; i++) ColCube[i]=new Array(3);
+for (i=0; i<3; i++)
+{ for (j=0; j<3; j++) 
+    ColCube[i][j]=new Array(3);
+}
+CB=new Array(27);
+TempSum=new Array(6);
+
+//useSVG=true;//you can also change this by hand
+function Init()
+{ if (useSVG)
+  { if (! SVGObjects[0])
+    { setTimeout("Init()",100);
+      return;
+    }  
+    S=new Scene3D(SVGObjects[0],0,270,270);
+  }
+  else S=new Scene3D(document.getElementById("Scene1"),1);
+  n=0;
+  for (i=0; i<3; i++)
+  { for (j=0; j<3; j++) 
+    { for (k=0; k<3; k++)
+      { X0Col="#000000";
+        Y0Col="#000000";
+        Z0Col="#000000";
+        X1Col="#000000";
+        Y1Col="#000000";
+        Z1Col="#000000";
+        if (i==0) X0Col="#ff8800";
+        if (j==0) Y0Col="#00ff00";
+        if (k==0) Z0Col="#ffffff";
+        if (i==2) X1Col="#ff0000";
+        if (j==2) Y1Col="#0000ff";
+        if (k==2) Z1Col="#ffff00";
+        ColCube[i][j][k]=n;
+        CB[n]=new ColorBox3D(S,i-1.5,j-1.5,k-1.5,i-0.5,j-0.5,k-0.5,X0Col,Y0Col,Z0Col,X1Col,Y1Col,Z1Col,"#333333",2);    
+        n++;
+      }
+    }
+  }
+  S.AutoCenter();
+  S.Dist*=1.8;
+  S.ZoomAll*=1.1;
+  S.ChangeViewer(-15,-22.5);
+  S.ChangeLight(-15,-22.5);
+  S.DiffuseLight=0.7;
+  S.Sort();
+  S.Draw();
+}
+function New()
+{ if (isRotating) return;
+  n=0;
+  for (i=0; i<3; i++)
+  { for (j=0; j<3; j++) 
+    { for (k=0; k<3; k++)
+      { ColCube[i][j][k]=n;
+        CB[n].SetPosition(i-1.5,j-1.5,k-1.5,i-0.5,j-0.5,k-0.5);    
+        n++;
+      }
+    }
+  }    
+  S.Th=0.0; 
+  S.Fi=0.0;
+  S.ThLight=0.0; 
+  S.FiLight=0.0;
+  S.ChangeViewer(-15,-22.5);
+  S.ChangeLight(-15,-22.5);
+  S.Sort();
+  S.Draw();
+  MoveCount=0;
+  MaxMoveCount=0;
+  ScrambleMove=9999;
+  document.forms[0].MC.value=MoveCount;  
+}
+function MoveBack()
+{ if (isRotating) return;
+  if (MoveCount==0) return;
+  if (MoveCount==ScrambleMove)
+  { if (! confirm("You are cheating !")) return;
+    else ScrambleMove=9999;
+  }
+  MoveCount--;
+  document.forms[0].MC.value=MoveCount;
+  if (History[0][MoveCount]=="V")
+    ChangeViewer(-History[1][MoveCount],-History[2][MoveCount], 0);
+  else
+    RotateClick(History[0][MoveCount],History[1][MoveCount],-History[2][MoveCount], 0);
+}
+function MoveForward()
+{ if (isRotating) return;
+  if (MoveCount==MaxMoveCount) return;
+  if (History[0][MoveCount]=="V")
+    ChangeViewer(History[1][MoveCount],History[2][MoveCount], 0);
+  else
+    RotateClick(History[0][MoveCount],History[1][MoveCount],History[2][MoveCount], 0);
+  MoveCount++;
+  document.forms[0].MC.value=MoveCount;  
+}
+function ChangeViewer(ttheta, ffi, bb)
+{ if (isRotating) return;
+  if ((S.Th+ttheta>60)||(S.Th+ttheta<-60)) return;
+  if (bb>0)
+  { if (History[0][MoveCount]!="V")
+    { History[0][MoveCount]="V"; MaxMoveCount=MoveCount+1; }
+    if (History[1][MoveCount]!=ttheta)
+    { History[1][MoveCount]=ttheta; MaxMoveCount=MoveCount+1; }
+    if (History[2][MoveCount]!=ffi)
+    { History[2][MoveCount]=ffi; MaxMoveCount=MoveCount+1; }
+    MoveCount++;
+    document.forms[0].MC.value=MoveCount;
+  }    
+  S.ChangeViewer(ttheta, ffi);
+  S.ChangeLight(ttheta, ffi);
+  if (bb<2)
+  { S.Sort();
+    S.Draw();
+  }
+}
+function random(nn)
+{ return(Math.floor(Math.random()*1000)%nn);
+}
+function Scramble()
+{ var ii, aa, pp, dd, nn=document.forms[0].ScrambleMoves.options[document.forms[0].ScrambleMoves.selectedIndex].value;
+  for (ii=1; ii<=nn; ii++)
+  { if (ii%2==0)
+    { if (random(2)==0) ChangeViewer(0, 45, 2);
+      else ChangeViewer(0, -45, 2);     
+    }
+    else
+    { aa=random(3);
+      if (aa==0) aa="X";
+      if (aa==1) aa="Y";
+      if (aa==2) aa="Z";
+      if (aa=="X") pp=2;
+      else pp=random(3);
+      dd=random(2)*2-1;
+      RotateClick(aa,pp,dd,2);
+    }
+  }
+  S.Sort();
+  S.Draw();
+  ScrambleMove=MoveCount;
+  Now = new Date();
+  StartTime = Now.getTime() / 1000;
+}
+function RotateClick(aAxis,aPlane,aDir,bb)
+{ if (isRotating) return;
+  if (bb>0)
+  { if (History[0][MoveCount]!=aAxis)
+    { History[0][MoveCount]=aAxis; MaxMoveCount=MoveCount+1; }
+    if (History[1][MoveCount]!=aPlane)
+    { History[1][MoveCount]=aPlane; MaxMoveCount=MoveCount+1; }
+    if (History[2][MoveCount]!=aDir)
+    { History[2][MoveCount]=aDir; MaxMoveCount=MoveCount+1; }
+    MoveCount++;
+    document.forms[0].MC.value=MoveCount;  
+  }
+  var ss=0;
+  if (bb==2) ss=1;
+  if (aAxis=="Z")
+  { Rotate("Z",aPlane,aDir,0,ss);
+    return;
+  }
+  if ((S.Fi>325)||(S.Fi<45))
+  { Rotate(aAxis,aPlane,aDir,0,ss);
+    return;
+  } 
+  if (S.Fi<135)
+  { if (aAxis=="X")
+      Rotate("Y",2-aPlane,-aDir,0,ss);
+    if (aAxis=="Y")
+      Rotate("X",aPlane,aDir,0,ss);  
+    return;
+  }
+  if (S.Fi<225)
+  { Rotate(aAxis,2-aPlane,-aDir,0,ss);
+    return;
+  }  
+  if (aAxis=="X")
+    Rotate("Y",aPlane,aDir,0,ss);
+  if (aAxis=="Y")
+    Rotate("X",2-aPlane,-aDir,0,ss);  
+}
+function Rotate(aAxis,aPlane,aDir,nn,ss)
+{ isRotating=true;
+  var ii, jj, kk, mm=nn+1;
+  if (aAxis=="X")
+  { for (jj=0; jj<3; jj++)
+    { for (kk=0; kk<3; kk++)
+        CB[ColCube[aPlane][jj][kk]].RotateX(22.5*(3*ss+1)*aDir,0);     
+    }
+  }
+  if (aAxis=="Y")
+  { for (ii=0; ii<3; ii++)
+    { for (kk=0; kk<3; kk++)
+        CB[ColCube[ii][aPlane][kk]].RotateY(22.5*(3*ss+1)*aDir,0);     
+    }
+  }
+  if (aAxis=="Z")
+  { for (ii=0; ii<3; ii++)
+    { for (jj=0; jj<3; jj++) 
+        CB[ColCube[ii][jj][aPlane]].RotateZ(22.5*(3*ss+1)*aDir,0);
+    }
+  }  
+  if (ss==0)
+  { if (aAxis=="X") S.OrderWeight.x=3;
+    if (aAxis=="Y") S.OrderWeight.y=3;
+    if (aAxis=="Z") S.OrderWeight.z=3;
+    S.Sort();
+    if (aAxis=="X") S.OrderWeight.x=1;
+    if (aAxis=="Y") S.OrderWeight.y=1;
+    if (aAxis=="Z") S.OrderWeight.z=1;
+    S.Draw();
+    if (mm<4)
+    { setTimeout("Rotate('"+aAxis+"',"+aPlane+","+aDir+","+mm+","+ss+")",100);
+      return;
+    }
+  }
+  isRotating=false;
+  if (aAxis=="X")
+  { if (aDir>0)
+    { m=ColCube[aPlane][0][0]; 
+      ColCube[aPlane][0][0]=ColCube[aPlane][0][2];
+      ColCube[aPlane][0][2]=ColCube[aPlane][2][2];
+      ColCube[aPlane][2][2]=ColCube[aPlane][2][0];
+      ColCube[aPlane][2][0]=m;
+      m=ColCube[aPlane][0][1]; 
+      ColCube[aPlane][0][1]=ColCube[aPlane][1][2];
+      ColCube[aPlane][1][2]=ColCube[aPlane][2][1];
+      ColCube[aPlane][2][1]=ColCube[aPlane][1][0];
+      ColCube[aPlane][1][0]=m;
+    }
+    else
+    { m=ColCube[aPlane][0][0]; 
+      ColCube[aPlane][0][0]=ColCube[aPlane][2][0];
+      ColCube[aPlane][2][0]=ColCube[aPlane][2][2];
+      ColCube[aPlane][2][2]=ColCube[aPlane][0][2];
+      ColCube[aPlane][0][2]=m;
+      m=ColCube[aPlane][1][0]; 
+      ColCube[aPlane][1][0]=ColCube[aPlane][2][1];
+      ColCube[aPlane][2][1]=ColCube[aPlane][1][2];
+      ColCube[aPlane][1][2]=ColCube[aPlane][0][1];
+      ColCube[aPlane][0][1]=m;
+    }      
+  } 
+  if (aAxis=="Y")
+  { if (aDir<0)
+    { m=ColCube[0][aPlane][0]; 
+      ColCube[0][aPlane][0]=ColCube[0][aPlane][2];
+      ColCube[0][aPlane][2]=ColCube[2][aPlane][2];
+      ColCube[2][aPlane][2]=ColCube[2][aPlane][0];
+      ColCube[2][aPlane][0]=m;
+      m=ColCube[0][aPlane][1]; 
+      ColCube[0][aPlane][1]=ColCube[1][aPlane][2];
+      ColCube[1][aPlane][2]=ColCube[2][aPlane][1];
+      ColCube[2][aPlane][1]=ColCube[1][aPlane][0];
+      ColCube[1][aPlane][0]=m;
+    }
+    else
+    { m=ColCube[0][aPlane][0]; 
+      ColCube[0][aPlane][0]=ColCube[2][aPlane][0];
+      ColCube[2][aPlane][0]=ColCube[2][aPlane][2];
+      ColCube[2][aPlane][2]=ColCube[0][aPlane][2];
+      ColCube[0][aPlane][2]=m;
+      m=ColCube[1][aPlane][0]; 
+      ColCube[1][aPlane][0]=ColCube[2][aPlane][1];
+      ColCube[2][aPlane][1]=ColCube[1][aPlane][2];
+      ColCube[1][aPlane][2]=ColCube[0][aPlane][1];
+      ColCube[0][aPlane][1]=m;
+    }      
+  } 
+  if (aAxis=="Z")
+  { if (aDir>0)
+    { m=ColCube[0][0][aPlane]; 
+      ColCube[0][0][aPlane]=ColCube[0][2][aPlane];
+      ColCube[0][2][aPlane]=ColCube[2][2][aPlane];
+      ColCube[2][2][aPlane]=ColCube[2][0][aPlane];
+      ColCube[2][0][aPlane]=m;
+      m=ColCube[0][1][aPlane]; 
+      ColCube[0][1][aPlane]=ColCube[1][2][aPlane];
+      ColCube[1][2][aPlane]=ColCube[2][1][aPlane];
+      ColCube[2][1][aPlane]=ColCube[1][0][aPlane];
+      ColCube[1][0][aPlane]=m;
+    }
+    else
+    { m=ColCube[0][0][aPlane]; 
+      ColCube[0][0][aPlane]=ColCube[2][0][aPlane];
+      ColCube[2][0][aPlane]=ColCube[2][2][aPlane];
+      ColCube[2][2][aPlane]=ColCube[0][2][aPlane];
+      ColCube[0][2][aPlane]=m;
+      m=ColCube[1][0][aPlane]; 
+      ColCube[1][0][aPlane]=ColCube[2][1][aPlane];
+      ColCube[2][1][aPlane]=ColCube[1][2][aPlane];
+      ColCube[1][2][aPlane]=ColCube[0][1][aPlane];
+      ColCube[0][1][aPlane]=m;
+    }      
+  } 
+  if (ss==0) CheckSolved();
+}
+function CheckSolved()
+{ if (MoveCount<=ScrambleMove) return;
+  for (i=0; i<6; i++) TempSum[i]=0;
+  for (i=0; i<3; i++)
+  { for (j=0; j<3; j++) 
+    { TempSum[0]+=ColCube[i][j][0];
+      TempSum[1]+=ColCube[i][j][2];
+      TempSum[2]+=ColCube[i][0][j];
+      TempSum[3]+=ColCube[i][2][j];
+      TempSum[4]+=ColCube[0][i][j];
+      TempSum[5]+=ColCube[2][i][j];
+    }
+  }
+  if (TempSum[0]!=9*ColCube[1][1][0]) return;
+  if (TempSum[1]!=9*ColCube[1][1][2]) return;
+  if (TempSum[2]!=9*ColCube[1][0][1]) return;
+  if (TempSum[3]!=9*ColCube[1][2][1]) return;
+  if (TempSum[4]!=9*ColCube[0][1][1]) return;
+  if (TempSum[5]!=9*ColCube[2][1][1]) return;
+  ScrambleMove=9999;
+  Now = new Date();
+  EndTime = Now.getTime() / 1000;
+  alert("Super, you solved the cube in "+Math.floor(EndTime - StartTime)+ " seconds !");
+}
+onload=Init;
+</script>
+</head>
+<body bgcolor=#888888>
+<form>
+<table noborder cellpadding=0 cellspacing=0>
+<tr><td>
+<table noborder cellpadding=0 cellspacing=0>
+<tr><td><input value="0" name="MC" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><input type="button" onClick="RotateClick('Y',0,-1,1)" value="&#8593;" title="rotate left plane of rubiks cube to the top" /></td>
+    <td>&nbsp;</td>
+    <td><input type="button" onClick="RotateClick('Y',1,-1,1)" value="&#8593;" title="rotate middle plane of rubiks cube to the top" /></td>
+    <td>&nbsp;</td>
+    <td><input type="button" onClick="RotateClick('Y',2,-1,1)" value="&#8593;" title="rotate right plane of rubiks cube to the top" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>
+<tr><td>&nbsp;</td>
+    <td colspan=9 rowspan=9>
+<script language="JavaScript">
+if (useSVG) document.writeln("<embed width='270' height='270' name='Scene1' src='scene.svg' wmode='transparent' type='image/svg+xml' />");
+else document.writeln("<div id='Scene1' style='position: relative; width:270; height:270; overflow: hidden;'></div>");
+</script>
+     </td>
+     <td>&nbsp;</td>
+</tr>
+<tr><td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr> 
+<tr><td><input type="button" onClick="RotateClick('Z',2,-1,1)" value="&#8592;" title="rotate top plane of rubiks cube to the left" /></td>
+    <td><input type="button" onClick="RotateClick('Z',2,1,1)" value="&#8594;" title="rotate top plane of rubiks cube to the right" /></td>
+</tr>  
+<tr><td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr> 
+<tr><td><input type="button" onClick="RotateClick('Z',1,-1,1)" value="&#8592;" title="rotate middle plane of rubiks cube to the left" /></td>
+    <td><input type="button" onClick="RotateClick('Z',1,1,1)" value="&#8594;" title="rotate middle plane of rubiks cube to the right" /></td>
+</tr>  
+<tr><td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr> 
+<tr><td><input type="button" onClick="RotateClick('Z',0,-1,1)" value="&#8592;" title="rotate bottom plane of rubiks cube to the left" /></td>
+    <td><input type="button" onClick="RotateClick('Z',0,1,1)" value="&#8594;" title="rotate bottom plane of rubiks cube to the right" /></td>
+</tr> 
+<tr><td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr> 
+<tr><td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr> 
+<tr><td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><input type="button" onClick="RotateClick('Y',0,1,1)" value="&#8595;" title="rotate left plane of rubiks cube to the bottom" /></td>
+    <td>&nbsp;</td>
+    <td><input type="button" onClick="RotateClick('Y',1,1,1)" value="&#8595;" title="rotate middle plane of rubiks cube to the bottom" /></td>
+    <td>&nbsp;</td>
+    <td><input type="button" onClick="RotateClick('Y',2,1,1)" value="&#8595;" title="rotate right plane of rubiks cube to the bottom" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+</tr>   
+</table>
+</td>
+<td valign=top>
+<table noborder cellpadding=0 cellspacing=0>
+<tr>
+<td><input type="button" onClick="ChangeViewer(0,-45,1)" value="&#9668;" title="turn rubiks cube to the left" /></td>
+<td><input type="button" onClick="ChangeViewer(30,0,1)" value="&#9650;" title="turn rubiks cube up" /></td>
+<td><input type="button" onClick="ChangeViewer(-30,0,1)" value="&#9660;" title="turn rubiks cube down" /></td>
+<td><input type="button" onClick="ChangeViewer(0,45,1)" value="&#9658;" title="turn rubiks cube to the right" /></td>
+</tr>
+<tr><td colspan=4>&nbsp;</td></tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="button" onClick="RotateClick('X',2,1,1)" value="(-)" title="rotate front plane of rubiks cube to the left" /></td>
+<td><input type="button" onClick="RotateClick('X',2,-1,1)" value="(+)" title="rotate front plane of rubiks cube to the right" /></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td colspan=4>&nbsp;</td></tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="button" onClick="MoveBack()" value="&#171;" title="one move back" /></td>
+<td><input type="button" onClick="MoveForward()" value="&#187;" title="one move forward" /></td>
+<td>&nbsp;</td>
+</tr>
+<tr><td colspan=4>&nbsp;</td></tr>
+<tr><td>&nbsp;</td>
+<td colspan=3><input type="button" onClick="Scramble()" value="scramble" style="width:76" /><select name="ScrambleMoves"  style="width:76" />
+<option value=3>2 turns
+<option value=5>3 turns
+<option value=7>4 turns
+<option value=9>5 turns
+<option value=11>6 turns
+<option value=13>7 turns
+<option value=15>8 turns
+<option value=17>9 turns
+</select>
+</td></tr>
+<tr><td colspan=4>&nbsp;</td></tr>
+<tr><td>&nbsp;</td>
+<td colspan=3><input type="button" onClick="New()" value="new" style="width:76" /></td>
+</tr>
+</table>
+</td></tr></table>
+</form>
+</body>
+</html>

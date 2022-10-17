@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<countrydata>
+<state id="outline_color">
+	<color>003300</color>
+</state>
+
+<state id="default_point">
+	<color>ff9900</color>
+	<size>5</size>
+</state>
+<state id="default_color">
+	<color>339933</color>
+</state>
+<state id="background_color">
+	<color>cceeff</color>
+</state>
+
+<state id="point">
+	<name>Belem</name>
+	<loc>-1.38330,-48.48330</loc>
+</state>
+<state id="point">
+	<name>Brasilia</name>
+	<loc>-15.86670,-47.91670</loc>
+</state>
+<state id="point">
+	<name>Manaus</name>
+	<loc>-3.03330,-60.05000</loc>
+</state>
+<state id="point">
+	<name>Natal</name>
+	<loc>-5.30000,-35.80000</loc>
+</state>
+<state id="point">
+	<name>Porto Alegre</name>
+	<loc>-30.03333,-51.2</loc>
+</state>
+<state id="point">
+	<name>Recife</name>
+	<loc>-8.13300,-34.93300</loc>
+</state>
+<state id="point">
+	<name>São Paulo</name>
+	<loc>-23.56660,-46.63320</loc>
+</state>
+<state id="point">
+	<name>Rio de Janeiro</name>
+	<loc>-22.45000,-42.71700</loc>
+</state>
+
+
+<state id="AC">
+	<name>Acre</name>
+</state>
+<state id="AL">
+	<name>Alagoas</name>
+</state>
+<state id="AP">
+	<name>Amapá</name>
+</state>
+<state id="AM">
+	<name>Amazonas</name>
+</state>
+<state id="AMPA">
+	<name>Amazonas / Para</name>
+</state>
+<state id="BA">
+	<name>Bahia</name>
+</state>
+<state id="CE">
+	<name>Ceará</name>
+</state>
+<state id="CEPI">
+	<name>Ceará / Piaui</name>
+</state>
+<state id="DF">
+	<name>Distrito Federal</name>
+</state>
+<state id="ES">
+	<name>Espírito Santo</name>
+</state>
+<state id="GO">
+	<name>Goiás</name>
+</state>
+<state id="MA">
+	<name>Maranhão</name>
+</state>
+<state id="MT">
+	<name>Mato Grosso</name>
+</state>
+<state id="MS">
+	<name>Mato Grosso do Sul</name>
+</state>
+<state id="MG">
+	<name>Minas Gerais</name>
+</state>
+<state id="PA">
+	<name>Pará</name>
+</state>
+<state id="PB">
+	<name>Paraíba</name>
+</state>
+<state id="PR">
+	<name>Paraná</name>
+</state>
+<state id="PE">
+	<name>Pernambuco</name>
+</state>
+<state id="PI">
+	<name>Piauí</name>
+</state>
+<state id="RJ">
+	<name>Rio de Janeiro</name>
+</state>
+<state id="RN">
+	<name>Rio Grande do Norte</name>
+</state>
+<state id="RS">
+	<name>Rio Grande do Sul</name>
+</state>
+<state id="RO">
+	<name>Rondônia</name>
+</state>
+<state id="RR">
+	<name>Roraima</name>
+</state>
+<state id="SC">
+	<name>Santa Catarina</name>
+</state>
+<state id="SP">
+	<name>São Paulo</name>
+</state>
+<state id="SE">
+	<name>Sergipe</name>
+</state>
+<state id="TO">
+	<name>Tocantins</name>
+</state>
+</countrydata>

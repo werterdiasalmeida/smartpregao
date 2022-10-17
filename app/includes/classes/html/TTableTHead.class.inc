@@ -1,0 +1,19 @@
+<?php
+/**
+ * classe TTableTHead
+ * Reponsável pela exibição de uma célula de uma tabela
+ */
+class TTableTHead extends TElement
+{
+    /**
+     * método construtor
+     * Instancia uma nova célula
+     * @param  $value = conteúdo da célula
+     */
+    public function __construct($value)
+    {
+        parent::__construct('thead');
+        parent::add($value);
+    }
+
+}

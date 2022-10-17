@@ -1,0 +1,282 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background:#6e6d69 url(../img/bg.jpg) repeat-x top left;
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#2e2e2e;
+}
+html { overflow: -moz-scrollbars-vertical}
+
+a { outline:0; }
+
+#main{
+	/*background:url(../img/bg_top.jpg) top repeat-x;*/
+	width:100%;
+	margin:0;
+}
+.td_bg{
+	color:#fff;
+	height:25px;
+	font-weight:bold;
+	font-size:14px;
+	font-family:verdana;
+	background:url(../img/td_bg.jpg) repeat-x top;
+}
+.td_table_inicio{
+	height:32px;
+	padding-left:25px;
+	border-bottom:1px dotted #ababab;
+}
+.td_line{
+	border-bottom:1px dotted #ababab;
+
+}
+.tabela_modulos{
+	border:1px solid #FFF;
+	background:#FFF;
+	margin:5px 20px 10px 15px;
+	font-size: 12px;
+}
+.txt_azul_bold{
+	color:#156c94;
+	font-weight:bold;
+	text-decoration:none;
+}
+.txt_vermelho_bold{
+	color:#C10005;
+	font-weight:bold;
+}
+.txt_vermelho_bold a{
+	color:#C10005;
+	font-weight:bold;
+	text-decoration:none;
+}
+.txt_vermelho_bold a:hover{
+	color:#fff;
+}
+.txt_laranja{
+	color:#e59f08
+}
+.txt_padrao
+	{
+	font-size: 12px;
+	}
+.link_laranja
+	{
+	color:#e59f08;
+	text-decoration: none;
+	}
+.link_laranja:hover
+	{
+	text-decoration: underline;
+	}
+.bt_inicio{
+	padding:3px;
+}
+
+.rodape{
+	height:27px;
+	background:#e6ac10;
+	color:#FFF;
+	padding-left:15px;
+	font-weight:bold;
+	font-size: 12px;
+}
+.login_input{
+	width:205px;
+	border:1px solid #8eacba;
+	border-left:4px solid #e6ac10;
+	padding-left: 5px;
+	color:#777666;
+}
+#informes{
+	margin:10px;
+}
+#premios img{
+	margin:5px;
+}
+.botao1{
+	background:#eaeced;
+	width:125px;
+	color:#3a667a;
+	font-weight:bold;
+	font-size:11px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:5px;
+	padding-bottomt:5px;
+	text-align:center;
+	border:3px double #FFF;
+	*border:3px double #8eacba;
+	text-decoration:none;
+	margin:2px;
+	white-space: nowrap;
+	display:block;
+}
+.botao1:hover{
+	background: #C6D2D9;
+	color:#335877;
+}
+.botao2{
+	background:#e6ac10;
+	width:125px;
+	color:#67420a;
+	font-weight:bold;
+	font-size:11px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:5px;
+	padding-bottomt:5px;
+	text-align:center;
+	border:3px double #fff;
+	*border:3px double #e6ac10;
+	text-decoration:none;
+	margin:2px;
+	white-space: nowrap;
+	display:block;
+}
+.botao2:hover{
+	background:#e1c26f;
+	color:#67420a;
+}
+
+
+/*Accordion*/
+.accordion { list-style-type: none; padding: 0; margin: 0 0 5px; border-top: none; border-left: none; }
+	.accordion ul { padding: 0; margin: 0 ;width: 100%; }
+	.accordion li { 
+		cursor: pointer; 
+		list-style-type: none; 
+		width: 100%;
+		border-bottom:1px dotted #ababab;
+
+	}
+	.accordion li.active .link { background: url('../img/close.gif') no-repeat center left; padding:10px 0 8px 17px; }
+	.accordion .link { text-decoration: none; font:  13px Arial; color: #222; padding: 10px 5px 8px 17px; display: block; cursor: pointer; background: url('../img/open.gif') no-repeat center left; }
+	
+	/* Level 2 */
+	.accordion li ul li { background: #fff; font-size: 0.9em; }
+
+/*INTERNA*/
+
+/*menu*/
+
+
+/*Fake Upload*/
+.realupload {
+	position: relative;
+	float: right;
+	top: -21px;
+	right: 20px;
+	opacity:0;
+	-moz-opacity:0;
+	filter:alpha(opacity:0);
+	cursor:pointer;
+}
+.fakeupload {
+	width: 100%;
+	background: url("../img/bt_selecione.gif") no-repeat 99% 51%;
+	cursor: default;
+}
+.input {
+	 background-color: #FFF;
+	 border: 1px solid #8eacba;
+	 border-left:4px solid #e6ac10;
+	 letter-spacing: 1px;
+	 font-size: 11px;
+	 color: #333;
+	 padding-left: 5px;
+	 padding-top: 5px;
+	 padding-bottom: 5px;
+	 height: 15px;
+	 vertical-align: middle;
+ }
+/*fim Fake*/
+
+.combobox{
+	width:350px;
+	height:20px;
+	border:1px solid #8eacba;
+	border-left:4px solid #e6ac10;
+	padding-left: 5px;
+	color:#777666;
+}
+
+
+#barra_governo {
+	background-color: #ffcc00;
+	height: 24px;
+	width: 100%;
+}
+#barra_governo h1{
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	width:30%;
+}
+#barra_governo #menu_brasil {
+	float: left;
+	width: 35%;
+	text-align:center;
+	padding-right:5%;
+	margin:0 0 0 -86px
+}
+#barra_governo #selo_brasil {
+	float: right;
+	width:5%;
+	text-align:right;
+	margin-right:5px;
+}
+#barra_governo img {
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+#menu_brasil select {
+	font-size:10px;
+	background:#FC0;
+	margin-top: 2px;
+}
+
+#menu_theme {
+	width: 170px;
+	height:30px;
+	padding:5px;
+	font-weight: bold;
+	color: #000000;
+	position:absolute;
+	background-color: #FFFFFF;
+	border: solid 1px black;;
+	text-align: left;
+	margin-top:-30px;
+	*margin-left:-250px;
+	*margin-top:0px;
+	*font-size:12px;
+}
+
+#formTheme{margin:0px;padding:0px}
+
+.select_ylw
+	{
+	font-size:10px;
+	background:#FC0;
+	margin-top: 2px;
+	}
+
+.tbl_login
+	{
+		font-size: 12px;
+	}
+.error_msg{
+	background-color:#CD2626;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin: 10px;
+	padding: 5px;
+	border:3px double #fff;
+	*border:3px double #CD2626;
+}

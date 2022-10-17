@@ -1,0 +1,162 @@
+#listaTarefas table.tabelaTarefas
+{
+	width: 95%;
+	padding: 1px;
+	border-spacing: 1px;
+	border: 1px;
+	border-color: #DDDDAA;
+	border-style: solid;
+	background-color: #dcdcdc;
+}
+#conteudoTarefas 
+{
+	width: 95%;
+	overflow: auto;
+	height: 450px;
+	border: 1px;
+	border-color: #DDDDAA;
+	border-style: solid;
+	
+}
+#conteudoTarefas table.tabelaTarefas
+{
+	width: 99.9%;
+	padding: 1px;
+	border-spacing: 1px;
+	border: 0px;
+	border-color: #DDDDAA;
+	border-style: solid;
+	background-color: #dcdcdc;
+}
+.tabelaTarefas th
+{
+	font-size: 11px;
+}
+.tabelaTarefas td
+{
+	text-align: center;
+}
+.tabelaTarefas div
+{
+}
+.tarefasFilhas
+{
+	display: none;
+}
+.MacroEtapa span
+{
+	font-weight: bold;
+}
+
+.MacroEtapa span
+{
+	font-weight: bold;
+}
+
+.tarefasFilhasAberto
+{
+}
+.tarefasFilhasFechado
+{
+}
+.MacroEtapa .tarefaMais
+{			
+	cursor: pointer;
+}
+.Etapa .tarefaMais img
+{			
+	visibility: hidden;
+}
+.Etapa .gantt img
+{			
+	visibility: hidden;
+}
+.tarefaMais span
+{
+	width: 15px;
+	white-space: nowrap;
+}
+.OrigemEspecial .imagemPPA
+{			
+	visibility: visible;
+}
+.OrigemComum .imagemPPA
+{			
+	visibility: hidden;
+}
+.tarefaOrdem
+{
+	width: 90px;
+}
+.tarefaTipo
+{
+	width: 40px;
+}
+.tarefaNome
+{
+	width: 300px;
+}
+td.tarefaNome
+{
+	text-align: left;
+}
+.tarefaDescricao
+{
+	width: 250px;
+}
+.tarefaSituacao
+{
+	width: 80px;
+}
+.tarefaInicio , .tarefaTermino
+{
+	width: 90px;
+}
+.tarefaAprovada
+{
+	width: 75px;
+}
+.tarefaFechada
+{
+	width: 75px;
+}
+.inputActiveFrozenField
+{
+	background-color: #EEEEEE;
+}
+.activeFrozenFieldEnabled
+{
+	cursor: pointer;
+	color: #6F6FFF;
+}
+.subAcao .activeFrozenFieldEnabled
+{
+	cursor: pointer;
+	color: #1FAA1F;
+}
+.activeFrozenFieldDisable
+{
+	color: #A5A5A5;
+	cursor: wait;	
+}
+input.activeFrozenFieldOver
+{
+	width: 100px;
+	cursor: pointer;
+	text-decoration: underline;
+	background-color: red;
+}
+table.tabelaTarefas tr.Par
+{
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #090909;
+}
+table.tabelaTarefas tr.Impar
+{
+	background-color: #F7F7F7;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #090909;
+}

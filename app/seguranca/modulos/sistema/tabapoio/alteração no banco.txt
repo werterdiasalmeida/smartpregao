@@ -1,0 +1,13 @@
+
+Alterar no banco de dados, na tabela cte.laboratorio, a coluna "labdisciplinasatendida" a ultima. ela deve ser uma FK da 
+tabela cte.formacaodisciplina, e o campo será o "fodid"
+
+
+
+//ALTER TABLE cte.laboratorio ALTER COLUMN labdisciplinasatendida TYPE ???
+
+
+//no desenvolvimento ficou assim.
+  CONSTRAINT laboratorio_fodid_fkey FOREIGN KEY (fodid)
+      REFERENCES cte.formacaodisciplina (fodid) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION

@@ -1,0 +1,45 @@
+@CHARSET "ISO-8859-1";
+
+#loader-container,
+#LOADER-CONTAINER{
+    background: transparent;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    z-index: 8000;
+    height: 100%;
+}
+
+
+#loader {
+    background-color: #fff;
+    color: #000033;
+    width: 300px;
+    border: 2px solid #cccccc;
+    font-size: 12px;
+    padding: 25px;
+    font-weight: bold;
+    margin: 150px auto;
+}
+
+
+/*#loader-container,
+#LOADER-CONTAINER{
+    background: none;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    z-index: 8000;
+    height: 1200px;
+}
+
+#loader {
+    background-color: #fff;
+    color: #000033;
+    width: 300px;
+    border: 2px solid #cccccc;
+    font-size: 12px;
+    padding: 25px;
+    font-weight: bold;
+    margin: 150px auto;
+}*/

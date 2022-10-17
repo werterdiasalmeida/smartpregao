@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  php:
+    container_name: licitacoes
+    restart: always
+    build: ./docker-local
+    expose:
+      - 80
+      - 443
+      - 4433
+    ports:
+      - 86:80
+    volumes:
+      - .:/var/www
+    environment:
+      PHP_OPCACHE_ENABLE: 0
+      APP_ENV: ${APP_ENV}
+    networks:
+      - nginx_default
+
+  postgres:
+    image: mdillon/postgis:11
+    networks:
+      - nginx_default
+    volumes:
+      - .:/tmp
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: pg01
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+
+networks:
+  nginx_default:
+    driver: bridge

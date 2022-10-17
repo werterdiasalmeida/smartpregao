@@ -1,0 +1,71 @@
+
+/**************************************************************
+
+	SlideShow
+	v 1.3
+
+**************************************************************/
+#example {
+	width: 800px;
+}
+
+.slideshowContainer {
+	text-align: center;
+	vertical-align: middle;
+	float:left;
+	width: 640px;
+	height: 480px;
+	margin-bottom: 5px;
+}
+
+.loading {
+	background: url(images/loading.gif) center no-repeat;
+}
+
+.slideshowThumbnail {
+	outline: none;
+}
+
+.slideshowThumbnail img {
+	border: 1px solid white;
+	padding: 4px;
+	width: 60px;
+	height: 40px;
+}
+
+a:hover.slideshowThumbnail img {
+	border: 1px solid #ccc;
+	padding: 4px;
+}
+
+.current img {
+	border: 1px solid red;
+	padding: 5px;
+}
+
+.outline {
+	border: 1px solid orange;
+	z-index: 0;
+	position: absolute;
+}
+
+#thumbnails {
+	width: 150px;
+	float: right;
+}
+#rodape {
+	width: 150px;
+	margin: 0 0 0 30px;
+	position: absolute;
+}
+
+.descricao {
+	width: 450px;
+	height: 60px;
+	overflow: auto;
+	margin: 0 0 0 200px;
+	position: absolute;
+}
+
+/*************************************************************/
+

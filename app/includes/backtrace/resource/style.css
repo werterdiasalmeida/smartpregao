@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+.trace { font: 12px sans-serif; }
+.traceLevel { margin: 15px 0 15px 0; }
+.traceCall {}
+.traceLineActive { background-color: #efefef; }
+.traceLocation > a { font: 12px sans-serif; color: #404090; text-decoration: none; }
+.traceLocation > a:hover { color: #2020ff; text-decoration: none; }
+.traceNumberLineOn { background-color: #efefef; color: black; font-weight: bold; padding-right: 15px; }
+.traceNumberLineOff { color: #a0a0a0; margin-right: 15px; }
+.traceSource { display: block; font-family: Bitstream Vera Sans Mono, Courier New; }

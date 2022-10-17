@@ -1,0 +1,49 @@
+
+#thumbnails{
+	
+	background-color:#cccccc;
+	width: 800px;
+	height: 80px;
+	border: 1px solid #888888;
+	text-align:center;
+	
+}
+
+#thumbnails img{
+	
+	border: 0px solid #CAC;
+	
+}
+
+#thumbnails #imageBox1,#imageBox2,
+#imageBox3,#imageBox4,#imageBox5,#imageBox6,
+#imageBox7,#imageBox8,#imageBox9,#imageBox10,
+#imageBox11{
+	
+	position: relative;
+	border: 1px solid #888888;
+	background-color:#EEE;
+	width: 74px;
+	height: 74px;
+	margin: 2px;
+	
+}
+
+.imageBox{
+	
+	width:70px;
+	height:70px;
+	float:left;
+	padding-top: 1px;
+	 
+}
+
+.imageBox_theImage{
+	
+	width:68px;
+	height:68px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin: 2px 2px 2px 2px;
+	
+}

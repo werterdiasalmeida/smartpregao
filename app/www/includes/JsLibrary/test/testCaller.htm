@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<script type="text/javascript" src="../_start.js"></script>
+		<title> :D </title>
+	</head>
+	<body>
+		Texto
+		<div id="caixaCalendario">
+			laga
+		</div>
+	</body>
+	<script>
+		function main()
+		{
+			window.CalendarProject.arrWorkDays = Array( 3 );
+			
+			window.globalCalendar = new CalendarBuilder( "caixaCalendario" , undefined, 
+				undefined, undefined, undefined, undefined, 'CalendarProject' );
+				
+			window.globalCalendar.objCalendar.afterClose = fechaCalendario;
+			return;
+		
+			window.activeMouseGetPos();
+			window.activeBodyGetKey();			
+		}
+		
+		function mostraCalendario( intDay , intMonth, intYear , intDuracao , objReference)
+		{
+			window.globalCalendar.buildCalendarDay( 1 , intMonth, intYear );
+			window.globalCalendar.objCalendar.selectDate( intDay , intMonth, intYear , intDuracao );
+			window.globalCalendar.objCalendar.build();
+			mouseY = document.MouseY.value - ( document.MouseY.value % 20 ) + 20; 
+			mouseX = document.MouseX.value - ( document.MouseX.value % 20 ) + 20;
+			 
+			var objCaixa = document.getElementById( "caixaCalendario" );
+			objCaixa.style.top	= mouseY + "px";
+			objCaixa.style.left	= mouseX + "px";
+			objCaixa.style.display = "block";
+		}	
+	
+		require_once( Array( '/date/calendar/_start.js' , '/date/calendar/calendarProject.class.js' ) , main );
+	</script>
+</html>
