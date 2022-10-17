@@ -1,0 +1,55 @@
+1) instalar o Docker-Compose
+2) executar: docker compose up
+3) criar o database "licitacoes"
+4) subir o banco db.sql
+
+endereço:
+http://localhost:87
+cpf: 70353441104
+senha: 55603099
+
+Arvore do menu
+
+- Administrativo
+-- Visão Geral
+	(Dashboard)
+-- Contratos
+	(Cadastro)
+
+- Principal
+-- Clientes 
+	(Cadastro)
+-- Editais 
+---- Cadastro Manual
+	(Cadastro)
+---- Resultado da Carga
+	(LOG do resultado da carga automática)
+-- Editais dos Clientes
+---- Painel de Controle 
+	(Dados da minha empresa) 
+	(Solicitar Serviço)
+	(Meu plano de créditos)
+	(Editais em geral) 
+	(Editais que estou participando)
+	(Chat com a central de atendimento)
+
+- Serviços de Análise
+-- Painel de Controle
+	(Dashboard)
+	(Chat com Analistas)
+-- Fila de Atendimento
+	(Fila para pegar um atendimento)
+-- Analistas
+	(Meus dados pessoais) 
+	(Meus Painel de Atendimento)
+	(Meus Extato financeiro)  
+
+- Relatórios
+-- Contratos
+	(Relatório) 
+- Sistema
+-- Tabelas de Apoio
+	(Cadastro)
+-- Usuários
+	(Cadastro)
+ 
