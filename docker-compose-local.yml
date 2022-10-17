@@ -2,7 +2,7 @@ version: '3'
 
 services:
   php:
-    container_name: licitacoes
+    container_name: smartpregao
     restart: always
     build: ./docker-local
     expose:

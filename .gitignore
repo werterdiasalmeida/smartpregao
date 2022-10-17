@@ -1,0 +1,8 @@
+.env
+app/arquivos/
+dados/*
+.idea
+.idea/*
+app/global/config-local.ini
+app/global/config.inc
+docker-compose-local.yml
