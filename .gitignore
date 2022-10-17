@@ -6,3 +6,4 @@ dados/*
 app/global/config-local.ini
 app/global/config.inc
 docker-compose-local.yml
+data/
