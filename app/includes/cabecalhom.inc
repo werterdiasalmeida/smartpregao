@@ -196,7 +196,7 @@ $paginic = $db->pegaUm($sql);
             <!-- BEGIN LOGO -->
             <div class="page-logo text-center">
                 <a href="<?= $_SESSION['sisarquivo']; ?>.php?modulo=<?= $paginic; ?>" style="float: none;">
-                    <img src="/imagens/logo2.png?v=<?= VERSAO ?>" alt="logo" class="logo-default" style="height: 42px; margin: 2px;" />
+                    
                 </a>
 
                 <div class="menu-toggler sidebar-toggler">

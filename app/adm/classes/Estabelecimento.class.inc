@@ -258,7 +258,7 @@ class Estabelecimento extends Modelo
                             <a class="btn btn-circle btn-icon-only btn-default purple-plum " href="?modulo=principal/editaisclientes/inicio&acao=C{$pParam}" data-toggle="tooltip" title="Painel" target="_top">
                                     <i class="icon-arrow-right"></i>
                                 </a>
-                                <a class="btn btn-circle btn-icon-only btn-default purple" href="?modulo=principal/estabelecimento/agenda&acao=C{$pParam}" data-toggle="tooltip" title="Agenda">
+                                <a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/estabelecimento/agenda&acao=C{$pParam}" data-toggle="tooltip" title="Agenda">
                                     <i class="icon-calendar"></i>
                                 </a>
                                 <a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C{$pParam}" data-toggle="tooltip" title="Configurações">
