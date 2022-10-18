@@ -145,97 +145,24 @@ include APPRAIZ . "includes/controleAcessoSituacaoContrato.inc";
         <div class="caption font-blue-sharp">
             <i class="icon-calendar font-blue-sharp"></i>
             <span class="caption-subject bold uppercase">
-                Informações da agenda
+                Agenda dos Pregões
             </span>
         </div>
     </div>
     <div class="portlet-body form">
         <div class="row">
-            <div class="col-md-3 visible-lg" style="padding-top: 25px;">
-                <div style="max-width: 280px; margin: auto; text-align: center;">
-                    <a class="btn blue" href="javascript:marcarConsulta();" style="margin-bottom: 5px; width: 250px;">
-                        <i class="fa fa-plus-circle"></i>
-                        Marcar consulta/procedimento
-                    </a>
-
-                    <a class="btn green" href="javascript:abrirAgenda();" style="margin-bottom: 5px; width: 250px;">
-                        <i class="fa fa-plus-circle"></i>
-                        Abrir agenda
-                    </a>
-
-                    <a class="btn yellow-casablanca" href="javascript:incluirEncaixe();" style="margin-bottom: 10px; width: 250px;">
-                        <i class="fa fa-plus-circle"></i>
-                        Incluir encaixe
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-12 col-lg-9">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-4">
-                        <div class="form-group">
-                            <label class="control-label">Profissionais</label>
-                            <select id="profissionais" name="profissionais" multiple style="display: none;"></select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-4">
-                        <div class="form-group">
-                            <label class="control-label">Especialidades</label>
-                            <select id="especialidades" name="especialidades" multiple style="display: none;"></select>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-4">
-                        <div class="form-group">
-                            <label class="control-label">Pacientes</label>
-                            <select id="pacientes" name="pacientes" multiple style="display: none;"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label class="control-label">Situações</label>
-                            <div class="col-sm-12 mt-checkbox-inline container-combo-situacao-prossional-agenda">
-                                <?= $db->monta_checkboxm('situacoes', $arrSituacaoWf, 'S', '', $arrSituacaoWfMarcadosPorPadrao); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-lg-3" style="margin-bottom: 8px;">
                 <div class="row text-center">
 
-                    <div class="col-md-6 hidden-lg">
-                        <div style="max-width: 280px; margin: auto; text-align: center;">
-                            <a class="btn blue" href="javascript:marcarConsulta();" style="margin-bottom: 5px; width: 250px;">
-                                <i class="fa fa-plus-circle"></i>
-                                Marcar consulta/procedimento
-                            </a>
-
-                            <a class="btn green" href="javascript:abrirAgenda();" style="margin-bottom: 5px; width: 250px;">
-                                <i class="fa fa-plus-circle"></i>
-                                Abrir agenda
-                            </a>
-
-                            <a class="btn yellow-casablanca" href="javascript:incluirEncaixe();" style="margin-bottom: 10px; width: 250px;">
-                                <i class="fa fa-plus-circle"></i>
-                                Incluir encaixe
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-12 col-lg-12" style="margin-bottom: 8px;">
+                   <div class="col-xs-12 col-sm-12 col-lg-12" style="margin-bottom: 8px;">
                         <div class="text-center">
                             <div id="mini-calendar"></div>
                         </div>
                     </div>
 
-                    <!--<button type="button" class="btn btn-voltar">
+                    <button type="button" class="btn btn-voltar">
                         <i class="fa fa-arrow-left"></i> Voltar
-                    </button>-->
+                    </button>
                 </div>
             </div>
             <div class="col-lg-9">

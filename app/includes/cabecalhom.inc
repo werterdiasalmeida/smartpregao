@@ -194,15 +194,7 @@ $paginic = $db->pegaUm($sql);
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner ">
             <!-- BEGIN LOGO -->
-            <div class="page-logo text-center">
-                <a href="<?= $_SESSION['sisarquivo']; ?>.php?modulo=<?= $paginic; ?>" style="float: none;">
-                    
-                </a>
-
-                <div class="menu-toggler sidebar-toggler">
-                    <span></span>
-                </div>
-            </div>
+            <img src="/imagens/logo2.png?v=<?= VERSAO ?>" alt="logo" class="logo-default" style="height: 42px; margin: 2px; float:left; margin-left:20px;" />
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
             <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
@@ -210,63 +202,10 @@ $paginic = $db->pegaUm($sql);
             </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
-            <div>
-                <img src="/imagens/logo2.png?v=<?= VERSAO ?>" alt="logo" class="logo-default" style="height: 42px; margin: 2px; float:left; margin-left:20px;" />
-            </div>
+                
             <div class="top-menu">
 
                 <ul class="nav navbar-nav pull-right">
-                    <?php
-                    //                $igrejaRepresentecao = Igreja::isIgrejaRepresentacaoDefinida() ? Igreja::getIgrejaRepresentacao() : array(
-                    //                        'igrnome' => 'Escolha uma igreja',
-                    //                        'igrid' => 0,
-                    //                        'arqid' => null,
-                    //                );
-                    ?>
-                    <!--<li class="dropdown dropdown-extended dropdown-user" id="header_igreja_bar">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
-                        <img alt="" class="img-circle" src="<?/*= (empty($igrejaRepresentecao['arqid']) ? '/imagens/building.png' : "/slideshow/slideshow/verimagem.php?arqid={$igrejaRepresentecao['arqid']}&newheight=300" ); */ ?>" style="width: 29px; height: 29px;" />
-                        <span class="username"> <?/*= $igrejaRepresentecao['igrnome']; */ ?> </span>
-                        <i class="fa fa-angle-down"></i>
-                    </a>
-                    <form role="form" name="formulario_selecionar_igreja_representacao" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="act" value="selecionar_igreja_representacao" />
-                        <input type="hidden" name="igrid" value="" />
-                    </form>
-
-                    <script type="text/javascript">
-                        function selecionarIgrejaRepresentacao(id){
-                            window.formulario_selecionar_igreja_representacao.igrid.value = id;
-                            window.formulario_selecionar_igreja_representacao.submit();
-                        }
-
-                        function criarNovaIgreja(){
-                            window.formulario_selecionar_igreja_representacao.act.value = 'criar_nova_igreja_representacao';
-                            window.formulario_selecionar_igreja_representacao.submit();
-                        }
-                    </script>
-                    <ul class="dropdown-menu dropdown-menu-default" style="max-height: 350px; width: 275px; overflow-y: auto;">
-                        <?php
-                        /*                        $mIgreja = new Igreja();
-                        $arIgrejas = $mIgreja->getListForCombo();
-                        foreach($arIgrejas as $igreja) {
-                            if($igreja['codigo'] == $igrejaRepresentecao['igrid']){
-                                continue;
-                            }
-
-                            $img = (empty($igreja['arqid']) ? '/imagens/building.png' : "/slideshow/slideshow/verimagem.php?arqid={$igreja['arqid']}&newheight=300" );
-                            echo "<li>
-                                      <a href='javascript:;' onclick='selecionarIgrejaRepresentacao({$igreja['codigo']})' style='width: 100%; white-space: pre-wrap;'><img alt='' class='img-circle' src='{$img}' style='width: 29px; height: 29px;' /> {$igreja['descricao']}</a>
-                                  </li>";
-                        }
-                        */ ?>
-                        <li style="background-color: #eef1f5;">
-                            <a href="javascript:;" onclick="criarNovaIgreja();" style='width: 100%; white-space: pre-wrap;'><i class="fa fa-plus"></i> Criar uma nova igreja</a>
-                        </li>
-                    </ul>
-                </li>-->
-                    <!-- BEGIN USER LOGIN DROPDOWN -->
-                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <?php if (isset($_SESSION['usuarqid']) && !empty($_SESSION['usuarqid'])) : ?>
@@ -384,53 +323,7 @@ $paginic = $db->pegaUm($sql);
             <div class="page-content">
                 <!-- BEGIN PAGE HEADER-->
                 <!-- BEGIN PAGE BAR -->
-                <div class="page-bar">
-                    <?php
-                    /*
-                 * Exibe rastro de navega??o. Mostra em qual
-                 * local da hierarquia de telas o usu?rio est?.
-                 */
-                    /*
-                if ( $modulo_atual != "" ) {
-                    $sql = sprintf(
-                        "select distinct
-                            mnu3.mnudsc AS mnudsc3,
-                            mnu2.mnudsc AS mnudsc2,
-                            mnu1.mnudsc AS mnudsc1
-                        from
-                            seguranca.menu mnu1
-                        left join
-                            seguranca.menu mnu2 ON mnu2.mnuid=mnu1.mnuidpai
-                        left join
-                            seguranca.menu mnu3 ON mnu3.mnuid=mnu2.mnuidpai
-                        where
-                            mnu1.mnuid = %d",
-                        $modulo_atual
-                    );
-
-                    $rastro = $db->pegaLinha( $sql );
-
-                    if ( is_array($rastro) ) {
-                        foreach($rastro as $k => $r){
-                            if(empty($r)){
-                                unset($rastro[$k]);
-                            }
-                        }
-
-                        ?>
-                            <ul class="page-breadcrumb">
-                                <li>
-                                    <span>
-                                        <?= implode('</span><i class="fa fa-circle"></i></li><li><span>', $rastro); ?>
-                                    </span>
-                                </li>
-                            </ul>
-                        <?php
-                    }
-                }
-                */
-                    ?>
-                </div>
+                
                 <!-- END PAGE BAR -->
                 <!-- END PAGE HEADER-->
 

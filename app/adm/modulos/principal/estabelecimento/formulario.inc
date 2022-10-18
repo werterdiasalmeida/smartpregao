@@ -123,10 +123,10 @@ if ($aba) {
                 </div>
                 <input type="hidden" name="representantes" value="<?= $representantes ?>"/>
             </div>
-
             <h4 class="form-section">Endereços</h4>
             <?php require APPRAIZ . "adm/modulos/principal/includes/endereco/lista.inc"; ?>
-
+            <h4 class="form-section">Documentos da Empresa</h4>
+            <?php require APPRAIZ . "adm/modulos/principal/includes/endereco/lista.inc"; ?>
             <div class="form-actions">
                 <button type="submit" class="btn blue">
                     <i class="fa fa-save"></i> Salvar

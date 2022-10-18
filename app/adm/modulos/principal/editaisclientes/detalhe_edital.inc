@@ -3,10 +3,9 @@ $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $params = getParam();
-$mEditalCliente->carregarPorId($params['id']);
-$dados = $mEditalCliente->getDados();
-$mEdital->carregarPorId($dados['id']);
+$mEdital->carregarPorId($params['id']);
 $dados = $mEdital->getDados();
+
 ?>
 <br />
 <center>

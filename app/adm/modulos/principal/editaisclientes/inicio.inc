@@ -146,16 +146,11 @@ if ($aba) {
                     <i class="fa fa-star"></i>
                 </a>    
             </div>
-     
 ACAO;
-
                     $arConfig = array();
-
                     $arConfig[2]['html'] = <<<HTML
     <spam class="badge badge-primary"><b>{dias}</b></spam>
 HTML;
-                    
-
 
                     $arConfig[2]['style'] = "width: 10%; text-align: center;";
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
@@ -202,7 +197,7 @@ HTML;
                     <i class="glyphicon glyphicon-star-empty"></i>
                 </a>
                 
-                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:exibirModalDetalhe('<php> return setParam(array('id' => '{id_edital}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Detalhes do Edital">
+                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:exibirModalDetalhe('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Detalhes do Edital">
                     <i class="glyphicon glyphicon-search"></i>
                 </a>
             </div>

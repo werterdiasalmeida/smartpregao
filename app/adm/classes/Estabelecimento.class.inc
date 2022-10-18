@@ -250,7 +250,7 @@ class Estabelecimento extends Modelo
                         <div class="col-sm-2 col-md-2">
                             <div class="form-group">
                                 Situação:
-                                <strong>Ativa (2.365 créditos)</strong>
+                                <strong>Ativa (0 créditos)</strong>
                             </div>
                         </div>
                         <div class="col-sm-2 col-md-2">

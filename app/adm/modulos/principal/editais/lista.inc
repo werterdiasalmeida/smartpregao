@@ -1,12 +1,6 @@
 <?php
 $mEdital = new Edital();
 $arWhere = array();
-$p = getParam();
-if (!isset($p['id'])) {
-    addMsgInfo('Por favor, selecione um Cliente.');
-    header('Location: ?modulo=inicio&acao=C');
-    die;
-}
 
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {
