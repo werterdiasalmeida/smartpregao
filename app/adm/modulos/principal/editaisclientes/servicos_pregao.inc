@@ -140,7 +140,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
 
                 switch ($dados['portal']) {
                     case 'ComprasNet':
-                        $num_pregao = preg_replace('/[^0-9]/', '', $dados['numero_edital']);
+                        $num_pregao = preg_replace('/[^0-9]/', '', $dados['edital']);
                         $num_uasg = substr($num_pregao, -6);
                         $num_pregao = substr($num_pregao, 0, -6);
                         $linkDownload_comprasnet = "https://www.comprasnet.gov.br/ConsultaLicitacoes/Download/Download.asp?coduasg={$num_uasg}&numprp={$num_pregao}&modprp=5&bidbird=N&idLetra=us2gcz&idSom=&Submit=Confirmar";
@@ -160,7 +160,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
 
                     case 'BB':
 
-                        $num_pregao = preg_replace('/[^0-9]/', '', $dados['numero_edital']);
+                        $num_pregao = preg_replace('/[^0-9]/', '', $dados['edital']);
                         $link =  '<br><br> <a class="btn btn-primary"  href="https://www.licitacoes-e.com.br/aop/consultar-detalhes-licitacao.aop?numeroLicitacao=' . $num_pregao . '&opcao=consultarDetalhesLicitacao" target="_blank"> <i class="fa fa-cloud"></i> Licitações-e (BB)</a>';
                         echo $link;
                         break;

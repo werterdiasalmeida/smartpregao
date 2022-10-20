@@ -22,7 +22,7 @@ if (isset($params['id']) && !empty($params['id'])) {
     $mEdital->carregarPorId($params['id']);
     $dados = $mEdital->getDados();
     extract($dados);
-   
+
     if ($municipio_id) {
         $mMunicipio = new Municipio($municipio_id);
         $mUf = new UnidadeFederacao($mMunicipio->uf_id);
@@ -88,7 +88,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                         </div>
                     </div>
                     <div class="row">
-                    <div class="col-md-3">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Data limite</label>
                                 <?= campo_datam('data_limite', 'S', 'S', '', 'S'); ?>
@@ -140,12 +140,35 @@ include APPRAIZ . "includes/cabecalhom.inc";
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Google Drive</label>
-                                <?= campo_textom('link_g_drive', 'N', 'S', '', 255, 255, '', '', '', '', 0); ?>
+                                <label>Habilitação Técnica</label>
+                                <?= campo_textaream('habilitacao_tecnica', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
                             </div>
                         </div>
                         <div class="col-md-6">
-
+                            <div class="form-group">
+                                <label>Serviço a ser Prestado</label>
+                                <?= campo_textaream('resumo_servico', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Valor Estimado (R$)</label>
+                                <?= campo_textom('valor_estimado', 'N', 'S', '', 255, 255, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Temperatura</label>
+                                <?= campo_textom('temperatura', 'N', 'S', '', 255, 255, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Google Drive</label>
+                                <?= campo_textom('link_g_drive', 'N', 'S', '', 255, 255, '', '', '', '', 0); ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,5 +219,4 @@ include APPRAIZ . "includes/cabecalhom.inc";
             App.unblockUI('#cidades');
         });
     }
-
- </script>
+</script>

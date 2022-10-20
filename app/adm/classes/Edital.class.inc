@@ -36,7 +36,10 @@ class Edital extends Modelo
         'atualizado_em' => null,
         'atualizado_por' => null,
         'excluido' => null,
-        'municipio_id' => null,
+        'habilitacao_tecnica' => null,
+        'resumo_servico' => null,
+        'valor_estimado' => null,
+                
     );
 
     public function getList($arWhere = array(), $paginacao = true, $order = null)
