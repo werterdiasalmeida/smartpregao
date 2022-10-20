@@ -287,7 +287,7 @@ ACAO;
     $arConfig[0]['html'] = <<<HTML
         <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
-                return '<a href="?modulo=principal/estabelecimento/formulario&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Editar estabelecimento">
+                return '<a href="?modulo=principal/editaisclientes/inicio&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Painel">
                             {nome_fantasia}
                         </a>';
             }elseif(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/agenda&acao=C')){

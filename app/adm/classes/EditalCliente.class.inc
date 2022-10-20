@@ -61,7 +61,7 @@ class EditalCliente extends Modelo
                     workflow.estadodocumento esd ON esd.esdid = doc.esdid
                  WHERE
                   " . implode(' AND ', $arWhere);
-        //ver($sql);
+
         if (!isset($_REQUEST['ordem'])) {
             if (!is_null($order)) {
                 $sql .= " ORDER BY {$order}";

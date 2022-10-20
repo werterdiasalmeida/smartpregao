@@ -21,7 +21,7 @@ if ($_POST && isset($_POST['act'])) {
             $params['edital_id'] = $params['id'];
             $mEditalCliente->salvarEditalCliente($params);
             $mEditalCliente->commit();
-            $db->sucessom($_REQUEST['modulo'], '&p='.$params['id'], 'Participação Vinculada com Sucesso!');
+            $db->sucessom($_REQUEST['modulo'], '&p=' . $params['id'], 'Participação Vinculada com Sucesso!');
             break;
         case 'pesquisa_simples':
             $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));;
@@ -59,7 +59,7 @@ if (isset($params['id']) && !empty($params['id'])) {
     $aba = true;
 
     $dados = $mEstabelecimento->getTodosDados($params['id']);
-    
+
     extract($dados);
 }
 
@@ -103,7 +103,7 @@ if ($aba) {
                     <?php
 
                     $arConfig = array();
-                   
+
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
                     $rs = $mServicoAnaliseContratado->getList($arWhereEditaisCliente);
 
@@ -131,11 +131,27 @@ if ($aba) {
                                     </button>
                                 </span>
                                 <input type="hidden" name="act" value="pesquisa_simples_cliente">
-
                             </div>
                         </div>
+                        <div class="form-group">
+                            <button class="btn blue" type="button" data-toggle="tooltip" title=" Já realizados">
+                                <i class="icon-arrow-left"></i>
+                                Já realizados
+                            </button>
+                            <button class="btn blue" type="button" data-toggle="tooltip" title="Próximos 7 Dias">
+                                <i class="icon-arrow-right"></i>
+                                Próximos 7 Dias
+                            </button>
+                            <button class="btn blue" type="button" data-toggle="tooltip" title="Todos os próximos">
+                                <i class="icon-arrow-right"></i>
+                                Todos os próximos
+                            </button>
+                            <button class="btn blue" type="button" data-toggle="tooltip" title="Descartados">
+                                <i class="icon-trash"></i>
+                                Descartados
+                            </button>
+                        </div>
                     </form>
-
                     <?php
                     $acao = <<<ACAO
             <div style="min-width: 20px;">
@@ -153,6 +169,12 @@ ACAO;
 HTML;
 
                     $arConfig[2]['style'] = "width: 10%; text-align: center;";
+                    /* Filtro do Período (padrão próximos 7 dias e não descartados)*/
+                    $periodo = '';
+                    if(!$periodo){
+                        $arWhereEditaisCliente[] = " edi.data_limite between current_date and current_date + 7 ";
+                        $arWhereEditaisCliente[] = " esd.esdid <> 95 ";
+                    }
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
                     $rs = $mEditalCliente->getList($arWhereEditaisCliente);
 
@@ -184,6 +206,9 @@ HTML;
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
+
+
+
                                 <input type="hidden" name="act" value="pesquisa_simples">
 
                             </div>
@@ -232,7 +257,7 @@ HTML;
                     $mEdital->show();
                     ?>
                 </div>
-                
+
             </div>
 
             <div class="form-actions">
@@ -308,7 +333,10 @@ HTML;
     function exibirModalDetalhe(p, nome) {
         var modal = $('#modal-detalhe-edital');
         modal.find('strong#nome').html(nome);
-         App.blockUI({message: 'Carregando...',target: '#div_detalhe_edital'});
+        App.blockUI({
+            message: 'Carregando...',
+            target: '#div_detalhe_edital'
+        });
         // Carregar os dados do Edital
         $('div#div_detalhe_edital').load(window.location.href, {
             act: 'carregarDetalhedital',
