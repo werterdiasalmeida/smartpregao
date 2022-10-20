@@ -173,7 +173,7 @@ HTML;
                     $periodo = '';
                     if(!$periodo){
                         $arWhereEditaisCliente[] = " edi.data_limite between current_date and current_date + 7 ";
-                        $arWhereEditaisCliente[] = " esd.esdid <> 95 ";
+                        //$arWhereEditaisCliente[] = " esd.esdid <> 95 ";
                     }
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
                     $rs = $mEditalCliente->getList($arWhereEditaisCliente);
