@@ -57,7 +57,7 @@ class ServicoAnaliseContratado extends Modelo
         }
 
         if ($paginacao) {
-            $dado = Paginacao::getPaginacao($this, $sql, 10);
+            $dado = Paginacao::getPaginacao($this, $sql, 8);
             return $dado;
         } else {
             $retorno = $this->carregar($sql);
