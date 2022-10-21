@@ -79,7 +79,7 @@ extract($dados);
     <div class="col-md-12">
         <div class="accordion accordion-solid accordion-toggle-plus" id="accordionExample3">
             <div class="card">
-                <div class="card-header" id="headingOne3">
+                <div class="card-header" style="cursor: pointer ;" id="headingOne3">
                     <div class="card-title" data-toggle="collapse" data-target="#collapseOne3">
                         <b>Objeto</b>
                     </div>
@@ -91,7 +91,7 @@ extract($dados);
                 </div>
             </div>
             <div class="card">
-                <div class="card-header" id="headingTwo3">
+                <div class="card-header" style="cursor: pointer ;" id="headingTwo3">
                     <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo3">
                         <br /><b>+ Comentários</b>
                     </div>
@@ -103,7 +103,7 @@ extract($dados);
                 </div>
             </div>
             <div class="card">
-                <div class="card-header" id="headingThree3">
+                <div class="card-header" style="cursor: pointer ;" id="headingThree3">
                     <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree3">
                         <br /> <b>+ Habilitação Técnica</b>
                     </div>
@@ -115,7 +115,7 @@ extract($dados);
                 </div>
             </div>
             <div class="card">
-                <div class="card-header" id="headingThree4">
+                <div class="card-header" style="cursor: pointer ;" id="headingThree4">
                     <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree4">
                         <br /> <b>+ Serviço a ser executado</b>
                     </div>
