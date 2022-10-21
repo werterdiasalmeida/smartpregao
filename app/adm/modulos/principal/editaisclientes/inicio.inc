@@ -138,7 +138,7 @@ if ($aba) {
                                 <i class="icon-arrow-left"></i>
                                 Já realizados
                             </button>
-                            <button class="btn blue" type="button" data-toggle="tooltip" title="Próximos 7 Dias">
+                            <button class="btn green" type="button" data-toggle="tooltip" title="Próximos 7 Dias">
                                 <i class="icon-arrow-right"></i>
                                 Próximos 7 Dias
                             </button>
@@ -155,7 +155,7 @@ if ($aba) {
                     <?php
                     $acao = <<<ACAO
             <div style="min-width: 20px;">
-                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:exibirModalDetalhe('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Detalhes do Edital">
+                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:exibirModalDetalhe('<php> return setParam(array('id' => '{id_edital}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Detalhes do Edital">
                     <i class="glyphicon glyphicon-search"></i>
                 </a>
                 <a class="btn btn-circle btn-icon-only btn-default yellow" href="javascript:solicitarServico('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Solicitar um Serviço">

@@ -39,6 +39,7 @@ class Edital extends Modelo
         'habilitacao_tecnica' => null,
         'resumo_servico' => null,
         'valor_estimado' => null,
+        'temperatura' => null,
                 
     );
 
@@ -107,8 +108,7 @@ class Edital extends Modelo
     }
     public function getDadosCompletos($id)
     {
-        $sql = "
-                SELECT
+        $sql = "SELECT
                     edi.*,
                     TO_CHAR(edi.data_limite, 'DD/MM/YYYY') AS data_limite_formatada,
                     data_limite - current_date as dias,
@@ -120,9 +120,9 @@ class Edital extends Modelo
                 FROM
                     edital.edital edi
                 LEFT JOIN
-                  corporativo.tb_municipio mun ON edi.municipio_id = mun.id 
+                    corporativo.tb_municipio mun ON edi.municipio_id = mun.id 
                 LEFT JOIN
-                  corporativo.tb_unidade_federacao uf ON mun.uf_id = uf.id
+                    corporativo.tb_unidade_federacao uf ON mun.uf_id = uf.id   
                 INNER JOIN 
                     edital.editalcliente edc on edc.edital_id = edi.id
                 LEFT JOIN 

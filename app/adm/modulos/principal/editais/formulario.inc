@@ -161,7 +161,14 @@ include APPRAIZ . "includes/cabecalhom.inc";
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Temperatura</label>
-                                <?= campo_textom('temperatura', 'N', 'S', '', 255, 255, '', '', '', '', 0); ?>
+                                
+                                <?
+                                $opcoes = array(
+                                                "Frio" => array("valor" => 'Frio', 'default' => true,), 
+                                                "Morno" => array("valor" => 'Morno'),
+                                                "Quente" => array("valor" => 'Quente')
+                                            );
+                                echo campo_radiom('teperatura', $opcoes , 'S'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">

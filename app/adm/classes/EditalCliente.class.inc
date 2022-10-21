@@ -41,7 +41,7 @@ class EditalCliente extends Modelo
         $sql = "SELECT
                     edi.orgao || ' [' || edi.portal || ']' as orgao,
                     TO_CHAR(edi.data_limite, 'DD/MM/YYYY') AS data_limite_formatada,
-                    data_limite - current_date as dias,
+                    data_limite - current_date || ' (' || COALESCE(temperatura, '-') || ')' as dias,
                     substring(edi.objeto, 0, 80) || ' ...' as objeto,
                     mun.municipio || '/' || uf.uf_sigla AS municipio,
                     COALESCE(esd.esddsc, 'Selecionado') as situacao,
