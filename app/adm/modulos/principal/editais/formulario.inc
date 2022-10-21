@@ -168,7 +168,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                                                 "Morno" => array("valor" => 'Morno'),
                                                 "Quente" => array("valor" => 'Quente')
                                             );
-                                echo campo_radiom('teperatura', $opcoes , 'S'); ?>
+                                echo campo_radiom('temperatura', $opcoes , 'S'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">

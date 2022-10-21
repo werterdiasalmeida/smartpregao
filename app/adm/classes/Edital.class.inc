@@ -31,15 +31,16 @@ class Edital extends Modelo
         'objeto' => null,
         'comentarios' => null,
         'link_g_drive' => null,
+        'municipio_id' => null,
+        'habilitacao_tecnica' => null,
+        'resumo_servico' => null,
+        'valor_estimado' => null,
+        'temperatura' => null,
         'criado_em' => null,
         'criado_por' => null,
         'atualizado_em' => null,
         'atualizado_por' => null,
         'excluido' => null,
-        'habilitacao_tecnica' => null,
-        'resumo_servico' => null,
-        'valor_estimado' => null,
-        'temperatura' => null,
                 
     );
 
@@ -88,7 +89,7 @@ class Edital extends Modelo
      */
     public function salvarEdital($params)
     {
-        list($params, $camposNulos) = $this->limparDadosVazios($params);
+        //list($params, $camposNulos) = $this->limparDadosVazios($params);
         $dados = $params;
 
         // Tratamento dos dados
@@ -96,8 +97,8 @@ class Edital extends Modelo
 
         // Carimbo de alteração
         $dados = $this->getDadosCarimbo($params, $dados);
-
-        $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
+       
+        $id = $this->popularDadosObjeto($dados)->salvar();
 
         return $id;
     }

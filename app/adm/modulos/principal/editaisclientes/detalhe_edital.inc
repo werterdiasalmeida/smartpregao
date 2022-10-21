@@ -5,7 +5,13 @@ $mEditalCliente = new EditalCliente();
 $params = getParam();
 $mEdital->carregarPorId($params['id']);
 $dados = $mEdital->getDados();
+extract($dados);
 
+    if ($municipio_id) {
+        $mMunicipio = new Municipio($municipio_id);
+        $mUf = new UnidadeFederacao($mMunicipio->uf_id);
+        $uf_sigla = $mUf->uf_sigla;
+    }
 ?>
 <br />
 <!-- <center>
@@ -47,34 +53,25 @@ $dados = $mEdital->getDados();
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             <label><b>Valor Estimado</b></label>
             <br />
             <?php echo $dados['valor_estimado'] ?>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             <label><b>Temperatura</b></label>
             <br />
             <?php echo $dados['temperatura'] ?>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="form-group">
             <label><b>UF</b></label>
             <br />
-            <?php echo $dados['uf'] ?>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label><b>Município</b></label>
-            <br />
-            <?php echo $dados['municipio'] ?>
+            <?php echo $uf_sigla ?>
         </div>
     </div>
 </div>
@@ -135,7 +132,7 @@ $dados = $mEdital->getDados();
 <br />
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="form-group">
             <label><b>Pasta do Google Drive</b></label>
             <br />
@@ -146,13 +143,6 @@ $dados = $mEdital->getDados();
                 echo " - ";
             }
             ?>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label><b>Links de acesso</b></label>
-            <br />
-
         </div>
     </div>
 </div>
