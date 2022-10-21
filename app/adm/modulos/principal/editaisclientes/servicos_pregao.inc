@@ -31,7 +31,7 @@ if (empty($dadosEditalCliente['docid'])) {
 $dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
 $dados = $mEdital->getDadosCompletos($editalCliente);
 
-ver($dados);
+//ver($dados);
 
 include APPRAIZ . "includes/cabecalhom.inc";
 
