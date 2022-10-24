@@ -14,10 +14,10 @@ $params = getParam();
 
 // ver($_SESSION['id_empresa']);
 
-if ($_POST && isset($_POST['act'])) {
-    switch ($_POST['act']) {
+if ($_REQUEST && isset($_REQUEST['act'])) {
+    switch ($_REQUEST['act']) {
         case 'participar':
-            $params = array_merge($_POST, getParam());
+            $params = array_merge($_REQUEST, getParam());
             $params['edital_id'] = $params['id'];
             $mEditalCliente->salvarEditalCliente($params);
             $mEditalCliente->commit();
@@ -32,13 +32,39 @@ if ($_POST && isset($_POST['act'])) {
                     )";
 
             break;
-        case 'pesquisa_simples_cliente':
-            $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));;
+        case 'pesquisa_meus_editais':
+            $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));
             $arWhereEditaisCliente[] = "(
                             (edi.objeto ILIKE '%{$pesquisa_simples}%') OR
                             (edi.orgao ILIKE '%{$pesquisa_simples}%') OR
                             (TO_CHAR(edi.data_limite, 'DD/MM/YYYY') ILIKE '%{$pesquisa_simples}%')
                         )";
+
+            switch ($_REQUEST['filtrar']) {
+
+                case 'realizados':
+                    $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
+                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    $filtroMeusEditais = true;
+                    break;
+                case '7dias':
+                    $filtroMeusEditais = false;
+                    break;
+                case 'todos_proximos':
+                    $arWhereEditaisCliente[] = " edi.data_limite >= current_date + 8";
+                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    $filtroMeusEditais = true;
+                    break;
+
+                case 'descartados':
+                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid IN (95)) ";
+                    $filtroMeusEditais = true;
+
+                    break;
+                default:
+                    $filtroMeusEditais = false;
+                    break;
+            }
 
             break;
         case 'carregarDetalhedital':
@@ -99,14 +125,16 @@ if ($aba) {
                             </div>
                         </div>
                     </form>
-
                     <?php
-
                     $arConfig = array();
-
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
-                    $rs = $mServicoAnaliseContratado->getList($arWhereEditaisCliente);
+                    $arConfig[0]['html'] = <<<HTML
+                        <spam><a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                            {edital}
+                        </a></spam>
 
+HTML;
+                    $rs = $mServicoAnaliseContratado->getList($arWhereEditaisCliente);
                     $mServicoAnaliseContratado = new Listam(array("style" => "width: 100%;"));
                     $mServicoAnaliseContratado->setCabecalho(array(
                         'Edital',
@@ -116,9 +144,9 @@ if ($aba) {
                     $mServicoAnaliseContratado->setAcao($acao);
                     $mServicoAnaliseContratado->show();
                     ?>
-
                 </div>
                 <div class="col-md-8">
+
                     <h4>Meus Editais</h4>
 
                     <form role="form" name="formulario" class="edital-cliente-form" method="POST" enctype="multipart/form-data">
@@ -130,23 +158,23 @@ if ($aba) {
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-                                <input type="hidden" name="act" value="pesquisa_simples_cliente">
+                                <input type="hidden" name="act" value="pesquisa_meus_editais">
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn blue" type="button" data-toggle="tooltip" title=" Já realizados">
+                            <button class="btn blue" onclick="filtrarMeusEditais('realizados');" type="button" data-toggle="tooltip" title=" Já realizados">
                                 <i class="icon-arrow-left"></i>
                                 Já realizados
                             </button>
-                            <button class="btn green" type="button" data-toggle="tooltip" title="Próximos 7 Dias">
+                            <button class="btn green" onclick="filtrarMeusEditais('7dias');" type="button" data-toggle="tooltip" title="Próximos 7 Dias">
                                 <i class="icon-arrow-right"></i>
                                 Próximos 7 Dias
                             </button>
-                            <button class="btn blue" type="button" data-toggle="tooltip" title="Todos os próximos">
+                            <button class="btn blue" onclick="filtrarMeusEditais('todos_proximos');" type="button" data-toggle="tooltip" title="Todos os próximos">
                                 <i class="icon-arrow-right"></i>
                                 Todos os próximos
                             </button>
-                            <button class="btn blue" type="button" data-toggle="tooltip" title="Descartados">
+                            <button class="btn blue" onclick="filtrarMeusEditais('descartados');" type="button" data-toggle="tooltip" title="Descartados">
                                 <i class="icon-trash"></i>
                                 Descartados
                             </button>
@@ -164,14 +192,20 @@ if ($aba) {
             </div>
 ACAO;
                     $arConfig = array();
+                    $arConfig[0]['html'] = <<<HTML
+                    <a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                        {orgao}
+                    </a>
+
+HTML;
                     $arConfig[2]['html'] = <<<HTML
     <spam class="badge badge-primary"><b>{dias}</b></spam>
 HTML;
 
                     $arConfig[2]['style'] = "width: 10%; text-align: center;";
                     /* Filtro do Período (padrão próximos 7 dias e não descartados)*/
-                    $periodo = '';
-                    if(!$periodo){
+
+                    if (!$filtroMeusEditais) {
                         $arWhereEditaisCliente[] = " edi.data_limite between current_date and current_date + 8 ";
                         $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
                     }
@@ -321,6 +355,12 @@ HTML;
             history.go(-1);
         });
     });
+
+    function filtrarMeusEditais(tipo) {
+
+        location.href = location.href + '&act=pesquisa_meus_editais&filtrar=' + tipo;
+
+    }
 
     function exibirModalParticipar(p, nome) {
         var modal = $('#modal-participar');

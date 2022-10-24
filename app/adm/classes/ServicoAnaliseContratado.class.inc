@@ -32,7 +32,8 @@ class ServicoAnaliseContratado extends Modelo
 
         $sql = "SELECT
                     edi.orgao || '( '||edi.edital || ')' as edital,
-                    COALESCE(esd.esddsc, 'Selecionado') as situacao
+                    COALESCE(esd.esddsc, 'Selecionado') as situacao,
+                    edc.id
                 FROM
                     edital.edital edi
                 LEFT JOIN
