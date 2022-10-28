@@ -32,20 +32,25 @@ class ServicoAnaliseContratado extends Modelo
 
         $sql = "SELECT
                     edi.orgao || '( '||edi.edital || ')' as edital,
-                    COALESCE(esd.esddsc, 'Selecionado') as situacao,
-                    edc.id
+                    COALESCE(aed.aeddscrealizada, 'Selecionado') || ' ('|| TO_CHAR(hst.htddata, 'DD/MM/YYYY HH24:MI:SS') ||')' as situacao,
+                    edc.id,
+                    doc.docid
                 FROM
                     edital.edital edi
-                LEFT JOIN
+                INNER JOIN
                   corporativo.tb_municipio mun ON edi.municipio_id = mun.id 
-                LEFT JOIN
+                INNER JOIN
                   corporativo.tb_unidade_federacao uf ON mun.uf_id = uf.id
                 INNER JOIN 
                     edital.editalcliente edc on edc.edital_id = edi.id
-                LEFT JOIN 
+                INNER JOIN 
                     workflow.documento doc ON doc.docid = edc.docid
-                LEFT JOIN 
+                INNER JOIN 
                     workflow.estadodocumento esd ON esd.esdid = doc.esdid
+                INNER JOIN     
+                    workflow.historicodocumento hst ON hst.docid = doc.docid
+                INNER JOIN 
+					workflow.acaoestadodoc aed ON aed.aedid = hst.aedid    
                  WHERE
                   " . implode(' AND ', $arWhere);
         //ver($sql);
@@ -53,7 +58,7 @@ class ServicoAnaliseContratado extends Modelo
             if (!is_null($order)) {
                 $sql .= " ORDER BY {$order}";
             } else {
-                $sql .= " ORDER BY edi.data_limite DESC";
+                $sql .= " ORDER BY hst.htddata DESC";
             }
         }
 

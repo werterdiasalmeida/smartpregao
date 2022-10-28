@@ -6,14 +6,6 @@ $mServicoAnaliseContratado = new ServicoAnaliseContratado();
 
 $params = getParam();
 
-// if(!isset($params['id'])){
-//     $params['id'] = $_SESSION['id_empresa'];
-// } else {
-//     $_SESSION['id_empresa'] = $params['id'];
-// }
-
-// ver($_SESSION['id_empresa']);
-
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
         case 'participar':
@@ -39,9 +31,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                             (edi.orgao ILIKE '%{$pesquisa_simples}%') OR
                             (TO_CHAR(edi.data_limite, 'DD/MM/YYYY') ILIKE '%{$pesquisa_simples}%')
                         )";
-
             switch ($_REQUEST['filtrar']) {
-
                 case 'realizados':
                     $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
@@ -65,13 +55,10 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                     $filtroMeusEditais = false;
                     break;
             }
-
             break;
         case 'carregarDetalhedital':
-
             require APPRAIZ . "adm/modulos/principal/editaisclientes/detalhe_edital.inc";
             die;
-
             break;
     }
 }
@@ -273,6 +260,7 @@ HTML;
 
                     // Filtro para não trazer as que já estão vinculadas
                     $arWhereEditais[] = "edi.data_limite >= NOW() AND edi.id not in (SELECT edital_id FROM edital.editalcliente WHERE estabelecimento_id = {$dados['id']} )";
+
 
                     $rs = $mEdital->getList($arWhereEditais);
 

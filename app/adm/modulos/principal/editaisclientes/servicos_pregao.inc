@@ -2,18 +2,8 @@
 $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
-//ver($_REQUEST,d);
-if ($_REQUEST && isset($_REQUEST['act'])) {
-    switch ($_REQUEST['act']) {
-        case 'carregarServicoEdital':
-            $params['servico'] = $_REQUEST['servico'];
-            $params['edital_cliente_id'] = $_REQUEST['edital_cliente_id'];
-            require APPRAIZ . "adm/modulos/principal/editaisclientes/detalhe_servico.inc";
-            die;
-            break;
-    }
-}
 
+/* Carrega os dados da tela */
 $editalCliente = $_REQUEST['p'];
 if (!is_int($editalCliente)) {
     $editalCliente = getParam();
@@ -30,9 +20,33 @@ if (empty($dadosEditalCliente['docid'])) {
 }
 $dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
 $dados = $mEdital->getDadosCompletos($editalCliente);
+$editalCliente = setParam(array('id' => $editalCliente), false);
 
-//ver($dados);
-
+if ($_REQUEST && isset($_REQUEST['act'])) {
+    switch ($_REQUEST['act']) {
+        case 'carregarServicoEdital':
+            $params['servico'] = $_REQUEST['servico'];
+            $params['edital_cliente_id'] = $_REQUEST['edital_cliente_id'];
+            require APPRAIZ . "adm/modulos/principal/editaisclientes/detalhe_servico.inc";
+            die;
+            break;
+        case 'adicionarCalendario':
+            $dadosAgenda['inicio'] = $dados['data_limite'] . ' ' . $dados['hora_limite'] ;
+            $horafim = explode(':', $dados['hora_limite']);
+            $dadosAgenda['fim'] = $dados['data_limite'] . ' ' . $horafim[0] . ':30';
+            $dadosAgenda['titulo'] = 'Pregão - ' . $dados['orgao'];
+            $dadosAgenda['descricao'] = 'Pregão - ' . $dados['orgao'] . ' - ' . $dados['pregao'] . ' - ' . $dados['objeto'];
+            $dadosAgenda['local'] = $dados['portal'];
+            $event = new ICS(   $dadosAgenda['inicio'], 
+                                $dadosAgenda['fim'],  
+                                $dadosAgenda['titulo'], 
+                                $dadosAgenda['descricao'],   
+                                $dadosAgenda['local']
+                            );
+            $event->show();
+            break;
+    }
+}
 include APPRAIZ . "includes/cabecalhom.inc";
 
 ?>
@@ -93,14 +107,14 @@ include APPRAIZ . "includes/cabecalhom.inc";
                         <div class="form-group">
                             <label><b>Valor Estimado</b></label>
                             <br />
-                            <?php echo $dados['valor_estimado'] ?>
+                            <b class="font-blue-sharp"><?php echo $dados['valor_estimado'] ?></b>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label><b>Temperatura</b></label>
                             <br />
-                            <?php echo $dados['temperatura'] ?>
+                            <spam class="badge badge-primary"><?php echo $dados['temperatura'] ?></spam>
                         </div>
                     </div>
                 </div>
@@ -139,7 +153,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                             <div class="card">
                                 <div class="card-header" style="cursor: pointer ;" id="headingTwo3">
                                     <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo3">
-                                    <br/><b>+ Comentários</b>
+                                        <br /><b>+ Comentários</b>
                                     </div>
                                 </div>
                                 <div id="collapseTwo3" class="collapse" data-parent="#accordionExample3">
@@ -151,24 +165,24 @@ include APPRAIZ . "includes/cabecalhom.inc";
                             <div class="card">
                                 <div class="card-header" style="cursor: pointer ;" id="headingThree3">
                                     <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree3">
-                                    <br/> <b>+ Habilitação Técnica</b>
+                                        <br /> <b>+ Habilitação Técnica</b>
                                     </div>
                                 </div>
                                 <div id="collapseThree3" class="collapse" data-parent="#accordionExample3">
                                     <div class="card-body">
-                                    <?php echo nl2br($dados['habilitacao_tecnica']) ?>
+                                        <?php echo nl2br($dados['habilitacao_tecnica']) ?>
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-header" style="cursor: pointer ;" id="headingThree4">
                                     <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree4">
-                                    <br/> <b>+ Serviço a ser executado</b>
+                                        <br /> <b>+ Serviço a ser executado</b>
                                     </div>
                                 </div>
                                 <div id="collapseThree4" class="collapse" data-parent="#accordionExample4">
                                     <div class="card-body">
-                                    <?php echo nl2br($dados['resumo_servico']) ?>
+                                        <?php echo nl2br($dados['resumo_servico']) ?>
                                     </div>
                                 </div>
                             </div>
@@ -186,6 +200,9 @@ include APPRAIZ . "includes/cabecalhom.inc";
                 <h4>Ações</h4>
                 <a href="#" class="btn btn-danger" onclick="editar('<?= $p ?>')"> <i class="fa fa-edit"></i> Editar Informações do Pregão</a>
                 </br>
+                </br>
+                <a href="#" class="btn btn-success" onclick="adicionarCalendario('<?= $editalCliente ?>')"> <i class="fa fa-calendar"></i> Adicionar ao Calendário</a>
+                <br />
                 <?php
                 if ($dados['link_g_drive']) {
                     echo "<br><a class='btn btn-warning' href=\"{$dados['link_g_drive']}\" target=\"_blank\"> <i class=\"fa fa-google\"></i> Google Drive</a>";
@@ -344,6 +361,11 @@ include APPRAIZ . "includes/cabecalhom.inc";
     function editar(id) {
         url = '?modulo=principal/editais/formulario&acao=C' + id;
         window.open(url);
+    }
+
+    function adicionarCalendario(id) {
+        url = '?modulo=principal/editaisclientes/servicos_pregao&acao=C&act=adicionarCalendario&p=' + id;;
+        location.href = url;
     }
 
 
