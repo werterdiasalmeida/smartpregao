@@ -31,6 +31,9 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             die;
             break;
         case 'adicionarCalendario':
+            $horainicio = explode(':', $dados['hora_limite']);
+            $horainicio = $horainicio[0] + 3;
+            $dados['hora_limite'] = $horainicio . ':00';
             $dadosAgenda['inicio'] = $dados['data_limite'] . ' ' . $dados['hora_limite'] ;
             $horafim = explode(':', $dados['hora_limite']);
             $dadosAgenda['fim'] = $dados['data_limite'] . ' ' . $horafim[0] . ':30';
