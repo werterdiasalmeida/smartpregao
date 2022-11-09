@@ -311,7 +311,7 @@ HTML;
         'Razão social',
         'Nome fantasia',
         'CNPJ',
-        'Tipo',
+        'Seguimento',
         'Ação'
     ));
     $mLista->setCorpo( $rs, $arConfig );

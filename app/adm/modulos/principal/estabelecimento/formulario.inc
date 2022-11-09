@@ -4,7 +4,7 @@ $params = getParam();
 
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {
-        case 'salvar' :
+        case 'salvar':
             try {
                 $params = array_merge($_POST, getParam());
                 $id = $mEstabelecimento->salvarEstabelecimento($params, $_FILES);
@@ -55,15 +55,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
 if ($aba) {
     echo Estabelecimento::gerarCabecalho();
 }
-
-
-if ($aba) {
-    UsuarioResponsabilidadeEstabelecimento::montaTituloAba($abacod_tela, $url, setParam(getParam()), null, array(), true);
-} else {
-    monta_titulom('Insira os dados do cliente');
-}
 ?>
-
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption font-blue-sharp">
@@ -82,7 +74,7 @@ if ($aba) {
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Tipo</label>
+                            <label>Seguimento</label>
                             <?php
                             $mTipoEstabelecimento = new TipoEstabelecimento();
                             $tiposEstabelecimento = $mTipoEstabelecimento->recuperarTodos('id AS codigo, descricao', array("excluido IS FALSE"));
@@ -103,30 +95,53 @@ if ($aba) {
                             <i class="fa fa-plus-circle"></i>
                             Incluir contato
                         </a>
-                        <br/>
-                        <br/>
-                        <table id="tabela-representantes" data-toggle="table" class="table table-striped"
-                               data-unique-id="id">
+                        <br />
+                        <br />
+                        <table id="tabela-representantes" data-toggle="table" class="table table-striped" data-unique-id="id">
                             <thead>
-                            <tr>
-                                <th data-field="nome">Nome</th>
-                                <th data-field="cargo">Cargo</th>
-                                <th data-field="contato">Contato</th>
-                                <th data-formatter="formatContatoPrincipal" data-field="flg_principal">Principal</th>
-                                <th data-formatter="formatAcaoRepresentante" data-align="center">Ação</th>
-                            </tr>
+                                <tr>
+                                    <th data-field="nome">Nome</th>
+                                    <th data-field="cargo">Cargo</th>
+                                    <th data-field="contato">Contato</th>
+                                    <th data-formatter="formatContatoPrincipal" data-field="flg_principal">Principal</th>
+                                    <th data-formatter="formatAcaoRepresentante" data-align="center">Ação</th>
+                                </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <input type="hidden" name="representantes" value="<?= $representantes ?>"/>
+                <input type="hidden" name="representantes" value="<?= $representantes ?>" />
             </div>
             <h4 class="form-section">Endereços</h4>
             <?php require APPRAIZ . "adm/modulos/principal/includes/endereco/lista.inc"; ?>
+
             <h4 class="form-section">Documentos da Empresa</h4>
-            <?php require APPRAIZ . "adm/modulos/principal/includes/endereco/lista.inc"; ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="btn green btn-incluir-documento">
+                        <i class="fa fa-plus-circle"></i>
+                        Incluir Documento
+                    </a>
+                    <br />
+                    <br />
+                    <table id="tabela-documento" data-toggle="table" class="table table-striped" data-unique-id="id">
+                        <thead>
+                            <tr>
+                                <th data-field="nome">Nome</th>
+                                <th data-field="cargo">Tipo</th>
+                                <th data-field="contato">Validade</th>
+                                <th data-formatter="formatContatoPrincipal" data-field="flg_principal">Detalhado</th>
+                                <th data-formatter="formatAcaoRepresentante" data-align="center">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="form-actions">
                 <button type="submit" class="btn blue">
                     <i class="fa fa-save"></i> Salvar
@@ -136,7 +151,7 @@ if ($aba) {
                 </button>
             </div>
 
-            <input type="hidden" name="act" value="salvar"/>
+            <input type="hidden" name="act" value="salvar" />
         </form>
     </div>
 </div>
@@ -175,13 +190,12 @@ if ($aba) {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Principal</label>
-                                <br/>
+                                <br />
                                 <?php
                                 $opcoes = array(
                                     array('codigo' => 't', 'descricao' => 'Sim'),
                                     array('codigo' => 'f', 'descricao' => 'Não'),
                                 );
-
                                 echo $db->monta_radiom('flg_principal', $opcoes, 'S', 'S', 'f');
                                 ?>
                             </div>
@@ -196,28 +210,106 @@ if ($aba) {
                     <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
                 </div>
 
-                <input type="hidden" id="index" name="index"/>
-                <input type="hidden" id="id" name="id"/>
+                <input type="hidden" id="index" name="index" />
+                <input type="hidden" id="id" name="id" />
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="modal-documento" tabindex="-1" role="modal-documento" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form role="form" name="documento-form" class="documento-form" method="POST">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Documento do estabelecimento</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome</label>
+                                <?= campo_textom('nome', 'S', 'S', '', 90, 90, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Tipo</label>
+                                <br />
+                                <?php
+                                $opcoes = array(
+                                    array('codigo' => 'Habilitação Jurídica', 'descricao' => 'Habilitação Jurídica'),
+                                    array('codigo' => 'Habilitação Financeira', 'descricao' => 'Habilitação Financeira'),
+                                    array('codigo' => 'Habilitação Técnica', 'descricao' => 'Habilitação Técnica'),
+                                );
+                                echo $db->monta_radiom('tipo', $opcoes, 'S', 'S', 'Habilitação Jurídica');
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Validade</label>
+                                <?= campo_datam('contato', 'S', 'S', '', 90, 90, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Detalhado</label>
+                                <br />
+                                <?php
+                                $opcoes = array(
+                                    array('codigo' => 't', 'descricao' => 'Sim'),
+                                    array('codigo' => 'f', 'descricao' => 'Não'),
+                                );
+                                echo $db->monta_radiom('flg_detalhado', $opcoes, 'S', 'S', 'f');
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Arquivo (*.pdf)</label>
+                                <br />
+                                <input type="file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue">
+                        <i class="fa fa-plus-circle"></i>
+                        Incluir
+                    </button>
+                    <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                </div>
+
+                <input type="hidden" id="index" name="index" />
+                <input type="hidden" id="id" name="id" />
             </form>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $(".estabelecimento-form").validateForm({
             rules: {
-                cnpj: {cnpj: true},
-                foto: {accept: "image/*"},
-                "contatos[<?= TipoContato::TIPO_EMAIL ?>][contato]": {email: true}
+                cnpj: {
+                    cnpj: true
+                },
+                foto: {
+                    accept: "image/*"
+                },
+                "contatos[<?= TipoContato::TIPO_EMAIL ?>][contato]": {
+                    email: true
+                }
             },
-            submitHandler: function (e) {
+            submitHandler: function(e) {
                 var submit = this;
-                verificarCnpj($('#cnpj').val(), function () {
+                verificarCnpj($('#cnpj').val(), function() {
                     submit.submitHandlerFile(e, $('#file-logo'));
                 });
             },
-            beforeSubmitForm: function (e) {
+            beforeSubmitForm: function(e) {
                 const remove_logo = localStorage.getItem('remove_logo');
                 if (remove_logo === 'S') {
                     $('#remove_logo').val('S');
@@ -232,47 +324,53 @@ if ($aba) {
         });
 
         $(".endereco-form").validateForm({
-            submitHandler: function (e) {
+            submitHandler: function(e) {
                 incluirEndereco();
             }
         });
 
         $(".contato-form").validateForm({
-            submitHandler: function (e) {
+            submitHandler: function(e) {
                 incluirContato();
             }
         });
 
         $(".representante-form").validateForm({
-            submitHandler: function (e) {
+            submitHandler: function(e) {
                 incluirRepresentante();
             }
         });
 
-        $('.btn-voltar').click(function () {
+        $('.btn-voltar').click(function() {
             window.location = '?modulo=principal/estabelecimento/lista&acao=C';
         });
 
-        $('.btn-incluir-contato').click(function () {
+        $('.btn-incluir-contato').click(function() {
             $('#modal-representante').modal({
                 backdrop: 'static',
             }).modal('show');
         });
+        $('.btn-incluir-documento').click(function() {
+            $('#modal-documento').modal({
+                backdrop: 'static',
+            }).modal('show');
+        });
+        3
 
-        <?php if($representantes) : ?>
-        $('#tabela-representantes').bootstrapTable('load', <?= $representantes ?>);
+        <?php if ($representantes) : ?>
+            $('#tabela-representantes').bootstrapTable('load', <?= $representantes ?>);
         <?php endif; ?>
     });
 
 
     function formatAcaoRepresentante(value, row, index) {
-        var btnEditar = '<a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:alterarRepresentante(' + index + ')" title="Alterar" style="margin: 2px;">'
-            + '<i class="icon-pencil"></i>'
-            + '</a>';
+        var btnEditar = '<a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:alterarRepresentante(' + index + ')" title="Alterar" style="margin: 2px;">' +
+            '<i class="icon-pencil"></i>' +
+            '</a>';
 
-        var btnExcluir = '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirRepresentante(' + index + ')" title="Excluir" style="margin: 2px;">'
-            + '<i class="icon-trash"></i>'
-            + '</a>';
+        var btnExcluir = '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirRepresentante(' + index + ')" title="Excluir" style="margin: 2px;">' +
+            '<i class="icon-trash"></i>' +
+            '</a>';
 
         return btnEditar + btnExcluir;
     }
@@ -305,7 +403,7 @@ if ($aba) {
         //Se for principal procura todos os outros que forem principais e altera para não
         if ($(form).find('[name=flg_principal]:checked').val() == 't') {
             var dados = $('#tabela-representantes').bootstrapTable("getData");
-            $.each(dados, function (index, item) {
+            $.each(dados, function(index, item) {
                 if (item.flg_principal == 't') {
                     item.flg_principal = 'f';
                     $('#tabela-representantes').bootstrapTable('updateRow', {
