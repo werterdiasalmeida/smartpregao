@@ -161,8 +161,8 @@ HTML;
                                 <i class="icon-arrow-right"></i>
                                 Próximos 7 Dias
                             </button>
-                            <button class="btn red" onclick="filtrarMeusEditais('monitoradas');" type="button" data-toggle="tooltip" title="Todos os próximos">
-                                <i class="icon-star"></i>
+                            <button class="btn yellow" onclick="filtrarMeusEditais('monitoradas');" type="button" data-toggle="tooltip" title="Todos os próximos">
+                                <i class="icon-eye"></i>
                                 Monitoradas
                             </button>
                             <button class="btn blue" onclick="filtrarMeusEditais('todos_proximos');" type="button" data-toggle="tooltip" title="Todos os próximos">
