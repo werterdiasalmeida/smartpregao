@@ -35,17 +35,21 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                 case 'realizados':
                     $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    $ordernar = 'edi.data_limite DESC';
                     $filtroMeusEditais = true;
                     break;
                 case '7dias':
                     $filtroMeusEditais = false;
+                    break;
+                case 'monitoradas':
+                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid IN (98)) ";
+                    $ordernar = 'edi.data_limite DESC';
                     break;
                 case 'todos_proximos':
                     $arWhereEditaisCliente[] = " edi.data_limite >= current_date + 8";
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
                     $filtroMeusEditais = true;
                     break;
-
                 case 'descartados':
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid IN (95)) ";
                     $filtroMeusEditais = true;
@@ -157,6 +161,10 @@ HTML;
                                 <i class="icon-arrow-right"></i>
                                 Próximos 7 Dias
                             </button>
+                            <button class="btn red" onclick="filtrarMeusEditais('monitoradas');" type="button" data-toggle="tooltip" title="Todos os próximos">
+                                <i class="icon-star"></i>
+                                Monitoradas
+                            </button>
                             <button class="btn blue" onclick="filtrarMeusEditais('todos_proximos');" type="button" data-toggle="tooltip" title="Todos os próximos">
                                 <i class="icon-arrow-right"></i>
                                 Todos os próximos
@@ -198,6 +206,9 @@ HTML;
                     }
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
                     $rs = $mEditalCliente->getList($arWhereEditaisCliente);
+                    if($ordernar){
+                        $rs = $mEditalCliente->getList($arWhereEditaisCliente, true, $ordernar);
+                    }
 
                     $mEditalCliente = new Listam(array("style" => "width: 100%;"));
                     $mEditalCliente->setCabecalho(array(
@@ -227,9 +238,6 @@ HTML;
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
-
-
-
                                 <input type="hidden" name="act" value="pesquisa_simples">
 
                             </div>
