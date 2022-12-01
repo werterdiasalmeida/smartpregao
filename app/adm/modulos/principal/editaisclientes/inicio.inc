@@ -36,6 +36,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                     $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
                     $ordernar = 'edi.data_limite DESC';
+                    $filtroPadrao = false;
                     break;
                 case '7dias':
                     $filtroPadrao = true;
@@ -48,9 +49,11 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                 case 'todos_proximos':
                     $arWhereEditaisCliente[] = " edi.data_limite >= current_date + 8";
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    $filtroPadrao = false;
                     break;
                 case 'descartados':
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid IN (95)) ";
+                    $filtroPadrao = false;
                     break;
                 default:
                     $filtroPadrao = true;
