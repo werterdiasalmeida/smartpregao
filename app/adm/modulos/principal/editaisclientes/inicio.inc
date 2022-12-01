@@ -35,7 +35,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             switch ($_REQUEST['filtrar']) {
                 case 'realizados':
                     $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
-                    //$arWhereEditaisCliente[] = " esd.esdid NOT IN (95) ";
+                    $arWhereEditaisCliente[] = " esd.esdid NOT IN (95) ";
                     $ordernar = 'edi.data_limite DESC';
                     $filtroPadrao = false;
                     break;
