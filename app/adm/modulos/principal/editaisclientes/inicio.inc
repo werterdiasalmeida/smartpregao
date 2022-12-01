@@ -5,6 +5,7 @@ $mEditalCliente = new EditalCliente();
 $mServicoAnaliseContratado = new ServicoAnaliseContratado();
 
 $params = getParam();
+$filtroPadrao = true;
 
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
@@ -34,7 +35,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             switch ($_REQUEST['filtrar']) {
                 case 'realizados':
                     $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
-                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    //$arWhereEditaisCliente[] = " esd.esdid NOT IN (95) ";
                     $ordernar = 'edi.data_limite DESC';
                     $filtroPadrao = false;
                     break;
@@ -43,7 +44,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                     break;
                 case 'monitoradas':
                     $filtroPadrao = false;
-                    $arWhereEditaisCliente[] = " esd.esdid IN (98) ";
+                    $arWhereEditaisCliente[] = "( esd.esdid IN (98))  ";
                     $ordernar = 'edi.data_limite DESC';
                     break;
                 case 'todos_proximos':
@@ -66,17 +67,12 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             break;
     }
 }
-
 $aba = false;
-$filtroPadrao = true;
 $enderecos = null;
 if (isset($params['id']) && !empty($params['id'])) {
     UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($params['id']);
-
     $aba = true;
-
     $dados = $mEstabelecimento->getTodosDados($params['id']);
-
     extract($dados);
 }
 
@@ -118,14 +114,14 @@ if ($aba) {
                     </form>
                     <?php
                     $arConfig = array();
-                    $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
+                    $arWhereMinhasSolicitacoes[] = " estabelecimento_id = {$dados['id']}";
                     $arConfig[0]['html'] = <<<HTML
                         <spam><a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                             {edital}
                         </a></spam>
 
 HTML;
-                    $rs = $mServicoAnaliseContratado->getList($arWhereEditaisCliente);
+                    $rs = $mServicoAnaliseContratado->getList($arWhereMinhasSolicitacoes);
                     $mServicoAnaliseContratado = new Listam(array("style" => "width: 100%;"));
                     $mServicoAnaliseContratado->setCabecalho(array(
                         'Edital',
