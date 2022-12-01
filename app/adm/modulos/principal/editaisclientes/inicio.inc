@@ -36,27 +36,24 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                     $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
                     $ordernar = 'edi.data_limite DESC';
-                    $filtroMeusEditais = true;
                     break;
                 case '7dias':
-                    $filtroMeusEditais = false;
+                    $filtroPadrao = true;
                     break;
                 case 'monitoradas':
-                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid IN (98)) ";
+                    $filtroPadrao = false;
+                    $arWhereEditaisCliente[] = " esd.esdid IN (98) ";
                     $ordernar = 'edi.data_limite DESC';
                     break;
                 case 'todos_proximos':
                     $arWhereEditaisCliente[] = " edi.data_limite >= current_date + 8";
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
-                    $filtroMeusEditais = true;
                     break;
                 case 'descartados':
                     $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid IN (95)) ";
-                    $filtroMeusEditais = true;
-
                     break;
                 default:
-                    $filtroMeusEditais = false;
+                    $filtroPadrao = true;
                     break;
             }
             break;
@@ -199,8 +196,7 @@ HTML;
 
                     $arConfig[2]['style'] = "width: 10%; text-align: center;";
                     /* Filtro do Período (padrão próximos 7 dias e não descartados)*/
-
-                    if (!$filtroMeusEditais) {
+                    if ($filtroPadrao) {
                         $arWhereEditaisCliente[] = " edi.data_limite between current_date and current_date + 8 ";
                         $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
                     }
