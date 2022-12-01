@@ -65,7 +65,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
 }
 
 $aba = false;
-
+$filtroPadrao = true;
 $enderecos = null;
 if (isset($params['id']) && !empty($params['id'])) {
     UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($params['id']);
