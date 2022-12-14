@@ -2,27 +2,27 @@
 $mEstabelecimento = new Estabelecimento();
 $arWhere = array();
 
-if($_POST && isset($_POST['act'])){
-    switch($_POST['act']) {
-        case 'excluir' :
+if ($_POST && isset($_POST['act'])) {
+    switch ($_POST['act']) {
+        case 'excluir':
             $arParams = getParam();
             UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($arParams['id']);
 
             $mEstabelecimento->carregarPorId($arParams['id']);
             $qtdAgendas = $mEstabelecimento->getQtdAgendaByEstabelecimento($arParams['id']);
 
-            if($qtdAgendas == 0){
+            if ($qtdAgendas == 0) {
                 $mEstabelecimento->excluirEstabelecimento($arParams['id']);
                 $mEstabelecimento->commit();
                 $db->sucessom($_REQUEST['modulo'], '', 'Estabelecimento excluído com sucesso');
-            }else{
+            } else {
                 $db->insucessom($_REQUEST['modulo'], '', 'O estabelecimento informado possui agenda e não pode ser excluído.');
             }
             break;
-        case 'pesquisa_simples' :
+        case 'pesquisa_simples':
             $pesquisaAvancada = false;
 
-            if(!empty($_REQUEST['pesquisa_simples'])){
+            if (!empty($_REQUEST['pesquisa_simples'])) {
                 $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));;
                 $arWhere[] = "(
                     (pj.razao_social ILIKE '%{$pesquisa_simples}%') OR
@@ -33,20 +33,20 @@ if($_POST && isset($_POST['act'])){
             }
 
             break;
-        case 'pesquisa_avancada' :
+        case 'pesquisa_avancada':
             $pesquisaAvancada = true;
 
-            if(!empty($_REQUEST['razao_social'])){
+            if (!empty($_REQUEST['razao_social'])) {
                 $razao_social = trim(addslashes($_REQUEST['razao_social']));
                 $arWhere['razao_social'] = "pj.razao_social ILIKE '%{$razao_social}%' ";
             }
 
-            if(!empty($_REQUEST['nome_fantasia'])){
+            if (!empty($_REQUEST['nome_fantasia'])) {
                 $nome_fantasia = trim(addslashes($_REQUEST['nome_fantasia']));
                 $arWhere['nome_fantasia'] = "pj.nome_fantasia ILIKE '%{$nome_fantasia}%' ";
             }
 
-            if(!empty($_REQUEST['possuiagenda'])){
+            if (!empty($_REQUEST['possuiagenda'])) {
                 $sinal = $_REQUEST['possuiagenda'] == 'S' ? '>' : '=';
                 $possuiagenda = $_REQUEST['possuiagenda'];
                 $arWhere['possuiagenda'] = "((  SELECT 
@@ -59,53 +59,53 @@ if($_POST && isset($_POST['act'])){
                                                     epa.excluido IS FALSE) {$sinal} 0)";
             }
 
-            if(!empty($_REQUEST['cnpj'])){
+            if (!empty($_REQUEST['cnpj'])) {
                 $cnpj = trim(addslashes($_REQUEST['cnpj']));
                 $arWhere['cnpj'] = "pj.cnpj ILIKE '%{$cnpj}%' ";
             }
 
-            if(!empty($_REQUEST['tipo_estabelecimento_id'])){
+            if (!empty($_REQUEST['tipo_estabelecimento_id'])) {
                 $tipo_estabelecimento_id = (int) $_REQUEST['tipo_estabelecimento_id'];
                 $arWhere['tipo_estabelecimento_id'] = "est.tipo_estabelecimento_id = " . $tipo_estabelecimento_id;
             }
             break;
-        case 'migrar_informacoes_estabelecimentos' :
+        case 'migrar_informacoes_estabelecimentos':
             $origem     = $_REQUEST['origem'];
             $destino    = $_REQUEST['destino'];
             $desabilita = $_REQUEST['desabilita'] == 'S' ? true : false;
 
             //Corpo clínico
             $mCorpoClinico = new EstabelecimentoEspecialidadeProfissional();
-            $arCorpoClinico = $mCorpoClinico->copiarDados($origem,$destino,$desabilita);
+            $arCorpoClinico = $mCorpoClinico->copiarDados($origem, $destino, $desabilita);
 
             //Convênio
             $mConvenio = new ConvenioEstabelecimento();
-            $arConvenio = $mConvenio->copiarDados($origem,$destino,$desabilita);
+            $arConvenio = $mConvenio->copiarDados($origem, $destino, $desabilita);
 
             //Procedimentos
             $mProcedimento = new Procedimento();
-            $arProcedimento = $mProcedimento->copiarDados($origem,$destino,$desabilita);
+            $arProcedimento = $mProcedimento->copiarDados($origem, $destino, $desabilita);
 
             //TabelaPrecos
             $mTabelaPreco = new TabelaPreco();
-            $arTabelaPrecos = $mTabelaPreco->copiarDados($origem,$destino,$desabilita,$arConvenio,$arProcedimento);
+            $arTabelaPrecos = $mTabelaPreco->copiarDados($origem, $destino, $desabilita, $arConvenio, $arProcedimento);
 
             //Modelo de documentos
             $mModeloDocumento = new ModeloDocumento();
-            $arModeloDocumento = $mModeloDocumento->copiarDados($origem,$destino,$desabilita);
+            $arModeloDocumento = $mModeloDocumento->copiarDados($origem, $destino, $desabilita);
 
             $mEstabelecimento->commit();
 
-            $db->sucessomAjax('',array('corpo_clinico' => $arCorpoClinico, 'convenio' => $arConvenio, 'procedimento' => $arProcedimento, 'tabela_preco' => $arTabelaPrecos, 'modelo_documento' => $arModeloDocumento), 'Migração de dados efetuada com sucesso!');
+            $db->sucessomAjax('', array('corpo_clinico' => $arCorpoClinico, 'convenio' => $arConvenio, 'procedimento' => $arProcedimento, 'tabela_preco' => $arTabelaPrecos, 'modelo_documento' => $arModeloDocumento), 'Migração de dados efetuada com sucesso!');
             break;
     }
 }
 
 include APPRAIZ . "includes/cabecalhom.inc";
 ?>
-<br/>
+<br />
 <style type="text/css">
-    .campos-pesquisa{
+    .campos-pesquisa {
         border-bottom: 1px solid #eef1f5;
         padding: 10px 0px 10px 0px;
         margin-bottom: 10px;
@@ -212,7 +212,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                             </div>
                         </div>
                         <div class="col-xs-5 col-sm-7 text-right">
-                            <?php if(possuiAcesso('adm.php?modulo=principal/estabelecimento/formulario&acao=C')) : ?>
+                            <?php if (possuiAcesso('adm.php?modulo=principal/estabelecimento/formulario&acao=C')) : ?>
                                 <a class="btn green" href="?modulo=principal/estabelecimento/formulario&acao=C">
                                     <i class="fa fa-plus-circle"></i>
                                     Cadastrar novo cliente
@@ -221,7 +221,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="act" value="<?= ($pesquisaAvancada ? 'pesquisa_avancada' : 'pesquisa_simples') ?>"/>
+                <input type="hidden" name="act" value="<?= ($pesquisaAvancada ? 'pesquisa_avancada' : 'pesquisa_simples') ?>" />
             </form>
         </div>
 
@@ -232,6 +232,16 @@ include APPRAIZ . "includes/cabecalhom.inc";
     $acaoCorpoClinico = '';
     $acaoAgenda = '';
     $acaoExclusao = '';
+
+    $acaoMonitoramento = <<<ACAO
+    <php>
+        if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/editaisclientes/monitoramento&acao=C')) {
+            return '<a class="btn btn-circle btn-icon-only btn-default yellow" href="?modulo=principal/editaisclientes/monitoramento&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Monitoramento do Cliente">
+                        <i class="icon-eye"></i>
+                    </a>';
+        }
+    </php>
+ACAO;
 
 
     $acaoPainelEmpresa = <<<ACAO
@@ -276,8 +286,9 @@ ACAO;
 
     $acao = <<<ACAO
             <div style="min-width: 200px;">
-                {$acaoPainelEmpresa}    
-                {$acaoFinanceiro}
+            {$acaoPainelEmpresa} 
+            {$acaoMonitoramento}
+                   {$acaoFinanceiro}
                 {$acaoEdicao}
                 {$acaoExclusao}
             </div>
@@ -307,15 +318,15 @@ HTML;
     $rs = $mEstabelecimento->getList($arWhere);
 
     $mLista = new Listam(array("style" => "width: 100%;"));
-    $mLista->setCabecalho( array(
+    $mLista->setCabecalho(array(
         'Razão social',
         'Nome fantasia',
         'CNPJ',
         'Seguimento',
         'Ação'
     ));
-    $mLista->setCorpo( $rs, $arConfig );
-    $mLista->setAcao( $acao );
+    $mLista->setCorpo($rs, $arConfig);
+    $mLista->setAcao($acao);
     $mLista->show();
     ?>
 </div>
@@ -346,13 +357,13 @@ HTML;
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        $('.btn-limpar').click(function () {
+    $(function() {
+        $('.btn-limpar').click(function() {
             window.location = '?modulo=principal/estabelecimento/lista&acao=C';
         });
     });
 
-    function exibirModalExclusao(p, nome){
+    function exibirModalExclusao(p, nome) {
         var modal = $('#modal-excluir');
 
         $('form.form-excluir [name=p]').val(p);
@@ -360,27 +371,27 @@ HTML;
         modal.modal('show');
     }
 
-    function excluirRegistro(){
+    function excluirRegistro() {
         $('form.form-excluir').submit();
     }
 
-    function migrarEstabelecimentos(origem,destino, desabilita){
+    function migrarEstabelecimentos(origem, destino, desabilita) {
         $.ajax({
             type: "POST",
             url: window.location.href,
-            dataType : 'json',
+            dataType: 'json',
             data: {
-                act : 'migrar_informacoes_estabelecimentos',
+                act: 'migrar_informacoes_estabelecimentos',
                 origem: origem,
                 destino: destino,
                 desabilita: desabilita,
             },
-            success: function (retorno) {
+            success: function(retorno) {
                 console.log(retorno);
 
                 exibirSucesso(retorno.msg ? retorno.msg : 'Migração realizada com sucesso!');
             },
-            error: function (result) {
+            error: function(result) {
                 App.unblockUI('.form-body');
                 exibirAlert('Não foi possível realizar a migração');
             }

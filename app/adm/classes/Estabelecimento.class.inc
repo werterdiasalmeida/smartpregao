@@ -255,8 +255,11 @@ class Estabelecimento extends Modelo
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <div class="form-group">
-                            <a class="btn btn-circle btn-icon-only btn-default purple-plum " href="?modulo=principal/editaisclientes/inicio&acao=C{$pParam}" data-toggle="tooltip" title="Painel" target="_top">
+                                <a class="btn btn-circle btn-icon-only btn-default purple-plum " href="?modulo=principal/editaisclientes/inicio&acao=C{$pParam}" data-toggle="tooltip" title="Painel" target="_top">
                                     <i class="icon-arrow-right"></i>
+                                </a>
+                                <a class="btn btn-circle btn-icon-only btn-default yellow " href="?modulo=principal/editaisclientes/monitoramento&acao=C{$pParam}" data-toggle="tooltip" title="Monitoramento" target="_top">
+                                    <i class="icon-eye"></i>
                                 </a>
                                 <a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/estabelecimento/agenda&acao=C{$pParam}" data-toggle="tooltip" title="Agenda">
                                     <i class="icon-calendar"></i>
@@ -272,6 +275,7 @@ class Estabelecimento extends Modelo
                     </div>
                 </div>
             </div>
+            
             <div class="modal fade in" id="modal-chamar-senha" tabindex="-1" role="modal-chamar-senha" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
