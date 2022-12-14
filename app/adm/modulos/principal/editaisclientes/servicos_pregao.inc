@@ -2,7 +2,16 @@
 $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
-
+$mEditalClienteMonitoramento = new EditalClienteMonitoramento();
+if ($_POST && isset($_POST['act'])) {
+    switch ($_POST['act']) {
+        case 'salvar':
+            $params = $_POST ;
+            $mEditalClienteMonitoramento->salvarMonitoramento($params);
+            $mEditalClienteMonitoramento->commit();
+           break;
+    }
+}
 /* Carrega os dados da tela */
 $editalCliente = $_REQUEST['p'];
 if (!is_int($editalCliente)) {
@@ -34,18 +43,19 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             $horainicio = explode(':', $dados['hora_limite']);
             $horainicio = $horainicio[0] + 3;
             $dados['hora_limite'] = $horainicio . ':00';
-            $dadosAgenda['inicio'] = $dados['data_limite'] . ' ' . $dados['hora_limite'] ;
+            $dadosAgenda['inicio'] = $dados['data_limite'] . ' ' . $dados['hora_limite'];
             $horafim = explode(':', $dados['hora_limite']);
             $dadosAgenda['fim'] = $dados['data_limite'] . ' ' . $horafim[0] . ':30';
             $dadosAgenda['titulo'] = 'Pregão - ' . $dados['orgao'];
             $dadosAgenda['descricao'] = 'Pregão - ' . $dados['orgao'] . ' - ' . $dados['pregao'] . ' - ' . $dados['objeto'];
             $dadosAgenda['local'] = $dados['portal'];
-            $event = new ICS(   $dadosAgenda['inicio'], 
-                                $dadosAgenda['fim'],  
-                                $dadosAgenda['titulo'], 
-                                $dadosAgenda['descricao'],   
-                                $dadosAgenda['local']
-                            );
+            $event = new ICS(
+                $dadosAgenda['inicio'],
+                $dadosAgenda['fim'],
+                $dadosAgenda['titulo'],
+                $dadosAgenda['descricao'],
+                $dadosAgenda['local']
+            );
             $event->show();
             break;
     }
@@ -198,7 +208,25 @@ include APPRAIZ . "includes/cabecalhom.inc";
                 wf_desenhaBarraNavegacaoHorizontalM($docid, array('id' => $editalCliente), null, null, null, null);
                 $param['id'] = $dados['id_edital'];
                 $p = setParam($param, true);
-                ?>
+
+                if ($dados['situacao'] == 'Em Monitoramento') {
+
+                    echo '<h4>Monitoramento</h4>';
+                    echo "<a style=\"float:right;\" class='btn btn-primary' onclick=\"exibirModalNovoMonitoramento()\" > <i class=\"fa fa-plus\"></i> Adicionar</a> <br><br>";
+
+                    $arConfig = array();
+                    $$arWhere[] = " editalcliente_id = {$dadosEditalCliente['id']}";
+
+                    $rs = $mEditalClienteMonitoramento->getList($arWhere);
+                    $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
+                    $mEditalClienteMonitoramento->setCabecalho(array(
+                        'Data/Hora',
+                        'Monitoramento'
+                    ));
+                    $mEditalClienteMonitoramento->setCorpo($rs, $arConfig);
+                    $mEditalClienteMonitoramento->setAcao($acao);
+                    $mEditalClienteMonitoramento->show();
+                } ?>
 
                 <h4>Ações</h4>
                 <a href="#" class="btn btn-danger" onclick="editar('<?= $p ?>')"> <i class="fa fa-edit"></i> Editar Informações do Pregão</a>
@@ -232,130 +260,50 @@ include APPRAIZ . "includes/cabecalhom.inc";
                         break;
                 }
                 ?>
+
             </div>
-            <!-- <div class="col-md-8">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/verifica-habilitacao.jpg" alt="Verificação de Habilitação">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Verificação de Habilitação <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Saiba se a sua empresa pode participar deste pregão.</p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(1,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="modal-novo-monitoramento" tabindex="-1" role="modal-novo-monitoramento" aria-hidden="true">
+    <div class="modal-dialog">
+        <form role="form" name="formulario" id="form-monitoramento" class="edital-monitoramento-form" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="act" value="salvar" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Adicionar Monitoramento</h4>
+                </div>
+                <div class="modal-body">
+                <input type="hidden" name="editalcliente_id" value="<?php echo $dadosEditalCliente['id']?>" />
+                    <div id="div_novo-monitoramento">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Data da ação</label>
+                                <?= campo_datam('data', 'S', 'S', '', 'S'); ?>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/checklist.png" alt="Ckecklist Personalizado">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Ckecklist Personalizado <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Um resumo do edital (pontos importantes sobre o edital e a sua empresa).</p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(2,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Horário da ação</label>
+                                <?= campo_textom('hora', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/documentacao.jpg" alt="Documentação de Habilitação">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Documentação de Habilitação <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Documentos para sua empresa participar do pregão (habilitação e proposta financeira) </p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(3,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/cadastro-portal.jpg" alt="Documentação de Habilitação">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Cadastro no portal do Licitante <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Realizar e apoiar o cadastramento da empresa no portal do licitante. </p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(4,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/monitorar.jpg" alt="Monitoramento do Edital">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Monitoramento <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Monitorar o que acontece com o edital até o fim do Pregão.</p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(5,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/suporte-pregao.jpg" alt="Suporte no Pregão">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Suporte no Pregão <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Suporte especializado por vídeo-chamada no momento do pregão.</p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(6,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/suporte-pos-pregao.jpg" alt="Suporte Pós-pregão">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Suporte Pós-pregão <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Suporte após a finalização do pregão, para documentação.</p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(7,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card" style="width: 150px;">
-                                <img width="150px" height="100px" class="card-img-top" src="/imagens/edital/suporte-juridico.jpg" alt="Suporte Jurídico">
-                                <div class="card-body">
-                                    <center>
-                                        <h5 class="card-title"><b>Suporte Jurídico <i class="fa fa-info-circle" title="Mais informações"></i></b></h5>
-                                        <p class="card-text">Suporte jurídico através de parceiros especializados.</p>
-                                        <a href="#" class="btn btn-primary" onclick="exibirModalServico(8,<?= $editalCliente ?>)">Contratar Serviço</a>
-                                    </center>
-                                </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Comentários</label>
+                                <?= campo_textaream('comentario', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> -->
-        </div>
-    </div>
-</div>
-
-<div class="modal fade in" id="modal-detalhe-edital" tabindex="-1" role="modal-detalhe-edital" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Contratar o Serviço</h4>
+                <div class="modal-footer">
+                    <button type="submit" onclick="$('#form-monitoramento').submit();" class="btn red" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn blue" data-dismiss="modal">Fechar</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <div id="div_detalhe_edital"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn blue" data-dismiss="modal">Fechar</button>
-            </div>
-        </div>
+        </form>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
@@ -372,21 +320,10 @@ include APPRAIZ . "includes/cabecalhom.inc";
     }
 
 
-    function exibirModalServico(servico, edital_licitante_id) {
-        var modal = $('#modal-detalhe-edital');
-        //carregando
-        App.blockUI({
-            message: 'Carregando...',
-            target: '#div_detalhe_edital'
-        });
-        var data = {
-            act: 'carregarServicoEdital',
-            servico: servico,
-            edital_cliente_id: edital_licitante_id,
-        }
-        $('#div_detalhe_edital').load('?modulo=principal/editaisclientes/servicos_pregao&acao=C', data, function() {
-            App.unblockUI('#div_detalhe_edital');
-        });
+    function exibirModalNovoMonitoramento() {
+        var modal = $('#modal-novo-monitoramento');
+
+
         modal.modal('show');
     }
 </script>
