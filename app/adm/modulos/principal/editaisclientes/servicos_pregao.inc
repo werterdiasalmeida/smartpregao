@@ -215,9 +215,9 @@ include APPRAIZ . "includes/cabecalhom.inc";
                     echo "<a style=\"float:right;\" class='btn btn-primary' onclick=\"exibirModalNovoMonitoramento()\" > <i class=\"fa fa-plus\"></i> Adicionar</a> <br><br>";
 
                     $arConfig = array();
-                    $$arWhere[] = " editalcliente_id = {$dadosEditalCliente['id']}";
+                    $where = " editalcliente_id = {$dadosEditalCliente['id']}";
 
-                    $rs = $mEditalClienteMonitoramento->getList($arWhere);
+                    $rs = $mEditalClienteMonitoramento->getList($where);
                     $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
                     $mEditalClienteMonitoramento->setCabecalho(array(
                         'Data/Hora',

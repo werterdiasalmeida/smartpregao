@@ -29,9 +29,9 @@ class EditalClienteMonitoramento extends Modelo
         'comentario' => null,                
     );
 
-    public function getList($arWhere = array(), $paginacao = true, $order = null)
+    public function getList($arWhere, $paginacao = true, $order = null)
     {
-        $arWhere[] = " TRUE ";
+
 
         $sql = "SELECT
                     TO_CHAR(data, 'DD/MM/YYYY') || ' ' || hora AS data_hora,
@@ -40,7 +40,9 @@ class EditalClienteMonitoramento extends Modelo
                     edital.editalcliente_monitoramento 
                  
                 WHERE
-                  " . implode(' AND ', $arWhere);
+                {$arWhere}
+                
+                " ;
 
         if (!isset($_REQUEST['ordem'])) {
             if (!is_null($order)) {
@@ -49,6 +51,7 @@ class EditalClienteMonitoramento extends Modelo
                 $sql .= " ORDER BY data";
             }
         }
+
 
 
         if ($paginacao) {
