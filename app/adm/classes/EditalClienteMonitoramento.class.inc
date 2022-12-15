@@ -59,8 +59,8 @@ class EditalClienteMonitoramento extends Modelo
     {
 
         $sql = "
-        SELECT
-                 edi.orgao || ' [' || edital || '] <br/>' ||edi.valor_estimado as edital,
+                SELECT
+                    edi.orgao || ' [' || edital || '] <br/>' ||edi.valor_estimado as edital,
                     TO_CHAR(data, 'DD/MM/YYYY') || ' ' || hora AS data_hora,
                     comentario
                 FROM
@@ -75,7 +75,7 @@ class EditalClienteMonitoramento extends Modelo
             if (!is_null($order)) {
                 $sql .= " ORDER BY {$order}";
             } else {
-                $sql .= " ORDER BY data";
+                $sql .= " ORDER BY data DESC";
             }
         }
         if ($paginacao) {

@@ -49,11 +49,10 @@ $estabelecimentoId = $_REQUEST['p'];
         <form role="form" name="formulario" class="form" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12">
-
-
+                <h4>Monitoramento Ativo</h4>
                     <?php
                     $arConfig = array();
-                    $where = " edc.estabelecimento_id = {$dados['id']}";
+                    $where = " data >= CURRENT_DATE AND edc.estabelecimento_id = {$dados['id']}";
                     $id = $params['id'];
                    $arConfig[0]['html'] = <<<HTML
                     <a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{editalcliente_id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
@@ -72,7 +71,30 @@ HTML;
                     $mEditalClienteMonitoramento->setAcao($acao);
                     $mEditalClienteMonitoramento->show();
                     ?>
+                </div>
+                <h4>Histórico</h4>
+                    <?php
+                    $arConfig = array();
+                    $where = " data < CURRENT_DATE AND edc.estabelecimento_id = {$dados['id']}";
+                    $id = $params['id'];
+                   $arConfig[0]['html'] = <<<HTML
+                    <a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{editalcliente_id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                        {edital}
+                    </a>
 
+HTML;
+                    $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
+                    $rs = $mEditalClienteMonitoramento->getListCliente($where);
+                    $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
+                    $mEditalClienteMonitoramento->setCabecalho(array(
+                        'Edital',
+                        'Data/Hora',
+                        'Monitoramento'
+                    ));
+                    $mEditalClienteMonitoramento->setCorpo($rs, $arConfig);
+                    $mEditalClienteMonitoramento->setAcao($acao);
+                    $mEditalClienteMonitoramento->show();
+                    ?>
                 </div>
 
             </div>
