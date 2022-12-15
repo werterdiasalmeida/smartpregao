@@ -64,7 +64,7 @@ HTML;
                     $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
                     $mEditalClienteMonitoramento->setCabecalho(array(
                         'Edital',
-                        'Data/Hora',
+                        'Data/Hora da Ação',
                         'Monitoramento'
                     ));
                     $mEditalClienteMonitoramento->setCorpo($rs, $arConfig);
