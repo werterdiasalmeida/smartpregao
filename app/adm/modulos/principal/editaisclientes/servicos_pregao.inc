@@ -3,14 +3,20 @@ $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
-if ($_POST && isset($_POST['act'])) {
-    switch ($_POST['act']) {
+if ($_REQUEST && isset($_REQUEST['act'])) {
+    switch ($_REQUEST['act']) {
         case 'salvar':
-            $params = $_POST ;
+            $params = $_POST;
             $mEditalClienteMonitoramento->salvarMonitoramento($params);
             $mEditalClienteMonitoramento->commit();
-           break;
+            break;
+        case 'excluirMonitoramento':
+            $params = $_REQUEST;
+            $mEditalClienteMonitoramento->excluir(intval($params['id_monitoramento']));
+            $mEditalClienteMonitoramento->commit();
+            break;
     }
+    unset($_POST);
 }
 /* Carrega os dados da tela */
 $editalCliente = $_REQUEST['p'];
@@ -214,14 +220,25 @@ include APPRAIZ . "includes/cabecalhom.inc";
                     echo '<h4>Monitoramento</h4>';
                     echo "<a style=\"float:right;\" class='btn btn-primary' onclick=\"exibirModalNovoMonitoramento()\" > <i class=\"fa fa-plus\"></i> Adicionar</a> <br><br>";
 
+                    $acao = <<<ACAO
+                    <div style="min-width: 20px;">
+                        <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirMonitoramento({id});" data-toggle="tooltip"  title="Excluir">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+ACAO;
                     $arConfig = array();
                     $where = " editalcliente_id = {$dadosEditalCliente['id']}";
-
+                    $arConfig[0]['html'] = <<<HTML
+                    <spam class="badge badge-primary"><b>0h00</b></spam>
+                HTML;
                     $rs = $mEditalClienteMonitoramento->getList($where);
                     $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
                     $mEditalClienteMonitoramento->setCabecalho(array(
+                        'Faltam',
                         'Data/Hora',
-                        'Monitoramento'
+                        'Monitoramento',
+                        ''
                     ));
                     $mEditalClienteMonitoramento->setCorpo($rs, $arConfig);
                     $mEditalClienteMonitoramento->setAcao($acao);
@@ -276,7 +293,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                     <h4 class="modal-title">Adicionar Monitoramento</h4>
                 </div>
                 <div class="modal-body">
-                <input type="hidden" name="editalcliente_id" value="<?php echo $dadosEditalCliente['id']?>" />
+                    <input type="hidden" name="editalcliente_id" value="<?php echo $dadosEditalCliente['id'] ?>" />
                     <div id="div_novo-monitoramento">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -314,6 +331,14 @@ include APPRAIZ . "includes/cabecalhom.inc";
         window.open(url);
     }
 
+    function excluirMonitoramento(id) {
+        if(confirm('Deseja apagar este monitoramento?')){
+            url = '?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=<?= $_REQUEST['p']?>&act=excluirMonitoramento&id_monitoramento=' + id;
+        location.href = url;
+        }
+    }
+
+
     function adicionarCalendario(id) {
         url = '?modulo=principal/editaisclientes/servicos_pregao&acao=C&act=adicionarCalendario&p=' + id;;
         location.href = url;
@@ -322,8 +347,6 @@ include APPRAIZ . "includes/cabecalhom.inc";
 
     function exibirModalNovoMonitoramento() {
         var modal = $('#modal-novo-monitoramento');
-
-
         modal.modal('show');
     }
 </script>

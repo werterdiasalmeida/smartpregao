@@ -32,6 +32,7 @@ class EditalClienteMonitoramento extends Modelo
     public function getList($arWhere, $paginacao = true, $order = null)
     {
         $sql = "SELECT
+                    id,
                     TO_CHAR(data, 'DD/MM/YYYY') || ' ' || hora AS data_hora,
                     comentario
                 FROM
