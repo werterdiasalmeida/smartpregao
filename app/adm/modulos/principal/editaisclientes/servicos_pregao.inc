@@ -9,14 +9,14 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             $params = $_POST;
             $mEditalClienteMonitoramento->salvarMonitoramento($params);
             $mEditalClienteMonitoramento->commit();
+            unset($_POST);
             break;
         case 'excluirMonitoramento':
             $params = $_REQUEST;
             $mEditalClienteMonitoramento->excluir(intval($params['id_monitoramento']));
             $mEditalClienteMonitoramento->commit();
             break;
-    }
-    unset($_POST);
+    } 
 }
 /* Carrega os dados da tela */
 $editalCliente = $_REQUEST['p'];
