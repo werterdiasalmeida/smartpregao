@@ -14,11 +14,6 @@ extract($dados);
     }
 ?>
 <br />
-<!-- <center>
-<button class="btn yellow" onclick="solicitarServico(<?= $params['id'] ?>)" type="button" data-toggle="tooltip" title="Quero Solicitar um Serviço!">
-    <i class="fa fa-star"></i> Quero Solicitar um Serviço para este Pregão!
-</button>
-</center> -->
 
 <div class="row">
     <div class="col-md-6">

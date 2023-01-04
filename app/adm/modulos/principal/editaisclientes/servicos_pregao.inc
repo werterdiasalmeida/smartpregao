@@ -230,15 +230,15 @@ ACAO;
                     $arConfig = array();
                     $where = " editalcliente_id = {$dadosEditalCliente['id']}";
                     $arConfig[0]['html'] = <<<HTML
-                    <spam class="badge badge-primary"><b>0h00</b></spam>
-                HTML;
+                    <spam class="badge badge-primary"><b>{falta}</b></spam>
+HTML;
                     $rs = $mEditalClienteMonitoramento->getList($where);
                     $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
                     $mEditalClienteMonitoramento->setCabecalho(array(
                         'Faltam',
                         'Data/Hora',
                         'Monitoramento',
-                        ''
+                        'Ação'
                     ));
                     $mEditalClienteMonitoramento->setCorpo($rs, $arConfig);
                     $mEditalClienteMonitoramento->setAcao($acao);
