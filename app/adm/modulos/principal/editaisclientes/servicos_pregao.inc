@@ -298,7 +298,9 @@ HTML;
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Data da ação</label>
-                                <?= campo_datam('data', 'S', 'S', '', 'S'); ?>
+                                <?php
+                                $data = date("m/d/Y");
+                                echo campo_datam('data', 'S', 'S', 'S', 'S', '', '', $data); ?>
                             </div>
                         </div>
                         <div class="col-md-6">

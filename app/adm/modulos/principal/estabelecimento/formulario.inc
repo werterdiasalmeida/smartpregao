@@ -1,5 +1,6 @@
 <?php
 $mEstabelecimento = new Estabelecimento();
+$mAnexoEstabelecimento = new AnexoEstabelecimento();
 $params = getParam();
 
 if ($_POST && isset($_POST['act'])) {
@@ -26,6 +27,13 @@ if ($_POST && isset($_POST['act'])) {
             }
             require APPRAIZ . "adm/modulos/principal/includes/pessoajuridica/formulario.inc";
             break;
+        case 'salvar-documento':
+            $params = getParam();
+            $_POST['estabelecimento_id'] = $params ['id'];
+            $id = $mAnexoEstabelecimento->salvarAnexo($_POST, $_FILES);
+            $mAnexoEstabelecimento->commit();
+
+            break;
     }
 }
 
@@ -34,20 +42,9 @@ $aba = false;
 $enderecos = null;
 if (isset($params['id']) && !empty($params['id'])) {
     UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($params['id']);
-
     $aba = true;
     $dados = $mEstabelecimento->getTodosDados($params['id']);
     extract($dados);
-
-    $mEnderecoPessoaJuridica = new EnderecoPessoaJuridica();
-    $enderecos = $mEnderecoPessoaJuridica->listarPorPessoaJuridica($dados['pessoajuridica_id'], true);
-
-    $mContatoPessoaJuridica = new ContatoPessoaJuridica();
-    $contatos = $mContatoPessoaJuridica->listarEspecificosPorPessoaJuridica($dados['pessoajuridica_id']);
-    extract($contatos);
-
-    $mRepresentantePessoaJuridica = new RepresentantePessoaJuridica();
-    $representantes = $mRepresentantePessoaJuridica->listarPorPessoaJuridica($dados['pessoajuridica_id'], true);
 }
 
 include APPRAIZ . "includes/cabecalhom.inc";
@@ -88,138 +85,65 @@ if ($aba) {
                     </div>
                 </div>
 
-                <h4 class="form-section">Contatos</h4>
+                <h4 class="form-section">Documentos da Empresa</h4>
+
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn green btn-incluir-contato">
+                        <a class="btn green btn-incluir-documento">
                             <i class="fa fa-plus-circle"></i>
-                            Incluir contato
+                            Incluir Documento
                         </a>
                         <br />
                         <br />
-                        <table id="tabela-representantes" data-toggle="table" class="table table-striped" data-unique-id="id">
-                            <thead>
-                                <tr>
-                                    <th data-field="nome">Nome</th>
-                                    <th data-field="cargo">Cargo</th>
-                                    <th data-field="contato">Contato</th>
-                                    <th data-formatter="formatContatoPrincipal" data-field="flg_principal">Principal</th>
-                                    <th data-formatter="formatAcaoRepresentante" data-align="center">Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                        <?php
+
+                        $arConfig = array();
+                        $arWhere[] = " ane.estabelecimento_id = {$dados['id']}";
+                        $acao = <<<ACAO
+                        <div style="min-width: 20px;">
+                            <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAnexo({id});" data-toggle="tooltip"  title="Excluir">
+                                <i class="icon-trash"></i>
+                            </a>
+                        </div>
+ACAO;                        
+                      
+                        $rs = $mAnexoEstabelecimento->getList($arWhere);
+                        $mAnexoEstabelecimento = new Listam(array("style" => "width: 100%;"));
+                        $mAnexoEstabelecimento->setCabecalho(array(
+                            'Nome',
+                            'Arquivo',
+                            'Tipo',
+                            'Validade',                            
+                            'Detalhade',
+                            'Ação'
+                        ));
+                        $mAnexoEstabelecimento->setCorpo($rs, $arConfig);
+                        $mAnexoEstabelecimento->setAcao($acao);
+                        $mAnexoEstabelecimento->show();
+
+                        ?>
                     </div>
                 </div>
-                <input type="hidden" name="representantes" value="<?= $representantes ?>" />
-            </div>
-            <h4 class="form-section">Endereços</h4>
-            <?php require APPRAIZ . "adm/modulos/principal/includes/endereco/lista.inc"; ?>
 
-            <h4 class="form-section">Documentos da Empresa</h4>
-            <div class="row">
-                <div class="col-md-12">
-                    <a class="btn green btn-incluir-documento">
-                        <i class="fa fa-plus-circle"></i>
-                        Incluir Documento
-                    </a>
-                    <br />
-                    <br />
-                    <table id="tabela-documento" data-toggle="table" class="table table-striped" data-unique-id="id">
-                        <thead>
-                            <tr>
-                                <th data-field="nome">Nome</th>
-                                <th data-field="cargo">Tipo</th>
-                                <th data-field="contato">Validade</th>
-                                <th data-formatter="formatContatoPrincipal" data-field="flg_principal">Detalhado</th>
-                                <th data-formatter="formatAcaoRepresentante" data-align="center">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                <div class="form-actions">
+                    <button type="submit" class="btn blue">
+                        <i class="fa fa-save"></i> Salvar
+                    </button>
+                    <button type="button" class="btn btn-voltar">
+                        <i class="fa fa-arrow-left"></i> Voltar
+                    </button>
                 </div>
-            </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn blue">
-                    <i class="fa fa-save"></i> Salvar
-                </button>
-                <button type="button" class="btn btn-voltar">
-                    <i class="fa fa-arrow-left"></i> Voltar
-                </button>
-            </div>
-
-            <input type="hidden" name="act" value="salvar" />
+                <input type="hidden" name="act" value="salvar" />
         </form>
     </div>
 </div>
 
-<?php require APPRAIZ . "adm/modulos/principal/includes/endereco/modal.inc"; ?>
-<?php require APPRAIZ . "adm/modulos/principal/includes/contato/modal.inc"; ?>
-
-<div class="modal fade in" id="modal-representante" tabindex="-1" role="modal-representante" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <form role="form" name="representante-form" class="representante-form" method="POST">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Contato do estabelecimento</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Nome</label>
-                                <?= campo_textom('nome', 'S', 'S', '', 90, 90, '', '', '', '', 0); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Cargo</label>
-                                <?= campo_textom('cargo', 'S', 'S', '', 90, 90, '', '', '', '', 0); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Contato</label>
-                                <?= campo_textom('contato', 'S', 'S', '', 90, 90, '', '', '', '', 0); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Principal</label>
-                                <br />
-                                <?php
-                                $opcoes = array(
-                                    array('codigo' => 't', 'descricao' => 'Sim'),
-                                    array('codigo' => 'f', 'descricao' => 'Não'),
-                                );
-                                echo $db->monta_radiom('flg_principal', $opcoes, 'S', 'S', 'f');
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn blue">
-                        <i class="fa fa-plus-circle"></i>
-                        Incluir
-                    </button>
-                    <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-                </div>
-
-                <input type="hidden" id="index" name="index" />
-                <input type="hidden" id="id" name="id" />
-            </form>
-        </div>
-    </div>
-</div>
 <div class="modal fade in" id="modal-documento" tabindex="-1" role="modal-documento" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form role="form" name="documento-form" class="documento-form" method="POST">
+            <form role="form" name="documento-form" class="documento-form" method="POST" enctype='multipart/form-data'>
+                <input type="hidden" id="act" name="act" value="salvar-documento" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Documento do estabelecimento</h4>
@@ -238,9 +162,10 @@ if ($aba) {
                                 <br />
                                 <?php
                                 $opcoes = array(
-                                    array('codigo' => 'Habilitação Jurídica', 'descricao' => 'Habilitação Jurídica'),
-                                    array('codigo' => 'Habilitação Financeira', 'descricao' => 'Habilitação Financeira'),
+                                    array('codigo' => 'Habilitação Jurídica/Financeira', 'descricao' => 'Habilitação Jurídica/Financeira'),
                                     array('codigo' => 'Habilitação Técnica', 'descricao' => 'Habilitação Técnica'),
+                                    array('codigo' => 'Contratação', 'descricao' => 'Contratação'),
+                                    array('codigo' => 'Modelo de Documento', 'descricao' => 'Modelo de Documento'),
                                 );
                                 echo $db->monta_radiom('tipo', $opcoes, 'S', 'S', 'Habilitação Jurídica');
                                 ?>
@@ -249,27 +174,21 @@ if ($aba) {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Validade</label>
-                                <?= campo_datam('contato', 'S', 'S', '', 90, 90, '', '', '', '', 0); ?>
+                                <?= campo_datam('validade', 'N', 'S', '', 90, 90, '', '', '', '', 0); ?>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Detalhado</label>
+                                <label>Texto Detalhe</label>
                                 <br />
-                                <?php
-                                $opcoes = array(
-                                    array('codigo' => 't', 'descricao' => 'Sim'),
-                                    array('codigo' => 'f', 'descricao' => 'Não'),
-                                );
-                                echo $db->monta_radiom('flg_detalhado', $opcoes, 'S', 'S', 'f');
-                                ?>
+                                <?= campo_textaream('detalhe', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Arquivo (*.pdf)</label>
+                                <label>Arquivo</label>
                                 <br />
-                                <input type="file">
+                                <input type="file" id="arquivo" name="arquivo" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -281,8 +200,7 @@ if ($aba) {
                     </button>
                     <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
                 </div>
-
-                <input type="hidden" id="index" name="index" />
+                <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="id" name="id" />
             </form>
         </div>

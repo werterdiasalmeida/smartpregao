@@ -24,8 +24,10 @@ class AnexoEstabelecimento extends Modelo
     protected $arAtributos = array(
         'id' => null,
         'arquivo_id' => null,
-        'tipo_anexo_id' => null,
-        'observacao' => null,
+        'nome' => null,        
+        'detalhe' => null,
+        'validade' => null,        
+        'tipo' => null,
         'estabelecimento_id' => null,
         'criado_em' => null,
         'criado_por' => null,
@@ -41,11 +43,11 @@ class AnexoEstabelecimento extends Modelo
         $arWhere[] = UsuarioResponsabilidadeEstabelecimento::gerarWhereResponsabilidadeEstabelecimento();
 
         $sql = "SELECT
-                  arq.arqnome || '.' || arq.arqextensao AS descricao,
-                  (arq.arqtamanho / 1024) || ' KB' AS tamanho,
-                  tan.descricao AS tipo,
-                  TO_CHAR(ane.criado_em, 'DD/MM/YYYY HH:mi:ss') AS criado_em_formatado,
-                  ane.observacao,
+                  ane.nome,
+                  arq.arqnome || '.' || arq.arqextensao || ' (' ||(arq.arqtamanho / 1024) || ' KB' || ')' AS descricao,
+                  tipo,
+                  TO_CHAR(ane.validade, 'DD/MM/YYYY') AS validade,
+                  ane.detalhe AS detalhe,
                   arq.arqid,
                   ane.id AS anexo_id
                 FROM
@@ -54,8 +56,6 @@ class AnexoEstabelecimento extends Modelo
                   public.arquivo arq ON ane.arquivo_id = arq.arqid
                 INNER JOIN
                   estabelecimentosaude.tb_estabelecimento est ON ane.estabelecimento_id = est.id
-                INNER JOIN
-                  corporativo.tb_tipo_anexo tan ON ane.tipo_anexo_id = tan.id
                 WHERE
                   " . implode(' AND ', $arWhere);
 
@@ -87,12 +87,15 @@ class AnexoEstabelecimento extends Modelo
             $file = new FilesSimec();
             $arquivoId = $file->setUploadArquivoEspecifico("Anexo do estabelecimento", 'arquivo');
         }
-
+        if($params['validade'])
+            $params['validade'] = ajusta_data($params['validade']);
         $dados = array(
             'id' => $params['id'],
             'arquivo_id' => $arquivoId,
-            'tipo_anexo_id' => $params['tipo_anexo_id'],
-            'observacao' => $params['observacao'],
+            'nome' => $params['nome'],
+            'tipo' => $params['tipo'],
+            'detalhe' => $params['detalhe'],
+            'validade' => $params['validade'],
             'excluido' => 'false',
             'estabelecimento_id' => $params['estabelecimento_id'],
         );
