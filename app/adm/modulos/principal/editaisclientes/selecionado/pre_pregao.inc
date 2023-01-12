@@ -64,12 +64,49 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#habilitaca_documentacao">
-                            <b> <i class="bi bi-journals"></i> Habilitação / Documentação</b>
+                            <b>
+                                <?php
+                                $where = " tipo_acompanhamento = 'Documentação de Habilitação' AND editalcliente_id = {$dadosEditalCliente['id']}";
+                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                                if (count($rs['dados'])) {
+                                    echo '<i class="bi bi-journals accordion_com_conteudo"></i>';
+                                } else {
+                                    echo '<i class="bi bi-journals"></i>';
+                                }
+                                ?>
+                                Documentação de Habilitação</b>
                         </div>
                     </div>
                     <div id="habilitaca_documentacao" class="collapse">
                         <div class="card-body">
-                            Em breve.
+                            <a onclick="exibirModalNovoAcompanhamento('Documentação de Habilitação')">
+                                <i class="bi bi-plus-square" title="Novo Documento"></i>
+                                Novo Documento
+                            </a>
+                            <?php
+                            $acao = <<<ACAO
+                           <div style="min-width: 20px;">
+                               <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
+                                   <i class="icon-trash"></i>
+                               </a>
+                           </div> 
+                           ACAO;
+                            unset($arConfig, $acoes);
+
+                            $arConfig[0]['html'] = <<<HTML
+                                <spam class="badge badge-primary"><b>{falta}</b></spam>
+                            HTML;
+                            $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
+                            $mEditalClienteAcompanhamento->setCabecalho(array(
+                                'Data',
+                                'Arquivo',
+                                'Informação',
+                                'Ação'
+                            ));
+                            $mEditalClienteAcompanhamento->setCorpo($rs, $arConfig);
+                            $mEditalClienteAcompanhamento->setAcao($acao);
+                            $mEditalClienteAcompanhamento->show();
+                            ?>
                         </div>
                     </div>
                 </div>

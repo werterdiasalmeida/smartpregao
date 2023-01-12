@@ -32,7 +32,7 @@ if ($_POST && isset($_POST['act'])) {
             $_POST['estabelecimento_id'] = $params ['id'];
             $id = $mAnexoEstabelecimento->salvarAnexo($_POST, $_FILES);
             $mAnexoEstabelecimento->commit();
-
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $id)));
             break;
     }
 }

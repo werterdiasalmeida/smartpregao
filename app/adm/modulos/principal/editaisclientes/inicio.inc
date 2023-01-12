@@ -33,6 +33,13 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                             (TO_CHAR(edi.data_limite, 'DD/MM/YYYY') ILIKE '%{$pesquisa_simples}%')
                         )";
             switch ($_REQUEST['filtrar']) {
+                case 'contratados':
+                    $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
+                    $arWhereEditaisCliente[] = " esd.esdid > 98 ";
+                    $ordernar = 'edi.data_limite DESC';
+                    $filtroPadrao = false;
+                    break;
+
                 case 'realizados':
                     $arWhereEditaisCliente[] = " edi.data_limite <= current_date";
                     $arWhereEditaisCliente[] = " esd.esdid NOT IN (95) ";
@@ -95,47 +102,8 @@ if ($aba) {
     <div class="portlet-body form">
         <form role="form" name="formulario" class="form" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-md-4">
-
-                    <h4>Minhas solicitações de Serviço</h4>
-                    <form role="form" name="formulario" class="edital-cliente-form" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <?= campo_textom('pesquisa_simples', 'N', 'S', '', 100, 100, '', '', '', '', 0, '', '', null, '', null, null, 'Pesquise por objeto, data ou órgão'); ?>
-                                <span class="input-group-btn">
-                                    <button class="btn blue" type="submit" data-toggle="tooltip" title="Pesquisar">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                                <input type="hidden" name="act" value="pesquisa_simples_cliente">
-
-                            </div>
-                        </div>
-                    </form>
-                    <?php
-                    $arConfig = array();
-                    $arWhereMinhasSolicitacoes[] = " estabelecimento_id = {$dados['id']}";
-                    $arConfig[0]['html'] = <<<HTML
-                        <spam><a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
-                            {edital}
-                        </a></spam>
-
-HTML;
-                    $rs = $mServicoAnaliseContratado->getList($arWhereMinhasSolicitacoes);
-                    $mServicoAnaliseContratado = new Listam(array("style" => "width: 100%;"));
-                    $mServicoAnaliseContratado->setCabecalho(array(
-                        'Edital',
-                        'Situação'
-                    ));
-                    $mServicoAnaliseContratado->setCorpo($rs, $arConfig);
-                    $mServicoAnaliseContratado->setAcao($acao);
-                    $mServicoAnaliseContratado->show();
-                    ?>
-                </div>
-                <div class="col-md-8">
-
+                <div class="col-md-12">
                     <h4>Meus Editais</h4>
-
                     <form role="form" name="formulario" class="edital-cliente-form" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="input-group">
@@ -149,6 +117,10 @@ HTML;
                             </div>
                         </div>
                         <div class="form-group">
+                            <button class="btn green" onclick="filtrarMeusEditais('contratados');" type="button" data-toggle="tooltip" title="Editais Contratados ou em processo de Contratação">
+                                <i class="bi bi-file-earmark-check"></i>
+                                Contratados
+                            </button>
                             <button class="btn blue" onclick="filtrarMeusEditais('realizados');" type="button" data-toggle="tooltip" title=" Já realizados">
                                 <i class="icon-arrow-left"></i>
                                 Já realizados
@@ -159,13 +131,13 @@ HTML;
                             </button>
                             <button class="btn yellow" onclick="filtrarMeusEditais('monitoradas');" type="button" data-toggle="tooltip" title="Todos os próximos">
                                 <i class="icon-eye"></i>
-                                Monitoradas
+                                Monitorados
                             </button>
                             <button class="btn blue" onclick="filtrarMeusEditais('todos_proximos');" type="button" data-toggle="tooltip" title="Todos os próximos">
                                 <i class="icon-arrow-right"></i>
                                 Todos os próximos
                             </button>
-                            <button class="btn blue" onclick="filtrarMeusEditais('descartados');" type="button" data-toggle="tooltip" title="Descartados">
+                            <button class="btn red" onclick="filtrarMeusEditais('descartados');" type="button" data-toggle="tooltip" title="Descartados">
                                 <i class="icon-trash"></i>
                                 Descartados
                             </button>
@@ -217,9 +189,46 @@ HTML;
                     $mEditalCliente->show();
                     ?>
                 </div>
+                
             </div>
             <div class="row">
-                <div class="col-md-12">
+            <div class="col-md-4">
+                    <h4>Minhas solicitações de Serviço</h4>
+                    <form role="form" name="formulario" class="edital-cliente-form" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <?= campo_textom('pesquisa_simples', 'N', 'S', '', 100, 100, '', '', '', '', 0, '', '', null, '', null, null, 'Pesquise por objeto, data ou órgão'); ?>
+                                <span class="input-group-btn">
+                                    <button class="btn blue" type="submit" data-toggle="tooltip" title="Pesquisar">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                                <input type="hidden" name="act" value="pesquisa_simples_cliente">
+
+                            </div>
+                        </div>
+                    </form>
+                    <?php
+                    unset($arConfig, $acao);
+                    $arWhereMinhasSolicitacoes[] = " estabelecimento_id = {$dados['id']}";
+                    $arConfig[0]['html'] = <<<HTML
+                        <spam><a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                            {edital}
+                        </a></spam>
+
+HTML;
+                    $rs = $mServicoAnaliseContratado->getList($arWhereMinhasSolicitacoes);
+                    $mServicoAnaliseContratado = new Listam(array("style" => "width: 100%;"));
+                    $mServicoAnaliseContratado->setCabecalho(array(
+                        'Edital',
+                        'Situação'
+                    ));
+                    $mServicoAnaliseContratado->setCorpo($rs, $arConfig);
+                    $mServicoAnaliseContratado->setAcao($acao);
+                    $mServicoAnaliseContratado->show();
+                    ?>
+                </div>
+                <div class="col-md-8">
                     <h4>Todos os Editas</h4>
                     <form role="form" name="formulario" class="editais-form" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
@@ -249,7 +258,7 @@ HTML;
             </div>
 ACAO;
 
-                    $arConfig = array();
+                    unset($arConfig, $acao);
 
                     $arConfig[3]['html'] = <<<HTML
     <spam class="badge badge-primary"><b>{dias}</b></spam>

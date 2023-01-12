@@ -66,7 +66,6 @@
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#monitoramento">
                             <b>
                                 <?php
-
                                 $where = " editalcliente_id = {$dadosEditalCliente['id']}";
                                 $rs = $mEditalClienteMonitoramento->getList($where);
                                 if (count($rs['dados'])) {
@@ -75,7 +74,7 @@
                                     echo '<i class="bi bi-building-check"></i>';
                                 }
                                 ?>
-                                Monitoramento </b>
+                            Monitoramento do Pregão </b>
                         </div>
                     </div>
                     <div id="monitoramento" class="collapse">
@@ -85,7 +84,6 @@
                                 <i class="bi bi-plus-square" title="Novo Monitoramento"></i>
                                 Novo Monitoramento
                             </a>
-
                             <?php
                             $acao = <<<ACAO
                            <div style="min-width: 20px;">
@@ -153,3 +151,4 @@ HTML;
             </div>
         </div>
     </div>
+    

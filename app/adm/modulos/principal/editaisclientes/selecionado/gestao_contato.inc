@@ -9,7 +9,7 @@
             <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#contrato_documentacao">
-                            <b> <i class="bi bi-file-earmark-check"></i> Documentação </b>
+                            <b> <i class="bi bi-file-earmark-check"></i> Documentação do Contrato e Aditivos </b>
                         </div>
                     </div>
                     <div id="contrato_documentacao" class="collapse">

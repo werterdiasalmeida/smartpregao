@@ -1,13 +1,13 @@
 <?php
 
-class EditalClienteMonitoramento extends Modelo
+class EditalClienteAcompanhamento extends Modelo
 {
     /**
      * Nome da tabela especificada
      * @var string
      * @access protected
      */
-    protected $stNomeTabela = "edital.editalcliente_monitoramento";
+    protected $stNomeTabela = "edital.editalcliente_acompanhamento";
 
     /**
      * Chave primaria.
@@ -24,23 +24,20 @@ class EditalClienteMonitoramento extends Modelo
     protected $arAtributos = array(
         'id' => null,
         'editalcliente_id' => null,
+        'tipo_acompanhamento' => null,
+        'arqid' => null,
         'data' => null,
-        'hora' => null,
         'comentario' => null,                
     );
 
     public function getList($arWhere, $paginacao = true, $order = null)
     {
-        
-        $sql = "SET TIMEZONE TO 'America/Belem'";
-        $this->executar($sql);
         $sql = "
                 SELECT
-                    to_char(TO_TIMESTAMP(data || ' ' || hora || ':00', 'YYYY-MM-DD HH24:MI:SS')  - CURRENT_TIMESTAMP, 'DD HH24:MI') as falta,
-                    TO_CHAR(data, 'DD/MM/YYYY') || ' ' || hora AS data_hora,
+                    TO_CHAR(data, 'DD/MM/YYYY') AS data,
                     comentario, id
                 FROM
-                    edital.editalcliente_monitoramento 
+                    edital.editalcliente_acompanhamento 
                  
                 WHERE
                 {$arWhere}            
@@ -62,18 +59,14 @@ class EditalClienteMonitoramento extends Modelo
     }
     public function getListCliente($arWhere, $paginacao = true, $order = null)
     {
-
-        $sql = "SET TIMEZONE TO 'America/Belem'";
-        $this->executar($sql);
         $sql = "
                 SELECT
-                    to_char(TO_TIMESTAMP(data || ' ' || hora || ':00', 'YYYY-MM-DD HH24:MI:SS')  - CURRENT_TIMESTAMP, 'DD HH24:MI') as falta,
                     edi.orgao || ' [' || edital || '] <br/>' || edi.valor_estimado as edital,
-                    TO_CHAR(data, 'DD/MM/YYYY') || ' ' || hora AS data_hora,
+                    TO_CHAR(data, 'DD/MM/YYYY') AS data,
                     comentario,
                     editalcliente_id as id
                 FROM
-                    edital.editalcliente_monitoramento mon 
+                    edital.editalcliente_acompanhamento mon 
 					JOIN edital.editalcliente edc on mon.editalcliente_id = edc.id 
 					JOIN   edital.edital edi on edc.edital_id = edi.id
                 WHERE
@@ -95,11 +88,11 @@ class EditalClienteMonitoramento extends Modelo
             return $retorno ? $retorno : array();
         }
     }
-    public function salvarMonitoramento($params)
+    public function salvarAcompanhamento($params)
     {
         $dados = $params;
         // Tratamento dos dados
-        $dados['data'] = formata_data_sql($params['data']);       
+        $dados['data'] = formata_data_sql($params['data']);  
         $id = $this->popularDadosObjeto($dados)->salvar();
         return $id;
     }

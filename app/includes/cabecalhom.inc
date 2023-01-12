@@ -1,5 +1,4 @@
 <?php
-
 if ($_POST['act']) {
     switch ($_POST['act']) {
         case 'carregarSimulacaoUsuario':
@@ -14,11 +13,8 @@ if ($_POST['act']) {
             break;
     }
 }
-
-
 // ativa o flag de inclus?o do cabe?alho
 $cabecalhoMetronic = true;
-
 $moduloTitle = '';
 if ($modulo_atual != "") {
     $sql = "SELECT DISTINCT 
@@ -39,7 +35,6 @@ if ($modulo_atual != "") {
 <html lang="pt">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
-
 <head>
     <meta charset="ISO-8859-1" />
     <title><?php echo ($moduloTitle ? "{$moduloTitle} - " : '') . $GLOBALS['parametros_sistema_tela']['sigla-nome_completo'] ?></title>
@@ -71,10 +66,7 @@ if ($modulo_atual != "") {
     <link href="/includes/selectize-0.12.1/css/selectize.bootstrap3.css?v=<?= VERSAO ?>" rel="stylesheet" type="text/css" />
     <link href="/includes/metronic/global/plugins/select2/css/select2.min.css?v=<?= VERSAO ?>" rel="stylesheet" type="text/css" />
     <link href="/includes/metronic/global/plugins/select2/css/select2-bootstrap.min.css?v=<?= VERSAO ?>" rel="stylesheet" type="text/css" />
-
-
     <link href="/includes/estilom.css?v=<?= VERSAO ?>" rel="stylesheet" type="text/css" />
-
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="/includes/metronic/global/css/components.min.css?v=<?= VERSAO ?>" rel="stylesheet" id="style_components" type="text/css" />
@@ -85,7 +77,6 @@ if ($modulo_atual != "") {
     <link href="/includes/metronic/layouts/layout/css/themes/lightblue.css?v=<?= VERSAO ?>" rel="stylesheet" type="text/css" id="style_color" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico?v=<?= VERSAO ?>" />
-
     <!--[if lt IE 9]>
     <script src="/includes/metronic/global/plugins/respond.min.js?v=<?= VERSAO ?>"></script>
     <script src="/includes/metronic/global/plugins/excanvas.min.js?v=<?= VERSAO ?>"></script>
@@ -101,8 +92,6 @@ if ($modulo_atual != "") {
     <script src="/includes/metronic/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <!--            <script src="/includes/metronic/global/plugins/moment.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>-->
-    <!--            <script src="/includes/metronic/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>-->
     <script src="/includes/metronic/global/plugins/morris/morris.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/morris/raphael-min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/counterup/jquery.waypoints.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
@@ -117,7 +106,6 @@ if ($modulo_atual != "") {
     <script src="/includes/metronic/global/plugins/amcharts/ammap/ammap.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/amcharts/ammap/maps/js/worldLow.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/amcharts/amstockcharts/amstock.js?v=<?= VERSAO ?>" type="text/javascript"></script>
-    <!--            <script src="/includes/metronic/global/plugins/fullcalendar/fullcalendar.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>-->
     <script src="/includes/metronic/global/plugins/horizontal-timeline/horozontal-timeline.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/flot/jquery.flot.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/flot/jquery.flot.resize.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
@@ -144,23 +132,16 @@ if ($modulo_atual != "") {
     <script src="/includes/metronic/global/plugins/dropzone/dropzone.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/jquery.scrollTo.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
-
     <script src="/includes/metronic/global/plugins/moment.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js?v=<?= VERSAO ?>"></script>
-
     <script src="/includes/metronic/global/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
-
     <script src="/includes/clipboardjs/clipboard.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
-
     <script src="/includes/selectize-0.12.1/js//standalone/selectize.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/selectize-0.12.1/js//standalone/disableOptions.js?v=<?= VERSAO ?>" type="text/javascript"></script>
-
     <script src="/includes/metronic/global/plugins/select2/js/select2.full.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/global/plugins/select2/js/i18n/pt-BR.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/jquery.highlight.js?v=<?= VERSAO ?>" type="text/javascript"></script>
-
     <script type="text/javascript" src="../includes/sweetalert2/sweetalert2.js"></script>
-
     <script src="/includes/funcoes.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/funcoesm.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <!-- END PAGE LEVEL PLUGINS -->
@@ -176,12 +157,10 @@ if ($modulo_atual != "") {
     <script src="/includes/estouvivo.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- END THEME LAYOUT SCRIPTS -->
-
 </head>
 <!-- END HEAD -->
 <?php
-
-// pega a p?gina inicial do sistema
+// pega a página inicial do sistema
 $sql = sprintf(
     "SELECT TRIM( paginainicial ) AS paginic FROM seguranca.sistema WHERE sisid = %d",
     $_SESSION['sisid']
@@ -189,7 +168,6 @@ $sql = sprintf(
 $paginic = $db->pegaUm($sql);
 ?>
 <!-- page-sidebar-fixed -->
-
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
     <!-- BEGIN HEADER -->
     <div class="page-header navbar navbar-fixed-top">
@@ -204,9 +182,7 @@ $paginic = $db->pegaUm($sql);
             </a>
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
-                
             <div class="top-menu">
-
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -215,7 +191,6 @@ $paginic = $db->pegaUm($sql);
                             <?php else : ?>
                                 <img alt="" class="img-circle" style="background-color: #FFFFFF;" src="<?= ($_SESSION['ususexo'] === 'F' ? '/imagens/woman.png' : '/imagens/man.png'); ?>" />
                             <?php endif; ?>
-
                             <span class="username username-hide-on-mobile">
                                 <?php if ($_SESSION['superuser'] or $db->testa_uma() or $_SESSION['usuuma']) : ?>
                                     <?= $db->pegaUm("SELECT usunome FROM seguranca.usuario WHERE usucpf = '{$_SESSION['usucpf']}'") ?>
@@ -235,7 +210,6 @@ $paginic = $db->pegaUm($sql);
                                         </a>
                                     </li>
                                 <?php endif; ?>
-
                                 <li>
                                     <a data-toggle="modal" onclick="abrirSimulacaoUsuario();">
                                         <i class="fa fa-user-secret"></i>Simular usuário
@@ -277,7 +251,6 @@ $paginic = $db->pegaUm($sql);
                             </li>
                         </ul>
                     </li>
-
                     <li class="dropdown">
                         <a href="javascript: exibirModalLembretesTarefas(<?php echo $montarAcaoP ?>)" class="dropdown-toggle" style="padding-right: 10px;">
                             <i class="icon-bubbles"></i>
@@ -323,12 +296,6 @@ $paginic = $db->pegaUm($sql);
         <div class="page-content-wrapper">
             <!-- BEGIN CONTENT BODY -->
             <div class="page-content">
-                <!-- BEGIN PAGE HEADER-->
-                <!-- BEGIN PAGE BAR -->
-                
-                <!-- END PAGE BAR -->
-                <!-- END PAGE HEADER-->
-
                 <?php if ($_SESSION['superuser'] or $db->testa_uma() or $_SESSION['usuuma']) : ?>
                     <div class="modal fade" id="simular-usuario" tabindex="-1" role="basic" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -347,7 +314,6 @@ $paginic = $db->pegaUm($sql);
                                     }
                                 </script>
                                 <div class="modal-body">
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn dark btn-outline" data-dismiss="modal">Fechar</button>
@@ -358,8 +324,7 @@ $paginic = $db->pegaUm($sql);
                         <!-- /.modal-dialog -->
                     </div>
                 <?php endif;
-
-                /*
+            /*
              * Exibe rastro de navegação. Mostra em qual
              * local da hierarquia de telas o usuário está.
              */
@@ -369,7 +334,7 @@ $paginic = $db->pegaUm($sql);
                 ?>
                     <style type="text/css">
                         .page-content {
-                            padding: 50px 20px 10px !important;
+                            padding: 25px 20px 10px !important;
                         }
                     </style>
                     <div class="page-bar">

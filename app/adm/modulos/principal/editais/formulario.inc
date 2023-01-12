@@ -7,8 +7,7 @@ if ($_POST && isset($_POST['act'])) {
             $params = array_merge($_POST, getParam());
             $mEdital->salvarEdital($params);
             $mEdital->commit();
-
-            $db->sucessom('principal/editais/lista');
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
             break;
         case 'carregarMunicipios':
             montaComboMunicipio($_POST['uf_sigla'], $_POST['municipio_id'], 'S');
@@ -31,6 +30,7 @@ if (isset($params['id']) && !empty($params['id'])) {
 }
 
 include APPRAIZ . "includes/cabecalhom.inc";
+getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
 ?>
 <br />
 <style type="text/css">

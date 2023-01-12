@@ -42,7 +42,7 @@ class EditalCliente extends Modelo
                     edi.orgao || ' [' || edi.portal || ']' as orgao,
                     TO_CHAR(edi.data_limite, 'DD/MM/YYYY') AS data_limite_formatada,
                     data_limite - current_date || ' (' || COALESCE(temperatura, '-') || ')' as dias,
-                    '<b>' || valor_estimado || '</b> <br/> ' || substring(edi.objeto, 0, 80) || ' ...' as objeto,
+                    '<b>' || valor_estimado || '</b> <br/> ' || substring(edi.objeto, 0, 150) || ' ...' as objeto,
                     mun.municipio || '/' || uf.uf_sigla AS municipio,
                     COALESCE(esd.esddsc, 'Selecionado') as situacao,
                     edc.id,
@@ -71,7 +71,7 @@ class EditalCliente extends Modelo
         }
 
         if ($paginacao) {
-            $dado = Paginacao::getPaginacao($this, $sql, 5);
+            $dado = Paginacao::getPaginacao($this, $sql, 10);
             return $dado;
         } else {
             $retorno = $this->carregar($sql);

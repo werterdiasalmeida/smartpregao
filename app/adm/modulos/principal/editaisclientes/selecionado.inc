@@ -4,45 +4,53 @@ $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
-
+$mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
+$p = getParam();
 /* Ações da tela */
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
+            /* Acompanhamentos 
+        - Habilitação / Documentação
+        - Pedido de vistoria
+        - Pedido de esclarecimentos
+        - Pedido de impugnação
+        - Avaliação dos concorrentes
+        - Pedido de recurso
+        - POC
+        - Documentação para Contratação
+        - Documentação do Contrato e Aditivos
+        - Acompanhamento (problemas e soluções)
+        - Evidências e Entregas
+        */
+        case 'salvarAcompanhamento':
+            $params = array_merge($_REQUEST, getParam());
+            //$id = $mAnexoEstabelecimento->salvarAnexo($_POST, $_FILES);
+            //$mAnexoEstabelecimento->commit();
+
+            $mEditalClienteAcompanhamento->salvarAcompanhamento($params);
+            $mEditalClienteAcompanhamento->commit();
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            break;
+        case 'excluirAcompanhamento':
+            $params = array_merge($_REQUEST, getParam());
+            $mEditalClienteAcompanhamento->excluir(intval($params['id_acompanhamento']));
+            $mEditalClienteAcompanhamento->commit();
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            break;
+            /* Monitoramentos 
+            - Monitoramento do Pregão
+            */
         case 'salvarMonitoramento':
-            $params = $_POST;
+            $params = array_merge($_REQUEST, getParam());
             $mEditalClienteMonitoramento->salvarMonitoramento($params);
             $mEditalClienteMonitoramento->commit();
-            unset($_POST);
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
             break;
         case 'excluirMonitoramento':
-            $params = $_REQUEST;
+            $params = array_merge($_REQUEST, getParam());
             $mEditalClienteMonitoramento->excluir(intval($params['id_monitoramento']));
             $mEditalClienteMonitoramento->commit();
-            break;
-        case 'carregarServicoEdital':
-            $params['servico'] = $_REQUEST['servico'];
-            $params['edital_cliente_id'] = $_REQUEST['edital_cliente_id'];
-            require APPRAIZ . "adm/modulos/principal/editaisclientes/detalhe_servico.inc";
-            die;
-            break;
-        case 'adicionarCalendario':
-            $horainicio = explode(':', $dados['hora_limite']);
-            $horainicio = $horainicio[0] + 3;
-            $dados['hora_limite'] = $horainicio . ':00';
-            $dadosAgenda['inicio'] = $dados['data_limite'] . ' ' . $dados['hora_limite'];
-            $horafim = explode(':', $dados['hora_limite']);
-            $dadosAgenda['fim'] = $dados['data_limite'] . ' ' . $horafim[0] . ':30';
-            $dadosAgenda['titulo'] = 'Pregão - ' . $dados['orgao'];
-            $dadosAgenda['descricao'] = 'Pregão - ' . $dados['orgao'] . ' - ' . $dados['pregao'] . ' - ' . $dados['objeto'];
-            $dadosAgenda['local'] = $dados['portal'];
-            $event = new ICS(
-                $dadosAgenda['inicio'],
-                $dadosAgenda['fim'],
-                $dadosAgenda['titulo'],
-                $dadosAgenda['descricao'],
-                $dadosAgenda['local']
-            );
-            $event->show();
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
             break;
     }
 }
@@ -68,8 +76,29 @@ $editalCliente = setParam(array('id' => $editalCliente), false);
 $param['id'] = $dados['id_edital'];
 $p = setParam($param, true);
 
+/* Escolhe qual a aba será selecionada ao abrir */
+$abaSelecionada = 'btn_tab_pre_pregao';
+switch (true) {
+    case ($dados['situacao'] == 'Participação Realizada'
+        || $dados['situacao'] == '<i>Participação Não Realizada</i>'
+        || $dados['situacao'] == '<i> Ajustar a DOCUMENTAÇÃO </i>'):
+        $abaSelecionada = 'btn_tab_pos_pregao';
+        break;
+    case ($dados['situacao'] == 'Em Monitoramento'):
+        $abaSelecionada = 'btn_tab_pos_pregao';
+        break;
+    case ($dados['situacao'] == 'Em processo de contratação'):
+        $abaSelecionada = 'btn_tab_contratacao';
+        break;
+    case ($dados['situacao'] == 'Contratado'):
+        $abaSelecionada = 'btn_tab_gestao_contrato';
+        break;
+}
 /* Caeçalho */
 include APPRAIZ . "includes/cabecalhom.inc";
+getStrMsgDanger();
+getStrMsgInfo();
+getStrMsgWarning();
 ?>
 <style>
     .card-header {
@@ -103,33 +132,92 @@ include APPRAIZ . "includes/cabecalhom.inc";
 </style>
 <script>
     $(document).ready(function() {
-        $("#btn_tab_pre_pregao").click();
+        $("#<?= $abaSelecionada ?>").click();
     });
 
     function editar(id) {
         url = '?modulo=principal/editais/formulario&acao=C' + id;
         window.open(url);
     }
-
+    // Monitoramento
     function excluirMonitoramento(id) {
         if (confirm('Deseja apagar este monitoramento?')) {
-            url = '?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=<?= $_REQUEST['p'] ?>&act=excluirMonitoramento&id_monitoramento=' + id;
+            url = '?modulo=principal/editaisclientes/selecionado&acao=C&p=<?= $_REQUEST['p'] ?>&act=excluirMonitoramento&id_monitoramento=' + id;
             location.href = url;
         }
     }
-
-
-    function adicionarCalendario(id) {
-        url = '?modulo=principal/editaisclientes/servicos_pregao&acao=C&act=adicionarCalendario&p=' + id;;
-        location.href = url;
-    }
-
 
     function exibirModalNovoMonitoramento() {
         var modal = $('#modal-novo-monitoramento');
         modal.modal('show');
     }
+    // Acompanhamento
+    function excluirAcompanhamento(id) {
+        if (confirm('Deseja apagar este registro?')) {
+            url = '?modulo=principal/editaisclientes/selecionado&acao=C&p=<?= $_REQUEST['p'] ?>&act=excluirAcompanhamento&id_acompanhamento=' + id;
+            location.href = url;
+        }
+    }
+
+    function exibirModalNovoAcompanhamento(tipo) {
+        $('#titulo_acompanhamento').html(tipo);
+        $('#tipo_acompanhamento').val(tipo);
+        var modal = $('#modal-novo-acompanhamento');
+        modal.modal('show');
+    }
 </script>
+<h4>
+    <button type="button" class="btn btn-voltar" onclick="history.go(-1)">
+        <i class="fa fa-arrow-left"></i> Voltar
+    </button>
+    <b><?php echo $dados['orgao'] ?></b>
+    <i style="cursor: pointer;" title="Alterar informações do Edital" class="fa fa-edit" onclick="editar('<?= $p ?>')"></i>
+    <spam class="badge badge-primary"><b><?php echo $dados['situacao'] ?></b></spam>
+</h4>
+<ul class="nav nav-tabs nav-fill">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#kt_tab_pre_pregao" id="btn_tab_pre_pregao">
+            <span class="nav-text"> Pré Pregão</span>
+        </a>
+    </li>
+    <!--     <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#kt_tab_pregao" id="btn_tab_pregao">
+            <span class="nav-text">Pregão</span>
+        </a>
+    </li>
+ -->
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#kt_tab_pos_pregao" id="btn_tab_pos_pregao">
+            <span class="nav-text">Pós Pregão</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#kt_tab_contratacao" id="btn_tab_contratacao">
+            <span class="nav-text">Contratação</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#kt_tab_gestao_contrato" id="btn_tab_gestao_contrato">
+            <span class="nav-text"> Gestão do contrato</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#kt_tab_tramitacao_anexos">
+            <span class="nav-text">Tramitações e Anexos</span>
+        </a>
+    </li>
+</ul>
+<div class="tab-content bordered">
+    <?php
+    require_once('selecionado/pre_pregao.inc');
+    require_once('selecionado/pregao.inc');
+    require_once('selecionado/pos_pregao.inc');
+    require_once('selecionado/contatacao.inc');
+    require_once('selecionado/gestao_contato.inc');
+    require_once('selecionado/tramitacoes_anexos.inc');
+    ?>
+</div>
+
 <div class="modal fade in" id="modal-novo-monitoramento" tabindex="-1" role="modal-novo-monitoramento" aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" name="formulario" id="form-monitoramento" class="edital-monitoramento-form" method="POST" enctype="multipart/form-data">
@@ -137,7 +225,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">Adicionar Monitoramento</h4>
+                    <h4 class="modal-title">Novo Monitoramento</h4>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="editalcliente_id" value="<?php echo $dadosEditalCliente['id'] ?>" />
@@ -153,7 +241,6 @@ include APPRAIZ . "includes/cabecalhom.inc";
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Horário da ação</label>
-
                                 <?php
                                 $hora = '00:00';
                                 echo campo_textom('hora', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
@@ -177,54 +264,48 @@ include APPRAIZ . "includes/cabecalhom.inc";
     </div>
     <!-- /.modal-dialog -->
 </div>
-<h4>
-    <button type="button" class="btn btn-voltar" onclick="history.go(-1)">
-        <i class="fa fa-arrow-left"></i> Voltar
-    </button>
-    <b><?php echo $dados['orgao'] ?></b>
-    <i style="cursor: pointer;" title="Alterar informações do Edital" class="fa fa-edit" onclick="editar('<?= $p ?>')"></i>
-    <spam class="badge badge-primary"><b><?php echo $dados['situacao'] ?></b></spam>
-</h4>
-
-<ul class="nav nav-tabs nav-fill">
-    <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#kt_tab_pre_pregao" id="btn_tab_pre_pregao">
-            <span class="nav-text"> Pré Pregão</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_pregao">
-            <span class="nav-text">Pregão</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_pos_pregao">
-            <span class="nav-text">Pós Pregão</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_contratacao">
-            <span class="nav-text">Contratação</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_gestao_contrato">
-            <span class="nav-text"> Gestão do contrato</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_tramitacao_anexos">
-            <span class="nav-text">Tramitações e Anexos</span>
-        </a>
-    </li>
-</ul>
-<div class="tab-content bordered">
-    <?php
-    require_once('selecionado/pre_pregao.inc');
-    require_once('selecionado/pregao.inc');
-    require_once('selecionado/pos_pregao.inc');
-    require_once('selecionado/contatacao.inc');
-    require_once('selecionado/gestao_contato.inc');
-    require_once('selecionado/tramitacoes_anexos.inc');
-    ?>
+<div class="modal fade in" id="modal-novo-acompanhamento" tabindex="-1" role="modal-novo-acompanhamento" aria-hidden="true">
+    <div class="modal-dialog">
+        <form role="form" name="formulario" id="form-acompanhamento" class="edital-acompanhamento-form" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="act" value="salvarAcompanhamento" />
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="titulo_acompanhamento"></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="editalcliente_id" value="<?php echo $dadosEditalCliente['id'] ?>" />
+                    <input type="hidden" name="tipo_acompanhamento" id="tipo_acompanhamento" value="" />
+                    <div id="div_novo-acompanhamento">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Data de referência</label>
+                                <?php
+                                $data = date("m/d/Y");
+                                echo campo_datam('data', 'S', 'S', 'S', 'S', '', '', $data); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Arquivo</label>
+                                <input type="file" id="arquivo" name="arquivo" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Comentários</label>
+                                <?= campo_textaream('comentario', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" onclick="$('#form-acompanhamento').submit();" class="btn red" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn blue" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>

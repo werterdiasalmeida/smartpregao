@@ -54,15 +54,19 @@ $estabelecimentoId = $_REQUEST['p'];
                     $arConfig = array();
                     $where = " data >= CURRENT_DATE AND edc.estabelecimento_id = {$dados['id']}";
                     $id = $params['id'];
-                   $arConfig[0]['html'] = <<<HTML
-                    <a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{editalcliente_id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                   $arConfig[1]['html'] = <<<HTML
+                    <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {edital}
                     </a>
+HTML;
 
+                    $arConfig[0]['html'] = <<<HTML
+                    <center><spam class="badge badge-primary"><b>{falta}</b></spam></center>
 HTML;
                     $rs = $mEditalClienteMonitoramento->getListCliente($where);
                     $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
                     $mEditalClienteMonitoramento->setCabecalho(array(
+                        'Falta',
                         'Edital',
                         'Data/Hora da Ação',
                         'Monitoramento'
@@ -78,7 +82,7 @@ HTML;
                     $where = " data < CURRENT_DATE AND edc.estabelecimento_id = {$dados['id']}";
                     $id = $params['id'];
                    $arConfig[0]['html'] = <<<HTML
-                    <a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{editalcliente_id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                    <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {edital}
                     </a>
 
