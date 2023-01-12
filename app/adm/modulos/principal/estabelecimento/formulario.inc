@@ -232,32 +232,9 @@ ACAO;
                 if (remove_logo === 'S') {
                     $('#remove_logo').val('S');
                 }
-                var dadosEndereco = $('#tabela-enderecos').bootstrapTable("getData");
-                $('input[type=hidden][name=enderecos]').val(JSON.stringify(dadosEndereco));
-
-                var dadosRepresentante = $('#tabela-representantes').bootstrapTable("getData");
-                $('input[type=hidden][name=representantes]').val(JSON.stringify(dadosRepresentante));
-
             }
         });
 
-        $(".endereco-form").validateForm({
-            submitHandler: function(e) {
-                incluirEndereco();
-            }
-        });
-
-        $(".contato-form").validateForm({
-            submitHandler: function(e) {
-                incluirContato();
-            }
-        });
-
-        $(".representante-form").validateForm({
-            submitHandler: function(e) {
-                incluirRepresentante();
-            }
-        });
 
         $('.btn-voltar').click(function() {
             window.location = '?modulo=principal/estabelecimento/lista&acao=C';
@@ -273,7 +250,6 @@ ACAO;
                 backdrop: 'static',
             }).modal('show');
         });
-        3
 
         <?php if ($representantes) : ?>
             $('#tabela-representantes').bootstrapTable('load', <?= $representantes ?>);
@@ -281,98 +257,4 @@ ACAO;
     });
 
 
-    function formatAcaoRepresentante(value, row, index) {
-        var btnEditar = '<a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:alterarRepresentante(' + index + ')" title="Alterar" style="margin: 2px;">' +
-            '<i class="icon-pencil"></i>' +
-            '</a>';
-
-        var btnExcluir = '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirRepresentante(' + index + ')" title="Excluir" style="margin: 2px;">' +
-            '<i class="icon-trash"></i>' +
-            '</a>';
-
-        return btnEditar + btnExcluir;
-    }
-
-    function formatRepresentantePrincipal(value, row, index) {
-        var retorno = 'Sim';
-        if (row.flg_principal == 'f') {
-            retorno = 'Não';
-        }
-
-        return retorno;
-    }
-
-    function excluirRepresentante(index) {
-        removerItemTabela(index, $('#tabela-representantes'));
-    }
-
-    function limparDadosRepresentante() {
-        var form = $('[name=representante-form]');
-        $(form).find('[name=contato]').val('');
-        $(form).find('[name=nome]').val('');
-        $(form).find('[name=cargo]').val('');
-        $(form).find('[name=index]').val('');
-        $(form).find('#flg_principal_f').prop('checked', true);
-    }
-
-    function incluirRepresentante() {
-        var form = $('[name=representante-form]');
-
-        //Se for principal procura todos os outros que forem principais e altera para não
-        if ($(form).find('[name=flg_principal]:checked').val() == 't') {
-            var dados = $('#tabela-representantes').bootstrapTable("getData");
-            $.each(dados, function(index, item) {
-                if (item.flg_principal == 't') {
-                    item.flg_principal = 'f';
-                    $('#tabela-representantes').bootstrapTable('updateRow', {
-                        index: index,
-                        row: item
-                    });
-                }
-            });
-        }
-
-        var representante = {
-            contato: $(form).find('[name=contato]').val(),
-            nome: $(form).find('[name=nome]').val(),
-            cargo: $(form).find('[name=cargo]').val(),
-            flg_principal: $(form).find('[name=flg_principal]:checked').val(),
-            id: $(form).find('[name=id]').val()
-        };
-
-        adicionarItemTabela(representante, $('#tabela-representantes'), $(form).find('#index').val());
-        $('#modal-representante').modal('hide');
-        limparDadosRepresentante();
-    }
-
-    function alterarRepresentante(index) {
-        $('#modal-representante').modal({
-            backdrop: 'static',
-        }).modal('show');
-
-        var dados = $('#tabela-representantes').bootstrapTable("getData");
-        var representante = dados[index];
-        var form = $('[name=representante-form]');
-
-        $(form).find('[name=contato]').val(representante.contato);
-        $(form).find('[name=nome]').val(representante.nome);
-        $(form).find('[name=cargo]').val(representante.cargo);
-        $(form).find('[name=index]').val(index);
-
-        if (representante.flg_principal == 'f') {
-            $(form).find('#flg_principal_f').prop('checked', true);
-        } else {
-            $(form).find('#flg_principal_t').prop('checked', true);
-        }
-
-        $(form).find('[name=id]').val(representante.id);
-    }
-
-    function formatContatoPrincipal(value, row, index) {
-        var retorno = 'Sim';
-        if (row.flg_principal == 'f') {
-            retorno = 'Não';
-        }
-        return retorno;
-    }
 </script>

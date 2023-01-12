@@ -49,7 +49,7 @@ class EditalClienteMonitoramento extends Modelo
             }
         }
         if ($paginacao) {
-            $dado = Paginacao::getPaginacao($this, $sql, 15);
+            $dado = Paginacao::getPaginacao($this, $sql, 5);
             return $dado;
         } else {
             $retorno = $this->carregar($sql);

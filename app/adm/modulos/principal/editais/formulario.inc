@@ -144,12 +144,6 @@ include APPRAIZ . "includes/cabecalhom.inc";
                                 <?= campo_textaream('habilitacao_tecnica', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Serviço a ser Prestado</label>
-                                <?= campo_textaream('resumo_servico', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">

@@ -174,7 +174,9 @@ if ($modulo_atual != "") {
     <script src="/includes/metronic/layouts/layout/scripts/layout.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/metronic/layouts/global/scripts/quick-sidebar.min.js?v=<?= VERSAO ?>" type="text/javascript"></script>
     <script src="/includes/estouvivo.js?v=<?= VERSAO ?>" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- END THEME LAYOUT SCRIPTS -->
+
 </head>
 <!-- END HEAD -->
 <?php

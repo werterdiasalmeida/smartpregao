@@ -116,7 +116,7 @@ if ($aba) {
                     $arConfig = array();
                     $arWhereMinhasSolicitacoes[] = " estabelecimento_id = {$dados['id']}";
                     $arConfig[0]['html'] = <<<HTML
-                        <spam><a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                        <spam><a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                             {edital}
                         </a></spam>
 
@@ -174,17 +174,14 @@ HTML;
                     <?php
                     $acao = <<<ACAO
             <div style="min-width: 20px;">
-                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:exibirModalDetalhe('<php> return setParam(array('id' => '{id_edital}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Detalhes do Edital">
-                    <i class="glyphicon glyphicon-search"></i>
-                </a>
-                <a class="btn btn-circle btn-icon-only btn-default yellow" href="javascript:solicitarServico('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Solicitar um Serviço">
-                    <i class="fa fa-star"></i>
-                </a>    
+                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Edital">
+                    <i class="fa fa-edit"></i> 
+            </a>
             </div>
 ACAO;
                     $arConfig = array();
                     $arConfig[0]['html'] = <<<HTML
-                    <a href="?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                    <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {orgao}
                     </a>
 
@@ -201,7 +198,7 @@ HTML;
                     }
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
                     $rs = $mEditalCliente->getList($arWhereEditaisCliente);
-                    if($ordernar){
+                    if ($ordernar) {
                         $rs = $mEditalCliente->getList($arWhereEditaisCliente, true, $ordernar);
                     }
 
@@ -361,22 +358,8 @@ HTML;
         modal.modal('show');
     }
 
-    function exibirModalDetalhe(p, nome) {
-        var modal = $('#modal-detalhe-edital');
-        modal.find('strong#nome').html(nome);
-        App.blockUI({
-            message: 'Carregando...',
-            target: '#div_detalhe_edital'
-        });
-        // Carregar os dados do Edital
-        $('div#div_detalhe_edital').load(window.location.href, {
-            act: 'carregarDetalhedital',
-            p: p
-        }, function() {
-            App.unblockUI('#div_detalhe_edital');
-        });
-        //modal.find('#div_detalhe_edital').html();
-        modal.modal('show');
+    function selecionarEdital(id) {
+        window.location = '?modulo=principal/editaisclientes/selecionado&acao=C&p=' + id;
     }
 
     function participarEdital() {

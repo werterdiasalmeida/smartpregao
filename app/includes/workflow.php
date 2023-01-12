@@ -648,12 +648,13 @@ function wf_desenhaBarraNavegacaoHorizontalM($docid, array $dados, $ocultar = nu
                     endforeach;
                 endif;
                 ?>
-
+                <? if (!$ocultar['historico']) {?>
                 <button class="btn green" type="button"
                         title="Histórico - <?= $usuario['usunome'] . " - " . $modificacao . " - " . htmlentities($comentario); ?>"
                         onclick="wf_exibirHistorico( '<?= $docid ?>' );">
                     <i class="fa fa-clock-o"></i>
                 </button>
+                <? }?>
             </div>
         </div>
     </div>
