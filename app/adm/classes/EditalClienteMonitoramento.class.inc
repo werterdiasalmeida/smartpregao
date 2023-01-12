@@ -31,7 +31,11 @@ class EditalClienteMonitoramento extends Modelo
 
     public function getList($arWhere, $paginacao = true, $order = null)
     {
-        $sql = "SELECT
+        
+        $sql = "SET TIMEZONE TO 'America/Sao_Paulo';";
+        $this->executar($sql);
+        $sql = "
+                SELECT
                     to_char(TO_TIMESTAMP(data || ' ' || hora || ':00', 'YYYY-MM-DD HH24:MI:SS')  - CURRENT_TIMESTAMP, 'DD HH24:MI') as falta,
                     TO_CHAR(data, 'DD/MM/YYYY') || ' ' || hora AS data_hora,
                     comentario, id
