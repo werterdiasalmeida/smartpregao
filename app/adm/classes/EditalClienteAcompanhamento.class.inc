@@ -36,7 +36,7 @@ class EditalClienteAcompanhamento extends Modelo
                 SELECT
                     TO_CHAR(data, 'DD/MM/YYYY') AS data,
                     arq.arqnome || '.' || arq.arqextensao || ' (' ||(arq.arqtamanho / 1024) || ' KB' || ')' AS arquivo,
-                    comentario, id
+                    comentario, arq.arqid, id
                 FROM
                     edital.editalcliente_acompanhamento aco
                 LEFT JOIN
@@ -79,7 +79,6 @@ class EditalClienteAcompanhamento extends Modelo
             'comentario' => $params['comentario'],
             'editalcliente_id' => $params['editalcliente_id'],
         );
-        //ver($dados,d);
         $id = $this->popularDadosObjeto($dados)->salvar();
         return $id;
     }

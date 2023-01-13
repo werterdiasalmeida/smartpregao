@@ -5,6 +5,7 @@ $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
+$fileSimec = new FilesSimec();
 $p = getParam();
 /* Ações da tela */
 if ($_REQUEST && isset($_REQUEST['act'])) {
@@ -48,6 +49,10 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             $mEditalClienteMonitoramento->excluir(intval($params['id_monitoramento']));
             $mEditalClienteMonitoramento->commit();
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
+            break;
+        case 'baixarAnexo':
+            $fileSimec->getDownloadArquivo($_REQUEST['arqid']);
+            die;
             break;
     }
 }
@@ -160,6 +165,11 @@ getStrMsgWarning();
         $('#tipo_acompanhamento').val(tipo);
         var modal = $('#modal-novo-acompanhamento');
         modal.modal('show');
+    }
+
+    function baixarAnexo(arqid){
+        url = '?modulo=principal/editaisclientes/selecionado&acao=C&p=<?= $_REQUEST['p'] ?>&act=baixarAnexo&arqid=' + arqid; 
+        location.href = url;
     }
 </script>
 <h4>

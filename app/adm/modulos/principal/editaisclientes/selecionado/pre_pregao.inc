@@ -93,6 +93,9 @@
                                </a>
                             </div> 
                             ACAO;
+                            $arConfig[1]['html'] = <<<HTML
+                                <a onclick="baixarAnexo({arqid})">{arquivo}</a>
+                            HTML;
                             $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
                             $mEditalClienteAcompanhamento->setCabecalho(array(
                                 'Data',
