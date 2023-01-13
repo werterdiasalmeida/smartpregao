@@ -85,19 +85,18 @@
                                 Novo Monitoramento
                             </a>
                             <?php
+                            unset($arConfig, $acao);
                             $acao = <<<ACAO
-                           <div style="min-width: 20px;">
-                               <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirMonitoramento({id});" data-toggle="tooltip"  title="Excluir">
-                                   <i class="icon-trash"></i>
-                               </a>
-                           </div>
-ACAO;
+                            <div style="min-width: 20px;">
+                                <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirMonitoramento({id});" data-toggle="tooltip"  title="Excluir">
+                                    <i class="icon-trash"></i>
+                                </a>
+                            </div>
+                            ACAO;
                             $arConfig = array();
-
                             $arConfig[0]['html'] = <<<HTML
-                           <spam class="badge badge-primary"><b>{falta}</b></spam>
-HTML;
-
+                                <spam class="badge badge-primary"><b>{falta}</b></spam>
+                            HTML;
                             $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
                             $mEditalClienteMonitoramento->setCabecalho(array(
                                 'Faltam',
