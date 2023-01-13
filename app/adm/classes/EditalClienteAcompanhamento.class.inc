@@ -35,8 +35,9 @@ class EditalClienteAcompanhamento extends Modelo
         $sql = "
                 SELECT
                     TO_CHAR(data, 'DD/MM/YYYY') AS data,
+                    comentario, 
                     arq.arqnome || '.' || arq.arqextensao || ' (' ||(arq.arqtamanho / 1024) || ' KB' || ')' AS arquivo,
-                    comentario, arq.arqid, id
+                    arq.arqid, id
                 FROM
                     edital.editalcliente_acompanhamento aco
                 LEFT JOIN

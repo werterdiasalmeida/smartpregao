@@ -1,4 +1,5 @@
 <?php
+ini_set("memory_limit", "10240M");
 /* Objetos usados na tela */
 $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
@@ -160,6 +161,7 @@ getStrMsgWarning();
             location.href = url;
         }
     }
+
     function exibirModalNovoAcompanhamento(tipo) {
         $('#titulo_acompanhamento').html(tipo);
         $('#tipo_acompanhamento').val(tipo);
@@ -167,8 +169,8 @@ getStrMsgWarning();
         modal.modal('show');
     }
 
-    function baixarAnexo(arqid){
-        url = '?modulo=principal/editaisclientes/selecionado&acao=C&p=<?= $_REQUEST['p'] ?>&act=baixarAnexo&arqid=' + arqid; 
+    function baixarAnexo(arqid) {
+        url = '?modulo=principal/editaisclientes/selecionado&acao=C&p=<?= $_REQUEST['p'] ?>&act=baixarAnexo&arqid=' + arqid;
         location.href = url;
     }
 </script>

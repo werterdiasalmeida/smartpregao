@@ -74,7 +74,7 @@
                                     echo '<i class="bi bi-building-check"></i>';
                                 }
                                 ?>
-                            Monitoramento do Pregão </b>
+                                Monitoramento do Pregão </b>
                         </div>
                     </div>
                     <div id="monitoramento" class="collapse">
@@ -114,40 +114,150 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#avaliacao_contorrentes">
-                            <b> <i class="bi bi-binoculars"></i> Avaliação dos concorrentes</b>
+                            <b>
+                                <?php
+                                $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
+                                $where = " tipo_acompanhamento = 'Avaliação dos concorrentes' AND editalcliente_id = {$dadosEditalCliente['id']}";
+                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                                if (count($rs['dados'])) {
+                                    echo '<i class="bi bi-binoculars accordion_com_conteudo"></i>';
+                                } else {
+                                    echo '<i class="bi bi-binoculars"></i>';
+                                }
+                                ?>
+                                Avaliação dos concorrentes</b>
                         </div>
                     </div>
                     <div id="avaliacao_contorrentes" class="collapse">
                         <div class="card-body">
-                            Em breve.
+                            <a onclick="exibirModalNovoAcompanhamento('Avaliação dos concorrentes')">
+                                <i class="bi bi-plus-square" title="Novo Documento"></i>
+                                Nova Avaliação dos concorrentes
+                            </a>
+                            <?php
+                            unset($arConfig, $acoes);
+                            $acao = <<<ACAO
+                            <div style="min-width: 20px;">
+                               <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
+                                   <i class="icon-trash"></i>
+                               </a>
+                            </div> 
+                            ACAO;
+                            $arConfig[2]['html'] = <<<HTML
+                                <a onclick="baixarAnexo({arqid})">{arquivo}</a>
+                            HTML;
+                            $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
+                            $mEditalClienteAcompanhamento->setCabecalho(array(
+                                'Data',
+                                'Informação',
+                                'Arquivo',
+                                'Ação'
+                            ));
+                            $mEditalClienteAcompanhamento->setCorpo($rs, $arConfig);
+                            $mEditalClienteAcompanhamento->setAcao($acao);
+                            $mEditalClienteAcompanhamento->show();
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#pedido_recurso">
-                            <b> <i class="bi bi-exclamation-octagon"></i> Pedido de recurso</b>
+                            <b>
+                                <?php
+                                $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
+                                $where = " tipo_acompanhamento = 'Pedido de recurso' AND editalcliente_id = {$dadosEditalCliente['id']}";
+                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                                if (count($rs['dados'])) {
+                                    echo '<i class="bi bi-exclamation-octagon accordion_com_conteudo"></i>';
+                                } else {
+                                    echo '<i class="bi bi-exclamation-octagon"></i>';
+                                }
+                                ?>
+                                Pedido de recurso</b>
                         </div>
                     </div>
                     <div id="pedido_recurso" class="collapse">
                         <div class="card-body">
-                            Em breve.
+                            <a onclick="exibirModalNovoAcompanhamento('Pedido de recurso')">
+                                <i class="bi bi-plus-square" title="Novo Documento"></i>
+                                Novo Pedido de recurso
+                            </a>
+                            <?php
+                            unset($arConfig, $acoes);
+                            $acao = <<<ACAO
+                            <div style="min-width: 20px;">
+                               <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
+                                   <i class="icon-trash"></i>
+                               </a>
+                            </div> 
+                            ACAO;
+                            $arConfig[2]['html'] = <<<HTML
+                                <a onclick="baixarAnexo({arqid})">{arquivo}</a>
+                            HTML;
+                            $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
+                            $mEditalClienteAcompanhamento->setCabecalho(array(
+                                'Data',
+                                'Informação',
+                                'Arquivo',
+                                'Ação'
+                            ));
+                            $mEditalClienteAcompanhamento->setCorpo($rs, $arConfig);
+                            $mEditalClienteAcompanhamento->setAcao($acao);
+                            $mEditalClienteAcompanhamento->show();
+                            ?>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#poc">
-                            <b> <i class="bi bi-projector"></i> Prova de Conceito (POC)</b>
+                            <b>
+                                <?php
+                                $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
+                                $where = " tipo_acompanhamento = 'Prova de Conceito (POC)' AND editalcliente_id = {$dadosEditalCliente['id']}";
+                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                                if (count($rs['dados'])) {
+                                    echo '<i class="bi bi-projector accordion_com_conteudo"></i>';
+                                } else {
+                                    echo '<i class="bi bi-projector"></i>';
+                                }
+                                ?>
+                                Prova de Conceito (POC)</b>
                         </div>
                     </div>
                     <div id="poc" class="collapse">
                         <div class="card-body">
-                            Em breve.
+                            <a onclick="exibirModalNovoAcompanhamento('Prova de Conceito (POC)')">
+                                <i class="bi bi-plus-square" title="Novo Documento"></i>
+                                Nova Prova de Conceito (POC)
+                            </a>
+                            <?php
+                            unset($arConfig, $acoes);
+                            $acao = <<<ACAO
+                            <div style="min-width: 20px;">
+                               <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
+                                   <i class="icon-trash"></i>
+                               </a>
+                            </div> 
+                            ACAO;
+                            $arConfig[2]['html'] = <<<HTML
+                                <a onclick="baixarAnexo({arqid})">{arquivo}</a>
+                            HTML;
+                            $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
+                            $mEditalClienteAcompanhamento->setCabecalho(array(
+                                'Data',
+                                'Informação',
+                                'Arquivo',
+                                'Ação'
+                            ));
+                            $mEditalClienteAcompanhamento->setCorpo($rs, $arConfig);
+                            $mEditalClienteAcompanhamento->setAcao($acao);
+                            $mEditalClienteAcompanhamento->show();
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    

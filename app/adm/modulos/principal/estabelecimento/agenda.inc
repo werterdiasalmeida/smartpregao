@@ -1,7 +1,11 @@
 <?php
 ini_set("memory_limit", "1024M");
+/* Objetos usados na tela */
+$mEstabelecimento = new Estabelecimento();
+$mEdital = new Edital();
+$mEditalCliente = new EditalCliente();
 
-$mAgenda = new EstabelecimentoProfissionalAgenda();
+$mAgenda = new EstabelecimentoAgenda();
 $mEstabelecimentoProfissional = new EstabelecimentoEspecialidadeProfissional();
 $mPessoaFisica = new PessoaFisica();
 $p = getParam();
@@ -119,33 +123,17 @@ if ($p['profissional_id']) {
     }, $especialidadesProfissional);
 }
 
-$arrSituacaoWf = $mAgenda->getEstadosWfParaCheckbox();
-
-$arrSituacaoWfMarcadosPorPadrao = array(
-    EstabelecimentoProfissionalAgenda::WF_ESTADO_DISPONIVEL,
-    EstabelecimentoProfissionalAgenda::WF_ESTADO_AGENDADA,
-    EstabelecimentoProfissionalAgenda::WF_ESTADO_CONFIRMADA,
-    EstabelecimentoProfissionalAgenda::WF_ESTADO_REALIZADA,
-    EstabelecimentoProfissionalAgenda::WF_ESTADO_BLOQUEADA,
-    EstabelecimentoProfissionalAgenda::WF_ESTADO_EM_ATENDIMENTO,
-    EstabelecimentoProfissionalAgenda::WF_ESTADO_AGUARDANDO_ATENDIMENTO,
-);
-
 include APPRAIZ . "includes/cabecalhom.inc";
 echo Estabelecimento::gerarCabecalho();
-
-UsuarioResponsabilidadeEstabelecimento::montaTituloAba($abacod_tela, $url, setParam(array('id' => $p['id'])), null, array(), true);
-
 $dadosAgenda = $mAgenda->getDadosCalendario($p['id'], date('m'), date('Y'), true);
-
-include APPRAIZ . "includes/controleAcessoSituacaoContrato.inc";
+$dadosCliente = $mEstabelecimento->getTodosDados($p['id']);
 ?>
 <div class="portlet light bordered" id="page-body">
     <div class="portlet-title">
         <div class="caption font-blue-sharp">
             <i class="icon-calendar font-blue-sharp"></i>
             <span class="caption-subject bold uppercase">
-                Agenda dos Pregões
+                Agenda da <?= $dadosCliente['razao_social']?>
             </span>
         </div>
     </div>
