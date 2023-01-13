@@ -74,28 +74,25 @@
                                     echo '<i class="bi bi-journals"></i>';
                                 }
                                 ?>
-                                Documentação de Habilitação</b>
+                                Documentação de Habilitação
+                            </b>
                         </div>
                     </div>
                     <div id="habilitaca_documentacao" class="collapse">
                         <div class="card-body">
                             <a onclick="exibirModalNovoAcompanhamento('Documentação de Habilitação')">
                                 <i class="bi bi-plus-square" title="Novo Documento"></i>
-                                Novo Documento
+                                Novo Documento de Habilitação
                             </a>
                             <?php
+                            unset($arConfig, $acoes);
                             $acao = <<<ACAO
-                           <div style="min-width: 20px;">
+                            <div style="min-width: 20px;">
                                <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
                                    <i class="icon-trash"></i>
                                </a>
-                           </div> 
-                           ACAO;
-                            unset($arConfig, $acoes);
-
-                            $arConfig[0]['html'] = <<<HTML
-                                <spam class="badge badge-primary"><b>{falta}</b></spam>
-                            HTML;
+                            </div> 
+                            ACAO;
                             $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
                             $mEditalClienteAcompanhamento->setCabecalho(array(
                                 'Data',

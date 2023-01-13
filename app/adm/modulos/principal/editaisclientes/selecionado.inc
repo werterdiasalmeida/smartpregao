@@ -23,34 +23,31 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
         - Evidências e Entregas
         */
         case 'salvarAcompanhamento':
-            $params = array_merge($_REQUEST, getParam());
-            //$id = $mAnexoEstabelecimento->salvarAnexo($_POST, $_FILES);
-            //$mAnexoEstabelecimento->commit();
-
-            $mEditalClienteAcompanhamento->salvarAcompanhamento($params);
+            $params = $_POST;
+            $mEditalClienteAcompanhamento->salvarAcompanhamento($params, $_FILES);
             $mEditalClienteAcompanhamento->commit();
-            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
             break;
         case 'excluirAcompanhamento':
-            $params = array_merge($_REQUEST, getParam());
+            $params = $_REQUEST;
             $mEditalClienteAcompanhamento->excluir(intval($params['id_acompanhamento']));
             $mEditalClienteAcompanhamento->commit();
-            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
             break;
             /* Monitoramentos 
             - Monitoramento do Pregão
             */
         case 'salvarMonitoramento':
-            $params = array_merge($_REQUEST, getParam());
+            $params = $_POST;
             $mEditalClienteMonitoramento->salvarMonitoramento($params);
             $mEditalClienteMonitoramento->commit();
-            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['editalcliente_id'])));
             break;
         case 'excluirMonitoramento':
-            $params = array_merge($_REQUEST, getParam());
+            $params = $_GET;
             $mEditalClienteMonitoramento->excluir(intval($params['id_monitoramento']));
             $mEditalClienteMonitoramento->commit();
-            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
             break;
     }
 }
@@ -158,7 +155,6 @@ getStrMsgWarning();
             location.href = url;
         }
     }
-
     function exibirModalNovoAcompanhamento(tipo) {
         $('#titulo_acompanhamento').html(tipo);
         $('#tipo_acompanhamento').val(tipo);
@@ -180,12 +176,6 @@ getStrMsgWarning();
             <span class="nav-text"> Pré Pregão</span>
         </a>
     </li>
-    <!--     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_pregao" id="btn_tab_pregao">
-            <span class="nav-text">Pregão</span>
-        </a>
-    </li>
- -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#kt_tab_pos_pregao" id="btn_tab_pos_pregao">
             <span class="nav-text">Pós Pregão</span>
@@ -210,14 +200,13 @@ getStrMsgWarning();
 <div class="tab-content bordered">
     <?php
     require_once('selecionado/pre_pregao.inc');
-    require_once('selecionado/pregao.inc');
     require_once('selecionado/pos_pregao.inc');
     require_once('selecionado/contatacao.inc');
     require_once('selecionado/gestao_contato.inc');
     require_once('selecionado/tramitacoes_anexos.inc');
     ?>
 </div>
-
+<!-- MODAL de Monitoramento -->
 <div class="modal fade in" id="modal-novo-monitoramento" tabindex="-1" role="modal-novo-monitoramento" aria-hidden="true">
     <div class="modal-dialog">
         <form role="form" name="formulario" id="form-monitoramento" class="edital-monitoramento-form" method="POST" enctype="multipart/form-data">
@@ -255,8 +244,8 @@ getStrMsgWarning();
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" onclick="$('#form-monitoramento').submit();" class="btn red" data-dismiss="modal">Salvar</button>
-                    <button type="button" class="btn blue" data-dismiss="modal">Fechar</button>
+                    <button type="submit" onclick="$('#form-monitoramento').submit();" class="btn green" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn red" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </form>
@@ -264,10 +253,10 @@ getStrMsgWarning();
     </div>
     <!-- /.modal-dialog -->
 </div>
+<!-- MODAL de Acompanhamento -->
 <div class="modal fade in" id="modal-novo-acompanhamento" tabindex="-1" role="modal-novo-acompanhamento" aria-hidden="true">
     <div class="modal-dialog">
-        <form role="form" name="formulario" id="form-acompanhamento" class="edital-acompanhamento-form" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="act" value="salvarAcompanhamento" />
+        <form role="form" name="formulario" id="form-acompanhamento" method="POST" enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -276,6 +265,7 @@ getStrMsgWarning();
                 <div class="modal-body">
                     <input type="hidden" name="editalcliente_id" value="<?php echo $dadosEditalCliente['id'] ?>" />
                     <input type="hidden" name="tipo_acompanhamento" id="tipo_acompanhamento" value="" />
+                    <input type="hidden" name="act" value="salvarAcompanhamento" />
                     <div id="div_novo-acompanhamento">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -300,8 +290,8 @@ getStrMsgWarning();
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" onclick="$('#form-acompanhamento').submit();" class="btn red" data-dismiss="modal">Salvar</button>
-                    <button type="button" class="btn blue" data-dismiss="modal">Fechar</button>
+                    <button type="submit" onclick="$('#form-acompanhamento').submit();" class="btn green" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn red" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </form>

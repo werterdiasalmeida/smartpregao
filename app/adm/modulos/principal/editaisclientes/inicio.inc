@@ -3,7 +3,6 @@ $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mServicoAnaliseContratado = new ServicoAnaliseContratado();
-
 $params = getParam();
 $filtroPadrao = true;
 
@@ -84,6 +83,7 @@ if (isset($params['id']) && !empty($params['id'])) {
 }
 
 include APPRAIZ . "includes/cabecalhom.inc";
+getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
 
 if ($aba) {
     echo Estabelecimento::gerarCabecalho();
@@ -144,24 +144,24 @@ if ($aba) {
                         </div>
                     </form>
                     <?php
+                    unset($arConfig, $acao);
                     $acao = <<<ACAO
-            <div style="min-width: 20px;">
-                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Edital">
-                    <i class="fa fa-edit"></i> 
-            </a>
-            </div>
-ACAO;
+                                <div style="min-width: 20px;">
+                                    <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Edital">
+                                        <i class="fa fa-edit"></i> 
+                                </a>
+                                </div>
+                    ACAO;
                     $arConfig = array();
                     $arConfig[0]['html'] = <<<HTML
                     <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {orgao}
                     </a>
+                    HTML;
 
-HTML;
                     $arConfig[2]['html'] = <<<HTML
-    <spam class="badge badge-primary"><b>{dias}</b></spam>
-HTML;
-
+                        <spam class="badge badge-primary"><b>{dias}</b></spam>
+                    HTML;
                     $arConfig[2]['style'] = "width: 10%; text-align: center;";
                     /* Filtro do Período (padrão próximos 7 dias e não descartados)*/
                     if ($filtroPadrao) {
@@ -189,10 +189,10 @@ HTML;
                     $mEditalCliente->show();
                     ?>
                 </div>
-                
+
             </div>
             <div class="row">
-            <div class="col-md-4">
+                <div class="col-md-4">
                     <h4>Minhas solicitações de Serviço</h4>
                     <form role="form" name="formulario" class="edital-cliente-form" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
@@ -246,33 +246,21 @@ HTML;
                     </form>
 
                     <?php
-                    $acao = <<<ACAO
-            <div style="min-width: 20px;">
-                <a class="btn btn-circle btn-icon-only btn-default yellow" href="javascript:exibirModalParticipar('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Quero Participar!">
-                    <i class="glyphicon glyphicon-star-empty"></i>
-                </a>
-                
-                <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:exibirModalDetalhe('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Detalhes do Edital">
-                    <i class="glyphicon glyphicon-search"></i>
-                </a>
-            </div>
-ACAO;
-
                     unset($arConfig, $acao);
-
+                    $acao = <<<ACAO
+                    <div style="min-width: 20px;">
+                        <a class="btn btn-circle btn-icon-only btn-default yellow" href="javascript:exibirModalParticipar('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Quero Participar!">
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                        </a>
+                    </div>
+                    ACAO;
                     $arConfig[3]['html'] = <<<HTML
-    <spam class="badge badge-primary"><b>{dias}</b></spam>
-HTML;
-
-
+                        <spam class="badge badge-primary"><b>{dias}</b></spam>
+                    HTML;
                     $arConfig[3]['style'] = "width: 10%; text-align: center;";
-
                     // Filtro para não trazer as que já estão vinculadas
                     $arWhereEditais[] = "edi.data_limite >= NOW() AND edi.id not in (SELECT edital_id FROM edital.editalcliente WHERE estabelecimento_id = {$dados['id']} )";
-
-
                     $rs = $mEdital->getList($arWhereEditais);
-
                     $mEdital = new Listam(array("style" => "width: 100%;"));
                     $mEdital->setCabecalho(array(
                         'Portal',

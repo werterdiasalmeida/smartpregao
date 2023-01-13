@@ -27,7 +27,7 @@ class EditalClienteAcompanhamento extends Modelo
         'tipo_acompanhamento' => null,
         'arqid' => null,
         'data' => null,
-        'comentario' => null,                
+        'comentario' => null,
     );
 
     public function getList($arWhere, $paginacao = true, $order = null)
@@ -35,13 +35,14 @@ class EditalClienteAcompanhamento extends Modelo
         $sql = "
                 SELECT
                     TO_CHAR(data, 'DD/MM/YYYY') AS data,
+                    arq.arqnome || '.' || arq.arqextensao || ' (' ||(arq.arqtamanho / 1024) || ' KB' || ')' AS arquivo,
                     comentario, id
                 FROM
-                    edital.editalcliente_acompanhamento 
-                 
+                    edital.editalcliente_acompanhamento aco
+                LEFT JOIN
+                    public.arquivo arq ON aco.arqid = arq.arqid
                 WHERE
-                {$arWhere}            
-                " ;
+                {$arWhere}";
         if (!isset($_REQUEST['ordem'])) {
             if (!is_null($order)) {
                 $sql .= " ORDER BY {$order}";
@@ -57,44 +58,29 @@ class EditalClienteAcompanhamento extends Modelo
             return $retorno ? $retorno : array();
         }
     }
-    public function getListCliente($arWhere, $paginacao = true, $order = null)
+    public function salvarAcompanhamento($params, $arquivos = null)
     {
-        $sql = "
-                SELECT
-                    edi.orgao || ' [' || edital || '] <br/>' || edi.valor_estimado as edital,
-                    TO_CHAR(data, 'DD/MM/YYYY') AS data,
-                    comentario,
-                    editalcliente_id as id
-                FROM
-                    edital.editalcliente_acompanhamento mon 
-					JOIN edital.editalcliente edc on mon.editalcliente_id = edc.id 
-					JOIN   edital.edital edi on edc.edital_id = edi.id
-                WHERE
-                {$arWhere}       
-                " ;
-
-        if (!isset($_REQUEST['ordem'])) {
-            if (!is_null($order)) {
-                $sql .= " ORDER BY {$order}";
-            } else {
-                $sql .= " ORDER BY data DESC";
-            }
+        list($params, $camposNulos) = $this->limparDadosVazios($params);
+        if (
+            isset($arquivos['arquivo'])
+            && isset($arquivos['arquivo']['name']) && !empty($arquivos['arquivo']['name'])
+            && isset($arquivos['arquivo']['type']) && !empty($arquivos['arquivo']['type'])
+            && isset($arquivos['arquivo']['size']) && !empty($arquivos['arquivo']['size'])
+        ) {
+            $file = new FilesSimec();
+            $arquivoId = $file->setUploadArquivoEspecifico("Anexo", 'arquivo');
         }
-        if ($paginacao) {
-            $dado = Paginacao::getPaginacao($this, $sql, 15);
-            return $dado;
-        } else {
-            $retorno = $this->carregar($sql);
-            return $retorno ? $retorno : array();
-        }
-    }
-    public function salvarAcompanhamento($params)
-    {
-        $dados = $params;
         // Tratamento dos dados
-        $dados['data'] = formata_data_sql($params['data']);  
+        $dados = array(
+            'id' => $params['id'],
+            'arqid' => $arquivoId,
+            'tipo_acompanhamento' => $params['tipo_acompanhamento'],
+            'data' => formata_data_sql($params['data']),
+            'comentario' => $params['comentario'],
+            'editalcliente_id' => $params['editalcliente_id'],
+        );
+        //ver($dados,d);
         $id = $this->popularDadosObjeto($dados)->salvar();
         return $id;
     }
-
 }

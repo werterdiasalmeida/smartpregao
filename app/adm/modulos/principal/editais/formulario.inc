@@ -5,7 +5,7 @@ if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {
         case 'salvar':
             $params = array_merge($_POST, getParam());
-            $mEdital->salvarEdital($params);
+            $params['id'] = $mEdital->salvarEdital($params);
             $mEdital->commit();
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
             break;
