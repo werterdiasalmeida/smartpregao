@@ -267,9 +267,6 @@ class Estabelecimento extends Modelo
                                 <a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C{$pParam}" data-toggle="tooltip" title="Configurações">
                                     <i class="fa fa-cog"></i>
                                 </a>
-                                <a class="btn btn-circle btn-icon-only btn-default green-jungle" href="?modulo=principal/estabelecimento/financeiro/extrato&acao=C{$pParam}" data-toggle="tooltip" title="Financeiro">
-                                    <i class="fa fa-usd"></i>
-                                </a>
                             </div>
                         </div>
                     </div>

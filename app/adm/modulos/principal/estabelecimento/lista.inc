@@ -258,17 +258,17 @@ ACAO;
         <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
                 return '<a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Editar estabelecimento">
-                            <i class="icon-pencil"></i>
+                <i class="fa fa-cog"></i>
                         </a>';
             }
         </php>
 ACAO;
 
     $acaoFinanceiro = <<<ACAO
-        <php>
+    <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/financeiro/extrato&acao=C')) {
-                return '<a class="btn btn-circle btn-icon-only btn-default green-jungle" href="?modulo=principal/estabelecimento/financeiro/extrato&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Financeiro">
-                            <i class="fa fa-usd"></i>
+                return '<a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/estabelecimento/agenda&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Agenda do estabelecimento">
+                <i class="icon-calendar"></i>
                         </a>';
             }
         </php>

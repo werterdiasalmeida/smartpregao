@@ -4,10 +4,8 @@ $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
 $params = getParam();
-
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
-
         case 'pesquisa':
             $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));;
             $arWhereEditais[] = "(
@@ -27,7 +25,6 @@ if (isset($params['id']) && !empty($params['id'])) {
     $dados = $mEstabelecimento->getTodosDados($params['id']);
     extract($dados);
 }
-
 include APPRAIZ . "includes/cabecalhom.inc";
 
 if ($aba) {
@@ -49,12 +46,12 @@ $estabelecimentoId = $_REQUEST['p'];
         <form role="form" name="formulario" class="form" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12">
-                <h4>Monitoramento Ativo</h4>
+                    <h4>Monitoramento Ativo</h4>
                     <?php
                     $arConfig = array();
                     $where = " data >= CURRENT_DATE AND edc.estabelecimento_id = {$dados['id']}";
                     $id = $params['id'];
-                   $arConfig[1]['html'] = <<<HTML
+                    $arConfig[1]['html'] = <<<HTML
                     <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {edital}
                     </a>
@@ -77,42 +74,42 @@ HTML;
                     ?>
                 </div>
                 <h4>Histórico</h4>
-                    <?php
-                    $arConfig = array();
-                    $where = " data < CURRENT_DATE AND edc.estabelecimento_id = {$dados['id']}";
-                    $id = $params['id'];
-                   $arConfig[0]['html'] = <<<HTML
+                <?php
+                $arConfig = array();
+                $where = " data < CURRENT_DATE AND edc.estabelecimento_id = {$dados['id']}";
+                $id = $params['id'];
+                $arConfig[0]['html'] = <<<HTML
                     <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {edital}
                     </a>
 
 HTML;
-                    $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
-                    $rs = $mEditalClienteMonitoramento->getListCliente($where);
-                    $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
-                    $mEditalClienteMonitoramento->setCabecalho(array(
-                        'Edital',
-                        'Data/Hora',
-                        'Monitoramento'
-                    ));
-                    $mEditalClienteMonitoramento->setCorpo($rs, $arConfig);
-                    $mEditalClienteMonitoramento->setAcao($acao);
-                    $mEditalClienteMonitoramento->show();
-                    ?>
-                </div>
-
+                $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
+                $rs = $mEditalClienteMonitoramento->getListCliente($where);
+                $mEditalClienteMonitoramento = new Listam(array("style" => "width: 100%;"));
+                $mEditalClienteMonitoramento->setCabecalho(array(
+                    'Edital',
+                    'Data/Hora',
+                    'Monitoramento'
+                ));
+                $mEditalClienteMonitoramento->setCorpo($rs, $arConfig);
+                $mEditalClienteMonitoramento->setAcao($acao);
+                $mEditalClienteMonitoramento->show();
+                ?>
             </div>
 
-
-            <div class="form-actions">
-                <button type="button" class="btn btn-voltar">
-                    <i class="fa fa-arrow-left"></i> Voltar
-                </button>
-            </div>
-
-            <input type="hidden" name="act" value="salvar" />
-        </form>
     </div>
+
+
+    <div class="form-actions">
+        <button type="button" class="btn btn-voltar">
+            <i class="fa fa-arrow-left"></i> Voltar
+        </button>
+    </div>
+
+    <input type="hidden" name="act" value="salvar" />
+    </form>
+</div>
 </div>
 
 
