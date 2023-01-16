@@ -2,7 +2,6 @@
 $mEstabelecimento = new Estabelecimento();
 $mAnexoEstabelecimento = new AnexoEstabelecimento();
 $params = getParam();
-
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {
         case 'salvar':
@@ -10,7 +9,6 @@ if ($_POST && isset($_POST['act'])) {
                 $params = array_merge($_POST, getParam());
                 $id = $mEstabelecimento->salvarEstabelecimento($params, $_FILES);
                 $mEstabelecimento->commit();
-
                 $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $id)));
             } catch (CnpjIndisponivel $e) {
                 addMsgDanger($e->getMessage());

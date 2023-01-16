@@ -6,8 +6,19 @@ $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
+$mEstabelecimentoAgenda = new EstabelecimentoAgenda();
 $fileSimec = new FilesSimec();
 $p = getParam();
+/* Carrega os dados da tela */
+$editalCliente = $_REQUEST['p'];
+if (!is_int($editalCliente)) {
+    $editalCliente = getParam();
+    $editalCliente = $editalCliente['id'];
+}
+$mEditalCliente->carregarPorId($editalCliente);
+$dadosEditalCliente = $mEditalCliente->getDados();
+$dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
+$dados = $mEdital->getDadosCompletos($editalCliente);
 /* Ações da tela */
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
@@ -28,6 +39,20 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             $params = $_POST;
             $mEditalClienteAcompanhamento->salvarAcompanhamento($params, $_FILES);
             $mEditalClienteAcompanhamento->commit();
+
+            /* Adiciona agenda, caso esteja preenchido o horário de início */
+            if ($params['hora_inicio']) {
+                $params['estabelecimento_id'] = $dadosEditalCliente['estabelecimento_id'];
+                $params['data_agenda'] = $params['data'];
+                if (!$params['hora_fim']) {
+                    $params['hora_fim'] = substr($params['hora_inicio'], 0, 2) . ':59';
+                }
+                $params['compromisso'] = $dados['orgao'] . ' [' . $params['tipo_acompanhamento'] . ']';
+                $params['url'] = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
+                $mEstabelecimentoAgenda->salvarAgenda($params);
+                $mEstabelecimentoAgenda->commit();
+            }
+
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
             break;
         case 'excluirAcompanhamento':
@@ -43,6 +68,18 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             $params = $_POST;
             $mEditalClienteMonitoramento->salvarMonitoramento($params);
             $mEditalClienteMonitoramento->commit();
+            /* Adiciona agenda, caso esteja preenchido o horário de início */
+            if ($params['hora_inicio']) {
+                $params['estabelecimento_id'] = $dadosEditalCliente['estabelecimento_id'];
+                $params['data_agenda'] = $params['data'];
+                if (!$params['hora_fim']) {
+                    $params['hora_fim'] = substr($params['hora_inicio'], 0, 2) . ':59';
+                }
+                $params['compromisso'] = $dados['orgao'] . ' [Monitoramento]';
+                $params['url'] = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER["REQUEST_URI"];
+                $mEstabelecimentoAgenda->salvarAgenda($params);
+                $mEstabelecimentoAgenda->commit();
+            }
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['editalcliente_id'])));
             break;
         case 'excluirMonitoramento':
@@ -57,14 +94,6 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             break;
     }
 }
-/* Carrega os dados da tela */
-$editalCliente = $_REQUEST['p'];
-if (!is_int($editalCliente)) {
-    $editalCliente = getParam();
-    $editalCliente = $editalCliente['id'];
-}
-$mEditalCliente->carregarPorId($editalCliente);
-$dadosEditalCliente = $mEditalCliente->getDados();
 
 /* Verifica se já possui um DOCID, senão, atribui um */
 if (empty($dadosEditalCliente['docid'])) {
@@ -73,8 +102,6 @@ if (empty($dadosEditalCliente['docid'])) {
 } else {
     $docid = $dadosEditalCliente['docid'];
 }
-$dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
-$dados = $mEdital->getDadosCompletos($editalCliente);
 $editalCliente = setParam(array('id' => $editalCliente), false);
 $param['id'] = $dados['id_edital'];
 $p = setParam($param, true);
@@ -253,6 +280,25 @@ getStrMsgWarning();
                                 <?= campo_textaream('comentario', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Adicionar a Agenda?</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Horário Início</label>
+                                <?php
+                                echo campo_textom('hora_inicio', 'N', 'S', '', 5, 5, '##:##', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Horário Fim</label>
+                                <?php
+                                echo campo_textom('hora_fim', 'N', 'S', '', 5, 5, '##:##', '', '', '', 0); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -297,6 +343,25 @@ getStrMsgWarning();
                             <div class="form-group">
                                 <label>Comentários</label>
                                 <?= campo_textaream('comentario', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Adicionar a Agenda?</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Horário Início</label>
+                                <?php
+                                echo campo_textom('hora_inicio', 'N', 'S', '', 5, 5, '##:##', '', '', '', 0); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Horário Fim</label>
+                                <?php
+                                echo campo_textom('hora_fim', 'N', 'S', '', 5, 5, '##:##', '', '', '', 0); ?>
                             </div>
                         </div>
                     </div>
