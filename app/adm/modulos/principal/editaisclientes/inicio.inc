@@ -4,7 +4,7 @@ $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mServicoAnaliseContratado = new ServicoAnaliseContratado();
 $params = getParam();
-$filtroPadrao = true;
+$filtroPadrao = false;
 
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
