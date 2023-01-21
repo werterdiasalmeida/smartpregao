@@ -4,7 +4,7 @@ $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mServicoAnaliseContratado = new ServicoAnaliseContratado();
 $params = getParam();
-$filtroPadrao = false;
+$filtroPadrao = true;
 
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
@@ -47,6 +47,8 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                     break;
                 case '7dias':
                     $filtroPadrao = true;
+                    $arWhereEditaisCliente[] = " edi.data_limite between current_date and current_date + 8 ";
+                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
                     break;
                 case 'monitoradas':
                     $filtroPadrao = false;
@@ -83,7 +85,9 @@ if (isset($params['id']) && !empty($params['id'])) {
 }
 
 include APPRAIZ . "includes/cabecalhom.inc";
-getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
+getStrMsgDanger();
+getStrMsgInfo();
+getStrMsgWarning();
 
 if ($aba) {
     echo Estabelecimento::gerarCabecalho();
@@ -165,7 +169,7 @@ if ($aba) {
                     $arConfig[2]['style'] = "width: 10%; text-align: center;";
                     /* Filtro do Período (padrão próximos 7 dias e não descartados)*/
                     if ($filtroPadrao) {
-                        $arWhereEditaisCliente[] = " edi.data_limite between current_date and current_date + 8 ";
+                        $arWhereEditaisCliente[] = " edi.data_limite >= current_date";
                         $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
                     }
                     $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
