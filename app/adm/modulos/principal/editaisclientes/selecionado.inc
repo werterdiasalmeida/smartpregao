@@ -96,7 +96,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
         case 'salvarBatimentoAtestado':
             $params = $_POST;
             $mEditalBatimentoHabilitacao->salvarBatimentoHabilitacao($params);
-            
+
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['editalcliente_id'])));
             break;
     }
@@ -169,6 +169,15 @@ getStrMsgWarning();
 
     .listagem-marcado {
         background-color: #B4EEB4;
+        display: block;
+    }
+    .listagem-remover{
+        display: none;
+    }
+
+    .modal-dialog {
+        width: 95%;
+        margin: 30px auto;
     }
 </style>
 <script>
@@ -178,13 +187,13 @@ getStrMsgWarning();
      */
 
     /**
-     * Recebe um pesquisator e retorna a tabela mais próxima dele.
+     * Recebe um pesquisator que est� na tela (class = busca-listagem-pesquisator)
      *
      * @param {htmlObject} Instância do pesquisator.
      * @returns {jQuery} Tabela de lista mais próxima do pesquisator.
      */
     function getTabelaDoPesquisator(pesquisator) {
-        return $(pesquisator).closest('div table');
+        return $(pesquisator).parent().find('table');
     }
 
     /**
@@ -192,7 +201,7 @@ getStrMsgWarning();
      */
     function enablePesquisator() {
         $.expr[':'].contains = function(a, i, m) {
-            return $(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+            return $(a).html().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
         };
 
         $(document).on('keyup', 'input.busca-listagem-pesquisator', function() {
