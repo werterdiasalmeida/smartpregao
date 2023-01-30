@@ -24,9 +24,10 @@ class AnexoEstabelecimento extends Modelo
     protected $arAtributos = array(
         'id' => null,
         'arquivo_id' => null,
-        'nome' => null,        
+        'nome' => null,
         'detalhe' => null,
-        'validade' => null,        
+        'texto_integra' => null,
+        'validade' => null,
         'tipo' => null,
         'estabelecimento_id' => null,
         'criado_em' => null,
@@ -60,9 +61,9 @@ class AnexoEstabelecimento extends Modelo
                   " . implode(' AND ', $arWhere);
 
         if (!isset($_REQUEST['ordem'])) {
-            if(!is_null($order)){
+            if (!is_null($order)) {
                 $sql .= " ORDER BY {$order}";
-            }else{
+            } else {
                 $sql .= " ORDER BY ane.criado_em DESC";
             }
         }
@@ -80,14 +81,16 @@ class AnexoEstabelecimento extends Modelo
     {
         list($params, $camposNulos) = $this->limparDadosVazios($params);
 
-        if (isset($arquivos['arquivo'])
+        if (
+            isset($arquivos['arquivo'])
             && isset($arquivos['arquivo']['name']) && !empty($arquivos['arquivo']['name'])
             && isset($arquivos['arquivo']['type']) && !empty($arquivos['arquivo']['type'])
-            && isset($arquivos['arquivo']['size']) && !empty($arquivos['arquivo']['size'])) {
+            && isset($arquivos['arquivo']['size']) && !empty($arquivos['arquivo']['size'])
+        ) {
             $file = new FilesSimec();
             $arquivoId = $file->setUploadArquivoEspecifico("Anexo do estabelecimento", 'arquivo');
         }
-        if($params['validade'])
+        if ($params['validade'])
             $params['validade'] = ajusta_data($params['validade']);
         $dados = array(
             'id' => $params['id'],
@@ -95,6 +98,7 @@ class AnexoEstabelecimento extends Modelo
             'nome' => $params['nome'],
             'tipo' => $params['tipo'],
             'detalhe' => $params['detalhe'],
+            'texto_integra' => $params['texto_integra'],
             'validade' => $params['validade'],
             'excluido' => 'false',
             'estabelecimento_id' => $params['estabelecimento_id'],
@@ -106,6 +110,6 @@ class AnexoEstabelecimento extends Modelo
 
     public function excluirAnexo($id)
     {
-        return $this->excluirLogicamente($id);
+        return $this->excluir($id);
     }
 }

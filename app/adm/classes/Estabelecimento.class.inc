@@ -265,7 +265,7 @@ class Estabelecimento extends Modelo
                                     <i class="icon-calendar"></i>
                                 </a>
                                 <a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C{$pParam}" data-toggle="tooltip" title="Configurações">
-                                    <i class="fa fa-cog"></i>
+                                    <i class="fa fa-edit"></i>
                                 </a>
                             </div>
                         </div>

@@ -2,17 +2,17 @@
 $mEstabelecimento = new Estabelecimento();
 $mAnexoEstabelecimento = new AnexoEstabelecimento();
 $params = getParam();
-if ($_POST && isset($_POST['act'])) {
-    switch ($_POST['act']) {
+if ($_REQUEST && isset($_REQUEST['act'])) {
+    switch ($_REQUEST['act']) {
         case 'salvar':
             try {
-                $params = array_merge($_POST, getParam());
+                $params = array_merge($_REQUEST, getParam());
                 $id = $mEstabelecimento->salvarEstabelecimento($params, $_FILES);
                 $mEstabelecimento->commit();
                 $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $id)));
             } catch (CnpjIndisponivel $e) {
                 addMsgDanger($e->getMessage());
-                extract($_POST);
+                extract($_REQUEST);
             }
             break;
         case 'carregarMunicipios':
@@ -25,12 +25,17 @@ if ($_POST && isset($_POST['act'])) {
             }
             require APPRAIZ . "adm/modulos/principal/includes/pessoajuridica/formulario.inc";
             break;
-        case 'salvar-documento':
+        case 'salvarDocumento':
             $params = getParam();
-            $_POST['estabelecimento_id'] = $params ['id'];
-            $id = $mAnexoEstabelecimento->salvarAnexo($_POST, $_FILES);
+            $_REQUEST['estabelecimento_id'] = $params['id'];
+            $id = $mAnexoEstabelecimento->salvarAnexo($_REQUEST, $_FILES);
             $mAnexoEstabelecimento->commit();
-            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $id)));
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            break;
+        case 'excluirDocumento':
+            $mAnexoEstabelecimento->excluirAnexo($_REQUEST['id_anexo']);
+            $mAnexoEstabelecimento->commit();
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
             break;
     }
 }
@@ -92,33 +97,29 @@ if ($aba) {
                             Incluir Documento
                         </a>
                         <br />
-                        <br />
                         <?php
-
                         $arConfig = array();
                         $arWhere[] = " ane.estabelecimento_id = {$dados['id']}";
                         $acao = <<<ACAO
                         <div style="min-width: 20px;">
-                            <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAnexo({id});" data-toggle="tooltip"  title="Excluir">
+                            <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirDocumento({anexo_id});" data-toggle="tooltip"  title="Excluir">
                                 <i class="icon-trash"></i>
                             </a>
                         </div>
-ACAO;                        
-                      
+                        ACAO;
                         $rs = $mAnexoEstabelecimento->getList($arWhere);
                         $mAnexoEstabelecimento = new Listam(array("style" => "width: 100%;"));
                         $mAnexoEstabelecimento->setCabecalho(array(
                             'Nome',
                             'Arquivo',
                             'Tipo',
-                            'Validade',                            
-                            'Detalhade',
+                            'Validade',
+                            'Resumo do documento',
                             'Ação'
                         ));
                         $mAnexoEstabelecimento->setCorpo($rs, $arConfig);
                         $mAnexoEstabelecimento->setAcao($acao);
                         $mAnexoEstabelecimento->show();
-
                         ?>
                     </div>
                 </div>
@@ -141,7 +142,7 @@ ACAO;
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form role="form" name="documento-form" class="documento-form" method="POST" enctype='multipart/form-data'>
-                <input type="hidden" id="act" name="act" value="salvar-documento" />
+                <input type="hidden" id="act" name="act" value="salvarDocumento" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Documento do estabelecimento</h4>
@@ -177,18 +178,26 @@ ACAO;
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Texto Detalhe</label>
+                                <label>Resumo do Documento</label>
                                 <br />
                                 <?= campo_textaream('detalhe', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Arquivo</label>
                                 <br />
                                 <input type="file" id="arquivo" name="arquivo" class="form-control" />
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Texto na íntegra do documento</label>
+                                <br />
+                                <?= campo_textaream('texto_integra', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -204,8 +213,53 @@ ACAO;
         </div>
     </div>
 </div>
-
+<style>
+    .listagem-marcado {
+        background-color: #B4EEB4;
+    }
+</style>
 <script type="text/javascript">
+    /**
+     * Maravilhoso Pesquisator! (werter@gmail.com)
+     *
+     */
+
+    /**
+     * Recebe um pesquisator e retorna a tabela mais prÃ³xima dele.
+     *
+     * @param {htmlObject} InstÃ¢ncia do pesquisator.
+     * @returns {jQuery} Tabela de lista mais prÃ³xima do pesquisator.
+     */
+    function getTabelaDoPesquisator(pesquisator) {
+        return $(pesquisator).closest('nav').next('table.tabela-listagem-pesquisator');
+    }
+
+    /**
+     * Ativa o pesquisator relacionando-o Ã  tabela de listagem na sequencia.
+     */
+    function enablePesquisator() {
+        $.expr[':'].contains = function(a, i, m) {
+            return $(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+        };
+
+        $(document).on('keyup', 'input.busca-listagem-pesquisator', function() {
+            var $tbody = getTabelaDoPesquisator(this).children('tbody');
+
+            $('tr td', $tbody).removeClass('listagem-marcado');
+            $('tr', $tbody).removeClass('listagem-remover');
+            stringPesquisa = $(this).val();
+            if (stringPesquisa) {
+                $('tr td:contains(' + stringPesquisa + ')', $tbody).addClass('listagem-marcado');
+                $('tr:not(:contains(' + stringPesquisa + '))', $tbody).addClass('listagem-remover');
+            }
+        }).on('focus', 'input.busca-listagem-pesquisator', function() {
+            getTabelaDoPesquisator(this).addClass('table-listagem-filtrando');
+        }).on('blur', 'input.busca-listagem-pesquisator', function() {
+            getTabelaDoPesquisator(this).removeClass('table-listagem-filtrando');
+        });
+
+    }
+
     $(function() {
         $(".estabelecimento-form").validateForm({
             rules: {
@@ -233,7 +287,6 @@ ACAO;
             }
         });
 
-
         $('.btn-voltar').click(function() {
             window.location = '?modulo=principal/estabelecimento/lista&acao=C';
         });
@@ -253,6 +306,11 @@ ACAO;
             $('#tabela-representantes').bootstrapTable('load', <?= $representantes ?>);
         <?php endif; ?>
     });
-
-
+    // excluir Documento
+    function excluirDocumento(id) {
+        if (confirm('Deseja apagar este registro?')) {
+            url = '?modulo=principal/estabelecimento/formulario&acao=C&p=<?= $_REQUEST['p'] ?>&act=excluirDocumento&id_anexo=' + id;
+            location.href = url;
+        }
+    }
 </script>

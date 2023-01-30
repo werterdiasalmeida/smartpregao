@@ -43,7 +43,29 @@
                     </div>
                     <div id="div_habilitacao_tecnica" class="collapse">
                         <div class="card-body">
-                            <?php echo nl2br($dados['habilitacao_tecnica']) ?>
+                            <a onclick="exibirModalBatimentoAtestados()">
+                                <i class="bi bi-check-square" title="Batimento de Atestados"></i>
+                                Batimento dos Atestados
+                            </a>
+                            <?php
+                            $mEditalBatimentoHabilitacao = new EditalBatimentoHabilitacao();
+                            unset($arConfig, $acoes);
+                            $arWhere = array();
+                            $arWhere[] = " tipo = 'Habilitação Técnica' AND ane.estabelecimento_id = {$dadosEditalCliente['estabelecimento_id']}";
+                            $rs = $mEditalBatimentoHabilitacao->getListCliente($arWhere, false, null);
+                            if (count($rs)) {
+                                $mEditalBatimentoHabilitacao = new Listam(array("style" => "width: 100%;"));
+                                $mEditalBatimentoHabilitacao->setCabecalho(array(
+                                    'Item do Edital',
+                                    'Atestado(s)'
+                                ));
+                                $mEditalBatimentoHabilitacao->setCorpo($rs, $arConfig);
+                                $mEditalBatimentoHabilitacao->setAcao($acao);
+                                $mEditalBatimentoHabilitacao->show();
+                            } else {
+                                echo '<br /><br />';
+                            }
+                            echo nl2br($dados['habilitacao_tecnica']) ?>
                         </div>
                     </div>
                 </div>
@@ -163,8 +185,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#pedido_esclarecimento">
-                            <b> 
-                            <?php
+                            <b>
+                                <?php
                                 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
                                 $where = " tipo_acompanhamento = 'Pedido de esclarecimentos' AND editalcliente_id = {$dadosEditalCliente['id']}";
                                 $rs = $mEditalClienteAcompanhamento->getList($where);
@@ -174,11 +196,11 @@
                                     echo '<i class="bi bi-info-circle"></i>';
                                 }
                                 ?>
-                            Pedido de esclarecimentos</b>
+                                Pedido de esclarecimentos</b>
                         </div>
                     </div>
                     <div id="pedido_esclarecimento" class="collapse">
-                    <div class="card-body">
+                        <div class="card-body">
                             <a onclick="exibirModalNovoAcompanhamento('Pedido de esclarecimentos')">
                                 <i class="bi bi-plus-square" title="Novo Documento"></i>
                                 Novo Pedido de esclarecimentos
@@ -212,8 +234,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#pedido_impugnacao">
-                            <b> 
-                                 <?php
+                            <b>
+                                <?php
                                 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
                                 $where = " tipo_acompanhamento = 'Pedido de impugnação' AND editalcliente_id = {$dadosEditalCliente['id']}";
                                 $rs = $mEditalClienteAcompanhamento->getList($where);
@@ -227,7 +249,7 @@
                         </div>
                     </div>
                     <div id="pedido_impugnacao" class="collapse">
-                    <div class="card-body">
+                        <div class="card-body">
                             <a onclick="exibirModalNovoAcompanhamento('Pedido de impugnação')">
                                 <i class="bi bi-plus-square" title="Novo Documento"></i>
                                 Novo Pedido de impugnação
