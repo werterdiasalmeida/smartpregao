@@ -224,18 +224,32 @@ if ($aba) {
 <style>
     .listagem-marcado {
         background-color: #B4EEB4;
+        display: block;
+    }
+    .listagem-remover{
+        display: none;
+    }
+
+    .modal-dialog {
+        width: 95%;
+        margin: 30px auto;
     }
 </style>
 <script type="text/javascript">
-    // excluir Documento
     function excluirDocumento(id) {
         if (confirm('Deseja apagar este registro?')) {
             url = '?modulo=principal/estabelecimento/formulario&acao=C&p=<?= $_REQUEST['p'] ?>&act=excluirDocumento&id_anexo=' + id;
             location.href = url;
         }
     }
+
     function baixarAnexo(arqid) {
         url = '?modulo=principal/estabelecimento/formulario&acao=C&p=<?= $_REQUEST['p'] ?>&act=baixarAnexo&arqid=' + arqid;
         location.href = url;
     }
+    $('.btn-incluir-documento').click(function() {
+        $('#modal-documento').modal({
+            backdrop: 'static',
+        }).modal('show');
+    });
 </script>
