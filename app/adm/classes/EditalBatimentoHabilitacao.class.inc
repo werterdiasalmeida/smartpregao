@@ -35,11 +35,12 @@ class EditalBatimentoHabilitacao extends Modelo
         $arWhere[] = "ane.excluido IS FALSE";
         $arWhere[] = "est.excluido IS FALSE";
         $sql = "SELECT
-                  ane.nome,
+                  ane.nome as documento,
                   CASE WHEN ane.texto_integra IS NOT NULL THEN 
                     ane.detalhe || '<input type=\"hidden\" value=\"'|| ane.texto_integra ||'\"/>' 
                     ELSE ane.detalhe END AS detalhe,
-                  ane.id AS anexo_id
+                  ane.id AS anexo_id,
+                  arqid as arqid
                 FROM
                   estabelecimentosaude.tb_anexo_estabelecimento ane
                 INNER JOIN

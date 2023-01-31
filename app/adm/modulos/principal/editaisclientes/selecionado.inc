@@ -520,6 +520,9 @@ getStrMsgWarning();
                                 <input class="form-check-input" type="checkbox" value="{anexo_id}" name="atestados_habilitacao[]">
                             </div> 
                             ACAO;
+                            $arConfig[0]['html'] = <<<HTML
+                            <a onclick="baixarAnexo({arqid})">{documento}</a>
+                        HTML;
                                 $mEditalBatimentoHabilitacao = new Listam(array("style" => "width: 100%;"));
                                 $mEditalBatimentoHabilitacao->setCabecalho(array(
                                     'Atestado',

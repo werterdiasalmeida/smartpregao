@@ -1,6 +1,7 @@
 <?php
 $mEstabelecimento = new Estabelecimento();
 $mAnexoEstabelecimento = new AnexoEstabelecimento();
+$fileSimec = new FilesSimec();
 $params = getParam();
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
@@ -36,6 +37,10 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             $mAnexoEstabelecimento->excluirAnexo($_REQUEST['id_anexo']);
             $mAnexoEstabelecimento->commit();
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            break;
+        case 'baixarAnexo':
+            $fileSimec->getDownloadArquivo($_REQUEST['arqid']);
+            die;
             break;
     }
 }
@@ -107,6 +112,9 @@ if ($aba) {
                             </a>
                         </div>
                         ACAO;
+                        $arConfig[1]['html'] = <<<HTML
+                                <a onclick="baixarAnexo({arqid})">{arquivo}</a>
+                            HTML;
                         $rs = $mAnexoEstabelecimento->getList($arWhere);
                         $mAnexoEstabelecimento = new Listam(array("style" => "width: 100%;"));
                         $mAnexoEstabelecimento->setCabecalho(array(
@@ -219,98 +227,15 @@ if ($aba) {
     }
 </style>
 <script type="text/javascript">
-    /**
-     * Maravilhoso Pesquisator! (werter@gmail.com)
-     *
-     */
-
-    /**
-     * Recebe um pesquisator e retorna a tabela mais próxima dele.
-     *
-     * @param {htmlObject} Instância do pesquisator.
-     * @returns {jQuery} Tabela de lista mais próxima do pesquisator.
-     */
-    function getTabelaDoPesquisator(pesquisator) {
-        return $(pesquisator).closest('nav').next('table.tabela-listagem-pesquisator');
-    }
-
-    /**
-     * Ativa o pesquisator relacionando-o à tabela de listagem na sequencia.
-     */
-    function enablePesquisator() {
-        $.expr[':'].contains = function(a, i, m) {
-            return $(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-        };
-
-        $(document).on('keyup', 'input.busca-listagem-pesquisator', function() {
-            var $tbody = getTabelaDoPesquisator(this).children('tbody');
-
-            $('tr td', $tbody).removeClass('listagem-marcado');
-            $('tr', $tbody).removeClass('listagem-remover');
-            stringPesquisa = $(this).val();
-            if (stringPesquisa) {
-                $('tr td:contains(' + stringPesquisa + ')', $tbody).addClass('listagem-marcado');
-                $('tr:not(:contains(' + stringPesquisa + '))', $tbody).addClass('listagem-remover');
-            }
-        }).on('focus', 'input.busca-listagem-pesquisator', function() {
-            getTabelaDoPesquisator(this).addClass('table-listagem-filtrando');
-        }).on('blur', 'input.busca-listagem-pesquisator', function() {
-            getTabelaDoPesquisator(this).removeClass('table-listagem-filtrando');
-        });
-
-    }
-
-    $(function() {
-        $(".estabelecimento-form").validateForm({
-            rules: {
-                cnpj: {
-                    cnpj: true
-                },
-                foto: {
-                    accept: "image/*"
-                },
-                "contatos[<?= TipoContato::TIPO_EMAIL ?>][contato]": {
-                    email: true
-                }
-            },
-            submitHandler: function(e) {
-                var submit = this;
-                verificarCnpj($('#cnpj').val(), function() {
-                    submit.submitHandlerFile(e, $('#file-logo'));
-                });
-            },
-            beforeSubmitForm: function(e) {
-                const remove_logo = localStorage.getItem('remove_logo');
-                if (remove_logo === 'S') {
-                    $('#remove_logo').val('S');
-                }
-            }
-        });
-
-        $('.btn-voltar').click(function() {
-            window.location = '?modulo=principal/estabelecimento/lista&acao=C';
-        });
-
-        $('.btn-incluir-contato').click(function() {
-            $('#modal-representante').modal({
-                backdrop: 'static',
-            }).modal('show');
-        });
-        $('.btn-incluir-documento').click(function() {
-            $('#modal-documento').modal({
-                backdrop: 'static',
-            }).modal('show');
-        });
-
-        <?php if ($representantes) : ?>
-            $('#tabela-representantes').bootstrapTable('load', <?= $representantes ?>);
-        <?php endif; ?>
-    });
     // excluir Documento
     function excluirDocumento(id) {
         if (confirm('Deseja apagar este registro?')) {
             url = '?modulo=principal/estabelecimento/formulario&acao=C&p=<?= $_REQUEST['p'] ?>&act=excluirDocumento&id_anexo=' + id;
             location.href = url;
         }
+    }
+    function baixarAnexo(arqid) {
+        url = '?modulo=principal/estabelecimento/formulario&acao=C&p=<?= $_REQUEST['p'] ?>&act=baixarAnexo&arqid=' + arqid;
+        location.href = url;
     }
 </script>

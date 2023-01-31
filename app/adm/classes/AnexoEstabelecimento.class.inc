@@ -45,7 +45,7 @@ class AnexoEstabelecimento extends Modelo
 
         $sql = "SELECT
                   ane.nome,
-                  arq.arqnome || '.' || arq.arqextensao || ' (' ||(arq.arqtamanho / 1024) || ' KB' || ')' AS descricao,
+                  arq.arqnome || '.' || arq.arqextensao || ' (' ||(arq.arqtamanho / 1024) || ' KB' || ')' AS arquivo,
                   tipo,
                   TO_CHAR(ane.validade, 'DD/MM/YYYY') AS validade,
                   ane.detalhe AS detalhe,
