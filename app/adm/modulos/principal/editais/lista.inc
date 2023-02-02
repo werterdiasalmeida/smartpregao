@@ -102,17 +102,17 @@ include APPRAIZ . "includes/cabecalhom.inc";
 ACAO;
 
     $arConfig = array();
-    $arConfig[1]['html'] = <<<HTML
+    $arConfig[2]['html'] = <<<HTML
     <a href="?modulo=principal/editais/formulario&acao=C&p=<php> return setParam(array('id' => '{id}'), false); </php>" data-toggle="tooltip" title="Alterar dados do Edital">
         {orgao}
     </a>
 HTML;
-    $arConfig[3]['html'] = <<<HTML
+    $arConfig[4]['html'] = <<<HTML
     <spam class="badge badge-primary"><b>{dias}</b></spam>
 HTML;
 
 
-    $arConfig[3]['style'] = "width: 10%; text-align: center;";
+    $arConfig[4]['style'] = "width: 10%; text-align: center;";
     // Filtro para não trazer a velhas
     $arWhere[] = "data_limite >= NOW() ";
 
@@ -120,6 +120,7 @@ HTML;
 
     $mEdital = new Listam(array("style" => "width: 100%;"));
     $mEdital->setCabecalho(array(
+        'Categoria',
         'Portal',
         'Órgão Licitante',
         'Data do pregão',

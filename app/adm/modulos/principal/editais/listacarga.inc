@@ -1,278 +1,239 @@
 <?php
-$mFila = new Fila();
-$arWhere = array();
-
-if($_POST && isset($_POST['act'])){
-    switch($_POST['act']) {
-        case 'excluir' :
-            $arParams = getParam();
-            $mFila->carregarPorId($arParams['id']);
-
-            $mFila->excluirFila($arParams['id']);
-            $mFila->commit();
-
-            $db->sucessom($_REQUEST['modulo'], '');
+$mCargaEditais = new CargaEditais();
+$mEdital = new Edital();
+$data_inicio =  date('Y-m-d');
+$data_fim =  date('Y-m-d');
+$pagina = '0';
+$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk={"id":"9bab0df0-d5d3-4d3e-9aae-6ee9770548c1"}; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gcl_au=1.1.426049715.1675162045; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjc2MzcxNzA2NjY5OjY2NGU1NmM4ZjZhMjFmYzI4NDA3MzRkNTVjYmY4ZWEz; _gid=GA1.3.968366638.1675250563; JSESSIONID=0468EB1F011AD8A417A8E2158CC07543; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjc1MjU5MTY1NTUzfQ==; _gat=1';
+$tipo_pesquisa = $_POST['tipo_pesquisa'];
+if ($_POST && isset($_POST['act'])) {
+    switch ($_POST['act']) {
+        case 'gravar-selecionados':
+            if (is_array($_POST['selecionado_gravar'])) {
+                $_POST['json_resultados'] = str_replace('\\', '', $_POST['json_resultados']);
+                $return = json_decode($_POST['json_resultados'], true);
+                $resultadoCarga = '';
+                foreach ($_POST['selecionado_gravar'] as $selecionado) {
+                    foreach ($return['content'] as $dados) {
+                        $dado = array_map("utf8_decode", $dados);
+                        if ($dado['id'] == $selecionado) {
+                            if ($dado['nomePortal'] == 'COMPRASNET') $dado['nomePortal'] = 'ComprasNet';
+                            if ($dado['nomePortal'] == 'LICITAÇÕES-E') $dado['nomePortal'] = 'BB';
+                            if ($dado['nomePortal'] <> 'LICITAÇÕES-E' && $dado['nomePortal'] <> 'COMPRASNET') {
+                                 $salvar['comentarios'] = 'Baixar em: '.$dado['nomePortal'];
+                                 $dado['nomePortal'] = 'Outros';
+                                }
+                            $salvar['portal'] = $dado['nomePortal'];
+                            $salvar['orgao'] = $dado['orgao'];
+                            $salvar['edital'] = 'Pregão Eletrônico Nº 0' . $dado['numero'] . ' UASG: ' . $dado['uasg'];
+                            $dataHora = explode(' às ', $dado['aberturaFormatada']);
+                            $salvar['data_limite'] = $dataHora[0];
+                            $salvar['hora_limite'] = $dataHora[1];
+                            $salvar['objeto'] = str_replace('"', '', $dado['descricao']);
+                            $salvar['objeto'] = str_replace('<strong>', '', $salvar['objeto']);
+                            $salvar['objeto'] = str_replace('</strong>', '', $salvar['objeto']);
+                            $salvar['valor_estimado'] = 'R$ -';
+                            $salvar['id_externo'] = $dado['id'];
+                            $salvar['id_origem'] = $dado['codigo'];
+                            if (!$salvar['id_origem']) $salvar['id_origem'] = NULL;
+                            $salvar['categoria'] = $_POST['categoria'];
+                            $existe = $mEdital->pegaLinha(" SELECT id FROM edital.edital  WHERE id_externo = {$salvar['id_externo']}");
+                            if (!$existe) {
+                                $params['id'] = $mEdital->salvarEdital($salvar);
+                                $mEdital->commit();
+                                $resultadoCarga .= 'Carregado: ' .  $dado['titulo'] . ' <br/>';
+                            } else {
+                                $resultadoCarga .= 'Já esta cadastrado: ' .  $dado['titulo'] . ' <br/>';
+                            }
+                        }
+                    }
+                }
+                $db->sucessom($_REQUEST['modulo'], '', $resultadoCarga);
+            } else {
+                $db->insucessom($_REQUEST['modulo'], '', 'Nenhum registro selecionado');
+            }
             break;
-        case 'carregarMunicipios' :
-            montaComboMunicipio($_POST['uf_sigla'], $_POST['municipio_id']);
-            die;
-        case 'pesquisa_simples' :
-            $pesquisaAvancada = false;
-
-            if(!empty($_REQUEST['pesquisa_simples'])){
-                $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));;
-                $arWhere[] = "(
-                    (fil.descricao ILIKE '%{$pesquisa_simples}%') OR
-                    (mun.municipio ILIKE '%{$pesquisa_simples}%') OR
-                    (uf.uf_sigla ILIKE '%{$pesquisa_simples}%') OR
-                    (esp.descricao ILIKE '%{$pesquisa_simples}%') OR
-                    (TO_CHAR(fil.data_limite, 'DD/MM/YYYY') ILIKE '%{$pesquisa_simples}%')
-                )";
+        case 'baixar-siga-pregao':
+            $data_inicio = formata_data_sql($_POST['data_inicio']);
+            $data_fim = formata_data_sql($_POST['data_fim']);
+            $txt_cookie = str_replace('\\', '', $_POST['txt_cookie']);
+            $pagina = $_POST['pagina'];
+            $pesquisa = $_POST['pesquisa'];
+            $pesquisa = str_replace(' ', '+', $pesquisa);
+            $pesquisa = str_replace(';', '%3B', $pesquisa);
+            $url = "http://app.sigapregao.com.br/app/api/oportunidades?tipoPeriodo=publicacao&orgao=&excluir=&limitar=&portal=&abertura=&dataInicial={$data_inicio}&dataFinal={$data_fim}&modalidade=&dataEncerramento=&tipoFiltroEncerramento=ate&horaEncerramento=&statusItem=&situacao=&faseCotacao=&ufs=&portais=&modalidades=&superoportunidades=false&page={$pagina}&pesquisa={$pesquisa}";
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                CURLOPT_POSTFIELDS => '{}',
+                CURLOPT_COOKIE => $txt_cookie,
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json; charset=UTF-8',
+                    'Accept: application/json'
+                ),
+            ));
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $return = json_decode($response, true);
+            $rsDadosBaixados = array();
+            $i = 0;
+            foreach ($return['content'] as $dados) {
+                $dado = array_map("utf8_decode", $dados);
+                $rsDadosBaixados[$i]['id'] = $dado['id'];
+                $rsDadosBaixados[$i]['nomePortal'] = $dado['nomePortal'];
+                $rsDadosBaixados[$i]['aberturaFormatada'] = $dado['aberturaFormatada'];
+                $rsDadosBaixados[$i]['orgao'] = $dado['orgao'];
+                $rsDadosBaixados[$i]['uasg'] = $dado['uasg'];
+                $rsDadosBaixados[$i]['numero'] = $dado['numero'];
+                $rsDadosBaixados[$i]['codigo'] = $dado['codigo'];
+                $rsDadosBaixados[$i]['titulo'] = $dado['titulo'];
+                $rsDadosBaixados[$i]['descricao'] = $dado['descricao'];
+                $rsDadosBaixados[$i]['publicacao'] = formata_data($dado['publicacao']);
+                $i++;
             }
-
-            break;
-        case 'pesquisa_avancada' :
-            $pesquisaAvancada = true;
-
-            if(!empty($_REQUEST['municipio_id'])){
-                $municipio_id = $_REQUEST['municipio_id'];
-                $arWhere[] = "fil.municipio_id = {$municipio_id}";
-            }
-
-            if(!empty($_REQUEST['uf_sigla'])){
-                $uf_sigla = $_REQUEST['uf_sigla'];
-                $arWhere[] = "uf.uf_sigla = '{$uf_sigla}'";
-            }
-
-            if(!empty($_REQUEST['especialidade_id'])){
-                $especialidade_id = $_REQUEST['especialidade_id'];
-                $arWhere[] = "fil.especialidade_id = {$especialidade_id}";
-            }
-
-            if(!empty($_REQUEST['data_limite'])){
-                $data_limite = formata_data_sql($_REQUEST['data_limite']);
-                $arWhere[] = "fil.data_limite = '{$data_limite}'";
-            }
-
-            if(!empty($_REQUEST['descricao'])){
-                $descricao = trim(addslashes($_REQUEST['descricao']));
-                $arWhere[] = "fil.descricao ILIKE '%{$descricao}%' ";
-            }
-
             break;
     }
 }
-
 include APPRAIZ . "includes/cabecalhom.inc";
+getStrMsgDanger();
+getStrMsgInfo();
+getStrMsgWarning();
 ?>
-<br/>
+<br />
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption">
             <i class="fa fa-list"></i>
             <span class="caption-subject bold uppercase">
-                Resultados das cargas automáticas
+                Cargas Externas de Editais
             </span>
         </div>
     </div>
-    <div class="portlet-body form">
-        <div class="campos-pesquisa">
-            <form role="form" name="formulario" class="fila-form" method="POST">
-                <div class="form-body">
-
-                    <div class="pesquisa-simples <?= ($pesquisaAvancada ? 'hidden' : '') ?>">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <?= campo_textom('pesquisa_simples', 'N', 'S', '', 100, 100, '', '', '', '', 0, '','', null, '', null, null, 'Pesquise por descrição ou órgão'); ?>
-                                        <span class="input-group-btn">
-                                            <button class="btn blue" type="submit" data-toggle="tooltip" title="Pesquisar">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                        <span class="input-group-btn" data-toggle="tooltip" title="Pesquisa avançada">
-                                            <button class="btn green-jungle btn-pesquisa-avancada" type="button">
-                                                <i class="fa fa-search-plus"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" name="listar" class="edital-form" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="act" value="baixar-siga-pregao" />
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Data Início da Publicação</label>
+                        <?= campo_datam('data_inicio', 'S', 'S', 'S', 'S'); ?>
                     </div>
-
-                    <div class="pesquisa-avancada <?= ($pesquisaAvancada ? '' : 'hidden') ?>">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Descrição</label>
-                                    <?= campo_textom('descricao', 'N', 'S', '', 40, 40, '', '', '', '', 0); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Especialidade</label>
-                                    <?php
-                                    $mEspecialidade = new Especialidade();
-                                    $especialidades = $mEspecialidade->recuperarTodos('id AS codigo, descricao', array("excluido IS FALSE"));
-                                    $db->monta_combom("especialidade_id", $especialidades, 'S', 'Selecione...', '', '', '', '', 'N');
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Data limite</label>
-                                    <?= campo_datam('data_limite', 'N', 'S', '', 'S'); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>UF</label>
-                                    <?php
-                                    $mUnidadeFederacao = new UnidadeFederacao();
-                                    $estados = $mUnidadeFederacao->recuperarTodos('uf_sigla AS codigo, uf_nome_estado AS descricao', array(), 2);
-                                    $db->monta_combom("uf_sigla", $estados, 'S', 'Selecione...', '', '', '', '', 'N');
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Município</label>
-                                    <div id="cidades">
-                                        <?php montaComboMunicipio($uf_sigla, $municipio_id); ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-2">
+                        <label>Data Fim da Publicação</label>
+                        <?= campo_datam('data_fim', 'S', 'S', 'S', 'S'); ?>
                     </div>
-
-                    <div class="form-actions">
-                        <div class="row">
-                            <div class="col-xs-7 col-sm-5">
-                                <div class="pesquisa-avancada <?= ($pesquisaAvancada ? '' : 'hidden') ?>">
-                                    <button type="submit" class="btn blue">
-                                        <i class="fa fa-search"></i> Pesquisar
-                                    </button>
-                                    <button type="button" class="btn green-jungle btn-pesquisa-simples <?= ($pesquisaAvancada ? '' : 'hidden') ?>">
-                                        <i class="fa fa-search-minus"></i> Pesquisa simples
-                                    </button>
-                                </div>
-                            </div>
-                            
-                        </div>
+                    <div class="col-md-8">
+                        <label>Pesquisa</label>
+                        <br /><input type="radio" name="tipo_pesquisa" value="fabrica de software;manutencaoo evolutiva;manutencaoo corretiva;desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; Java; PHP; DOTNET; Python">
+                        <label for="html">Desenvolvimento de Softwares</label>
+                        <input type="radio" name="tipo_pesquisa" value="manutencao de servidores; manutencao de computadores; devops; formatacao; infraestrutura tecnologica; infraestrutura de tecnologia">
+                        | <label for="html">Manutenção / Infraetrutura de Tecnologia</label>
+                        <input type="radio" name="tipo_pesquisa" value="diagramacao; servicos graficos; banner; panfleto; catilha; livros; apostilas">
+                        | <label for="html">Serviços Gráficos</label>
+                        <br>
+                        <?= campo_textaream('pesquisa', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                        <br />
                     </div>
                 </div>
-                <input type="hidden" name="act" value="<?= ($pesquisaAvancada ? 'pesquisa_avancada' : 'pesquisa_simples') ?>"/>
+                <div class="row">
+                    <div class="col-md-8">
+                        <label>Cookie</label>
+                        <?= campo_textaream('txt_cookie', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                        <br />
+                        <button type="submit" class="btn blue">
+                            <i class="bi bi-download"></i> Baixar dados do Siga Pregão
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Página</label>
+                        <br />
+                        <input type="radio" name="pagina" value="0" <?php if ($pagina == '0') echo 'checked=checked;' ?>>
+                        <label for="html">0</label>
+                        <input type="radio" name="pagina" value="1" <?php if ($pagina == '1') echo 'checked=checked;' ?>>
+                        <label for="html">1</label>
+                        <input type="radio" name="pagina" value="2" <?php if ($pagina == '2') echo 'checked=checked;' ?>>
+                        <label for="html">2</label>
+                        <input type="radio" name="pagina" value="3" <?php if ($pagina == '3') echo 'checked=checked;' ?>>
+                        <label for="html">3</label>
+                        <input type="radio" name="pagina" value="4" <?php if ($pagina == '4') echo 'checked=checked;' ?>>
+                        <label for="html">4</label>
+                        <input type="radio" name="pagina" value="5" <?php if ($pagina == '5') echo 'checked=checked;' ?>>
+                        <label for="html">5</label>
+                        <input type="radio" name="pagina" value="6" <?php if ($pagina == '6') echo 'checked=checked;' ?>>
+                        <label for="html">6</label>
+                        <input type="radio" name="pagina" value="7" <?php if ($pagina == '7') echo 'checked=checked;' ?>>
+                        <label for="html">7</label>
+                        <input type="radio" name="pagina" value="8" <?php if ($pagina == '8') echo 'checked=checked;' ?>>
+                        <label for="html">8</label>
+                        <input type="radio" name="pagina" value="9" <?php if ($pagina == '9') echo 'checked=checked;' ?>>
+                        <label for="html">9</label>
+                        <input type="radio" name="pagina" value="10" <?php if ($pagina == '10') echo 'checked=checked;' ?>>
+                        <label for="html">10</label>
+
+                    </div>
+                </div>
             </form>
         </div>
-    </div>
-
-    <?php
-    $acao = <<<ACAO
-            <div style="min-width: 20px;">
-                <a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/fila/formulario&acao=C&p=<php> return setParam(array('id' => '{id}'), false); </php>" data-toggle="tooltip" title="Editar fila">
-                    <i class="icon-pencil"></i>
-                </a>
-                <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:exibirModalExclusao('<php> return setParam(array('id' => '{id}'), false); </php>', '{descricao}');" data-toggle="tooltip"  title="Excluir fila">
-                    <i class="icon-trash"></i>
-                </a>
-            </div>
-ACAO;
-
-    $arConfig = array();
-    $arConfig[0]['html'] = <<<HTML
-    <a href="?modulo=principal/fila/formulario&acao=C&p=<php> return setParam(array('id' => '{id}'), false); </php>" data-toggle="tooltip" title="Editar fila">
-        {descricao}
-    </a>
-HTML;
-    $arConfig[3]['style'] = "width: 10%; text-align: center;";
-
-    $rs = $mFila->getList($arWhere);
-
-    $mLista = new Listam(array("style" => "width: 100%;"));
-    $mLista->setCabecalho(array(
-        'Descrição',
-        'Município',
-        'Especialidade',
-        'Data limite',
-        'Valor',
-        'Ação'
-    ));
-    $mLista->setCorpo( $rs, $arConfig );
-    $mLista->setAcao( $acao );
-    $mLista->show();
-    ?>
-</div>
-
-<form method="post" class="form-excluir">
-    <input type="hidden" name="act" value="excluir" />
-    <input type="hidden" name="p" />
-</form>
-
-<div class="modal fade in" id="modal-excluir" tabindex="-1" role="modal-excluir" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Excluir fila</h4>
-            </div>
-            <div class="modal-body">
-                Você tem certeza que deseja excluir a fila <strong id="nome"></strong>?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn red" onclick="excluirRegistro();">Sim</button>
-                <button type="button" class="btn blue" data-dismiss="modal">Não</button>
+        <div class="row">
+            <div class="col-md-12">
+                <form role="form" name="gravar" class="edital-form" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="act" value="gravar-selecionados" />
+                    <textarea name="json_resultados" style="display: none;"><?php echo $response; ?></textarea>
+                    <?php
+                    unset($arConfig, $acao);
+                    $acao = <<<ACAO
+                <div style="min-width: 20px;">
+                    <input class="form-check-input" type="checkbox" value="{id}" name="selecionado_gravar[]">
+                </div> 
+                ACAO;
+                    $arConfig = array();
+                    $mCargaEditais = new Listam(array("style" => "width: 100%;"));
+                    $dado = array_map("utf8_decode", $dados);
+                    $mCargaEditais->setCabecalho(array(
+                        'Código Externo',
+                        'Portal',
+                        'Data Limite',
+                        'Orgão',
+                        'UASG',
+                        'Pregão',
+                        'Código Origem',
+                        'Título',
+                        'Descrição',
+                        'Publicação',
+                        'Selecionar'
+                    ));
+                    $mCargaEditais->setCorpo($rsDadosBaixados, $arConfig);
+                    $mCargaEditais->setAcao($acao);
+                    $mCargaEditais->show();
+                    ?>
+                    <label>Categorizar como :</label>
+                    
+                    <?php
+                    $opcoes = array(
+                        array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
+                        array('codigo' => 'Manutenção / Infraetrutura de Tecnologia', 'descricao' => 'Manutenção / Infraetrutura de Tecnologia'),
+                        array('codigo' => 'Serviços Gráficos', 'descricao' => 'Serviços Gráficos'),
+                    );
+                    echo $db->monta_radiom('categoria', $opcoes, 'S', 'S', 'Habilitação Jurídica');
+                    ?>
+                    <br>
+                    <button type="submit" class="btn red">
+                        <i class="bi bi-save"></i> Gravar selecionados
+                    </button>
+                </form>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
+<script>
+    $('input[name="tipo_pesquisa"]').click(function() {
 
-<script type="text/javascript">
-    $(function () {
-        $('.btn-limpar').click(function () {
-            window.location = '?modulo=principal/fila/lista&acao=C';
-        });
+        $('#pesquisa').val(this.value);
 
-        $('select[name=uf_sigla]').change(function () {
-            carregarMunicipio();
-        });
-
-        $('#btn-pesquisa-avancada, #btn-pesquisa-simples').click(function(){
-            gerenciarPesquisas();
-        });
     });
-
-    function exibirModalExclusao(p, nome){
-        var modal = $('#modal-excluir');
-
-        $('form.form-excluir [name=p]').val(p);
-        modal.find('strong#nome').html(nome);
-        modal.modal('show');
-    }
-
-    function excluirRegistro(){
-        $('form.form-excluir').submit();
-    }
-
-    function carregarMunicipio(municipio_id) {
-        var uf_sigla = $('select[name=uf_sigla]').val();
-
-        App.blockUI({
-            message: 'Carregando...',
-            target: '#cidades'
-        });
-
-        $('div#cidades').load(window.location.href, {
-            act: 'carregarMunicipios',
-            uf_sigla: uf_sigla,
-            municipio_id: municipio_id
-        }, function () {
-            App.unblockUI('#cidades');
-        });
-    }
 </script>

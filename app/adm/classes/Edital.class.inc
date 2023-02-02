@@ -41,7 +41,9 @@ class Edital extends Modelo
         'atualizado_em' => null,
         'atualizado_por' => null,
         'excluido' => null,
-                
+        'id_externo' => null,
+        'id_origem' => null,                
+        'categoria' => null,                
     );
 
     public function getList($arWhere = array(), $paginacao = true, $order = null)
@@ -49,11 +51,12 @@ class Edital extends Modelo
         $arWhere[] = "edi.excluido IS FALSE";
 
         $sql = "SELECT
+                    edi.categoria,
                     edi.portal,
                     edi.orgao,
                     TO_CHAR(edi.data_limite, 'DD/MM/YYYY') AS data_limite_formatada,
                     data_limite - current_date as dias,
-                    '<b>' || edi.valor_estimado || '</b> <br>' || edi.objeto,
+                    '<b>' || valor_estimado || '</b> <br/> ' || substring(edi.objeto, 0, 300) || ' ...' as objeto,
                     mun.municipio || '/' || uf.uf_sigla AS municipio,
                     edi.id
                 FROM
@@ -117,7 +120,8 @@ class Edital extends Modelo
                     uf.uf_sigla as uf,
                     COALESCE(esd.esddsc, 'Selecionado') as situacao,
                     edc.id,
-                    edi.id as id_edital
+                    edi.id as id_edital,
+                    categoria
                 FROM
                     edital.edital edi
                 LEFT JOIN

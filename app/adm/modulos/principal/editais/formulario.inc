@@ -60,7 +60,19 @@ getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
             <div class="form-body">
                 <div class="row">
                     <div class="row">
-                        <div class="col-md-4">
+                    <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <?php
+                                $categorias = array(
+                                    array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
+                                    array('codigo' => 'Manutenção / Infraetrutura de Tecnologia', 'descricao' => 'Manutenção / Infraetrutura de Tecnologia'),
+                                    array('codigo' => 'Serviços Gráficos', 'descricao' => 'Serviços Gráficos'),
+                                );
+                                $db->monta_combom("categoria", $categorias, 'S', 'Selecione...', '', '', '', '', 'S');                                 ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Portal do Pregoeiro</label>
                                 <?php
@@ -80,7 +92,7 @@ getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
                                 <?= campo_textom('orgao', 'S', 'S', '', 100, 100, '', '', '', '', 0); ?>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Edital</label>
                                 <?= campo_textom('edital', 'S', 'S', '', 100, 100, '', '', '', '', 0); ?>

@@ -1,6 +1,7 @@
 <?php
 $mEstabelecimento = new Estabelecimento();
 $mAnexoEstabelecimento = new AnexoEstabelecimento();
+$mEstabelecimentoCategoria = new EstabelecimentoCategoria();
 $fileSimec = new FilesSimec();
 $params = getParam();
 if ($_REQUEST && isset($_REQUEST['act'])) {
@@ -10,6 +11,11 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                 $params = array_merge($_REQUEST, getParam());
                 $id = $mEstabelecimento->salvarEstabelecimento($params, $_FILES);
                 $mEstabelecimento->commit();
+                // Salva as categorias
+                if(is_array($_REQUEST['categorias'])){
+                    $params['id'] = $id;
+                    $mEstabelecimentoCategoria->salvarCategorias($params);
+                }
                 $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $id)));
             } catch (CnpjIndisponivel $e) {
                 addMsgDanger($e->getMessage());
@@ -56,6 +62,9 @@ if (isset($params['id']) && !empty($params['id'])) {
 }
 
 include APPRAIZ . "includes/cabecalhom.inc";
+getStrMsgDanger();
+getStrMsgInfo();
+getStrMsgWarning();
 
 if ($aba) {
     echo Estabelecimento::gerarCabecalho();
@@ -79,11 +88,23 @@ if ($aba) {
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Seguimento</label>
+                            <label><b>Categorias para Busca Automática</b></label>
+                            <br />
                             <?php
-                            $mTipoEstabelecimento = new TipoEstabelecimento();
-                            $tiposEstabelecimento = $mTipoEstabelecimento->recuperarTodos('id AS codigo, descricao', array("excluido IS FALSE"));
-                            $db->monta_combom("tipo_estabelecimento_id", $tiposEstabelecimento, 'S', 'Selecione...', '', '', '', '', 'S');
+                            $categorias = $mEstabelecimentoCategoria->getDadosCategorias(" estabelecimento_id = {$dados['id']}");
+                            $opcoes = array(
+                                array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
+                                array('codigo' => 'Manutenção / Infraetrutura de Tecnologia', 'descricao' => 'Manutenção / Infraetrutura de Tecnologia'),
+                                array('codigo' => 'Serviços Gráficos', 'descricao' => 'Serviços Gráficos'),
+                            );
+                            foreach ($opcoes as $opcao) {
+                                $checked = '';
+                                foreach($categorias as $valor){
+                                    if($valor['categoria']==$opcao['descricao']) $checked = ' checked=checked';
+                                }
+                                echo  "<input class=\"form-check-input\" type=\"checkbox\" value=\"{$opcao['descricao']}\" name=\"categorias[]\" {$checked} >";
+                                echo '<label>' . '&nbsp;'. $opcao['descricao'] . '</label> <br/>';
+                            }
                             ?>
                         </div>
                     </div>
@@ -226,7 +247,8 @@ if ($aba) {
         background-color: #B4EEB4;
         display: block;
     }
-    .listagem-remover{
+
+    .listagem-remover {
         display: none;
     }
 

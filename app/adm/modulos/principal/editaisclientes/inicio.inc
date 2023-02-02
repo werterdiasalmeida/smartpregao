@@ -88,7 +88,6 @@ include APPRAIZ . "includes/cabecalhom.inc";
 getStrMsgDanger();
 getStrMsgInfo();
 getStrMsgWarning();
-
 if ($aba) {
     echo Estabelecimento::gerarCabecalho();
 }
@@ -157,16 +156,15 @@ if ($aba) {
                                 </div>
                     ACAO;
                     $arConfig = array();
-                    $arConfig[0]['html'] = <<<HTML
+                    $arConfig[1]['html'] = <<<HTML
                     <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {orgao}
                     </a>
                     HTML;
-
-                    $arConfig[2]['html'] = <<<HTML
+                    $arConfig[3]['html'] = <<<HTML
                         <spam class="badge badge-primary"><b>{dias}</b></spam>
                     HTML;
-                    $arConfig[2]['style'] = "width: 10%; text-align: center;";
+                    $arConfig[3]['style'] = "width: 10%; text-align: center;";
                     /* Filtro do Período (padrão próximos 7 dias e não descartados)*/
                     if ($filtroPadrao) {
                         $arWhereEditaisCliente[] = " edi.data_limite >= current_date";
@@ -180,6 +178,7 @@ if ($aba) {
 
                     $mEditalCliente = new Listam(array("style" => "width: 100%;"));
                     $mEditalCliente->setCabecalho(array(
+                        'Categoria',
                         'Órgão Licitante',
                         'Data do pregão',
                         'Dias restantes',
@@ -258,15 +257,17 @@ HTML;
                         </a>
                     </div>
                     ACAO;
-                    $arConfig[3]['html'] = <<<HTML
+                    $arConfig[4]['html'] = <<<HTML
                         <spam class="badge badge-primary"><b>{dias}</b></spam>
                     HTML;
-                    $arConfig[3]['style'] = "width: 10%; text-align: center;";
+                    $arConfig[4]['style'] = "width: 10%; text-align: center;";
                     // Filtro para não trazer as que já estão vinculadas
                     $arWhereEditais[] = "edi.data_limite >= NOW() AND edi.id not in (SELECT edital_id FROM edital.editalcliente WHERE estabelecimento_id = {$dados['id']} )";
+                    $arWhereEditais[] = "edi.categoria IN ( SELECT categoria FROM estabelecimentosaude.tb_estabelecimento_categoria WHERE estabelecimento_id = {$dados['id']} )";
                     $rs = $mEdital->getList($arWhereEditais);
                     $mEdital = new Listam(array("style" => "width: 100%;"));
                     $mEdital->setCabecalho(array(
+                        'Categoria',
                         'Portal',
                         'Órgão Licitante',
                         'Data do pregão',
