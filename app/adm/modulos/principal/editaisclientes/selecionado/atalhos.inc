@@ -27,5 +27,10 @@ switch ($dados['portal']) {
         echo $link;
         break;
 }
+
+if($dados['id_externo']){
+    $link =  '<br><br> <a class="btn btn-danger"  href="https://app.sigapregao.com.br/oportunidade/' . $dados['id_externo'] .'" target="_blank"> <i class="fa fa-cloud"></i> Siga Pregão</a>';
+    echo $link;
+}
 ?>
 <br /><br />
