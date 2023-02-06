@@ -23,10 +23,9 @@ class Estabelecimento extends Modelo
      */
     protected $arAtributos = array(
         'id' => null,
-        'tipo_estabelecimento_id' => null,
-        'cnes' => null,
-        'registro_ans' => null,
         'pessoajuridica_id' => null,
+        'telefone_principal' => null,
+        'email_principal' => null,
         'criado_em' => null,
         'criado_por' => null,
         'atualizado_em' => null,
@@ -63,10 +62,9 @@ class Estabelecimento extends Modelo
         $dados = array(
             'id' => $params['id'],
             'tipo_estabelecimento_id' => $params['tipo_estabelecimento_id'],
-            'cnes' => $params['cnes'],
-            'registro_ans' => $params['registro_ans'],
+            'telefone_principal' => $params['cnes'],
+            'email_principal' => $params['registro_ans'],
             'pessoajuridica_id' => $pessoaJuridicaId,
-            'geo_localizacao' => null,
         );
 
         if (empty($params['id'])) {
@@ -82,6 +80,8 @@ class Estabelecimento extends Modelo
         }
 
         $dados = array_merge($dados, $dadosCarimbo);
+
+        
         $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
 
         if (empty($params['id'])) {
@@ -172,18 +172,7 @@ class Estabelecimento extends Modelo
     public function getTodosDados($id)
     {
         $sql = "SELECT
-                  pj.nome_fantasia,
-                  pj.razao_social,
-                  pj.cnpj,
-                  pj.classificacao,
-                  pj.logo_arquivo_id,
-                  pj.flg_cabecalho_rodape,
-                  tes.descricao AS tipo_estabelecimento_descricao,
-                  est.tipo_estabelecimento_id,
-                  est.cnes,
-                  est.registro_ans,
-                  est.pessoajuridica_id,
-                  est.id
+                  *
                 FROM
                   estabelecimentosaude.tb_estabelecimento est
                 INNER JOIN

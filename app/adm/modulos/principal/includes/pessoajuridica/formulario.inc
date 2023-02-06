@@ -37,12 +37,7 @@ if ($_POST && isset($_POST['act'])) {
                     <?= campo_textom('cnpj', 'S', 'S', '', 19, 19, '99.999.999/9999-99', '', '', '', 0); ?>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>Apresentar cabeçalho e rodapé nos documentos</label>
-                    <?=  campo_radiom('flg_cabecalho_rodape', array("Sim" => array("valor" => 'S'), "Não" => array("valor" => 'N')), 'S'); ?>
-                </div>
-            </div>
+            
         </div>
     </div>
 
