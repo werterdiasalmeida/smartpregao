@@ -30,7 +30,9 @@ if (isset($params['id']) && !empty($params['id'])) {
 }
 
 include APPRAIZ . "includes/cabecalhom.inc";
-getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
+getStrMsgDanger();
+getStrMsgInfo();
+getStrMsgWarning();
 ?>
 <br />
 <style type="text/css">
@@ -60,7 +62,7 @@ getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
             <div class="form-body">
                 <div class="row">
                     <div class="row">
-                    <div class="col-md-3">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Categoria</label>
                                 <?php
@@ -167,14 +169,14 @@ getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Temperatura</label>
-                                
+
                                 <?
                                 $opcoes = array(
-                                                "Frio" => array("valor" => 'Frio', 'default' => true,), 
-                                                "Morno" => array("valor" => 'Morno'),
-                                                "Quente" => array("valor" => 'Quente')
-                                            );
-                                echo campo_radiom('temperatura', $opcoes , 'S'); ?>
+                                    "Frio" => array("valor" => 'Frio', 'default' => true,),
+                                    "Morno" => array("valor" => 'Morno'),
+                                    "Quente" => array("valor" => 'Quente')
+                                );
+                                echo campo_radiom('temperatura', $opcoes, 'S'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -187,6 +189,13 @@ getStrMsgDanger();getStrMsgInfo();getStrMsgWarning();
                 </div>
 
                 <div class="form-actions">
+                    <?php 
+                    if($dados['id_externo']){
+
+                       echo "<br>ID Externo: {$dados['id_externo']} / ID Origem: {$dados['id_origem']}<br><br>";
+
+                    }
+                    ?>
                     <button type="submit" class="btn blue">
                         <i class="fa fa-save"></i> Salvar
                     </button>
