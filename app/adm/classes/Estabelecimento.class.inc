@@ -116,7 +116,6 @@ class Estabelecimento extends Modelo
                   pj.nome_fantasia,
                   pj.razao_social,
                   pj.cnpj,
-                  tes.descricao AS tipo_estabelecimento_descricao,
                   est.pessoajuridica_id,
                   est.id
                 FROM
@@ -124,8 +123,6 @@ class Estabelecimento extends Modelo
                 INNER JOIN
                   corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                                                   AND pj.excluido IS FALSE
-                INNER JOIN
-                  estabelecimentosaude.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
                 WHERE
                   " . implode(' AND ', $arWhere);
 
@@ -433,10 +430,8 @@ HTML;
 
         $estabelecimento_id = $_SESSION['estabelecimento_selecionado'];
         $usucpfFormatado = formatar_cpf($_SESSION['usucpf']);
-        $mProfissional = new Profissional();
-        $estabelecimentos = $mProfissional->listaEstabelecimentosPorCpfProfissional($usucpfFormatado);
-        $strCombo = $db->monta_combom("estabelecimento_id", $estabelecimentos, 'S', '', '', '', '', '', 'N', '', true, $estabelecimento_id);
-
+        
+       
         $html = <<<HTML
 <div class="page-bar portlet light bordered"
      style="margin-top: 0; margin-bottom: 10px; padding: 5px 20px 0 20px; border-right: 0 !important; border-left: 0 !important;"
