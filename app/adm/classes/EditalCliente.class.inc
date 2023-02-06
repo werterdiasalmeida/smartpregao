@@ -54,7 +54,7 @@ class EditalCliente extends Modelo
                   corporativo.tb_municipio mun ON edi.municipio_id = mun.id 
                 LEFT JOIN
                   corporativo.tb_unidade_federacao uf ON mun.uf_id = uf.id
-                INNER JOIN 
+                LEFT JOIN 
                     edital.editalcliente edc on edc.edital_id = edi.id
                 LEFT JOIN 
                     workflow.documento doc ON doc.docid = edc.docid
@@ -70,7 +70,6 @@ class EditalCliente extends Modelo
                 $sql .= " ORDER BY edi.data_limite";
             }
         }
-
         if ($paginacao) {
             $dado = Paginacao::getPaginacao($this, $sql, 10);
             return $dado;

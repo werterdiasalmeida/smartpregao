@@ -81,7 +81,7 @@ class Estabelecimento extends Modelo
 
         $dados = array_merge($dados, $dadosCarimbo);
 
-        
+
         $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
 
         if (empty($params['id'])) {
@@ -169,7 +169,18 @@ class Estabelecimento extends Modelo
     public function getTodosDados($id)
     {
         $sql = "SELECT
-                  *
+                  pj.nome_fantasia,
+                  pj.razao_social,
+                  pj.cnpj,
+                  pj.classificacao,
+                  pj.logo_arquivo_id,
+                  pj.flg_cabecalho_rodape,
+                  est.telefone_principal,
+                  est.email_principal,
+                  est.cnes,
+                  est.registro_ans,
+                  est.pessoajuridica_id,
+                  est.id
                 FROM
                   estabelecimentosaude.tb_estabelecimento est
                 INNER JOIN
@@ -428,8 +439,8 @@ HTML;
 
         $estabelecimento_id = $_SESSION['estabelecimento_selecionado'];
         $usucpfFormatado = formatar_cpf($_SESSION['usucpf']);
-        
-       
+
+
         $html = <<<HTML
 <div class="page-bar portlet light bordered"
      style="margin-top: 0; margin-bottom: 10px; padding: 5px 20px 0 20px; border-right: 0 !important; border-left: 0 !important;"

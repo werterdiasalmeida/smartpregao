@@ -69,7 +69,7 @@ getStrMsgWarning();
                                 $categorias = array(
                                     array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
                                     array('codigo' => 'Manutenção / Infraetrutura de Tecnologia', 'descricao' => 'Manutenção / Infraetrutura de Tecnologia'),
-                                    array('codigo' => 'Serviços Gráficos', 'descricao' => 'Serviços Gráficos'),
+                                    array('codigo' => 'Contagem de PF', 'descricao' => 'Contagem de PF'),
                                 );
                                 $db->monta_combom("categoria", $categorias, 'S', 'Selecione...', '', '', '', '', 'S');                                 ?>
                             </div>
