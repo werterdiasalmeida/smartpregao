@@ -175,8 +175,6 @@ class Estabelecimento extends Modelo
                 INNER JOIN
                   corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                                                   AND pj.excluido IS FALSE
-                INNER JOIN
-                  estabelecimentosaude.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
                 WHERE
                   est.id = {$id}";
 
