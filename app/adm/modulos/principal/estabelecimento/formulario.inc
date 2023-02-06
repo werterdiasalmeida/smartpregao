@@ -12,7 +12,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                 $id = $mEstabelecimento->salvarEstabelecimento($params, $_FILES);
                 $mEstabelecimento->commit();
                 // Salva as categorias
-                if(is_array($_REQUEST['categorias'])){
+                if (is_array($_REQUEST['categorias'])) {
                     $params['id'] = $id;
                     $mEstabelecimentoCategoria->salvarCategorias($params);
                 }
@@ -84,26 +84,27 @@ if ($aba) {
             <input type="hidden" id="remove_logo" name="remove_logo" />
             <div class="form-body">
                 <?php require APPRAIZ . "adm/modulos/principal/includes/pessoajuridica/formulario.inc"; ?>
-
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label><b>Categorias para Busca Automática</b></label>
                             <br />
                             <?php
-                            $categorias = $mEstabelecimentoCategoria->getDadosCategorias(" estabelecimento_id = {$dados['id']}");
+                            if ($dados['id']) {
+                                $categorias = $mEstabelecimentoCategoria->getDadosCategorias(" estabelecimento_id = {$dados['id']}");
+                            }
                             $opcoes = array(
                                 array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
                                 array('codigo' => 'Manutenção / Infraetrutura de Tecnologia', 'descricao' => 'Manutenção / Infraetrutura de Tecnologia'),
-                                array('codigo' => 'Serviços Gráficos', 'descricao' => 'Serviços Gráficos'),
+                                array('codigo' => 'Contagem de PF', 'descricao' => 'Contagem de PF'),
                             );
                             foreach ($opcoes as $opcao) {
                                 $checked = '';
-                                foreach($categorias as $valor){
-                                    if($valor['categoria']==$opcao['descricao']) $checked = ' checked=checked';
+                                foreach ($categorias as $valor) {
+                                    if ($valor['categoria'] == $opcao['descricao']) $checked = ' checked=checked';
                                 }
                                 echo  "<input class=\"form-check-input\" type=\"checkbox\" value=\"{$opcao['descricao']}\" name=\"categorias[]\" {$checked} >";
-                                echo '<label>' . '&nbsp;'. $opcao['descricao'] . '</label> <br/>';
+                                echo '<label>' . '&nbsp;' . $opcao['descricao'] . '</label> <br/>';
                             }
                             ?>
                         </div>
@@ -124,31 +125,34 @@ if ($aba) {
                         </a>
                         <br />
                         <?php
-                        $arConfig = array();
-                        $arWhere[] = " ane.estabelecimento_id = {$dados['id']}";
-                        $acao = <<<ACAO
+
+                        if ($dados['id']) {
+                            $arConfig = array();
+                            $arWhere[] = " ane.estabelecimento_id = {$dados['id']} ";
+                            $acao = <<<ACAO
                         <div style="min-width: 20px;">
                             <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirDocumento({anexo_id});" data-toggle="tooltip"  title="Excluir">
                                 <i class="icon-trash"></i>
                             </a>
                         </div>
                         ACAO;
-                        $arConfig[1]['html'] = <<<HTML
+                            $arConfig[1]['html'] = <<<HTML
                                 <a onclick="baixarAnexo({arqid})">{arquivo}</a>
                             HTML;
-                        $rs = $mAnexoEstabelecimento->getList($arWhere);
-                        $mAnexoEstabelecimento = new Listam(array("style" => "width: 100%;"));
-                        $mAnexoEstabelecimento->setCabecalho(array(
-                            'Nome',
-                            'Arquivo',
-                            'Tipo',
-                            'Validade',
-                            'Resumo do documento',
-                            'Ação'
-                        ));
-                        $mAnexoEstabelecimento->setCorpo($rs, $arConfig);
-                        $mAnexoEstabelecimento->setAcao($acao);
-                        $mAnexoEstabelecimento->show();
+                            $rs = $mAnexoEstabelecimento->getList($arWhere);
+                            $mAnexoEstabelecimento = new Listam(array("style" => "width: 100%;"));
+                            $mAnexoEstabelecimento->setCabecalho(array(
+                                'Nome',
+                                'Arquivo',
+                                'Tipo',
+                                'Validade',
+                                'Resumo do documento',
+                                'Ação'
+                            ));
+                            $mAnexoEstabelecimento->setCorpo($rs, $arConfig);
+                            $mAnexoEstabelecimento->setAcao($acao);
+                            $mAnexoEstabelecimento->show();
+                        }
                         ?>
                     </div>
                 </div>
@@ -236,7 +240,6 @@ if ($aba) {
                     </button>
                     <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
                 </div>
-                <input type="hidden" id="id" name="id" />
                 <input type="hidden" id="id" name="id" />
             </form>
         </div>

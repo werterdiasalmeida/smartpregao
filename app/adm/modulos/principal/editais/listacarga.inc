@@ -134,7 +134,7 @@ getStrMsgWarning();
                         <input type="radio" name="tipo_pesquisa" value="manutencao de servidores; manutencao de computadores; devops; formatacao; infraestrutura tecnologica; infraestrutura de tecnologia">
                         | <label for="html">Manutenção / Infraetrutura de Tecnologia</label>
                         <input type="radio" name="tipo_pesquisa" value="diagramacao; servicos graficos; banner; panfleto; catilha; livros; apostilas">
-                        | <label for="html">Serviços Gráficos</label>
+                        | <label for="html">Contagem de PF</label>
                         <br>
                         <?= campo_textaream('pesquisa', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
                         <br />
@@ -217,7 +217,7 @@ getStrMsgWarning();
                     $opcoes = array(
                         array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
                         array('codigo' => 'Manutenção / Infraetrutura de Tecnologia', 'descricao' => 'Manutenção / Infraetrutura de Tecnologia'),
-                        array('codigo' => 'Serviços Gráficos', 'descricao' => 'Serviços Gráficos'),
+                        array('codigo' => 'Contagem de PF', 'descricao' => 'Contagem de PF'),
                     );
                     echo $db->monta_radiom('categoria', $opcoes, 'S', 'S', 'Habilitação Jurídica');
                     ?>

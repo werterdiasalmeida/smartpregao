@@ -69,35 +69,7 @@ if ($_POST && isset($_POST['act'])) {
                 $arWhere['tipo_estabelecimento_id'] = "est.tipo_estabelecimento_id = " . $tipo_estabelecimento_id;
             }
             break;
-        case 'migrar_informacoes_estabelecimentos':
-            $origem     = $_REQUEST['origem'];
-            $destino    = $_REQUEST['destino'];
-            $desabilita = $_REQUEST['desabilita'] == 'S' ? true : false;
-
-            //Corpo clínico
-            $mCorpoClinico = new EstabelecimentoEspecialidadeProfissional();
-            $arCorpoClinico = $mCorpoClinico->copiarDados($origem, $destino, $desabilita);
-
-            //Convênio
-            $mConvenio = new ConvenioEstabelecimento();
-            $arConvenio = $mConvenio->copiarDados($origem, $destino, $desabilita);
-
-            //Procedimentos
-            $mProcedimento = new Procedimento();
-            $arProcedimento = $mProcedimento->copiarDados($origem, $destino, $desabilita);
-
-            //TabelaPrecos
-            $mTabelaPreco = new TabelaPreco();
-            $arTabelaPrecos = $mTabelaPreco->copiarDados($origem, $destino, $desabilita, $arConvenio, $arProcedimento);
-
-            //Modelo de documentos
-            $mModeloDocumento = new ModeloDocumento();
-            $arModeloDocumento = $mModeloDocumento->copiarDados($origem, $destino, $desabilita);
-
-            $mEstabelecimento->commit();
-
-            $db->sucessomAjax('', array('corpo_clinico' => $arCorpoClinico, 'convenio' => $arConvenio, 'procedimento' => $arProcedimento, 'tabela_preco' => $arTabelaPrecos, 'modelo_documento' => $arModeloDocumento), 'Migração de dados efetuada com sucesso!');
-            break;
+       
     }
 }
 
@@ -216,6 +188,12 @@ include APPRAIZ . "includes/cabecalhom.inc";
                                 <a class="btn green" href="?modulo=principal/estabelecimento/formulario&acao=C">
                                     <i class="fa fa-plus-circle"></i>
                                     Cadastrar novo cliente
+                                </a>
+                            <?php endif; ?>
+                            <?php if (possuiAcesso('adm.php?modulo=principal/estabelecimento/listacarga&acao=C')) : ?>
+                                <a class="btn red" href="?modulo=principal/estabelecimento/listacarga&acao=C">
+                                    <i class="fa fa-download"></i>
+                                    Carga de Potenciais Clientes
                                 </a>
                             <?php endif; ?>
                         </div>
