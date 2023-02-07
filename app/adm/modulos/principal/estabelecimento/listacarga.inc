@@ -37,10 +37,29 @@ if ($_POST && isset($_POST['act'])) {
                         //Grava no Banco
                         $existe = $mCargaEstabelecimento->pegaLinha(" SELECT id FROM carga_clientes.tb_carga_estabelecimento  WHERE cnpj = '{$rsDadosBaixados['cnpj']}'");
                         if (!$existe) {
+                            // Baixa os dados complementares da API
+                            $dadosComplementares = $mCargaEstabelecimento->consutlaAPICNPJ($rsDadosBaixados['cnpj']);
+                            $rsDadosBaixados['nome_fantasia'] = $dadosComplementares['NOME FANTASIA'];
+                            $rsDadosBaixados['cnae'] = $dadosComplementares['CNAE PRINCIPAL CODIGO'] . ' - ' . $dadosComplementares['CNAE PRINCIPAL DESCRICAO'];
+                            $rsDadosBaixados['data_abertura'] = $dadosComplementares['DATA ABERTURA'];
+                            $rsDadosBaixados['municipio_uf'] = $dadosComplementares['MUNICIPIO'] . ' - ' . $dadosComplementares['UF'];
+                            $rsDadosBaixados['email_1'] = $dadosComplementares['EMAIL'];
+                            $rsDadosBaixados['telefone_1'] = '(' . $dadosComplementares['DDD'] . ')' . $dadosComplementares['TELEFONE'];
+                            // ver($rsDadosBaixados, $dadosComplementares,d);
                             $mCargaEstabelecimento->salvarBasico($rsDadosBaixados);
+                            $mCargaEstabelecimento->salvarCNPJPregao($rsDadosBaixados);
                             $resultadoCarga .= 'Carregado: ' .  $rsDadosBaixados['cnpj'] . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
                         } else {
-                            $resultadoCarga .= 'Já esta cadastrado: ' .  $rsDadosBaixados['cnpj'] . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
+                            // Cadastrar apenas a empresa a este novo pregão
+                            $existe = $mCargaEstabelecimento->pegaLinha(" SELECT id FROM carga_clientes.tb_carga_estabelecimento_pregao  WHERE cnpj = '{$rsDadosBaixados['cnpj']}' AND prgcod = $prgcod");
+                            if (!$existe) {
+                                $mCargaEstabelecimento->salvarCNPJPregao($rsDadosBaixados);
+
+                            } else {
+                                $resultadoCarga .= 'Vinculado ao pregão: ' .  $rsDadosBaixados['cnpj'] . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
+                            }
+                            $resultadoCarga .= 'Já esta cadastrado neste pregão: ' .  $rsDadosBaixados['cnpj'] . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
+
                         }
                         unset($rsDadosBaixados);
                     }
@@ -63,7 +82,7 @@ getStrMsgWarning();
         <div class="caption">
             <i class="fa fa-list"></i>
             <span class="caption-subject bold uppercase">
-                Cargas Externas de Editais
+                Cargas Externas de Potenciais Clientes
             </span>
         </div>
     </div>
@@ -98,6 +117,9 @@ getStrMsgWarning();
                         'ID',
                         'CNPJ',
                         'Razão Social',
+                        'Nome Fantasia',
+                        'CNAE',
+                        'Município',
                         'Email',
                         'Telefone',
                         'Situação',

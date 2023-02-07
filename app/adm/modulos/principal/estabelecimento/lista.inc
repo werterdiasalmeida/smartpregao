@@ -190,7 +190,6 @@ include APPRAIZ . "includes/cabecalhom.inc";
                                     Cadastrar novo cliente
                                 </a>
                             <?php endif; 
-                            
                             if (possuiAcesso('adm.php?modulo=principal/estabelecimento/listacarga&acao=C')) : ?>
                                 <a class="btn red" href="?modulo=principal/estabelecimento/listacarga&acao=C">
                                     <i class="fa fa-download"></i>
