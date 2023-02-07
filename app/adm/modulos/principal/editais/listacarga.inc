@@ -129,11 +129,11 @@ getStrMsgWarning();
                     </div>
                     <div class="col-md-8">
                         <label>Pesquisa</label>
-                        <br /><input type="radio" name="tipo_pesquisa" value="fabrica de software;manutencaoo evolutiva;manutencaoo corretiva;desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; Java; PHP; DOTNET; Python">
+                        <br /><input type="radio" name="tipo_pesquisa" value="desenvolvimento de solucoes;desenvolvimento de solucao;manutencao em software;fabrica de software;manutencaoo evolutiva;manutencaoo corretiva;desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; Java; PHP; DOTNET; Python">
                         <label for="html">Desenvolvimento de Softwares</label>
                         <input type="radio" name="tipo_pesquisa" value="manutencao de servidores; manutencao de computadores; devops; formatacao; infraestrutura tecnologica; infraestrutura de tecnologia">
                         | <label for="html">Manutenção / Infraetrutura de Tecnologia</label>
-                        <input type="radio" name="tipo_pesquisa" value="diagramacao; servicos graficos; banner; panfleto; catilha; livros; apostilas">
+                        <input type="radio" name="tipo_pesquisa" value="mensuracao de pontos de funcao; mensuracao de pf; pontos de funcao">
                         | <label for="html">Contagem de PF</label>
                         <br>
                         <?= campo_textaream('pesquisa', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
