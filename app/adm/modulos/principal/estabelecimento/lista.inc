@@ -189,8 +189,9 @@ include APPRAIZ . "includes/cabecalhom.inc";
                                     <i class="fa fa-plus-circle"></i>
                                     Cadastrar novo cliente
                                 </a>
-                            <?php endif; ?>
-                            <?php if (possuiAcesso('adm.php?modulo=principal/estabelecimento/listacarga&acao=C')) : ?>
+                            <?php endif; 
+                            
+                            if (possuiAcesso('adm.php?modulo=principal/estabelecimento/listacarga&acao=C')) : ?>
                                 <a class="btn red" href="?modulo=principal/estabelecimento/listacarga&acao=C">
                                     <i class="fa fa-download"></i>
                                     Carga de Potenciais Clientes

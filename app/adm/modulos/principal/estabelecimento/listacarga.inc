@@ -1,4 +1,5 @@
 <?php
+
 $mCargaEstabelecimento = new CargaEstabelecimento();
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {

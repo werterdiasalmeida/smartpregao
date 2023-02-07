@@ -62,11 +62,13 @@ class CargaEstabelecimento extends Modelo
 
     public function salvarBasico($params)
     {
+        
         $sql = "INSERT INTO carga_clientes.tb_carga_estabelecimento 
             (cnpj, razao_social, situacao_carga, prgcod) 
             VALUES ('{$params['cnpj']}','{$params['razao_social']}','{$params['situacao_carga']}',{$params['prgcod']})";
         $this->executar($sql);
         return $this->commit();
+
     }
 
     public function excluirEstabelecimento($id)
