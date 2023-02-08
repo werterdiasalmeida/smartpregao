@@ -180,7 +180,6 @@ class Modelo extends cls_banco{
 					 returning {$this->arChavePrimaria[0]}";
 
 			$stChavePrimaria = $this->arChavePrimaria[0];
-			ver($sql,d);
 			return $this->$stChavePrimaria = $this->pegaUm( $sql );
 		}
 	} // Fim _inserir()
