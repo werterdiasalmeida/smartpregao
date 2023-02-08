@@ -7,7 +7,7 @@ class CargaEstabelecimento extends Modelo
      * @var string
      * @access protected
      */
-    protected $stNomeTabela = "carga_clientes.tb_carga_estabelecimento";
+    protected $stNomeTabela = "cargas.tb_carga_estabelecimento";
 
     /**
      * Chave primaria.
@@ -49,9 +49,9 @@ class CargaEstabelecimento extends Modelo
             email_1,
             telefone_1,
             situacao_carga,
-            array_to_string(array_agg((SELECT prgcod FROM carga_clientes.tb_carga_estabelecimento_pregao WHERE cnpj = car.cnpj)), ', ')as pregoes
+            array_to_string(array((SELECT prgcod FROM cargas.tb_carga_estabelecimento_pregao WHERE cnpj = car.cnpj)), ', ')as pregoes
         FROM
-            carga_clientes.tb_carga_estabelecimento car
+        cargas.tb_carga_estabelecimento car
          
                 WHERE
                   " . implode(' AND ', $arWhere);
@@ -75,7 +75,7 @@ class CargaEstabelecimento extends Modelo
 
     public function salvarBasico($params)
     {
-        $sql = "INSERT INTO carga_clientes.tb_carga_estabelecimento 
+        $sql = "INSERT INTO cargas.tb_carga_estabelecimento 
             (cnpj, 
             razao_social,
             nome_fantasia,
@@ -102,7 +102,7 @@ class CargaEstabelecimento extends Modelo
     }
     public function salvarCNPJPregao($params)
     {
-        $sql = "INSERT INTO carga_clientes.tb_carga_estabelecimento_pregao 
+        $sql = "INSERT INTO cargas.tb_carga_estabelecimento_pregao 
             (cnpj, 
             prgcod
             ) 
@@ -141,5 +141,85 @@ class CargaEstabelecimento extends Modelo
         $saida = json_decode($response, true);
         $saida = array_map("utf8_decode", $saida);
         return $saida;
+    }
+    public function retornaDadosDashboard()
+    {
+        $saida['editais_cadastrados'] = $this->pegaUm(" SELECT count(0) FROM edital.edital");
+        $saida['editais_captacao'] = $this->pegaUm(" SELECT count(0) FROM cargas.tb_carga_editais_captacao car");
+        $saida['clientes_captacao'] = $this->pegaUm(" SELECT count(0) FROM cargas.tb_carga_estabelecimento");
+
+        $saida['editais_cadastrados_update'] = $this->pegaUm(" SELECT MAX(data_atualizacao) FROM edital.edital");
+        $saida['editais_captacao_update'] = $this->pegaUm(" SELECT MAX(data_atualizacao) FROM cargas.tb_carga_editais_captacao car");
+        $saida['clientes_captacao_update'] = $this->pegaUm(" SELECT MAX(data_atualizacao) FROM cargas.tb_carga_estabelecimento");
+
+        return $saida;
+    
+    }
+
+    public function baixarGravarEmpresasPregao ($params){
+
+        $prgcod = $params['prgcod'];
+        
+        $url = "http://comprasnet.gov.br/livre/pregao/anexosPropostaHabilitacao.asp?prgCod={$prgcod}";
+        $curl = curl_init();
+       curl_setopt_array($curl, array(
+           CURLOPT_URL => $url,
+           CURLOPT_RETURNTRANSFER => true,
+           CURLOPT_MAXREDIRS => 10,
+           CURLOPT_TIMEOUT => 0,
+           CURLOPT_FOLLOWLOCATION => true,
+           CURLOPT_CUSTOMREQUEST => 'GET',
+       ));
+       $response = curl_exec($curl);
+       curl_close($curl);
+       $return = explode('<tr class="tex3" bgcolor="#FFFFFF">', $response);
+       $resultadoCarga = '';
+       if (is_array($return)) {
+           foreach ($return as $dados) {
+               $rsDadosBaixados = array();
+               $dado  = explode('<td>', $dados);
+               $texto = $dado[1];
+               $saida = explode(' - ', $texto);
+               $saida[0] = str_replace(' ', '', $saida[0]);
+
+               if ($saida[1]) {
+                   $rsDadosBaixados['cnpj'] = $saida[0];
+                   $texto2 = explode('   ', $saida[1]);
+                   $rsDadosBaixados['razao_social'] = $texto2[0];
+                   $rsDadosBaixados['situacao_carga'] = 'dados-basicos';
+                   $rsDadosBaixados['prgcod'] = $prgcod;
+                   //Grava no Banco
+                   $existe = $this->pegaLinha(" SELECT id FROM cargas.tb_carga_estabelecimento  WHERE cnpj = '{$rsDadosBaixados['cnpj']}'");
+                   if (!$existe) {
+                       // Baixa os dados complementares da API
+                       $dadosComplementares = $this->consutlaAPICNPJ($rsDadosBaixados['cnpj']);
+                       $rsDadosBaixados['nome_fantasia'] = $dadosComplementares['NOME FANTASIA'];
+                       $rsDadosBaixados['cnae'] = $dadosComplementares['CNAE PRINCIPAL CODIGO'] . ' - ' . $dadosComplementares['CNAE PRINCIPAL DESCRICAO'];
+                       $rsDadosBaixados['data_abertura'] = $dadosComplementares['DATA ABERTURA'];
+                       $rsDadosBaixados['municipio_uf'] = $dadosComplementares['MUNICIPIO'] . ' - ' . $dadosComplementares['UF'];
+                       $rsDadosBaixados['email_1'] = $dadosComplementares['EMAIL'];
+                       $rsDadosBaixados['telefone_1'] = '(' . $dadosComplementares['DDD'] . ')' . $dadosComplementares['TELEFONE'];
+                       // ver($rsDadosBaixados, $dadosComplementares,d);
+                       $this->salvarBasico($rsDadosBaixados);
+                       $this->salvarCNPJPregao($rsDadosBaixados);
+                       $resultadoCarga .= 'Carregado: ' .  $rsDadosBaixados['cnpj'] . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
+                   } else {
+                       // Cadastrar apenas a empresa a este novo pregão
+                       $existe = $this->pegaLinha(" SELECT id FROM cargas.tb_carga_estabelecimento_pregao  WHERE cnpj = '{$rsDadosBaixados['cnpj']}' AND prgcod = $prgcod");
+                       if (!$existe) {
+                           $this->salvarCNPJPregao($rsDadosBaixados);
+                       } else {
+                           $resultadoCarga .= 'Vinculado ao pregão: ' .  $rsDadosBaixados['cnpj'] . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
+                       }
+                       $resultadoCarga .= 'Já esta cadastrado neste pregão: ' .  $rsDadosBaixados['cnpj'] . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
+                   }
+                   unset($rsDadosBaixados);
+               }
+           }
+           return $resultadoCarga;
+       } else {
+        return 'Sem dados para Baixar neste Pregão: <b>'.  $prgcod. '</b>';
+       }
+
     }
 }

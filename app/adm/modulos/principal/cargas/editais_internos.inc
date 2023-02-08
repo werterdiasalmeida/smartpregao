@@ -20,9 +20,9 @@ if ($_POST && isset($_POST['act'])) {
                             if ($dado['nomePortal'] == 'COMPRASNET') $dado['nomePortal'] = 'ComprasNet';
                             if ($dado['nomePortal'] == 'LICITAÇÕES-E') $dado['nomePortal'] = 'BB';
                             if ($dado['nomePortal'] <> 'LICITAÇÕES-E' && $dado['nomePortal'] <> 'COMPRASNET') {
-                                 $salvar['comentarios'] = 'Baixar em: '.$dado['nomePortal'];
-                                 $dado['nomePortal'] = 'Outros';
-                                }
+                                $salvar['comentarios'] = 'Baixar em: ' . $dado['nomePortal'];
+                                $dado['nomePortal'] = 'Outros';
+                            }
                             $salvar['portal'] = $dado['nomePortal'];
                             $salvar['orgao'] = $dado['orgao'];
                             $salvar['edital'] = 'Pregão Eletrônico Nº 0' . $dado['numero'] . ' UASG: ' . $dado['uasg'];
@@ -118,6 +118,7 @@ getStrMsgWarning();
         <div class="col-md-12">
             <form role="form" name="listar" class="edital-form" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="act" value="baixar-siga-pregao" />
+
                 <div class="row">
                     <div class="col-md-2">
                         <label>Data Início da Publicação</label>
@@ -139,6 +140,9 @@ getStrMsgWarning();
                         <?= campo_textaream('pesquisa', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
                         <br />
                     </div>
+
+                </div>
+                <div class="col-md-6">
                 </div>
                 <div class="row">
                     <div class="col-md-8">
@@ -212,7 +216,7 @@ getStrMsgWarning();
                     $mCargaEditais->show();
                     ?>
                     <label>Categorizar como :</label>
-                    
+
                     <?php
                     $opcoes = array(
                         array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
