@@ -20,9 +20,9 @@ if ($_POST && isset($_POST['act'])) {
                 $resultadoCarga .= $mCargaEstabelecimento->baixarGravarEmpresasPregao($params);
             }
             if ($resultadoCarga) {
-                $this->sucessom($_REQUEST['modulo'], '', $resultadoCarga);
+                $db->sucessom($_REQUEST['modulo'], '', $resultadoCarga);
             } else {
-                $this->insucessom($_REQUEST['modulo'], 'Sem dados para Baixar.', 'Sem dados para Baixar.');
+                $db->insucessom($_REQUEST['modulo'], 'Sem dados para Baixar.', 'Sem dados para Baixar.');
             }
             break;
     }
