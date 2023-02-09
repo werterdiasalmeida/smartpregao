@@ -30,7 +30,7 @@ if ($_POST && isset($_POST['act'])) {
             break;
         case 'atualizar-dados-cnpj-completo':
             $arrWhere[] = " situacao_carga  =  'dados-basicos'";
-            $rs = $mCargaEstabelecimento->getList($arrWhere);
+            $rs = $mCargaEstabelecimento->getList($arrWhere, false);
             $resultadoCarga = '';
             foreach ($rs['dados'] as $result) {
                 $resultadoCarga .= $mCargaEstabelecimento->salvarDadosAPICNPJ($result['cnpj']);
