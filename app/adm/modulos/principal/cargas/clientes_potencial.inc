@@ -7,7 +7,12 @@ if ($_POST && isset($_POST['act'])) {
 
         case 'baixar':
             $params['prgcod'] = $_POST['prgcod'];
-            $mCargaEstabelecimento->baixarGravarEmpresasPregao($params);
+            $resultadoCarga = $mCargaEstabelecimento->baixarGravarEmpresasPregao($params);
+            if ($resultadoCarga) {
+                $db->sucessom($_REQUEST['modulo'], '', $resultadoCarga);
+            } else {
+                $db->insucessom($_REQUEST['modulo'], 'Sem dados para Baixar.', 'Sem dados para Baixar.');
+            }
             break;
         case 'baixar-completo':
             $arrWhere[] = " situacao  =  'Cadastrado'";

@@ -113,24 +113,35 @@ class CargaEstabelecimento extends Modelo
 
     public function consutlaAPICNPJ($cnpj)
     {
-        $saida  = array();
         $cnpj = str_replace('/', '', $cnpj);
         $cnpj = str_replace('.', '', $cnpj);
         $cnpj = str_replace('-', '', $cnpj);
-        $url = "https://api-publica.speedio.com.br/buscarcnpj?cnpj={$cnpj}";
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-        ));
-        $response = curl_exec($curl);
+        $url = "https://comercial.cnpj.ws/cnpj/{$cnpj}";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        
+        $headers = array(
+           "x_api_token: Ia1UkT4X20wPVtEzyttS4atv7cskelt4Q5alyzZOdUAC",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        $resp = curl_exec($curl);
         curl_close($curl);
-        $saida = json_decode($response, true);
-        $saida = array_map("utf8_decode", $saida);
+        $resp = json_decode($resp, true);
+        
+        $estabelecimento = array_map("utf8_decode", $resp['estabelecimento']);
+        $atividade = array_map("utf8_decode", $resp['estabelecimento']['atividade_principal']);
+        $cidade = array_map("utf8_decode", $resp['estabelecimento']['cidade']);
+        $estado = array_map("utf8_decode", $resp['estabelecimento']['estado']);
+        
+        $saida['nome_fantasia'] = $estabelecimento['nome_fantasia'];
+        $saida['atividade_principal'] = $atividade['id'] . ' - '. $atividade['descricao'];
+        $saida['email'] = $estabelecimento['email'];
+        $saida['data_abertura'] = formata_data($estabelecimento['data_inicio_atividade']);
+        $saida['municipio_uf'] = $cidade['nome'] . ' ('.$estado['sigla'].')';
+        $saida['email_1'] = $estabelecimento['email'];
+        $saida['telefone_1'] = '('.$estabelecimento['ddd1'] . ') '.$estabelecimento['telefone1'];
+        
         return $saida;
     }
     public function salvarDadosAPICNPJ($cnpj)
@@ -138,12 +149,12 @@ class CargaEstabelecimento extends Modelo
         $retorno = '';
         // Baixa os dados complementares da API
         $dadosComplementares = $this->consutlaAPICNPJ($cnpj);
-        $rsDadosBaixados['nome_fantasia'] = $dadosComplementares['NOME FANTASIA'];
-        $rsDadosBaixados['cnae'] = $dadosComplementares['CNAE PRINCIPAL CODIGO'] . ' - ' . $dadosComplementares['CNAE PRINCIPAL DESCRICAO'];
-        $rsDadosBaixados['data_abertura'] = $dadosComplementares['DATA ABERTURA'];
-        $rsDadosBaixados['municipio_uf'] = $dadosComplementares['MUNICIPIO'] . ' - ' . $dadosComplementares['UF'];
-        $rsDadosBaixados['email_1'] = $dadosComplementares['EMAIL'];
-        $rsDadosBaixados['telefone_1'] = '(' . $dadosComplementares['DDD'] . ')' . $dadosComplementares['TELEFONE'];
+        $rsDadosBaixados['nome_fantasia'] = $dadosComplementares['nome_fantasia'];
+        $rsDadosBaixados['cnae'] = $dadosComplementares['atividade_principal'];
+        $rsDadosBaixados['data_abertura'] = $dadosComplementares['data_abertura'];
+        $rsDadosBaixados['municipio_uf'] = $dadosComplementares['municipio_uf'];
+        $rsDadosBaixados['email_1'] = $dadosComplementares['email_1'];
+        $rsDadosBaixados['telefone_1'] = $dadosComplementares['telefone_1'];
         if ($rsDadosBaixados['nome_fantasia'] == '') {
             $rsDadosBaixados['nome_fantasia'] = 'Serviço indisponível';
         } else {
@@ -158,7 +169,7 @@ class CargaEstabelecimento extends Modelo
                 WHERE cnpj = '{$cnpj}'";
             $this->executar($sql);
         }
-        $retorno = 'Atualizado API: ' .  $cnpj . ' ( ' . $rsDadosBaixados['razao_social']  . ') <br/>';
+        $retorno = 'Atualizado API: ' .  $cnpj . ' ( ' . $rsDadosBaixados['nome_fantasia']  . ') <br/>';
         return $retorno;
     }
 
