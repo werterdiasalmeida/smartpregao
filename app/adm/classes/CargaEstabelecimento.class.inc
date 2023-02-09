@@ -72,6 +72,19 @@ class CargaEstabelecimento extends Modelo
             return $retorno ? $retorno : array();
         }
     }
+    public function getListCNPJ($arWhere = array())
+    {
+        $arWhere[] = "cnpj IS NOT NULL";
+        $sql = "SELECT
+            id,
+            cnpj
+                   FROM
+        cargas.tb_carga_estabelecimento car
+                WHERE
+                  " . implode(' AND ', $arWhere);
+        $retorno = $this->carregar($sql);
+        return $retorno ? $retorno : array();
+    }
 
     public function salvarBasico($params)
     {
@@ -120,28 +133,28 @@ class CargaEstabelecimento extends Modelo
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        
+
         $headers = array(
-           "x_api_token: Ia1UkT4X20wPVtEzyttS4atv7cskelt4Q5alyzZOdUAC",
+            "x_api_token: Ia1UkT4X20wPVtEzyttS4atv7cskelt4Q5alyzZOdUAC",
         );
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $resp = curl_exec($curl);
         curl_close($curl);
         $resp = json_decode($resp, true);
-        
+
         $estabelecimento = array_map("utf8_decode", $resp['estabelecimento']);
         $atividade = array_map("utf8_decode", $resp['estabelecimento']['atividade_principal']);
         $cidade = array_map("utf8_decode", $resp['estabelecimento']['cidade']);
         $estado = array_map("utf8_decode", $resp['estabelecimento']['estado']);
-        
+
         $saida['nome_fantasia'] = $estabelecimento['nome_fantasia'];
-        $saida['atividade_principal'] = $atividade['id'] . ' - '. $atividade['descricao'];
+        $saida['atividade_principal'] = $atividade['id'] . ' - ' . $atividade['descricao'];
         $saida['email'] = $estabelecimento['email'];
         $saida['data_abertura'] = formata_data($estabelecimento['data_inicio_atividade']);
-        $saida['municipio_uf'] = $cidade['nome'] . ' ('.$estado['sigla'].')';
+        $saida['municipio_uf'] = $cidade['nome'] . ' (' . $estado['sigla'] . ')';
         $saida['email_1'] = $estabelecimento['email'];
-        $saida['telefone_1'] = '('.$estabelecimento['ddd1'] . ') '.$estabelecimento['telefone1'];
-        
+        $saida['telefone_1'] = '(' . $estabelecimento['ddd1'] . ') ' . $estabelecimento['telefone1'];
+
         return $saida;
     }
     public function salvarDadosAPICNPJ($cnpj)
