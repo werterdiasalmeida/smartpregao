@@ -144,8 +144,8 @@ class CargaEstabelecimento extends Modelo
         $rsDadosBaixados['municipio_uf'] = $dadosComplementares['MUNICIPIO'] . ' - ' . $dadosComplementares['UF'];
         $rsDadosBaixados['email_1'] = $dadosComplementares['EMAIL'];
         $rsDadosBaixados['telefone_1'] = '(' . $dadosComplementares['DDD'] . ')' . $dadosComplementares['TELEFONE'];
-        if ($rsDadosBaixados['razao_social'] == '') {
-            $rsDadosBaixados['razao_social'] = 'Serviço indisponível';
+        if ($rsDadosBaixados['nome_fantasia'] == '') {
+            $rsDadosBaixados['nome_fantasia'] = 'Serviço indisponível';
         } else {
             $sql = "UPDATE cargas.tb_carga_estabelecimento SET 
                 nome_fantasia = '{$rsDadosBaixados['nome_fantasia']}',

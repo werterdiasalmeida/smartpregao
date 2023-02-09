@@ -43,6 +43,7 @@ class CargaEditaisCaptacao extends Modelo
     {
 
         $arWhere[] = "id_siga IS NOT NULL";
+        $arWhere[] = "codigo IS NOT NULL";
         $sql = "SELECT
                    id_siga,
                    codigo,
