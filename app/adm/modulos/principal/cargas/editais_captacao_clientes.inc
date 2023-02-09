@@ -135,7 +135,8 @@ getStrMsgWarning();
                     'Pregão',
                     'Título',
                     'Descrição',
-                    'Publicação'
+                    'Publicação',
+                    'Situação'
                 ));
                 $mCargaEditaisCaptacao->setCorpo($rs, $arConfig);
                 $mCargaEditaisCaptacao->setAcao($acao);

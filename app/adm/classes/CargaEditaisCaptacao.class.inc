@@ -22,7 +22,6 @@ class CargaEditaisCaptacao extends Modelo
      * @access protected
      */
     protected $arAtributos = array(
-
         'id_siga' => null,
         'nome' => null,
         'nomeportal' => null,
@@ -37,6 +36,7 @@ class CargaEditaisCaptacao extends Modelo
         'aberturaformatada' => null,
         'encerramentoformatado' => null,
         'datapublicacaoformatada' => null,
+        'situacao' => null,
     );
 
     public function getList($arWhere = array(), $paginacao = true, $order = null)
@@ -53,7 +53,8 @@ class CargaEditaisCaptacao extends Modelo
                    numero,
                    titulo,
                    descricao,
-                   datapublicacaoformatada
+                   datapublicacaoformatada,
+                   situacao
                 FROM
                     cargas.tb_carga_editais_captacao car
                 WHERE

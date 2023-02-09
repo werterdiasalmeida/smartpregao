@@ -10,14 +10,25 @@ if ($_POST && isset($_POST['act'])) {
             $mCargaEstabelecimento->baixarGravarEmpresasPregao($params);
             break;
         case 'baixar-completo':
-            $data_referencia = $_POST['data_referencia'];
-
-            $arrWhere[] = " substring(aberturaformatada from 0 for 11)  =  '{$data_referencia}'";
+            $arrWhere[] = " situacao  =  'Cadastrado'";
             $rs = $mCargaEditaisCaptacao->getList($arrWhere);
             $resultadoCarga = '';
             foreach ($rs['dados'] as  $result) {
                 $params['prgcod'] = $result['codigo'];
                 $resultadoCarga .= $mCargaEstabelecimento->baixarGravarEmpresasPregao($params);
+            }
+            if ($resultadoCarga) {
+                $db->sucessom($_REQUEST['modulo'], '', $resultadoCarga);
+            } else {
+                $db->insucessom($_REQUEST['modulo'], 'Sem dados para Baixar.', 'Sem dados para Baixar.');
+            }
+            break;
+        case 'atualizar-dados-cnpj-completo':
+            $arrWhere[] = " situacao_carga  =  'dados-basicos'";
+            $rs = $mCargaEstabelecimento->getList($arrWhere);
+            $resultadoCarga = '';
+            foreach ($rs['dados'] as $result) {
+                $resultadoCarga .= $mCargaEstabelecimento->salvarDadosAPICNPJ($result['cnpj']);
             }
             if ($resultadoCarga) {
                 $db->sucessom($_REQUEST['modulo'], '', $resultadoCarga);
@@ -59,15 +70,16 @@ getStrMsgWarning();
             </form>
         </div>
         <div class="col-md-6">
-            <form role="form" name="listar" class="completo-form" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="act" value="baixar-completo" />
+            <form role="form" name="listar" id="from_clientes" class="completo-form" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="act" id="act_clientes" value="baixar-completo" />
                 <div class="row">
                     <div class="col-md-8">
-                        <label>Data de Referênica</label>
-                        <?= campo_datam('data_referencia', 'S', 'S', 'S', 'S'); ?>
-                        <br />
+                        <button type="button" class="btn yellow" onclick="atualizarClientesCnpj()">
+                            <i class="bi bi-download"></i> Baixar os dados complementares de TODOS os clientes (situacão dados-básicos)
+                        </button>
+                        <br /><br />
                         <button type="submit" class="btn red">
-                            <i class="bi bi-download"></i> Baixar participantes de TODOS OS Pregões do dia
+                            <i class="bi bi-download"></i> Baixar participantes de TODOS OS Pregões (situação Cadastrado)
                         </button>
                     </div>
                 </div>
@@ -76,7 +88,6 @@ getStrMsgWarning();
         <div class="row">
             <div class="col-md-12">
                 <form role="form" name="gravar" class="edital-form" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="act" value="gravar-selecionados" />
                     <textarea name="json_resultados" style="display: none;"><?php echo $response; ?></textarea>
                     <?php
                     unset($arConfig, $acao);
@@ -108,9 +119,8 @@ getStrMsgWarning();
     </div>
 </div>
 <script>
-    $('input[name="tipo_pesquisa"]').click(function() {
-
-        $('#pesquisa').val(this.value);
-
-    });
+    function atualizarClientesCnpj() {
+        $("#act_clientes").val('atualizar-dados-cnpj-completo');
+        $("#from_clientes").submit();
+    }
 </script>
