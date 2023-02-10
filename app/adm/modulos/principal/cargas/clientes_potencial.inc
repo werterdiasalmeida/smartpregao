@@ -16,9 +16,9 @@ if ($_POST && isset($_POST['act'])) {
             break;
         case 'baixar-completo':
             $arrWhere[] = " situacao  =  'Cadastrado'";
-            $rs = $mCargaEditaisCaptacao->getList($arrWhere);
+            $rs = $mCargaEditaisCaptacao->getListEditaisCaptacao($arrWhere);
             $resultadoCarga = '';
-            foreach ($rs['dados'] as  $result) {
+            foreach ($rs as  $result) {
                 $params['prgcod'] = $result['codigo'];
                 $resultadoCarga .= $mCargaEstabelecimento->baixarGravarEmpresasPregao($params);
             }
@@ -32,7 +32,7 @@ if ($_POST && isset($_POST['act'])) {
             $arrWhere[] = " situacao_carga  =  'dados-basicos'";
             $rs = $mCargaEstabelecimento->getListCNPJ($arrWhere);
             $resultadoCarga = '';
-            foreach ($rs['dados'] as $result) {
+            foreach ($rs as $result) {
                 $resultadoCarga .= $mCargaEstabelecimento->salvarDadosAPICNPJ($result['cnpj']);
             }
             if ($resultadoCarga) {

@@ -77,6 +77,22 @@ class CargaEditaisCaptacao extends Modelo
         }
     }
 
+    public function getListEditaisCaptacao($arWhere = array())
+    {
+        $arWhere[] = "id_siga IS NOT NULL";
+        $arWhere[] = "codigo IS NOT NULL";
+        $arWhere[] = "codigo <> ''";
+        $sql = "SELECT
+                   id_siga,
+                   codigo
+                FROM
+                    cargas.tb_carga_editais_captacao car
+                WHERE
+                  " . implode(' AND ', $arWhere);
+        $retorno = $this->carregar($sql);
+        return $retorno ? $retorno : array();
+    }
+
     public function salvarEditalCaptacao($params)
     {
         $dados['id_siga'] = $params['id_siga'];

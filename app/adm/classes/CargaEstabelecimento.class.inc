@@ -76,10 +76,10 @@ class CargaEstabelecimento extends Modelo
     {
         $arWhere[] = "cnpj IS NOT NULL";
         $sql = "SELECT
-            id,
-            cnpj
-                   FROM
-        cargas.tb_carga_estabelecimento car
+                    id,
+                    cnpj
+                FROM
+                    cargas.tb_carga_estabelecimento car
                 WHERE
                   " . implode(' AND ', $arWhere);
         $retorno = $this->carregar($sql);
@@ -203,7 +203,6 @@ class CargaEstabelecimento extends Modelo
     {
 
         $prgcod = $params['prgcod'];
-
         $url = "http://comprasnet.gov.br/livre/pregao/anexosPropostaHabilitacao.asp?prgCod={$prgcod}";
         $curl = curl_init();
         curl_setopt_array($curl, array(
