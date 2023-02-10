@@ -162,10 +162,10 @@ class CargaEstabelecimento extends Modelo
         $retorno = '';
         // Baixa os dados complementares da API
         $dadosComplementares = $this->consutlaAPICNPJ($cnpj);
-        $rsDadosBaixados['nome_fantasia'] = $dadosComplementares['nome_fantasia'];
-        $rsDadosBaixados['cnae'] = $dadosComplementares['atividade_principal'];
+        $rsDadosBaixados['nome_fantasia'] = str_replace("'", ' ',$dadosComplementares['nome_fantasia']);
+        $rsDadosBaixados['cnae'] = str_replace("'", ' ',$dadosComplementares['atividade_principal']);
         $rsDadosBaixados['data_abertura'] = $dadosComplementares['data_abertura'];
-        $rsDadosBaixados['municipio_uf'] = $dadosComplementares['municipio_uf'];
+        $rsDadosBaixados['municipio_uf'] = str_replace("'", ' ',$dadosComplementares['municipio_uf']);
         $rsDadosBaixados['email_1'] = $dadosComplementares['email_1'];
         $rsDadosBaixados['telefone_1'] = $dadosComplementares['telefone_1'];
         if ($rsDadosBaixados['nome_fantasia'] == '') {
