@@ -4,7 +4,7 @@ $mEdital = new Edital();
 $data_inicio =  date('Y-m-d');
 $data_fim =  date('Y-m-d');
 $pagina = '0';
-$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk={"id":"9bab0df0-d5d3-4d3e-9aae-6ee9770548c1"}; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gcl_au=1.1.426049715.1675162045; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjc2MzcxNzA2NjY5OjY2NGU1NmM4ZjZhMjFmYzI4NDA3MzRkNTVjYmY4ZWEz; _gid=GA1.3.968366638.1675250563; JSESSIONID=0468EB1F011AD8A417A8E2158CC07543; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjc1MjU5MTY1NTUzfQ==; _gat=1';
+$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk={"id":"9bab0df0-d5d3-4d3e-9aae-6ee9770548c1"}; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gcl_au=1.1.426049715.1675162045; _gid=GA1.3.819801154.1676290110; JSESSIONID=8EBE1DB78D0060CD86A89E85F671740E; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjc3NTg3NTgyMzY5OmFlMmI1YzYxYzc4YWQ5NDVmNmE4NDI1OTUwMDkxOTIx; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjc2Mzc4NDQ3MDYzfQ==; _gat=1';
 $tipo_pesquisa = $_POST['tipo_pesquisa'];
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {
@@ -130,7 +130,7 @@ getStrMsgWarning();
                     </div>
                     <div class="col-md-8">
                         <label>Pesquisa</label>
-                        <br /><input type="radio" name="tipo_pesquisa" value="desenvolvimento de solucoes;desenvolvimento de solucao;manutencao em software;fabrica de software;manutencaoo evolutiva;manutencaoo corretiva;desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; Java; PHP; DOTNET; Python">
+                        <br /><input type="radio" name="tipo_pesquisa" value="desenvolvimento de solucoes;desenvolvimento de solucao;manutencao em software;fabrica de software;manutencaoo evolutiva;manutencaoo corretiva;desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; Java; PHP; DOTNET; Python; praticas ageis; scrum">
                         <label for="html">Desenvolvimento de Softwares</label>
                         <input type="radio" name="tipo_pesquisa" value="manutencao de servidores; manutencao de computadores; devops; formatacao; infraestrutura tecnologica; infraestrutura de tecnologia">
                         | <label for="html">Manutenção / Infraetrutura de Tecnologia</label>

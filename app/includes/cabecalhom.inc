@@ -35,6 +35,7 @@ if ($modulo_atual != "") {
 <html lang="pt">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
+
 <head>
     <meta charset="ISO-8859-1" />
     <title><?php echo ($moduloTitle ? "{$moduloTitle} - " : '') . $GLOBALS['parametros_sistema_tela']['sigla-nome_completo'] ?></title>
@@ -168,21 +169,23 @@ $sql = sprintf(
 $paginic = $db->pegaUm($sql);
 ?>
 <!-- page-sidebar-fixed -->
+
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-closed">
     <!-- BEGIN HEADER -->
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner ">
             <!-- BEGIN LOGO -->
-            <img src="/imagens/logo2.png?v=<?= VERSAO ?>" alt="logo" class="logo-default" style="height: 42px; margin: 2px; float:left; margin-left:20px;" />
+            <img src="/imagens/logo2.png?v=<?= VERSAO ?>" alt="logo" class="logo-default" style="height: 42px; margin: 5px; float:left;" />
             <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                <span></span>
-            </a>
+
             <!-- END RESPONSIVE MENU TOGGLER -->
             <!-- BEGIN TOP NAVIGATION MENU -->
             <div class="top-menu">
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span></span>
+                </a>
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -251,12 +254,6 @@ $paginic = $db->pegaUm($sql);
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="javascript: exibirModalLembretesTarefas(<?php echo $montarAcaoP ?>)" class="dropdown-toggle" style="padding-right: 10px;">
-                            <i class="icon-bubbles"></i>
-                        </a>
-                    </li>
-
                     <?php if ($db->testa_superuser()) : ?>
                         <li class="dropdown">
                             <a href="../muda_sistema.php?sisid=4" class="dropdown-toggle" title="SIS" style="padding-right: 10px;">
@@ -267,11 +264,7 @@ $paginic = $db->pegaUm($sql);
                     <!-- END USER LOGIN DROPDOWN -->
                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    <li class="dropdown dropdown-quick-sidebar-toggler">
-                        <a href="/logout.php" class="dropdown-toggle">
-                            <i class="icon-logout"></i>
-                        </a>
-                    </li>
+                    
                     <!-- END QUICK SIDEBAR TOGGLER -->
                 </ul>
             </div>
@@ -324,7 +317,7 @@ $paginic = $db->pegaUm($sql);
                         <!-- /.modal-dialog -->
                     </div>
                 <?php endif;
-            /*
+                /*
              * Exibe rastro de navegação. Mostra em qual
              * local da hierarquia de telas o usuário está.
              */
@@ -335,6 +328,9 @@ $paginic = $db->pegaUm($sql);
                     <style type="text/css">
                         .page-content {
                             padding: 25px 20px 10px !important;
+                        }
+                        .top-menu{
+                            clear: none !important;
                         }
                     </style>
                     <div class="page-bar">
