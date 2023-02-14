@@ -332,6 +332,7 @@ $paginic = $db->pegaUm($sql);
                         .top-menu{
                             clear: none !important;
                         }
+                        img{border-radius: 10px !important;}
                     </style>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">

@@ -69,7 +69,6 @@ if ($_POST && isset($_POST['act'])) {
                 $arWhere['tipo_estabelecimento_id'] = "est.tipo_estabelecimento_id = " . $tipo_estabelecimento_id;
             }
             break;
-       
     }
 }
 
@@ -173,7 +172,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                 </div>
                 <div class="form-actions">
                     <div class="row">
-                        <div class="col-xs-7 col-sm-5">
+                        <div class="col-md-6">
                             <div class="pesquisa-avancada <?= ($pesquisaAvancada ? '' : 'hidden') ?>">
                                 <button type="submit" class="btn blue">
                                     <i class="fa fa-search"></i> Pesquisar
@@ -183,17 +182,11 @@ include APPRAIZ . "includes/cabecalhom.inc";
                                 </button>
                             </div>
                         </div>
-                        <div class="col-xs-5 col-sm-7 text-right">
+                        <div class="col-md-6 text-right">
                             <?php if (possuiAcesso('adm.php?modulo=principal/estabelecimento/formulario&acao=C')) : ?>
                                 <a class="btn green" href="?modulo=principal/estabelecimento/formulario&acao=C">
                                     <i class="fa fa-plus-circle"></i>
                                     Cadastrar novo cliente
-                                </a>
-                            <?php endif; 
-                            if (possuiAcesso('adm.php?modulo=principal/estabelecimento/listacarga&acao=C')) : ?>
-                                <a class="btn red" href="?modulo=principal/estabelecimento/listacarga&acao=C">
-                                    <i class="fa fa-download"></i>
-                                    Carga de Potenciais Clientes
                                 </a>
                             <?php endif; ?>
                         </div>
