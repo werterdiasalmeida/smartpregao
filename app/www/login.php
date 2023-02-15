@@ -303,10 +303,11 @@ if ($_REQUEST['expirou']) {
             <div class="form-actions">
                 <button type="submit" class="btn blue uppercase">Entrar</button>
                 <a href="javascript:;" id="forget-password" class="forget-password">Esqueceu sua senha?</a>
+                <br/><br/>
             </div>
             <div class="create-account">
                 <p>
-                    <a href="javascript:;" id="register-btn" class="uppercase">Criar uma conta</a>
+                    <a href="javascript:;" id="register-btn" class="uppercase">Criar uma conta Grátis</a>
                 </p>
             </div>
             <input type="hidden" name="act" value="login" />
