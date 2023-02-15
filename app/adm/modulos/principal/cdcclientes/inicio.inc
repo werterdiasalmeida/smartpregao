@@ -135,14 +135,8 @@ if ($aba) {
                                 <div class="form-group">
                                     <label>Situação Atual</label>
                                     <?php
-                                    $portais = array();
-                                    $portais[0]['codigo'] = 'ComprasNet';
-                                    $portais[0]['descricao'] = 'ComprasNet';
-                                    $portais[1]['codigo'] = 'BB';
-                                    $portais[1]['descricao'] = 'Banco do Brasil';
-                                    $portais[2]['codigo'] = 'Outros';
-                                    $portais[2]['descricao'] = 'Outros';
-                                    $db->monta_combom("portal", $portais, 'S', '-Todas-', '', '', '', '', 'N');
+                                    $esdid_arr = $mCDCCliente->retornaListaStatusWF();
+                                    $db->monta_combom("esdid", $esdid_arr, 'S', '-Todas-', '', '', '', '', 'N');
                                     ?>
                                 </div>
                             </div>

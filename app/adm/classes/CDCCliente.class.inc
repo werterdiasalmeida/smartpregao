@@ -118,6 +118,18 @@ class CDCCliente extends Modelo
         return $saida;
 
     }
+    public function retornaListaStatusWF()
+    {
+       
+        $sql = "select esdid as codigo,
+        esddsc as descricao
+        from workflow.estadodocumento where tpdid = 18
+        order by 2";
+
+        return $this->carregarArray($sql);
+
+    }
+    
 
     
 }
