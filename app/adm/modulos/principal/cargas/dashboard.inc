@@ -24,10 +24,10 @@ getStrMsgWarning();
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span data-counter="counterup" data-value="<?php echo $dados['editais_cadastrados']?>"><?php echo $dados['editais_cadastrados']?></span>
+                        <span data-counter="counterup" data-value="<?php echo $dados['editais_cadastrados'] ?>"><?php echo $dados['editais_cadastrados'] ?></span>
                     </div>
                     <div class="desc"><b>Editais Cadastrados</b></div>
-                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['editais_cadastrados_update'])?></div>
+                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['editais_cadastrados_update']) ?></div>
                 </div>
             </a>
             <button type="button" class="btn purple" onclick="window.open('?modulo=principal/cargas/editais_internos&acao=C')">
@@ -37,14 +37,14 @@ getStrMsgWarning();
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 10px;">
             <a class="dashboard-stat dashboard-stat-v2 green">
                 <div class="visual">
-                <i class="fa fa-cloud"></i>
+                    <i class="fa fa-cloud"></i>
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span data-counter="counterup" data-value="<?php echo $dados['editais_captacao']?>"><?php echo $dados['editais_captacao']?></span>
+                        <span data-counter="counterup" data-value="<?php echo $dados['editais_captacao'] ?>"><?php echo $dados['editais_captacao'] ?></span>
                     </div>
                     <div class="desc"> <b>Editais para Captação de Clientes</b></div>
-                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['editais_captacao_update'])?></div>
+                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['editais_captacao_update']) ?></div>
                 </div>
             </a>
             <button type="button" class="btn green" onclick="window.open('?modulo=principal/cargas/editais_captacao_clientes&acao=C')">
@@ -58,14 +58,14 @@ getStrMsgWarning();
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span data-counter="counterup" data-value="<?php echo $dados['clientes_captacao']?>"><?php echo $dados['clientes_captacao']?></span>
+                        <span data-counter="counterup" data-value="<?php echo $dados['clientes_captacao'] ?>"><?php echo $dados['clientes_captacao'] ?></span>
                     </div>
                     <div class="desc"> <b>Cientes cadastrados na Captação</b></div>
-                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['clientes_captacao_update'])?></div>
+                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['clientes_captacao_update']) ?></div>
                 </div>
             </a>
             <button type="button" class="btn blue" onclick="window.open('?modulo=principal/cargas/clientes_potencial&acao=C')">
-                <i class="bi bi-download" ></i>  Carga de Clientes (Captação de Clientes)
+                <i class="bi bi-download"></i> Carga de Clientes (Captação de Clientes)
             </button>
         </div>
     </div>

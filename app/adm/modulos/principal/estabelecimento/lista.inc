@@ -199,11 +199,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
     </div>
 
     <?php
-    $acaoEdicao = '';
-    $acaoCorpoClinico = '';
-    $acaoAgenda = '';
-    $acaoExclusao = '';
-
+   
     $acaoMonitoramento = <<<ACAO
     <php>
         if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/editaisclientes/monitoramento&acao=C')) {
@@ -212,6 +208,16 @@ include APPRAIZ . "includes/cabecalhom.inc";
                     </a>';
         }
     </php>
+ACAO;
+
+$acaoPainelCDCEmpresa = <<<ACAO
+<php>
+    if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/cdcclientes/inicio&acao=C')) {
+        return '<a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/cdcclientes/inicio&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Painel de Cotações do Cliente">
+                    <i class="icon-arrow-up"></i>
+                </a>';
+    }
+</php>
 ACAO;
 
 
@@ -258,10 +264,11 @@ ACAO;
     $acao = <<<ACAO
             <div style="min-width: 200px;">
             {$acaoPainelEmpresa} 
+            {$acaoPainelCDCEmpresa}
             {$acaoMonitoramento}
-                   {$acaoFinanceiro}
-                {$acaoEdicao}
-                {$acaoExclusao}
+            {$acaoFinanceiro}
+            {$acaoEdicao}
+            {$acaoExclusao}
             </div>
 ACAO;
 

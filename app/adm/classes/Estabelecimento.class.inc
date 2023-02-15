@@ -245,13 +245,16 @@ class Estabelecimento extends Modelo
                         <div class="col-sm-2 col-md-2">
                             <div class="form-group">
                                 Situação:
-                                <strong>Ativa (0 créditos)</strong>
+                                <strong>Ativa <spam class="badge badge-primary"><b>Plano Free</b></spam></strong>
                             </div>
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <div class="form-group">
                                 <a class="btn btn-circle btn-icon-only btn-default purple-plum " href="?modulo=principal/editaisclientes/inicio&acao=C{$pParam}" data-toggle="tooltip" title="Painel" target="_top">
                                     <i class="icon-arrow-right"></i>
+                                </a>
+                                <a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/cdcclientes/inicio&acao=C{$pParam}" data-toggle="tooltip" title="Painel Cotações" target="_top">
+                                    <i class="icon-arrow-up"></i>
                                 </a>
                                 <a class="btn btn-circle btn-icon-only btn-default yellow " href="?modulo=principal/editaisclientes/monitoramento&acao=C{$pParam}" data-toggle="tooltip" title="Monitoramento" target="_top">
                                     <i class="icon-eye"></i>
