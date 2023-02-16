@@ -27,7 +27,8 @@ class CDCCliente extends Modelo
         'cdc_id' => null,
         'docid' => null,
         'comentarios' => null,
-        
+        'valor_estimado' => null,
+
     );
 
     public function getList($arWhere = array(), $paginacao = true, $order = null)
@@ -81,29 +82,25 @@ class CDCCliente extends Modelo
      */
     public function salvarEditalCliente($params)
     {
-       
-       unset($params['id']);
-
-        list($params, $camposNulos) = $this->limparDadosVazios($params);
+      list($params, $camposNulos) = $this->limparDadosVazios($params);
         $dados = $params;
         // Carimbo de alteração
         //$dados = $this->getDadosCarimbo($params, $dados);
         $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
 
         return $id;
-       
     }
 
     public function excluirEditalCliente($id)
     {
         $this->excluirLogicamente($id);
     }
-    
+
     public function retornaPainelCliente($id)
     {
 
         $saida = array();
-        
+
         $saida['cotacoes_recebidas'] = 0;
         $saida['cotacoes_enviadas'] = 0;
         $sql = "SELECT COUNT (0) 
@@ -116,20 +113,15 @@ class CDCCliente extends Modelo
         $saida['credenciamentos_pendentes'] = 0;
 
         return $saida;
-
     }
     public function retornaListaStatusWF()
     {
-       
+
         $sql = "select esdid as codigo,
         esddsc as descricao
         from workflow.estadodocumento where tpdid = 18
         order by 2";
 
         return $this->carregarArray($sql);
-
     }
-    
-
-    
 }

@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <a onclick="exibirModalNovoAcompanhamento('Documentação do Contrato e Aditivos')">
                                 <i class="bi bi-plus-square" title="Novo Documento"></i>
-                                Nova Documentação do Contrato e Aditivos
+                                Nova Documentação do Contrato
                             </a>
                             <?php
                             unset($arConfig, $acoes);
@@ -43,7 +43,7 @@
                             HTML;
                             $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
                             $mEditalClienteAcompanhamento->setCabecalho(array(
-                                'Data',
+                                'Data/Validade',
                                 'Informação',
                                 'Arquivo',
                                 'Ação'

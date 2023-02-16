@@ -336,6 +336,10 @@ function formata_data($data)
     else return '';
 }
 
+function formata_valor_sql($valor) {
+	return (($valor)?str_replace(array(".",","),array("","."),$valor):"NULL");
+}
+
 function formata_data_sql($data)
 {
     if ($data) return substr($data,6,4).'-'.substr($data,3,2).'-'.substr($data,0,2);

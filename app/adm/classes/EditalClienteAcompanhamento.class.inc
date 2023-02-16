@@ -72,11 +72,12 @@ class EditalClienteAcompanhamento extends Modelo
             $arquivoId = $file->setUploadArquivoEspecifico("Anexo", 'arquivo');
         }
         // Tratamento dos dados
+        $params['data'] =  formata_data_sql($params['data']);
+        if (!$params['data']) $params['data'] = NULL;
         $dados = array(
             'id' => $params['id'],
             'arqid' => $arquivoId,
             'tipo_acompanhamento' => $params['tipo_acompanhamento'],
-            'data' => formata_data_sql($params['data']),
             'comentario' => $params['comentario'],
             'editalcliente_id' => $params['editalcliente_id'],
         );

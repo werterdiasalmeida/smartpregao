@@ -110,15 +110,16 @@ class CotacaoDispensa extends Modelo
                     COALESCE(esd.esddsc, 'Selecionado') as situacao,
                     edc.id,
                     edi.id as id_edital,
-                    categoria
+                    categoria,
+                    edc.*
                 FROM
-                    edital.edital edi
+                    edital.cotacao_dispensa_credenciamento edi
                 LEFT JOIN
                     corporativo.tb_municipio mun ON edi.municipio_id = mun.id 
                 LEFT JOIN
                     corporativo.tb_unidade_federacao uf ON mun.uf_id = uf.id   
                 INNER JOIN 
-                    edital.editalcliente edc on edc.edital_id = edi.id
+                    edital.cotacao_dispensa_credenciamentoempresa edc on edc.cdc_id = edi.id
                 LEFT JOIN 
                     workflow.documento doc ON doc.docid = edc.docid
                 LEFT JOIN 

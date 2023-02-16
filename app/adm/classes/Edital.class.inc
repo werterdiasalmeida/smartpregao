@@ -121,7 +121,9 @@ class Edital extends Modelo
                     COALESCE(esd.esddsc, 'Selecionado') as situacao,
                     edc.id,
                     edi.id as id_edital,
-                    categoria
+                    categoria, 
+                    ecc.id as editalcliente_contrato_id,
+                    ecc.*
                 FROM
                     edital.edital edi
                 LEFT JOIN
@@ -134,6 +136,7 @@ class Edital extends Modelo
                     workflow.documento doc ON doc.docid = edc.docid
                 LEFT JOIN 
                     workflow.estadodocumento esd ON esd.esdid = doc.esdid
+                LEFT JOIN edital.editalcliente_contrato ecc ON ecc.editalcliente_id = edc.id    
                  WHERE
                  edc.id = {$id}";
         $dados = $this->carregar($sql);

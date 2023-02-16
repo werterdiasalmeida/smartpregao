@@ -8,6 +8,7 @@ $mEditalClienteMonitoramento = new EditalClienteMonitoramento();
 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
 $mEstabelecimentoAgenda = new EstabelecimentoAgenda();
 $mEditalBatimentoHabilitacao = new EditalBatimentoHabilitacao();
+$mEditalClienteContrato = new EditalClienteContrato();
 $fileSimec = new FilesSimec();
 $p = getParam();
 /* Carrega os dados da tela */
@@ -20,22 +21,32 @@ $mEditalCliente->carregarPorId($editalCliente);
 $dadosEditalCliente = $mEditalCliente->getDados();
 $dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
 $dados = $mEdital->getDadosCompletos($editalCliente);
+extract($dados);
+
 /* Ações da tela */
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
+            /* Dados do Contrato */
+        case 'salvarContrato':
+            $params = array_merge($_POST, getParam());
+            $params['editalcliente_id'] = $params['id'];
+            $params['editalcliente_contrato_id'] = $mEditalClienteContrato->salvarContrato($params);
+            $mEditalClienteContrato->commit();
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
+            break;
             /* Acompanhamentos 
-        - Habilitação / Documentação
-        - Pedido de vistoria
-        - Pedido de esclarecimentos
-        - Pedido de impugnação
-        - Avaliação dos concorrentes
-        - Pedido de recurso
-        - POC
-        - Documentação para Contratação
-        - Documentação do Contrato e Aditivos
-        - Acompanhamento (problemas e soluções)
-        - Evidências e Entregas
-        */
+                - Habilitação / Documentação
+                - Pedido de vistoria
+                - Pedido de esclarecimentos
+                - Pedido de impugnação
+                - Avaliação dos concorrentes
+                - Pedido de recurso
+                - POC
+                - Documentação para Contratação
+                - Documentação do Contrato e Aditivos
+                - Acompanhamento (problemas e soluções)
+                - Evidências e Entregas
+            */
         case 'salvarAcompanhamento':
             $params = $_POST;
             $mEditalClienteAcompanhamento->salvarAcompanhamento($params, $_FILES);
@@ -171,7 +182,8 @@ getStrMsgWarning();
         background-color: #B4EEB4;
         display: block;
     }
-    .listagem-remover{
+
+    .listagem-remover {
         display: none;
     }
 
@@ -272,7 +284,7 @@ getStrMsgWarning();
     });
 
     function editar(id) {
-        url = '?modulo=principal/editais/formulario&acao=C' + id;
+        url = '?modulo=principal/editais/formulario&acao=C&p=' + id;
         window.open(url);
     }
     // Monitoramento
@@ -438,10 +450,10 @@ getStrMsgWarning();
                     <div id="div_novo-acompanhamento">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Data de referência</label>
+                                <label>Data de referência / Validade</label>
                                 <?php
                                 $data = date("m/d/Y");
-                                echo campo_datam('data', 'S', 'S', 'S', 'S', '', '', $data); ?>
+                                echo campo_datam('data', 'N', 'S', 'S', 'S', '', '', $data); ?>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -520,7 +532,7 @@ getStrMsgWarning();
                                 <input class="form-check-input" type="checkbox" value="{anexo_id}" name="atestados_habilitacao[]">
                             </div> 
                             ACAO;
-                            $arConfig[0]['html'] = <<<HTML
+                                $arConfig[0]['html'] = <<<HTML
                             <a onclick="baixarAnexo({arqid})">{documento}</a>
                         HTML;
                                 $mEditalBatimentoHabilitacao = new Listam(array("style" => "width: 100%;"));
