@@ -9,6 +9,7 @@ $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
 $mEstabelecimentoAgenda = new EstabelecimentoAgenda();
 $mEditalBatimentoHabilitacao = new EditalBatimentoHabilitacao();
 $mEditalClienteContrato = new EditalClienteContrato();
+$mEditalClienteFinanceiro = new EditalClienteFinanceiro();
 $fileSimec = new FilesSimec();
 $p = getParam();
 /* Carrega os dados da tela */
@@ -22,11 +23,25 @@ $dadosEditalCliente = $mEditalCliente->getDados();
 $dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
 $dados = $mEdital->getDadosCompletos($editalCliente);
 extract($dados);
+$dadosFinanceiroGLobal = $mEditalClienteFinanceiro->getDadosFinanceiroGlobal($editalCliente);
 
 /* Ações da tela */
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
             /* Dados do Contrato */
+
+        case 'salvarFinanceiro':
+            $params = $_POST;
+            $mEditalClienteFinanceiro->salvarFinanceiro($params, $_FILES);
+            $mEditalClienteFinanceiro->commit();
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
+            break;
+        case 'excluirFinanceiro':
+            $params = $_REQUEST;
+            $mEditalClienteFinanceiro->excluir(intval($params['id_financeiro']));
+            $mEditalClienteFinanceiro->commit();
+            $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
+            break;
         case 'salvarContrato':
             $params = array_merge($_POST, getParam());
             $params['editalcliente_id'] = $params['id'];

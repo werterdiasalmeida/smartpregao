@@ -28,7 +28,9 @@ class EditalClienteContrato extends Modelo
         'vencimento_contrato' => null,
         'processo_adminitrativo' => null,
         'responsavel_interno' => null,
-        'valor_total' => null
+        'valor_total' => null,
+        'inicio_contrato' => null
+        
     );
     
     public function salvarContrato($params, $arquivos = null)
@@ -40,6 +42,7 @@ class EditalClienteContrato extends Modelo
             'numero_contrato' => $params['numero_contrato'],
             'tipo_acompanhamento' => $params['tipo_acompanhamento'],
             'vencimento_contrato' => formata_data_sql($params['vencimento_contrato']),
+            'inicio_contrato' => formata_data_sql($params['inicio_contrato']),
             'processo_adminitrativo' => $params['processo_adminitrativo'],
             'responsavel_interno' => $params['responsavel_interno'],
             'editalcliente_id' => $params['editalcliente_id'],

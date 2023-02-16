@@ -102,4 +102,15 @@ class EditalCliente extends Modelo
     {
         $this->excluirLogicamente($id);
     }
+    
+    public function retornaListaStatusWF()
+    {
+
+        $sql = "select esdid as codigo,
+        esddsc as descricao
+        from workflow.estadodocumento where tpdid = 17
+        order by 2";
+
+        return $this->carregarArray($sql);
+    }
 }

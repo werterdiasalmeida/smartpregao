@@ -18,9 +18,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+    <div class="col-md-3">
             <div class="form-group">
-                <label><b>Vencimento do contrato</b></label>
+                <label><b>Início</b></label>
+                <br />
+                <?= campo_datam('inicio_contrato', 'S', 'S', '', 'S'); ?>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label><b>Término</b></label>
                 <br />
                 <?= campo_datam('vencimento_contrato', 'S', 'S', '', 'S'); ?>
             </div>

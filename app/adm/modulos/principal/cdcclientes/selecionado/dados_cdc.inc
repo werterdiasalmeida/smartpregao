@@ -35,15 +35,13 @@
         <div class="form-group">
             <label><b>Valor Total (R$)</b></label>
             <br />
-            <div class="form-group">
-                <div class="input-group">
-                    <?= campo_textom('valor_estimado', 'N', 'S', '', 255, 255, '', '', '', '', 0); ?>
-                    <span class="input-group-btn">
-                        <button class="btn blue" type="submit" data-toggle="tooltip" title="Salvar">
-                            <i class="bi bi-save"></i>
-                        </button>
-                    </span>
-                </div>
+            <div class="input-group">
+                <?= campo_textom('valor_estimado', 'N', 'S', '', 255, 255, '', '', '', '', 0); ?>
+                <span class="input-group-btn">
+                    <button class="btn blue" type="submit" data-toggle="tooltip" title="Salvar">
+                        <i class="bi bi-save"></i>
+                    </button>
+                </span>
             </div>
         </div>
     </div>

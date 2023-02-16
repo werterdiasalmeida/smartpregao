@@ -119,7 +119,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#evidencias_entregas">
-                            <b> 
+                            <b>
                                 <?php
                                 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
                                 $where = " tipo_acompanhamento = 'Evidências e Entregas' AND editalcliente_id = {$dadosEditalCliente['id']}";
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                     <div id="evidencias_entregas" class="collapse">
-                    <div class="card-body">
+                        <div class="card-body">
                             <a onclick="exibirModalNovoAcompanhamento('Evidências e Entregas')">
                                 <i class="bi bi-plus-square" title="Novo Documento"></i>
                                 Nova Evidências e/ou Entrega
@@ -168,12 +168,14 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#notas_pagamentos">
-                            <b> <i class="bi bi-cash"></i> Notas fiscais / recebimentos e pagamentos</b>
+                            <b> <i class="bi bi-cash"></i> Financeiro (Vencimentos / Faturas / Notas Fiscais / Pagamentos)</b>
                         </div>
                     </div>
                     <div id="notas_pagamentos" class="collapse">
                         <div class="card-body">
-                            Em breve.
+                            <?php
+                            require('financeiro_contrato.inc');
+                            ?>
                         </div>
                     </div>
                 </div>
