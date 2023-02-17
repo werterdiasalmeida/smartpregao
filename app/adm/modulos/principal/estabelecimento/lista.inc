@@ -74,7 +74,6 @@ if ($_POST && isset($_POST['act'])) {
 
 include APPRAIZ . "includes/cabecalhom.inc";
 ?>
-<br />
 <style type="text/css">
     .campos-pesquisa {
         border-bottom: 1px solid #eef1f5;
@@ -82,7 +81,6 @@ include APPRAIZ . "includes/cabecalhom.inc";
         margin-bottom: 10px;
     }
 </style>
-
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption">
@@ -198,9 +196,9 @@ include APPRAIZ . "includes/cabecalhom.inc";
 
     </div>
 
-<?php
+    <?php
 
-$acaoEdicao = <<<ACAO
+    $acaoEdicao = <<<ACAO
         <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
                 return '<a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Editar estabelecimento">
@@ -210,7 +208,7 @@ $acaoEdicao = <<<ACAO
         </php>
 ACAO;
 
-$acaoExclusao = <<<ACAO
+    $acaoExclusao = <<<ACAO
             <php>
                 if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
                     return '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:exibirModalExclusao(\'' . setParam(array('id' => '{id}'), false) . '\', \'{nome_fantasia}\');" data-toggle="tooltip"  title="Excluir estabelecimento">
