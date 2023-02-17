@@ -540,22 +540,19 @@ HTML;
             <i class="bi bi-gear"></i>
                     </a>';
         }
-
-
-
+        $plano = "<i class=\"badge badge-light\" title=\"Plano atual da empresa\">Plano Free</i>";
         $atalhos = " <div style=\"min-width: 200px;\">
+            
             {$acaoPainelEmpresa} 
             {$acaoPainelCDCEmpresa}
             {$acaoContratos}
             {$acaoMonitoramento}
             {$acaoAgenda}
             {$acaoEdicao}
+            {$plano}
             </div>";
-
-        $saida = "<div style=\"float:right; padding-bottom:10px;\"> {$atalhos}</div>";
-
-
-
+        
+        $saida = "<div style=\"float:right; padding-bottom:10px;\">{$atalhos}</div>";
         return $saida;
     }
 }
