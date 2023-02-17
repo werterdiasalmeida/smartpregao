@@ -219,10 +219,8 @@ ACAO;
 ACAO;
 
     $acao = <<<ACAO
-            <div style="min-width: 200px;">
             {$acaoEdicao}
             {$acaoExclusao}
-            </div>
 ACAO;
 
     $arConfig = array();
