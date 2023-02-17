@@ -49,6 +49,10 @@ class EditalClienteContrato extends Modelo
             'responsavel_interno' => $params['responsavel_interno'],
             'editalcliente_id' => $params['editalcliente_id'],
             'valor_total' => formata_valor_sql($params['valor_total']),
+            'estabelecimento_id' => $params['id'],
+            'cnpj_contratante' => $params['cnpj_contratante'],
+            'nome_contratante' => $params['nome_contratante'],
+            'objeto_contratante' => $params['objeto_contratante'],
         );
         $id = $this->popularDadosObjeto($dados)->salvar();
         return $id;
