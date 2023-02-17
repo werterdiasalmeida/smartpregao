@@ -45,6 +45,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
         case 'salvarContrato':
             $params = array_merge($_POST, getParam());
             $params['editalcliente_id'] = $params['id'];
+            $params['estabelecimento_id'] = $dadosEditalCliente['estabelecimento_id'];
             $params['editalcliente_contrato_id'] = $mEditalClienteContrato->salvarContrato($params);
             $mEditalClienteContrato->commit();
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
