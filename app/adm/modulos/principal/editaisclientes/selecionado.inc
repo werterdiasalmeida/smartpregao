@@ -350,7 +350,7 @@ getStrMsgWarning();
 <ul class="nav nav-tabs nav-fill">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#kt_tab_pre_pregao" id="btn_tab_pre_pregao">
-            <span class="nav-text"> Pré Pregão</span>
+            <span class="nav-text">  Pré Pregão</span>
         </a>
     </li>
     <li class="nav-item">
@@ -370,7 +370,7 @@ getStrMsgWarning();
     </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#kt_tab_tramitacao_anexos">
-            <span class="nav-text">Tramitações e Anexos</span>
+            <span class="nav-text">Tramitações, Anexos e Alertas</span>
         </a>
     </li>
 </ul>

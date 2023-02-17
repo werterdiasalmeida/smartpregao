@@ -96,7 +96,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
                     <i class="icon-pencil"></i>
                 </a>
                 <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:exibirModalExclusao('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Excluir">
-                    <i class="icon-trash"></i>
+                <i class="bi bi-x-square"></i>
                 </a>
             </div>
 ACAO;

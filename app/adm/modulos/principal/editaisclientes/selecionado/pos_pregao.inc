@@ -89,7 +89,7 @@
                             $acao = <<<ACAO
                             <div style="min-width: 20px;">
                                 <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirMonitoramento({id});" data-toggle="tooltip"  title="Excluir">
-                                    <i class="icon-trash"></i>
+                                <i class="bi bi-x-square"></i>
                                 </a>
                             </div>
                             ACAO;
@@ -139,7 +139,7 @@
                             $acao = <<<ACAO
                             <div style="min-width: 20px;">
                                <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
-                                   <i class="icon-trash"></i>
+                               <i class="bi bi-x-square"></i>
                                </a>
                             </div> 
                             ACAO;
@@ -188,7 +188,7 @@
                             $acao = <<<ACAO
                             <div style="min-width: 20px;">
                                <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
-                                   <i class="icon-trash"></i>
+                               <i class="bi bi-x-square"></i>
                                </a>
                             </div> 
                             ACAO;
@@ -237,7 +237,7 @@
                             $acao = <<<ACAO
                             <div style="min-width: 20px;">
                                <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirAcompanhamento({id});" data-toggle="tooltip"  title="Excluir">
-                                   <i class="icon-trash"></i>
+                               <i class="bi bi-x-square"></i>
                                </a>
                             </div> 
                             ACAO;

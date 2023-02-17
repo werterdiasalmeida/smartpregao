@@ -343,7 +343,7 @@ if (isset($params['id']) && !empty($params['id'])) {
             + '</a>';
 
         var btnExcluir = '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirConvenioPlano(' + index + ')" title="Excluir" style="margin: 2px;">'
-            + '<i class="icon-trash"></i>'
+            + ' <i class="bi bi-x-square"></i>'
             + '</a>';
 
         return btnEditar + btnExcluir;
@@ -388,7 +388,7 @@ if (isset($params['id']) && !empty($params['id'])) {
             + '</a>';
 
         let btnExcluir = '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirConvenioPlano(' + index + ')" title="Excluir" style="margin: 2px;">'
-            + '<i class="icon-trash"></i>'
+            + ' <i class="bi bi-x-square"></i>'
             + '</a>';
 
         return btnEditar + btnExcluir;

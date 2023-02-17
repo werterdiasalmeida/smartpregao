@@ -55,7 +55,6 @@ if ($aba) {
     echo Estabelecimento::gerarCabecalho();
 }
 ?>
-<br />
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption font-blue-sharp">
@@ -64,6 +63,13 @@ if ($aba) {
                 Painel de Cotação | Dispensa eletrônica | Credenciamento da <?= $dados['nome_fantasia']; ?>
             </span>
         </div>
+        <?php
+        if (isset($params['id']) && !empty($params['id'])) {
+            echo $mEstabelecimento->retornaAtalhosCliente($params['id']);
+        } else {
+            echo "Cliente não encontrado.";
+        }
+        ?>
     </div>
     <div class="portlet-body form">
         <div class="row">
@@ -113,7 +119,7 @@ if ($aba) {
         <form role="form" name="formulario" class="form" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12">
-                    <br/>
+                    <br />
                     <form role="form" name="formulario" class="edital-cliente-form" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-12">
@@ -146,7 +152,7 @@ if ($aba) {
                                     <?
                                     $opcoes = array(
                                         "Todas" => array("valor" => '', 'default' => true,),
-                                        "Cotação" => array("valor" => 'Cotação' ),
+                                        "Cotação" => array("valor" => 'Cotação'),
                                         "Dispensa eletrônica" => array("valor" => 'Dispensa eletrônica'),
                                         "Credenciamento" => array("valor" => 'Credenciamento')
                                     );
@@ -157,7 +163,7 @@ if ($aba) {
                     </form>
                     <a style="float: right;" onclick="cadastraroportunidade('<?= $dados['id'] ?>')"><i style="cursor: pointer;" title="Cadastrar oportunidade" class="bi bi-plus-square"></i>
                         Cadastrar oportunidade</a>
-                        <br/>
+                    <br />
                     <?php
                     unset($arConfig, $acao);
                     $acao = <<<ACAO

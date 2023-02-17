@@ -102,7 +102,7 @@ UsuarioResponsabilidadeEstabelecimento::criaAbam($abacod_tela, $url, setParam(ge
                     <i class="fa fa-download"></i>
                 </a>
                 <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:exibirModalExclusao('<php> return setParam(array('anexo_id' => '{anexo_id}', 'id' => {$p['id']}), false); </php>', '{descricao}');" data-toggle="tooltip"  title="Excluir">
-                    <i class="icon-trash"></i>
+                     <i class="bi bi-x-square"></i>
                 </a>
             </div>
 ACAO;

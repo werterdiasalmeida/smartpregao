@@ -55,19 +55,23 @@ include APPRAIZ . "includes/cabecalhom.inc";
 getStrMsgDanger();
 getStrMsgInfo();
 getStrMsgWarning();
-if ($aba) {
-    echo Estabelecimento::gerarCabecalho();
-}
 ?>
-<br />
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption font-blue-sharp">
             <i class="icon-briefcase font-blue-sharp"></i>
             <span class="caption-subject bold uppercase">
-                Painel <?= $dados['nome_fantasia']; ?>
+                Painel de Pregões da <?= $dados['nome_fantasia']; ?>
             </span>
+
         </div>
+        <?php
+        if (isset($params['id']) && !empty($params['id'])) {
+            echo $mEstabelecimento->retornaAtalhosCliente($params['id']);
+        } else {
+            echo "Cliente não encontrado.";
+        }
+        ?>
     </div>
     <div class="portlet-body form">
 
@@ -287,7 +291,7 @@ HTML;
 </div>
 
 <script type="text/javascript">
-    $("#esdid").change(function(){
+    $("#esdid").change(function() {
         $('#edital-cliente-form').submit();
     });
 

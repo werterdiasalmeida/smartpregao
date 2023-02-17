@@ -36,6 +36,7 @@ $dadosAgenda = $mEstabelecimentoAgenda->getDadosCalendario($where);
 <script src="/includes/metronic/global/plugins/fullcalendar/fullcalendar.min.css" type="text/javascript"></script>
 <script src="/includes/metronic/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
 <script src="/includes/metronic/global/plugins/fullcalendar/lang/pt-br.js" type="text/javascript"></script>
+
 <div class="portlet light bordered" id="page-body">
     <div class="portlet-title">
         <div class="caption font-blue-sharp">
@@ -44,6 +45,13 @@ $dadosAgenda = $mEstabelecimentoAgenda->getDadosCalendario($where);
                 Agenda da <?= $dadosCliente['razao_social'] ?>
             </span>
         </div>
+        <?php
+        if (isset($p['id']) && !empty($p['id'])) {
+            echo $mEstabelecimento->retornaAtalhosCliente($p['id']);
+        } else {
+            echo "Cliente não encontrado.";
+        }
+        ?>
         <br><br>
         <a onclick="exibirModalNovaAgenda()">
             <i class="bi bi-plus-square" title="Nova Agenda"></i>

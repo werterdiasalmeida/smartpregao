@@ -45,7 +45,7 @@
             + '</a>';
 
         var btnExcluir = '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirEndereco(' + index + ')" title="Excluir" style="margin: 2px;">'
-            + '<i class="icon-trash"></i>'
+            + ' <i class="bi bi-x-square"></i>'
             + '</a>';
 
         return btnEditar + btnExcluir;

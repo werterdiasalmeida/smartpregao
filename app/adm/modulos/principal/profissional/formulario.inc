@@ -436,7 +436,7 @@ if ($paramAba) {
             + '</a>';
 
         var btnExcluir = '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirInformacaoProfissional(' + index + ')" title="Excluir" style="margin: 2px;">'
-            + '<i class="icon-trash"></i>'
+            + ' <i class="bi bi-x-square"></i>'
             + '</a>';
 
         return btnEditar + btnExcluir;

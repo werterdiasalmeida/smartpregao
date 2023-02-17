@@ -75,9 +75,16 @@ if ($aba) {
         <div class="caption font-blue-sharp">
             <i class="icon-briefcase font-blue-sharp"></i>
             <span class="caption-subject bold uppercase">
-                Informações do cliente
+                Cadastro e Configurações
             </span>
         </div>
+        <?php
+        if (isset($params['id']) && !empty($params['id'])) {
+            echo $mEstabelecimento->retornaAtalhosCliente($params['id']);
+        } else {
+            echo "Cliente não encontrado.";
+        }
+        ?>
     </div>
     <div class="portlet-body form">
         <form role="form" name="formulario" class="estabelecimento-form" method="POST" enctype="multipart/form-data">
@@ -132,7 +139,7 @@ if ($aba) {
                             $acao = <<<ACAO
                         <div style="min-width: 20px;">
                             <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirDocumento({anexo_id});" data-toggle="tooltip"  title="Excluir">
-                                <i class="icon-trash"></i>
+                            <i class="bi bi-x-square"></i>
                             </a>
                         </div>
                         ACAO;

@@ -17,8 +17,6 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             break;
     }
 }
-$aba = false;
-
 if (isset($params['id']) && !empty($params['id'])) {
     UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($params['id']);
     $aba = true;
@@ -26,21 +24,23 @@ if (isset($params['id']) && !empty($params['id'])) {
     extract($dados);
 }
 include APPRAIZ . "includes/cabecalhom.inc";
-
-if ($aba) {
-    echo Estabelecimento::gerarCabecalho();
-}
 $estabelecimentoId = $_REQUEST['p'];
 ?>
-<br />
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption font-blue-sharp">
-            <i class="icon-eye font-blue-sharp"></i>
+            <i class="bi bi-exclamation-octagon font-blue-sharp"></i>
             <span class="caption-subject bold uppercase">
-                MONITORAMENTO <?= $dados['nome_fantasia']; ?>
+                Central de Alertas da <?= $dados['nome_fantasia']; ?>
             </span>
         </div>
+        <?php
+        if (isset($params['id']) && !empty($params['id'])) {
+            echo $mEstabelecimento->retornaAtalhosCliente($params['id']);
+        } else {
+            echo "Cliente não encontrado.";
+        }
+        ?>
     </div>
     <div class="portlet-body form">
         <form role="form" name="formulario" class="form" method="POST" enctype="multipart/form-data">

@@ -198,65 +198,76 @@ include APPRAIZ . "includes/cabecalhom.inc";
 
     </div>
 
-    <?php
-   
-    $acaoMonitoramento = <<<ACAO
-    <php>
-        if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/editaisclientes/monitoramento&acao=C')) {
-            return '<a class="btn btn-circle btn-icon-only btn-default yellow" href="?modulo=principal/editaisclientes/monitoramento&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Monitoramento do Cliente">
-                        <i class="icon-eye"></i>
-                    </a>';
-        }
-    </php>
-ACAO;
+<?php
 
 $acaoPainelCDCEmpresa = <<<ACAO
 <php>
     if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/cdcclientes/inicio&acao=C')) {
         return '<a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/cdcclientes/inicio&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Painel de Cotações do Cliente">
-                    <i class="icon-arrow-up"></i>
+        <i class="bi bi-cash-coin"></i>
                 </a>';
     }
 </php>
 ACAO;
 
 
-    $acaoPainelEmpresa = <<<ACAO
+$acaoPainelEmpresa = <<<ACAO
     <php>
         if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/editaisclientes/inicio&acao=C')) {
             return '<a class="btn btn-circle btn-icon-only btn-default purple" href="?modulo=principal/editaisclientes/inicio&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Painel do Cliente">
-                        <i class="icon-arrow-right"></i>
+            <i class="bi bi-receipt"></i>
+      </a>';
+        }
+    </php>
+ACAO;
+
+$acaoContratos = <<<ACAO
+    <php>
+        if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/contratos/inicio&acao=C')) {
+            return '<a class="btn btn-circle btn-icon-only btn-default green" href="?modulo=principal/contratos/inicio&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Contratos do Cliente">
+            <i class="bi bi-file-check"></i>
                     </a>';
         }
     </php>
 ACAO;
 
-    $acaoEdicao = <<<ACAO
+
+$acaoMonitoramento = <<<ACAO
+    <php>
+        if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/editaisclientes/monitoramento&acao=C')) {
+            return '<a class="btn btn-circle btn-icon-only btn-default yellow" href="?modulo=principal/editaisclientes/monitoramento&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Monitoramento do Cliente">
+            <i class="bi bi-exclamation-octagon"></i>
+                    </a>';
+        }
+    </php>
+ACAO;
+
+$acaoEdicao = <<<ACAO
         <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
                 return '<a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Editar estabelecimento">
-                <i class="fa fa-edit"></i>
+                <i class="bi bi-gear"></i>
                         </a>';
             }
         </php>
 ACAO;
 
-    $acaoFinanceiro = <<<ACAO
+$acaoFinanceiro = <<<ACAO
     <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/financeiro/extrato&acao=C')) {
                 return '<a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/estabelecimento/agenda&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Agenda do estabelecimento">
-                <i class="icon-calendar"></i>
+                <i class="bi bi-calendar"></i>
                         </a>';
             }
         </php>
 ACAO;
 
-    $acaoExclusao = <<<ACAO
+$acaoExclusao = <<<ACAO
             <php>
                 if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
                     return '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:exibirModalExclusao(\'' . setParam(array('id' => '{id}'), false) . '\', \'{nome_fantasia}\');" data-toggle="tooltip"  title="Excluir estabelecimento">
-                                <i class="icon-trash"></i>
-                            </a>';
+                <i class="bi bi-x-square"></i>
+            </a>';
                 }
             </php>
 ACAO;
@@ -265,6 +276,7 @@ ACAO;
             <div style="min-width: 200px;">
             {$acaoPainelEmpresa} 
             {$acaoPainelCDCEmpresa}
+            {$acaoContratos}
             {$acaoMonitoramento}
             {$acaoFinanceiro}
             {$acaoEdicao}

@@ -194,6 +194,7 @@ class Estabelecimento extends Modelo
 
     public static function gerarCabecalho($id = null, $verificarResponsabilidade = true, $redirecionarResponsabilidade = true)
     {
+        return false;
         $p = getParam();
         $id = $id ? $id : ($p['estabelecimento_id'] ? $p['estabelecimento_id'] : $p['id']);
         $pParam = setParam(array('id' => $id));
@@ -499,5 +500,62 @@ HTML;
         }
 
         $_SESSION['estabelecimento_selecionado'] = $estabelecimento_id;
+    }
+
+
+    public function retornaAtalhosCliente($id)
+    {
+
+        if (UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($id, false, 'adm.php?modulo=principal/cdcclientes/inicio&acao=C')) {
+            $acaoPainelCDCEmpresa = '<a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/cdcclientes/inicio&acao=C&p=' . setParam(array('id' => $id), false) . '" data-toggle="tooltip" title="Painel de Cotações">
+        <i class="bi bi-cash-coin"></i>
+                </a>';
+        }
+
+
+        if (UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($id, false, 'adm.php?modulo=principal/editaisclientes/inicio&acao=C')) {
+            $acaoPainelEmpresa = '<a class="btn btn-circle btn-icon-only btn-default purple" href="?modulo=principal/editaisclientes/inicio&acao=C&p=' . setParam(array('id' => $id), false) . '" data-toggle="tooltip" title="Painel de Pregões">
+            <i class="bi bi-hammer"></i>
+      </a>';
+        }
+
+        if (UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($id, false, 'adm.php?modulo=principal/contratos/inicio&acao=C')) {
+            $acaoContratos = '<a class="btn btn-circle btn-icon-only btn-default green" href="?modulo=principal/contratos/inicio&acao=C&p=' . setParam(array('id' => $id), false) . '" data-toggle="tooltip" title="Painel de Contratos">
+            <i class="bi bi-journals"></i>
+                    </a>';
+        }
+
+        if (UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($id, false, 'adm.php?modulo=principal/editaisclientes/monitoramento&acao=C')) {
+            $acaoMonitoramento = '<a class="btn btn-circle btn-icon-only btn-default yellow" href="?modulo=principal/editaisclientes/monitoramento&acao=C&p=' . setParam(array('id' => $id), false) . '" data-toggle="tooltip" title="Central de Alertas">
+            <i class="bi bi-exclamation-octagon"></i>
+                    </a>';
+        }
+        if (UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($id, false, 'adm.php?modulo=principal/estabelecimento/financeiro/extrato&acao=C')) {
+            $acaoAgenda = '<a class="btn btn-circle btn-icon-only btn-default red" href="?modulo=principal/estabelecimento/agenda&acao=C&p=' . setParam(array('id' => $id), false) . '" data-toggle="tooltip" title="Agenda do estabelecimento">
+            <i class="bi bi-calendar"></i>
+                    </a>';
+        }
+        if (UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($id, false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
+            $acaoEdicao = '<a class="btn btn-circle btn-icon-only btn-default purple-plum" href="?modulo=principal/estabelecimento/formulario&acao=C&p=' . setParam(array('id' => $id), false) . '" data-toggle="tooltip" title="Ajustes da empresa">
+            <i class="bi bi-gear"></i>
+                    </a>';
+        }
+
+
+
+        $atalhos = " <div style=\"min-width: 200px;\">
+            {$acaoPainelEmpresa} 
+            {$acaoPainelCDCEmpresa}
+            {$acaoContratos}
+            {$acaoMonitoramento}
+            {$acaoAgenda}
+            {$acaoEdicao}
+            </div>";
+
+        $saida = "<div style=\"float:right; padding-bottom:10px;\"> {$atalhos}</div>";
+
+
+
+        return $saida;
     }
 }

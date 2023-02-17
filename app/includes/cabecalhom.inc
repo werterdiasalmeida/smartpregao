@@ -264,7 +264,7 @@ $paginic = $db->pegaUm($sql);
                     <!-- END USER LOGIN DROPDOWN -->
                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    
+
                     <!-- END QUICK SIDEBAR TOGGLER -->
                 </ul>
             </div>
@@ -317,35 +317,17 @@ $paginic = $db->pegaUm($sql);
                         <!-- /.modal-dialog -->
                     </div>
                 <?php endif;
-                /*
-             * Exibe rastro de navegação. Mostra em qual
-             * local da hierarquia de telas o usuário está.
-             */
-                if ($breadcrumb) :
-                    $breadcrumb = explode('|', $breadcrumb);
-                    $breadcrumb = array_filter($breadcrumb);
-                ?>
-                    <style type="text/css">
-                        .page-content {
-                            padding: 25px 20px 10px !important;
-                        }
-                        .top-menu{
-                            clear: none !important;
-                        }
-                        img{border-radius: 10px !important;}
-                    </style>
-                    <div class="page-bar">
-                        <ul class="page-breadcrumb">
-                            <?php foreach ($breadcrumb as $indexBreadcrumb => $itemBreadcrumb) : ?>
-                                <li>
-                                    <span><?= $itemBreadcrumb ?></span>
-                                    <?= (isset($breadcrumb[$indexBreadcrumb + 1]) ? '<i class="fa fa-circle"></i>' : '') ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php
-                endif;
+
+                // Barra de atalhos do cliente
+
+                //$mEstabelecimento = new Estabelecimento();
+                //$params = getParam();
+                //if (isset($params['id']) && !empty($params['id'])) {
+                // echo $mEstabelecimento->retornaAtalhosCliente($params['id']);
+                //} else {
+                //     echo "Cliente não encontrado.";
+                // }
+
                 ?>
 
                 <script>
@@ -401,3 +383,8 @@ $paginic = $db->pegaUm($sql);
                         </div>
                     </div>
                 </div>
+                <style>
+                    img {
+                        border-radius: 10px !important;
+                    }
+                </style>
