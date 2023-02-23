@@ -103,13 +103,14 @@ getStrMsgWarning();
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <br/><br/>
+                            <br/>
                             <?php
                             $opcoes = array(
                                 array('codigo' => 'proximos_7', 'descricao' => 'Próxima Semana'),
+                                array('codigo' => 'todos_futuros', 'descricao' => 'Próximos'),
                                 array('codigo' => 'monitorados', 'descricao' => 'Monitorados'),
                                 array('codigo' => 'contatados', 'descricao' => 'Contratados'),
-                                array('codigo' => 'todos_futuros', 'descricao' => 'Todos os Próximos'),
+                                array('codigo' => 'todos', 'descricao' => 'Todos'),
                             );
                             echo $db->monta_radiom('atalho_pesquisa', $opcoes, 'S', 'S', '');
                             ?>
