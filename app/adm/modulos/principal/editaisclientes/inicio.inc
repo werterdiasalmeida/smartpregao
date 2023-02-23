@@ -5,7 +5,7 @@ $mEditalCliente = new EditalCliente();
 $mServicoAnaliseContratado = new ServicoAnaliseContratado();
 $params = getParam();
 $filtroPadrao = true;
-
+$atalho_pesquisa = $_REQUEST['atalho_pesquisa'];
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
         case 'participar':
@@ -90,11 +90,25 @@ getStrMsgWarning();
                             </span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Situação Atual</label>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Situação Atual</label>
+                            <?php
+                            $esdid_arr = $mEditalCliente->retornaListaStatusWF();
+                            $db->monta_combom("esdid", $esdid_arr, 'S', '-Todas-', '', '', '', '', 'N', 'esdid');
+                            ?>
+                        </div>
+                    </div>
+                    <label>Atalhos</label>
+                    <div class="col-md-6">
                         <?php
-                        $esdid_arr = $mEditalCliente->retornaListaStatusWF();
-                        $db->monta_combom("esdid", $esdid_arr, 'S', '-Todas-', '', '', '', '', 'N', 'esdid');
+                        $opcoes = array(
+                            array('codigo' => 'proximos_7', 'descricao' => 'Próxima Semana'),
+                            array('codigo' => 'monitorados', 'descricao' => 'Monitorados'),
+                            array('codigo' => 'contatados', 'descricao' => 'Contratados'),
+                            array('codigo' => 'todos_futuros', 'descricao' => 'Todos os Próximos'),
+                        );
+                        echo $db->monta_radiom('atalho_pesquisa', $opcoes, 'S', 'S', 'Atalhos');
                         ?>
                     </div>
                 </form>
