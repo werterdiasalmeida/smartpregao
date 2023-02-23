@@ -103,6 +103,7 @@ getStrMsgWarning();
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <br/><br/>
                             <?php
                             $opcoes = array(
                                 array('codigo' => 'proximos_7', 'descricao' => 'Próxima Semana'),
