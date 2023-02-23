@@ -7,7 +7,7 @@ $params = getParam();
 $filtroPadrao = true;
 $atalho_pesquisa = $_REQUEST['atalho_pesquisa'];
 if (!$atalho_pesquisa)
-    $atalho_pesquisa = 'proximos_7';
+    $atalho_pesquisa = 'todos_futuros';
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
         case 'participar':
