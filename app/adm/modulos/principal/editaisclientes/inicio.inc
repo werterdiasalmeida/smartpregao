@@ -6,6 +6,8 @@ $mServicoAnaliseContratado = new ServicoAnaliseContratado();
 $params = getParam();
 $filtroPadrao = true;
 $atalho_pesquisa = $_REQUEST['atalho_pesquisa'];
+if (!$atalho_pesquisa)
+    $atalho_pesquisa = 'proximos_7';
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
         case 'participar':
@@ -99,8 +101,8 @@ getStrMsgWarning();
                             ?>
                         </div>
                     </div>
-                    <label>Atalhos</label>
                     <div class="col-md-6">
+                        <label>Atalhos</label>
                         <?php
                         $opcoes = array(
                             array('codigo' => 'proximos_7', 'descricao' => 'Próxima Semana'),
