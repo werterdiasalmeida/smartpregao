@@ -92,26 +92,27 @@ getStrMsgWarning();
                             </span>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Situação Atual</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Situação Atual</label>
+                                <?php
+                                $esdid_arr = $mEditalCliente->retornaListaStatusWF();
+                                $db->monta_combom("esdid", $esdid_arr, 'S', '-Todas-', '', '', '', '', 'N', 'esdid');
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <?php
-                            $esdid_arr = $mEditalCliente->retornaListaStatusWF();
-                            $db->monta_combom("esdid", $esdid_arr, 'S', '-Todas-', '', '', '', '', 'N', 'esdid');
+                            $opcoes = array(
+                                array('codigo' => 'proximos_7', 'descricao' => 'Próxima Semana'),
+                                array('codigo' => 'monitorados', 'descricao' => 'Monitorados'),
+                                array('codigo' => 'contatados', 'descricao' => 'Contratados'),
+                                array('codigo' => 'todos_futuros', 'descricao' => 'Todos os Próximos'),
+                            );
+                            echo $db->monta_radiom('atalho_pesquisa', $opcoes, 'S', 'S', '');
                             ?>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Atalhos</label>
-                        <?php
-                        $opcoes = array(
-                            array('codigo' => 'proximos_7', 'descricao' => 'Próxima Semana'),
-                            array('codigo' => 'monitorados', 'descricao' => 'Monitorados'),
-                            array('codigo' => 'contatados', 'descricao' => 'Contratados'),
-                            array('codigo' => 'todos_futuros', 'descricao' => 'Todos os Próximos'),
-                        );
-                        echo $db->monta_radiom('atalho_pesquisa', $opcoes, 'S', 'S', 'Atalhos');
-                        ?>
                     </div>
                 </form>
                 <?php
