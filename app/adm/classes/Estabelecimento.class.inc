@@ -113,8 +113,7 @@ class Estabelecimento extends Modelo
         $arWhere[] = UsuarioResponsabilidadeEstabelecimento::gerarWhereResponsabilidadeEstabelecimento();
 
         $sql = "SELECT
-                  pj.nome_fantasia,
-                  pj.razao_social,
+                  pj.nome_fantasia || ' (' ||pj.razao_social|| ')' as empresa,
                   pj.cnpj,
                   est.pessoajuridica_id,
                   est.id

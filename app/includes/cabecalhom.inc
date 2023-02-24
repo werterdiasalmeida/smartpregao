@@ -175,102 +175,117 @@ $paginic = $db->pegaUm($sql);
     <div class="page-header navbar navbar-fixed-top">
         <!-- BEGIN HEADER INNER -->
         <div class="page-header-inner ">
-            <!-- BEGIN LOGO -->
-            <img src="/imagens/logo2.png?v=<?= VERSAO ?>" alt="logo" class="logo-default" style="height: 42px; margin: 5px; float:left;" />
-            <!-- END LOGO -->
-            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <div class="clearfix">
 
-            <!-- END RESPONSIVE MENU TOGGLER -->
-            <!-- BEGIN TOP NAVIGATION MENU -->
-            <div class="top-menu">
-                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span></span>
-                </a>
-                <ul class="nav navbar-nav pull-right">
-                    <li class="dropdown dropdown-user">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <?php if (isset($_SESSION['usuarqid']) && !empty($_SESSION['usuarqid'])) : ?>
-                                <img alt="" class="img-circle" style="background-color: #FFFFFF; width: 29px;" src="../slideshow/slideshow/verimagem.php?arqid=<?= $_SESSION['usuarqid']; ?>&newwidth=100&newheight=100" />
-                            <?php else : ?>
-                                <img alt="" class="img-circle" style="background-color: #FFFFFF;" src="<?= ($_SESSION['ususexo'] === 'F' ? '/imagens/woman.png' : '/imagens/man.png'); ?>" />
-                            <?php endif; ?>
-                            <span class="username username-hide-on-mobile">
-                                <?php if ($_SESSION['superuser'] or $db->testa_uma() or $_SESSION['usuuma']) : ?>
-                                    <?= $db->pegaUm("SELECT usunome FROM seguranca.usuario WHERE usucpf = '{$_SESSION['usucpf']}'") ?>
-                                <?php else : ?>
-                                    <?= $_SESSION['usunome']; ?>
-                                <?php endif; ?>
-                            </span>
-                            <i class="fa fa-angle-down"></i>
+                <div class="float-start">
+                    <!-- BEGIN LOGO -->
+                    
+                    <a href="<?= $_SESSION['sisarquivo']; ?>.php?modulo=<?= $paginic; ?>">
+                        <img src="/imagens/logo2.png" alt="logo" class="logo-default" style="height: 42px; margin: 5px; float:left; margin-left:-5px;" />
+                    </a>
+
+                </div>
+                <div style="float: right;">
+
+                <div class="float-end">
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span></span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-default">
-                            <?php $_SESSION['usucpf'] = $_REQUEST['usucpf_simu'] ? $_REQUEST['usucpf_simu'] : $_SESSION['usucpf']; ?>
-                            <?php if ($_SESSION['superuser'] or $db->testa_uma() or $_SESSION['usuuma']) : ?>
-                                <?php if ($_SESSION['usucpforigem'] != $_SESSION['usucpf']) : ?>
+
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown dropdown-user">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <?php if (isset($_SESSION['usuarqid']) && !empty($_SESSION['usuarqid'])) : ?>
+                                        <img alt="" class="img-circle" style="background-color: #FFFFFF; width: 29px;" src="../slideshow/slideshow/verimagem.php?arqid=<?= $_SESSION['usuarqid']; ?>&newwidth=100&newheight=100" />
+                                    <?php else : ?>
+                                        <img alt="" class="img-circle" style="background-color: #FFFFFF;" src="<?= ($_SESSION['ususexo'] === 'F' ? '/imagens/woman.png' : '/imagens/man.png'); ?>" />
+                                    <?php endif; ?>
+                                    <span class="username username-hide-on-mobile">
+                                        <?php if ($_SESSION['superuser'] or $db->testa_uma() or $_SESSION['usuuma']) : ?>
+                                            <?= $db->pegaUm("SELECT usunome FROM seguranca.usuario WHERE usucpf = '{$_SESSION['usucpf']}'") ?>
+                                        <?php else : ?>
+                                            <?= $_SESSION['usunome']; ?>
+                                        <?php endif; ?>
+                                    </span>
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <?php $_SESSION['usucpf'] = $_REQUEST['usucpf_simu'] ? $_REQUEST['usucpf_simu'] : $_SESSION['usucpf']; ?>
+                                    <?php if ($_SESSION['superuser'] or $db->testa_uma() or $_SESSION['usuuma']) : ?>
+                                        <?php if ($_SESSION['usucpforigem'] != $_SESSION['usucpf']) : ?>
+                                            <li>
+                                                <a data-toggle="modal" onclick="setpfl('<?= $_SESSION['usucpforigem']; ?>');">
+                                                    <i class="fa fa-user-times"></i>Cancelar simulação
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                        <li>
+                                            <a data-toggle="modal" onclick="abrirSimulacaoUsuario();">
+                                                <i class="fa fa-user-secret"></i>Simular usuário
+                                            </a>
+                                            <script type="application/javascript">
+                                                function abrirSimulacaoUsuario() {
+                                                    var modal = $('#simular-usuario');
+                                                    modal.find('.modal-body').html('<div style="height: 250px;"></div>')
+
+                                                    App.blockUI({
+                                                        message: 'Carregando...',
+                                                        target: '#simular-usuario .modal-body'
+                                                    });
+
+                                                    modal.find('.modal-body').load(window.location.href, {
+                                                        act: 'carregarSimulacaoUsuario'
+                                                    }, function() {
+                                                        App.unblockUI('#simular-usuario .modal-body');
+                                                    });
+
+                                                    modal.modal({
+                                                        backdrop: 'static'
+                                                    }).modal('show');
+                                                }
+                                            </script>
+                                        </li>
+                                    <? endif; ?>
                                     <li>
-                                        <a data-toggle="modal" onclick="setpfl('<?= $_SESSION['usucpforigem']; ?>');">
-                                            <i class="fa fa-user-times"></i>Cancelar simulação
-                                        </a>
+                                        <a href="?modulo=sistema/usuario/altsenha&acao=X">
+                                            <i class="fa fa-key"></i> Alterar senha </a>
                                     </li>
-                                <?php endif; ?>
-                                <li>
-                                    <a data-toggle="modal" onclick="abrirSimulacaoUsuario();">
-                                        <i class="fa fa-user-secret"></i>Simular usuário
+                                    <li>
+                                        <a href="?modulo=sistema/usuario/dados&acao=X">
+                                            <i class="fa fa-user"></i> Minhas informações </a>
+                                    </li>
+                                    <li>
+                                        <a href="/logout.php">
+                                            <i class="icon-logout"></i> Sair </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <?php if ($db->testa_superuser()) : ?>
+                                <li class="dropdown">
+                                    <a href="../muda_sistema.php?sisid=4" class="dropdown-toggle" title="SIS" style="padding-right: 10px;">
+                                        <i class="icon-settings"></i>
                                     </a>
-                                    <script type="application/javascript">
-                                        function abrirSimulacaoUsuario() {
-                                            var modal = $('#simular-usuario');
-                                            modal.find('.modal-body').html('<div style="height: 250px;"></div>')
-
-                                            App.blockUI({
-                                                message: 'Carregando...',
-                                                target: '#simular-usuario .modal-body'
-                                            });
-
-                                            modal.find('.modal-body').load(window.location.href, {
-                                                act: 'carregarSimulacaoUsuario'
-                                            }, function() {
-                                                App.unblockUI('#simular-usuario .modal-body');
-                                            });
-
-                                            modal.modal({
-                                                backdrop: 'static'
-                                            }).modal('show');
-                                        }
-                                    </script>
                                 </li>
-                            <? endif; ?>
-                            <li>
-                                <a href="?modulo=sistema/usuario/altsenha&acao=X">
-                                    <i class="fa fa-key"></i> Alterar senha </a>
-                            </li>
-                            <li>
-                                <a href="?modulo=sistema/usuario/dados&acao=X">
-                                    <i class="fa fa-user"></i> Minhas informações </a>
-                            </li>
-                            <li>
-                                <a href="/logout.php">
-                                    <i class="icon-logout"></i> Sair </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <?php if ($db->testa_superuser()) : ?>
-                        <li class="dropdown">
-                            <a href="../muda_sistema.php?sisid=4" class="dropdown-toggle" title="SIS" style="padding-right: 10px;">
-                                <i class="icon-settings"></i>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                    <!-- END USER LOGIN DROPDOWN -->
-                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <?php endif; ?>
+                            <!-- END USER LOGIN DROPDOWN -->
+                            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 
-                    <!-- END QUICK SIDEBAR TOGGLER -->
-                </ul>
+                            <!-- END QUICK SIDEBAR TOGGLER -->
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+                <!-- END HEADER INNER -->
+                </div>
+
+                <!-- END LOGO -->
             </div>
-            <!-- END TOP NAVIGATION MENU -->
+
         </div>
-        <!-- END HEADER INNER -->
+    </div>
     </div>
     <!-- END HEADER -->
     <!-- BEGIN HEADER & CONTENT DIVIDER -->

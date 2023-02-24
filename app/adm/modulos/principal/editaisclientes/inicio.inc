@@ -4,10 +4,24 @@ $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
 $mServicoAnaliseContratado = new ServicoAnaliseContratado();
 $params = getParam();
-$filtroPadrao = true;
 $atalho_pesquisa = $_REQUEST['atalho_pesquisa'];
-if (!$atalho_pesquisa)
+
+// Traz so dados da empresa selecionada
+if (isset($params['id']) && !empty($params['id'])) {
+    UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($params['id']);
+    $aba = true;
+    $dados = $mEstabelecimento->getTodosDados($params['id']);
+    extract($dados);
+}
+
+/* Filtro Padrão (padrão próximos 7 dias e não descartados)*/
+if (!$atalho_pesquisa || $atalho_pesquisa == 'todos_futuros') {
+    $arWhereEditaisCliente[] = " edi.data_limite >= current_date";
+    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
     $atalho_pesquisa = 'todos_futuros';
+}
+$arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']} ";
+
 if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
         case 'participar':
@@ -27,6 +41,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
 
             break;
         case 'pesquisa_meus_editais':
+            $arWhereEditaisCliente = array();
             $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));
             $esdid = $_REQUEST['esdid'];
             if ($esdid) $arWhereEditaisCliente[] = " esd.esdid = {$esdid} ";
@@ -35,8 +50,28 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                             (edi.orgao ILIKE '%{$pesquisa_simples}%') OR
                             (TO_CHAR(edi.data_limite, 'DD/MM/YYYY') ILIKE '%{$pesquisa_simples}%')
                         )";
-            $filtroPadrao = false;
+            //Filtros dos atalhos
+            switch ($atalho_pesquisa) {
 
+                case 'proximos_7':
+                    $arWhereEditaisCliente[] = " edi.data_limite BETWEEN current_date AND current_date + 7";
+                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    break;
+                case 'todos_futuros':
+                    $arWhereEditaisCliente[] = " edi.data_limite >= current_date";
+                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    break;
+                case 'monitorados':
+                    $arWhereEditaisCliente[] = " (esd.esdid IN (98)) ";
+                    break;
+                case 'contatados':
+                    $arWhereEditaisCliente[] = " (esd.esdid IN (100)) ";
+                    break;
+                case 'todos':
+                    //$arWhereEditaisCliente[] = " (esd.esdid IS NOT NULL) ";
+                    break;
+            }
+            $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']} ";
             break;
         case 'carregarDetalhedital':
             require APPRAIZ . "adm/modulos/principal/editaisclientes/detalhe_edital.inc";
@@ -44,21 +79,13 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             break;
     }
 }
-$aba = false;
-$enderecos = null;
-if (isset($params['id']) && !empty($params['id'])) {
-    UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade($params['id']);
-    $aba = true;
-    $dados = $mEstabelecimento->getTodosDados($params['id']);
-    extract($dados);
-}
-
 include APPRAIZ . "includes/cabecalhom.inc";
 getStrMsgDanger();
 getStrMsgInfo();
 getStrMsgWarning();
 ?>
 <div class="portlet light bordered">
+
     <div class="portlet-title">
         <div class="caption font-blue-sharp">
             <i class="icon-briefcase font-blue-sharp"></i>
@@ -76,7 +103,49 @@ getStrMsgWarning();
         ?>
     </div>
     <div class="portlet-body form">
-
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 " style="margin-top: 10px;">
+                <a class="dashboard-stat dashboard-stat-v2 purple">
+                    <div class="visual">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['cotacoes_recebidas']) ?>"><?php echo intval($dadoBignumber['cotacoes_recebidas']) ?></span>
+                        </div>
+                        <div class="desc"><b>Meus Pregões</b></div>
+                        <div class="desc"> Participações: <?php echo intval($dadoBignumber['cotacoes_enviadas']) ?></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 10px;">
+                <a class="dashboard-stat dashboard-stat-v2 green">
+                    <div class="visual">
+                        <i class="fa fa-cloud"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['dispensas_recebidas']) ?>"><?php echo intval($dadoBignumber['dispensas_recebidas']) ?></span>
+                        </div>
+                        <div class="desc"> <b>Pregões Monitorados</b></div>
+                        <div class="desc"> Eventos futuros: <?php echo intval($dadoBignumber['dispensas_enviadas']) ?></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 10px;">
+                <a class="dashboard-stat dashboard-stat-v2 blue">
+                    <div class="visual">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['credenciamentos_cadastrados']) ?>"><?php echo intval($dadoBignumber['credenciamentos_cadastrados']) ?></span>
+                        </div>
+                        <div class="desc"> <b>Recursos</b></div>
+                    </div>
+                </a>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <h4>Meus Editais</h4>
@@ -103,7 +172,7 @@ getStrMsgWarning();
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <br/>
+                            <br />
                             <?php
                             $opcoes = array(
                                 array('codigo' => 'proximos_7', 'descricao' => 'Próxima Semana'),
@@ -116,6 +185,9 @@ getStrMsgWarning();
                             ?>
                         </div>
                     </div>
+                    <a style="float: right;" onclick="cadastraroportunidade('<?= $dados['id'] ?>')"><i style="cursor: pointer;" title="Cadastrar oportunidade" class="bi bi-plus-square"></i>
+                        Cadastrar Pregão</a>
+                    <br />
                 </form>
                 <?php
                 unset($arConfig, $acao);
@@ -136,12 +208,6 @@ getStrMsgWarning();
                         <spam class="badge badge-primary"><b>{dias}</b></spam>
                     HTML;
                 $arConfig[3]['style'] = "width: 10%; text-align: center;";
-                /* Filtro do Período (padrão próximos 7 dias e não descartados)*/
-                if ($filtroPadrao) {
-                    $arWhereEditaisCliente[] = " edi.data_limite >= current_date";
-                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
-                }
-                $arWhereEditaisCliente[] = " estabelecimento_id = {$dados['id']}";
                 $rs = $mEditalCliente->getList($arWhereEditaisCliente);
                 if ($ordernar) {
                     $rs = $mEditalCliente->getList($arWhereEditaisCliente, true, $ordernar);
@@ -313,10 +379,11 @@ HTML;
     $("#esdid").change(function() {
         $('#edital-cliente-form').submit();
     });
-
+    $("input[name='atalho_pesquisa']").change(function() {
+        $('#edital-cliente-form').submit();
+    });
 
     function filtrarMeusEditais(tipo) {
-
         location.href = location.href + '&act=pesquisa_meus_editais&filtrar=' + tipo;
 
     }

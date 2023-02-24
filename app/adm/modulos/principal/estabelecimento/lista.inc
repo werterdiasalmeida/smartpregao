@@ -115,8 +115,6 @@ include APPRAIZ . "includes/cabecalhom.inc";
                             </div>
                         </div>
                     </div>
-
-
                     <div class="pesquisa-avancada <?= ($pesquisaAvancada ? '' : 'hidden') ?>">
                         <div class="row">
                             <div class="col-md-6">
@@ -228,14 +226,14 @@ ACAO;
         <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
                 return '<a href="?modulo=principal/editaisclientes/inicio&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Painel">
-                            {nome_fantasia}
+                            {empresa}
                         </a>';
             }elseif(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/agenda&acao=C')){
                 return '<a href="?modulo=principal/estabelecimento/agenda&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Agenda">
-                            {nome_fantasia}
+                            {empresa}
                         </a>';
             }else{
-                return '{nome_fantasia}';
+                return '{empresa}';
             }
         </php>
 
@@ -248,8 +246,7 @@ HTML;
 
     $mLista = new Listam(array("style" => "width: 100%;"));
     $mLista->setCabecalho(array(
-        'Razão social',
-        'Nome fantasia',
+        'Empresa',
         'CNPJ',
         'Ação'
     ));

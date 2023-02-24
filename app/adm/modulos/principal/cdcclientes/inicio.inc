@@ -162,7 +162,7 @@ if ($aba) {
                         </div>
                     </form>
                     <a style="float: right;" onclick="cadastraroportunidade('<?= $dados['id'] ?>')"><i style="cursor: pointer;" title="Cadastrar oportunidade" class="bi bi-plus-square"></i>
-                        Cadastrar oportunidade</a>
+                        Cadastrar Oportunidade</a>
                     <br />
                     <?php
                     unset($arConfig, $acao);

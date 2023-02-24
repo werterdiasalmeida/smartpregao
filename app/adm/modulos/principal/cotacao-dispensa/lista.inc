@@ -40,7 +40,7 @@ include APPRAIZ . "includes/cabecalhom.inc";
         <div class="caption">
             <i class="fa fa-list"></i>
             <span class="caption-subject bold uppercase">
-            Cotação | Dispensa eletrônica | Credenciamento
+                Cotação | Dispensa eletrônica | Credenciamento
             </span>
         </div>
     </div>
