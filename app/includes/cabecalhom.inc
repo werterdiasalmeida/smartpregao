@@ -181,7 +181,7 @@ $paginic = $db->pegaUm($sql);
                     <!-- BEGIN LOGO -->
                     
                     <a href="<?= $_SESSION['sisarquivo']; ?>.php?modulo=<?= $paginic; ?>">
-                        <img src="/imagens/logo2.png" alt="logo" class="logo-default" style="height: 42px; margin: 5px; float:left; margin-left:-5px;" />
+                        <img src="/imagens/logo2.png" alt="logo" class="logo-default" style="height: 42px; margin: 5px; float:left;" />
                     </a>
 
                 </div>
