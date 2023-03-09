@@ -17,7 +17,7 @@ if ($_POST && isset($_POST['act'])) {
                 $existe = $mCDCCliente->pegaLinha(" SELECT id FROM edital.cotacao_dispensa_credenciamentoempresa  WHERE cdc_id = {$params['cdc_id']} AND estabelecimento_id = {$params['estabelecimento_id']}");
                 if (!$existe) {
                     $params['docid'] = wf_cadastrarDocumento(18, 'Fluxo do Edital');
-                    $mCDCCliente->salvarEditalCliente($params);
+                    $mCDCCliente->salvarCDCCliente($params);
                     $mCDCCliente->commit();
                 }
             }
