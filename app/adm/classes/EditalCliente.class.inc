@@ -113,4 +113,32 @@ class EditalCliente extends Modelo
 
         return $this->carregarArray($sql);
     }
+    public function retornaBigNumbers($params)
+    {
+
+        $sql = " SELECT COUNT(0) FROM edital.editalcliente edc WHERE estabelecimento_id = {$params['id']}";
+        $saida['meus_pregoes'] = $this->pegaUm($sql);
+
+        $sql = " SELECT COUNT(0) 
+                    FROM edital.editalcliente edc
+                    JOIN workflow.documento doc ON doc.docid = edc.docid
+                    WHERE  estabelecimento_id = {$params['id']} AND esdid IN (96,98,100,101) ";
+        $saida['meus_pregoes_participei'] = $this->pegaUm($sql);
+
+        $sql = " SELECT COUNT(0) 
+                    FROM edital.editalcliente edc
+                    JOIN workflow.documento doc ON doc.docid = edc.docid
+                    WHERE  estabelecimento_id = {$params['id']} AND esdid IN (98) ";
+        $saida['pregoes_monitorados'] = $this->pegaUm($sql);
+      
+      $sql = " SELECT COUNT(0) 
+                    FROM edital.editalcliente edc
+                    JOIN workflow.documento doc ON doc.docid = edc.docid
+                    WHERE  estabelecimento_id = {$params['id']} AND esdid IN (101) ";
+        $saida['contratos_assinados'] = $this->pegaUm($sql);
+        
+        return $saida;
+    }
+    
+
 }

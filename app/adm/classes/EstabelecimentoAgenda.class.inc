@@ -7,7 +7,7 @@ class EstabelecimentoAgenda extends Modelo
    * @var string
    * @access protected
    */
-  protected $stNomeTabela = "estabelecimentosaude.tb_estabelecimento_agenda";
+  protected $stNomeTabela = "estabelecimento.tb_estabelecimento_agenda";
 
   /**
    * Chave primaria.
@@ -61,7 +61,7 @@ class EstabelecimentoAgenda extends Modelo
     SELECT
        *
     FROM
-        estabelecimentosaude.tb_estabelecimento_agenda
+        estabelecimento.tb_estabelecimento_agenda
     WHERE
     {$arWhere}";
     $retorno = $this->carregar($sql);

@@ -16,7 +16,7 @@ class UsuarioResponsabilidadeEstabelecimento extends UsuarioResponsabilidade
                     est.id,
                     CASE WHEN ur.rpuid IS NOT NULL THEN TRUE ELSE FALSE END AS selecionado
                 FROM
-                    estabelecimentosaude.tb_estabelecimento est
+                    estabelecimento.tb_estabelecimento est
                 LEFT JOIN 
                     corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                 LEFT JOIN
@@ -119,7 +119,7 @@ class UsuarioResponsabilidadeEstabelecimento extends UsuarioResponsabilidade
                 $sql = "SELECT 
                     COUNT(1)
                 FROM
-                    estabelecimentosaude.tb_estabelecimento
+                    estabelecimento.tb_estabelecimento
                 WHERE
                     id = {$estabelecimentoId}
                     AND 

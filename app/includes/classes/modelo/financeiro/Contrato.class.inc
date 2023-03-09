@@ -76,9 +76,9 @@ class Contrato extends Modelo
 				FROM
 					{$this->stNomeTabela} con
 				INNER JOIN
-					estabelecimentosaude.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
+					estabelecimento.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
 				INNER JOIN
-					estabelecimentosaude.tb_estabelecimento est ON est.id = esc.estabelecimento_id
+					estabelecimento.tb_estabelecimento est ON est.id = esc.estabelecimento_id
 				INNER JOIN
 					corporativo.tb_pessoajuridica pjr ON pjr.id = est.pessoajuridica_id
 				INNER JOIN
@@ -180,9 +180,9 @@ class Contrato extends Modelo
 				FROM
 					{$this->stNomeTabela} con
 				INNER JOIN
-					estabelecimentosaude.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
+					estabelecimento.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
 				INNER JOIN
-					estabelecimentosaude.tb_estabelecimento est ON est.id = esc.estabelecimento_id
+					estabelecimento.tb_estabelecimento est ON est.id = esc.estabelecimento_id
 				INNER JOIN
 					corporativo.tb_pessoajuridica pjr ON pjr.id = est.pessoajuridica_id
 				INNER JOIN
@@ -286,13 +286,13 @@ class Contrato extends Modelo
 				FROM
 					{$this->stNomeTabela} con
 				INNER JOIN
-					estabelecimentosaude.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
+					estabelecimento.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
 				INNER JOIN
 					financeiro.tb_tipo_contrato tcn ON tcn.id = con.tipo_contrato_id
 				INNER JOIN
 					financeiro.tb_periodo_contrato pcn ON pcn.id = con.periodo_contrato_id
 				INNER JOIN
-					estabelecimentosaude.tb_estabelecimento est ON est.id = esc.estabelecimento_id
+					estabelecimento.tb_estabelecimento est ON est.id = esc.estabelecimento_id
 				INNER JOIN
 					corporativo.tb_pessoajuridica pjr ON pjr.id = est.pessoajuridica_id
 				INNER JOIN
@@ -371,9 +371,9 @@ class Contrato extends Modelo
                 FROM
                     financeiro.tb_contrato con
                 INNER JOIN
-                    estabelecimentosaude.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id AND esc.excluido IS FALSE
+                    estabelecimento.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id AND esc.excluido IS FALSE
                 INNER JOIN
-                    estabelecimentosaude.tb_estabelecimento est ON est.id = esc.estabelecimento_id AND est.excluido IS FALSE
+                    estabelecimento.tb_estabelecimento est ON est.id = esc.estabelecimento_id AND est.excluido IS FALSE
 				INNER JOIN
 					corporativo.tb_pessoajuridica pjr ON pjr.id = est.pessoajuridica_id
                 INNER JOIN
@@ -445,7 +445,7 @@ class Contrato extends Modelo
             FROM
                 financeiro.tb_contrato con
             INNER JOIN
-                estabelecimentosaude.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
+                estabelecimento.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id
             WHERE
                 ('{$inicioVigenciaSql}'::date BETWEEN con.inicio_vigencia AND con.fim_vigencia OR
                 '{$fimVigenciaSql}'::date BETWEEN con.inicio_vigencia AND con.fim_vigencia)

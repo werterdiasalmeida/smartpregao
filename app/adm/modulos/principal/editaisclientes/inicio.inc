@@ -2,7 +2,6 @@
 $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
-$mServicoAnaliseContratado = new ServicoAnaliseContratado();
 $params = getParam();
 $atalho_pesquisa = $_REQUEST['atalho_pesquisa'];
 
@@ -59,13 +58,13 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
                     break;
                 case 'todos_futuros':
                     $arWhereEditaisCliente[] = " edi.data_limite >= current_date";
-                    $arWhereEditaisCliente[] = " (esd.esdid IS NULL OR esd.esdid NOT IN (95)) ";
+                    $arWhereEditaisCliente[] = " esd.esdid IS NULL OR esd.esdid NOT IN (95) ";
                     break;
                 case 'monitorados':
-                    $arWhereEditaisCliente[] = " (esd.esdid IN (98)) ";
+                    $arWhereEditaisCliente[] = " esd.esdid = 98 ";
                     break;
                 case 'contatados':
-                    $arWhereEditaisCliente[] = " (esd.esdid IN (100)) ";
+                    $arWhereEditaisCliente[] = " esd.esdid = 101 ";
                     break;
                 case 'todos':
                     //$arWhereEditaisCliente[] = " (esd.esdid IS NOT NULL) ";
@@ -79,6 +78,8 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             break;
     }
 }
+
+$dadoBignumber = $mEditalCliente->retornaBigNumbers($params);
 include APPRAIZ . "includes/cabecalhom.inc";
 getStrMsgDanger();
 getStrMsgInfo();
@@ -111,10 +112,10 @@ getStrMsgWarning();
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['cotacoes_recebidas']) ?>"><?php echo intval($dadoBignumber['cotacoes_recebidas']) ?></span>
+                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['meus_pregoes']) ?>"><?php echo intval($dadoBignumber['cotacoes_recebidas']) ?></span>
                         </div>
                         <div class="desc"><b>Meus Pregões</b></div>
-                        <div class="desc"> Participações: <?php echo intval($dadoBignumber['cotacoes_enviadas']) ?></div>
+                        <div class="desc"> Participações: <b><?php echo intval($dadoBignumber['meus_pregoes_participei']) ?></b></div>
                     </div>
                 </a>
             </div>
@@ -125,10 +126,9 @@ getStrMsgWarning();
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['dispensas_recebidas']) ?>"><?php echo intval($dadoBignumber['dispensas_recebidas']) ?></span>
+                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['pregoes_monitorados']) ?>"><?php echo intval($dadoBignumber['dispensas_recebidas']) ?></span>
                         </div>
                         <div class="desc"> <b>Pregões Monitorados</b></div>
-                        <div class="desc"> Eventos futuros: <?php echo intval($dadoBignumber['dispensas_enviadas']) ?></div>
                     </div>
                 </a>
             </div>
@@ -139,9 +139,9 @@ getStrMsgWarning();
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['credenciamentos_cadastrados']) ?>"><?php echo intval($dadoBignumber['credenciamentos_cadastrados']) ?></span>
+                            <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['contratos_assinados']) ?>"><?php echo intval($dadoBignumber['credenciamentos_cadastrados']) ?></span>
                         </div>
-                        <div class="desc"> <b>Recursos</b></div>
+                        <div class="desc"> <b>Contratos Assinados</b></div>
                     </div>
                 </a>
             </div>
@@ -191,6 +191,7 @@ getStrMsgWarning();
                 </form>
                 <?php
                 unset($arConfig, $acao);
+                $rs = $mEditalCliente->getList($arWhereEditaisCliente);
                 $acao = <<<ACAO
                                 <div style="min-width: 20px;">
                                     <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Edital">
@@ -208,7 +209,6 @@ getStrMsgWarning();
                         <spam class="badge badge-primary"><b>{dias}</b></spam>
                     HTML;
                 $arConfig[3]['style'] = "width: 10%; text-align: center;";
-                $rs = $mEditalCliente->getList($arWhereEditaisCliente);
                 if ($ordernar) {
                     $rs = $mEditalCliente->getList($arWhereEditaisCliente, true, $ordernar);
                 }
@@ -299,7 +299,7 @@ HTML;
                 $arConfig[4]['style'] = "width: 10%; text-align: center;";
                 // Filtro para não trazer as que já estão vinculadas
                 $arWhereEditais[] = "edi.data_limite >= NOW() AND edi.id not in (SELECT edital_id FROM edital.editalcliente WHERE estabelecimento_id = {$dados['id']} )";
-                $arWhereEditais[] = "edi.categoria IN ( SELECT categoria FROM estabelecimentosaude.tb_estabelecimento_categoria WHERE estabelecimento_id = {$dados['id']} )";
+                $arWhereEditais[] = "edi.categoria IN ( SELECT categoria FROM estabelecimento.tb_estabelecimento_categoria WHERE estabelecimento_id = {$dados['id']} )";
                 $rs = $mEdital->getList($arWhereEditais);
                 $mEdital = new Listam(array("style" => "width: 100%;"));
                 $mEdital->setCabecalho(array(

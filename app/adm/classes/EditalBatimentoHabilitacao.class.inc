@@ -42,11 +42,11 @@ class EditalBatimentoHabilitacao extends Modelo
                   ane.id AS anexo_id,
                   arqid as arqid
                 FROM
-                  estabelecimentosaude.tb_anexo_estabelecimento ane
+                  estabelecimento.tb_anexo_estabelecimento ane
                 INNER JOIN
                   public.arquivo arq ON ane.arquivo_id = arq.arqid
                 INNER JOIN
-                  estabelecimentosaude.tb_estabelecimento est ON ane.estabelecimento_id = est.id
+                  estabelecimento.tb_estabelecimento est ON ane.estabelecimento_id = est.id
                 WHERE
                   " . implode(' AND ', $arWhere);
         if (!isset($_REQUEST['ordem'])) {
@@ -74,13 +74,13 @@ class EditalBatimentoHabilitacao extends Modelo
             bat.item_edital,
             array_to_string(array_agg(ane.nome), ', ') as atestados
         FROM
-            estabelecimentosaude.tb_anexo_estabelecimento ane
+            estabelecimento.tb_anexo_estabelecimento ane
         INNER JOIN edital.editalcliente_batimento_hablitacao bat
             on bat.anexoestabelecimento_id = ane.id
         INNER JOIN
             public.arquivo arq ON ane.arquivo_id = arq.arqid
         INNER JOIN
-            estabelecimentosaude.tb_estabelecimento est ON ane.estabelecimento_id = est.id
+            estabelecimento.tb_estabelecimento est ON ane.estabelecimento_id = est.id
             WHERE
         {$where}       
         group by 1 ";

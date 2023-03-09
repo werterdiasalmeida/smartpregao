@@ -189,11 +189,10 @@ getStrMsgWarning();
                 </div>
 
                 <div class="form-actions">
-                    <?php 
-                    if($dados['id_externo']){
+                    <?php
+                    if ($dados['id_externo']) {
 
-                       echo "<br>ID Externo: {$dados['id_externo']} / ID Origem: {$dados['id_origem']}<br><br>";
-
+                        echo "<br>ID Externo: {$dados['id_externo']} / ID Origem: {$dados['id_origem']}<br><br>";
                     }
                     ?>
                     <button type="submit" class="btn blue">

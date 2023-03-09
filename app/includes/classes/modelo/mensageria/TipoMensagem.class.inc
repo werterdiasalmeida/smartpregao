@@ -52,9 +52,9 @@ class TipoMensagem extends Modelo {
                         epm.estabelecimento_id,
                         ppm.tipo_mensagem_id
                      FROM
-                        estabelecimentosaude.tb_estabelecimento_pacote_mensagem epm
+                        estabelecimento.tb_estabelecimento_pacote_mensagem epm
                      INNER JOIN
-                        estabelecimentosaude.tb_plano_pacote_mensagem ppm ON ppm.id = epm.plano_pacote_id
+                        estabelecimento.tb_plano_pacote_mensagem ppm ON ppm.id = epm.plano_pacote_id
                      INNER JOIN
                         financeiro.tb_fatura fat ON epm.fatura_id = fat.id
                      WHERE

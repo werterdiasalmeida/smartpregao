@@ -53,7 +53,7 @@ class UsuarioResponsabilidade extends Modelo
                                                         AND ur.rpustatus = 'A'
                                                         AND ur.usucpf = pu.usucpf
                 LEFT JOIN
-                    estabelecimentosaude.tb_estabelecimento est ON ur.estabelecimento_id = est.id
+                    estabelecimento.tb_estabelecimento est ON ur.estabelecimento_id = est.id
                                                                AND est.excluido = FALSE
                 LEFT JOIN 
                     corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id

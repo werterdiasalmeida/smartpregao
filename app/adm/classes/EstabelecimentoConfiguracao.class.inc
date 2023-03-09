@@ -7,7 +7,7 @@ class EstabelecimentoConfiguracao extends Modelo
      * @var string
      * @access protected
      */
-    protected $stNomeTabela = "estabelecimentosaude.tb_estabelecimento_configuracao";
+    protected $stNomeTabela = "estabelecimento.tb_estabelecimento_configuracao";
 
     /**
      * Chave primaria.

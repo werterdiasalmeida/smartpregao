@@ -7,7 +7,7 @@ class AnexoEstabelecimento extends Modelo
      * @var string
      * @access protected
      */
-    protected $stNomeTabela = "estabelecimentosaude.tb_anexo_estabelecimento";
+    protected $stNomeTabela = "estabelecimento.tb_anexo_estabelecimento";
 
     /**
      * Chave primaria.
@@ -52,11 +52,11 @@ class AnexoEstabelecimento extends Modelo
                   arq.arqid,
                   ane.id AS anexo_id
                 FROM
-                  estabelecimentosaude.tb_anexo_estabelecimento ane
+                  estabelecimento.tb_anexo_estabelecimento ane
                 INNER JOIN
                   public.arquivo arq ON ane.arquivo_id = arq.arqid
                 INNER JOIN
-                  estabelecimentosaude.tb_estabelecimento est ON ane.estabelecimento_id = est.id
+                  estabelecimento.tb_estabelecimento est ON ane.estabelecimento_id = est.id
                 WHERE
                   " . implode(' AND ', $arWhere);
 

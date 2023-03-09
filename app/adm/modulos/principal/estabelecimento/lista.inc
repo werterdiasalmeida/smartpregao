@@ -52,9 +52,9 @@ if ($_POST && isset($_POST['act'])) {
                 $arWhere['possuiagenda'] = "((  SELECT 
                                                     COUNT(epa.id) 
                                                 FROM 
-                                                    estabelecimentosaude.tb_estabelecimento_profissional_agenda epa
+                                                    estabelecimento.tb_estabelecimento_profissional_agenda epa
                                                 INNER JOIN
-                                                    estabelecimentosaude.tb_estabelecimento_especialidade_profissional eep ON eep.id = epa.estabelecimento_especialidade_profissional_id AND eep.excluido IS FALSE AND eep.estabelecimento_id = est.id
+                                                    estabelecimento.tb_estabelecimento_especialidade_profissional eep ON eep.id = epa.estabelecimento_especialidade_profissional_id AND eep.excluido IS FALSE AND eep.estabelecimento_id = est.id
                                                 WHERE
                                                     epa.excluido IS FALSE) {$sinal} 0)";
             }
@@ -94,135 +94,64 @@ include APPRAIZ . "includes/cabecalhom.inc";
         <div class="campos-pesquisa">
             <form role="form" name="formulario" class="pesquisa-form" method="POST">
                 <div class="form-body">
-                    <div class="pesquisa-simples <?= ($pesquisaAvancada ? 'hidden' : '') ?>">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <?= campo_textom('pesquisa_simples', 'N', 'S', '', 90, 90, '', '', '', '', 0, '', '', null, '', null, null, 'Pesquise por razão social, CNPJ, nome fantasia ou tipo'); ?>
-                                        <span class="input-group-btn">
-                                            <button class="btn blue" type="submit" data-toggle="tooltip" title="Pesquisar">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                        <span class="input-group-btn" data-toggle="tooltip" title="Pesquisa avançada">
-                                            <button class="btn green-jungle btn-pesquisa-avancada" type="button">
-                                                <i class="fa fa-search-plus"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pesquisa-avancada <?= ($pesquisaAvancada ? '' : 'hidden') ?>">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Razão social</label>
-                                    <?= campo_textom('razao_social', 'N', 'S', '', 190, 190, '', '', '', '', 0); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Nome fantasia</label>
-                                    <?= campo_textom('nome_fantasia', 'N', 'S', '', 90, 90, '', '', '', '', 0); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>CNPJ</label>
-                                    <?= campo_textom('cnpj', 'N', 'S', '', 19, 19, '99.999.999/9999-99', '', '', '', 0); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Tipo</label>
-                                    <?php
-                                    $mTipoEstabelecimento = new TipoEstabelecimento();
-                                    $tiposEstabelecimento = $mTipoEstabelecimento->recuperarTodos('id AS codigo, descricao', array("excluido IS FALSE"));
-                                    $db->monta_combom("tipo_estabelecimento_id", $tiposEstabelecimento, 'S', 'Selecione...', '', '', '', '', 'N');
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Possui agenda</label>
-                                    <div class="form-select-content">
-                                        <?php
-                                        $db->monta_radiom('possuiagenda', array(
-                                            array('codigo' => 'S', 'descricao' => 'Sim'),
-                                            array('codigo' => 'N', 'descricao' => 'Não'),
-                                            array('codigo' => '', 'descricao' => 'Todos'),
-                                        ), 'S', 'N')
-                                        ?>
-                                    </div>
-                                </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <?= campo_textom('pesquisa_simples', 'N', 'S', '', 90, 90, '', '', '', '', 0, '', '', null, '', null, null, 'Pesquise por razão social, CNPJ, nome fantasia ou tipo'); ?>
+                                <span class="input-group-btn">
+                                    <button class="btn blue" type="submit" data-toggle="tooltip" title="Pesquisar">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="pesquisa-avancada <?= ($pesquisaAvancada ? '' : 'hidden') ?>">
-                                <button type="submit" class="btn blue">
-                                    <i class="fa fa-search"></i> Pesquisar
-                                </button>
-                                <button type="button" class="btn green-jungle btn-pesquisa-simples">
-                                    <i class="fa fa-search-minus"></i> Pesquisa simples
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <?php if (possuiAcesso('adm.php?modulo=principal/estabelecimento/formulario&acao=C')) : ?>
-                                <a class="btn green" href="?modulo=principal/estabelecimento/formulario&acao=C">
-                                    <i class="fa fa-plus-circle"></i>
-                                    Cadastrar novo cliente
-                                </a>
-                            <?php endif; ?>
-                        </div>
+                    <div class="col-md-12 text-right">
+                        <?php if (possuiAcesso('adm.php?modulo=principal/estabelecimento/formulario&acao=C')) : ?>
+                            <a class="btn green" href="?modulo=principal/estabelecimento/formulario&acao=C">
+                                <i class="fa fa-plus-circle"></i>
+                                Cadastrar novo cliente
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <input type="hidden" name="act" value="<?= ($pesquisaAvancada ? 'pesquisa_avancada' : 'pesquisa_simples') ?>" />
-            </form>
         </div>
-
+        <input type="hidden" name="act" value="<?= ($pesquisaAvancada ? 'pesquisa_avancada' : 'pesquisa_simples') ?>" />
+        </form>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?php
 
-    <?php
+            $acaoEdicao = <<<ACAO
+                                    <php>
+                                        if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
+                                            return '<a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Editar estabelecimento">
+                                            <i class="bi bi-gear"></i>
+                                                    </a>';
+                                        }
+                                    </php>
+                            ACAO;
 
-    $acaoEdicao = <<<ACAO
-        <php>
-            if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
-                return '<a class="btn btn-circle btn-icon-only btn-default blue" href="?modulo=principal/estabelecimento/formulario&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Editar estabelecimento">
-                <i class="bi bi-gear"></i>
-                        </a>';
-            }
-        </php>
-ACAO;
+            $acaoExclusao = <<<ACAO
+                                            <php>
+                                                if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
+                                                    return '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:exibirModalExclusao(\'' . setParam(array('id' => '{id}'), false) . '\', \'{nome_fantasia}\');" data-toggle="tooltip"  title="Excluir estabelecimento">
+                                                <i class="bi bi-x-square"></i>
+                                            </a>';
+                                                }
+                                            </php>
+                                ACAO;
 
-    $acaoExclusao = <<<ACAO
-            <php>
-                if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
-                    return '<a class="btn btn-circle btn-icon-only btn-default red" href="javascript:exibirModalExclusao(\'' . setParam(array('id' => '{id}'), false) . '\', \'{nome_fantasia}\');" data-toggle="tooltip"  title="Excluir estabelecimento">
-                <i class="bi bi-x-square"></i>
-            </a>';
-                }
-            </php>
-ACAO;
+            $acao = <<<ACAO
+                                    {$acaoEdicao}
+                                    {$acaoExclusao}
+                        ACAO;
 
-    $acao = <<<ACAO
-            {$acaoEdicao}
-            {$acaoExclusao}
-ACAO;
-
-    $arConfig = array();
-    $arConfig[0]['html'] = <<<HTML
+            $arConfig = array();
+            $arConfig[0]['html'] = <<<HTML
         <php>
             if(UsuarioResponsabilidadeEstabelecimento::isPossuiResponsabilidadeEstabelecimentoFuncionalidade('{id}', false, 'adm.php?modulo=principal/estabelecimento/formulario&acao=C')) {
                 return '<a href="?modulo=principal/editaisclientes/inicio&acao=C&p=' . setParam(array('id' => '{id}'), false) . '" data-toggle="tooltip" title="Abrir Painel">
@@ -239,23 +168,25 @@ ACAO;
 
 HTML;
 
-    $arConfig[2]['style'] = "text-align: center;";
-    $arConfig[2]['style'] = "width: 10%;";
+            $arConfig[2]['style'] = "text-align: center;";
+            $arConfig[2]['style'] = "width: 10%;";
+            $mEstabelecimento = new Estabelecimento();
+            $rs = $mEstabelecimento->getList($arWhere);
 
-    $rs = $mEstabelecimento->getList($arWhere);
-
-    $mLista = new Listam(array("style" => "width: 100%;"));
-    $mLista->setCabecalho(array(
-        'Empresa',
-        'CNPJ',
-        'Ação'
-    ));
-    $mLista->setCorpo($rs, $arConfig);
-    $mLista->setAcao($acao);
-    $mLista->show();
-    ?>
+            $mLista = new Listam(array("style" => "width: 100%;"));
+            $mLista->setCabecalho(array(
+                'Empresa',
+                'CNPJ',
+                'Ação'
+            ));
+            $mLista->setCorpo($rs, $arConfig);
+            $mLista->setAcao($acao);
+            $mLista->show();
+            ?>
+        </div>
+    </div>
 </div>
-
+</div>
 <form method="post" class="form-excluir">
     <input type="hidden" name="act" value="excluir" />
     <input type="hidden" name="p" />

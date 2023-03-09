@@ -8,10 +8,11 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
     switch ($_REQUEST['act']) {
         case 'participar':
             $params = array_merge($_REQUEST, getParam());
-            $params['edital_id'] = $params['id'];
-            $mCDCCliente->salvarEditalCliente($params);
+            $params['cdc_id'] = $params['id'];
+            unset($params['id']);
+            $mCDCCliente->salvarCDCCliente($params);
             $mCDCCliente->commit();
-            $db->sucessom($_REQUEST['modulo'], '&p=' . $params['id'], 'Participação Vinculada com Sucesso!');
+            $db->sucessom($_REQUEST['modulo'], '&p=' . $params['p'], 'Participação Vinculada com Sucesso!');
             break;
         case 'pesquisa_meus_registros':
             $pesquisa_simples = trim(addslashes($_REQUEST['pesquisa_simples']));
@@ -82,7 +83,7 @@ if ($aba) {
                         <div class="number">
                             <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['cotacoes_recebidas']) ?>"><?php echo intval($dadoBignumber['cotacoes_recebidas']) ?></span>
                         </div>
-                        <div class="desc"><b>Cotações Recebidas</b></div>
+                        <div class="desc"><b>Solicitações de Cotação Recebidas</b></div>
                         <div class="desc"> Enviadas: <?php echo intval($dadoBignumber['cotacoes_enviadas']) ?></div>
                     </div>
                 </a>
@@ -97,7 +98,7 @@ if ($aba) {
                             <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['dispensas_recebidas']) ?>"><?php echo intval($dadoBignumber['dispensas_recebidas']) ?></span>
                         </div>
                         <div class="desc"> <b>Dispensas eletrônicas</b></div>
-                        <div class="desc"> Enviadas: <?php echo intval($dadoBignumber['dispensas_enviadas']) ?></div>
+                        <div class="desc"> Participando: <?php echo intval($dadoBignumber['dispensas_enviadas']) ?></div>
                     </div>
                 </a>
             </div>
@@ -110,7 +111,7 @@ if ($aba) {
                         <div class="number">
                             <span data-counter="counterup" data-value="<?php echo intval($dadoBignumber['credenciamentos_cadastrados']) ?>"><?php echo intval($dadoBignumber['credenciamentos_cadastrados']) ?></span>
                         </div>
-                        <div class="desc"> <b>Credenciamentos Realizados</b></div>
+                        <div class="desc"> <b>Credenciamentos</b></div>
                         <div class="desc"> Pendentes de resposta: <?php echo intval($dadoBignumber['credenciamentos_pendentes']) ?></div>
                     </div>
                 </a>
@@ -168,14 +169,14 @@ if ($aba) {
                     unset($arConfig, $acao);
                     $acao = <<<ACAO
                                 <div style="min-width: 20px;">
-                                    <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Edital">
+                                    <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes da Oportunidade">
                                         <i class="fa fa-edit"></i> 
                                 </a>
                                 </div>
                     ACAO;
                     $arConfig = array();
                     $arConfig[1]['html'] = <<<HTML
-                    <a href="?modulo=principal/cdcclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
+                    <a href="?modulo=principal/cdcclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços da Oportunidade">
                         {orgao}
                     </a>
                     HTML;
@@ -218,11 +219,9 @@ if ($aba) {
                                     </button>
                                 </span>
                                 <input type="hidden" name="act" value="pesquisa_simples">
-
                             </div>
                         </div>
                     </form>
-
                     <?php
                     unset($arConfig, $acao);
                     $acao = <<<ACAO
@@ -238,7 +237,7 @@ if ($aba) {
                     $arConfig[4]['style'] = "width: 10%; text-align: center;";
                     // Filtro para não trazer as que já estão vinculadas
                     $arWhereEditais[] = "edi.data_limite >= NOW() AND edi.id not in (SELECT cdc_id FROM edital.cotacao_dispensa_credenciamentoempresa WHERE estabelecimento_id = {$dados['id']} )";
-                    $arWhereEditais[] = "edi.categoria IN ( SELECT categoria FROM estabelecimentosaude.tb_estabelecimento_categoria WHERE estabelecimento_id = {$dados['id']} )";
+                    $arWhereEditais[] = "edi.categoria IN ( SELECT categoria FROM estabelecimento.tb_estabelecimento_categoria WHERE estabelecimento_id = {$dados['id']} )";
                     $rs = $mCotacaoDispensa->getList($arWhereEditais);
                     $mCotacaoDispensa = new Listam(array("style" => "width: 100%;"));
                     $mCotacaoDispensa->setCabecalho(array(
@@ -290,7 +289,7 @@ if ($aba) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Detalhes do Edital</h4>
+                <h4 class="modal-title">Detalhes da Oportunidade</h4>
             </div>
             <div class="modal-body">
                 Órgão Licitante: <strong id="nome"></strong>

@@ -7,7 +7,7 @@ class Estabelecimento extends Modelo
      * @var string
      * @access protected
      */
-    protected $stNomeTabela = "estabelecimentosaude.tb_estabelecimento";
+    protected $stNomeTabela = "estabelecimento.tb_estabelecimento";
 
     /**
      * Chave primaria.
@@ -81,28 +81,7 @@ class Estabelecimento extends Modelo
 
         $dados = array_merge($dados, $dadosCarimbo);
 
-
         $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
-
-        if (empty($params['id'])) {
-            $mResponsabilidade = new UsuarioResponsabilidadeEstabelecimento();
-
-            if (possuiPerfil(array(ADM_PERFIL_GERAL))) {
-                $mResponsabilidade->atribuirResponsabilidadeEstabelecimento($_SESSION['usucpf'], ADM_PERFIL_GERAL, $id);
-            }
-
-            if (possuiPerfil(array(ADM_PERFIL_LOCAL))) {
-                $mResponsabilidade->atribuirResponsabilidadeEstabelecimento($_SESSION['usucpf'], ADM_PERFIL_LOCAL, $id);
-            }
-
-            if (possuiPerfil(array(ADM_PERFIL_REPRESENTANTE))) {
-                $mResponsabilidade->atribuirResponsabilidadeEstabelecimento($_SESSION['usucpf'], ADM_PERFIL_REPRESENTANTE, $id);
-            }
-
-            if (possuiPerfil(array(ADM_PERFIL_RECEPCIONISTA))) {
-                $mResponsabilidade->atribuirResponsabilidadeEstabelecimento($_SESSION['usucpf'], ADM_PERFIL_RECEPCIONISTA, $id);
-            }
-        }
 
         return $id;
     }
@@ -118,7 +97,7 @@ class Estabelecimento extends Modelo
                   est.pessoajuridica_id,
                   est.id
                 FROM
-                  estabelecimentosaude.tb_estabelecimento est
+                  estabelecimento.tb_estabelecimento est
                 INNER JOIN
                   corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                                                   AND pj.excluido IS FALSE
@@ -132,7 +111,7 @@ class Estabelecimento extends Modelo
                 $sql .= " ORDER BY pj.nome_fantasia, pj.razao_social DESC";
             }
         }
-
+        
         if ($paginacao) {
             $dado = Paginacao::getPaginacao($this, $sql, 10);
             return $dado;
@@ -147,9 +126,9 @@ class Estabelecimento extends Modelo
         $sql = "SELECT 
                      COUNT(1) 
                   FROM 
-                     estabelecimentosaude.tb_estabelecimento_profissional_agenda epa
+                     estabelecimento.tb_estabelecimento_profissional_agenda epa
                   INNER JOIN
-                     estabelecimentosaude.tb_estabelecimento_especialidade_profissional eep ON epa.estabelecimento_especialidade_profissional_id = eep.id
+                     estabelecimento.tb_estabelecimento_especialidade_profissional eep ON epa.estabelecimento_especialidade_profissional_id = eep.id
                                                                                        AND eep.excluido IS FALSE
                   INNER JOIN
                     profissionalsaude.tb_especialidade_profissional ep ON eep.especialidade_profissional_id = ep.id
@@ -181,7 +160,7 @@ class Estabelecimento extends Modelo
                   est.pessoajuridica_id,
                   est.id
                 FROM
-                  estabelecimentosaude.tb_estabelecimento est
+                  estabelecimento.tb_estabelecimento est
                 INNER JOIN
                   corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                                                   AND pj.excluido IS FALSE
@@ -331,7 +310,7 @@ HTML;
                   est.id AS estabelecimento_id,
                   ST_AsGeoJSON(epj.geo_localizacao) AS geo_localizacao
                 FROM
-                  estabelecimentosaude.tb_estabelecimento est
+                  estabelecimento.tb_estabelecimento est
                 INNER JOIN
                   corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                                                   AND pj.excluido IS FALSE
@@ -342,7 +321,7 @@ HTML;
                 LEFT JOIN
                     corporativo.tb_municipio mun ON epj.municipio_id = mun.id
                 INNER JOIN
-                  estabelecimentosaude.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
+                  estabelecimento.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
                 WHERE
                   " . implode(' AND ', $arWhere);
 
@@ -389,12 +368,12 @@ HTML;
                   est.pessoajuridica_id,
                   est.id
                 FROM
-                  estabelecimentosaude.tb_estabelecimento est
+                  estabelecimento.tb_estabelecimento est
                 INNER JOIN
                   corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                                                   AND pj.excluido IS FALSE
                 INNER JOIN
-                  estabelecimentosaude.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
+                  estabelecimento.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
                 WHERE
                   " . implode(' AND ', $arWhere);
 
@@ -420,12 +399,12 @@ HTML;
                   est.pessoajuridica_id,
                   est.id
                 FROM
-                  estabelecimentosaude.tb_estabelecimento est
+                  estabelecimento.tb_estabelecimento est
                 INNER JOIN
                   corporativo.tb_pessoajuridica pj ON est.pessoajuridica_id = pj.id
                                                   AND pj.excluido IS FALSE
                 INNER JOIN
-                  estabelecimentosaude.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
+                  estabelecimento.tb_tipo_estabelecimento tes ON est.tipo_estabelecimento_id = tes.id
                 WHERE
                   " . implode(' AND ', $arWhere) . "
                 LIMIT 

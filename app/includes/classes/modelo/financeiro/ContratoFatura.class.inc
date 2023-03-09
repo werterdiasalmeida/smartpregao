@@ -204,7 +204,7 @@ class ContratoFatura extends Modelo
             INNER JOIN
                 financeiro.tb_contrato con ON con.id = cnf.contrato_id AND con.excluido IS FALSE
             INNER JOIN
-                estabelecimentosaude.tb_estabelecimento_contrato etc ON etc.contrato_id = con.id AND etc.excluido IS FALSE 
+                estabelecimento.tb_estabelecimento_contrato etc ON etc.contrato_id = con.id AND etc.excluido IS FALSE 
             INNER JOIN
                 financeiro.tb_fatura fat ON fat.id = cnf.fatura_id AND fat.excluido IS FALSE 
             WHERE
@@ -397,7 +397,7 @@ class ContratoFatura extends Modelo
             INNER JOIN
                 financeiro.tb_contrato con ON con.id = cnf.contrato_id AND con.excluido IS FALSE
             INNER JOIN
-                estabelecimentosaude.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id AND esc.excluido IS FALSE
+                estabelecimento.tb_estabelecimento_contrato esc ON esc.contrato_id = con.id AND esc.excluido IS FALSE
             WHERE 
                 " . implode(' AND ', $arrWhere);
 
@@ -605,13 +605,13 @@ EMAIL;
         $sql = "SELECT
                   COUNT(epa.id) AS qtd
                 FROM
-                    estabelecimentosaude.tb_estabelecimento_profissional_agenda epa
+                    estabelecimento.tb_estabelecimento_profissional_agenda epa
                 LEFT JOIN
-                    estabelecimentosaude.tb_sala_estabelecimento se ON se.id = epa.sala_estabelecimento_id AND se.excluido IS FALSE
+                    estabelecimento.tb_sala_estabelecimento se ON se.id = epa.sala_estabelecimento_id AND se.excluido IS FALSE
                 INNER JOIN
-                    estabelecimentosaude.tb_tipo_consulta tc ON tc.id = epa.tipo_consulta_id AND tc.excluido IS FALSE
+                    estabelecimento.tb_tipo_consulta tc ON tc.id = epa.tipo_consulta_id AND tc.excluido IS FALSE
                 INNER JOIN
-                    estabelecimentosaude.tb_estabelecimento_especialidade_profissional eep ON eep.id = epa.estabelecimento_especialidade_profissional_id AND eep.excluido IS FALSE
+                    estabelecimento.tb_estabelecimento_especialidade_profissional eep ON eep.id = epa.estabelecimento_especialidade_profissional_id AND eep.excluido IS FALSE
                 INNER JOIN
                     profissionalsaude.tb_especialidade_profissional ep ON ep.id = eep.especialidade_profissional_id AND ep.excluido IS FALSE
                 INNER JOIN
@@ -621,11 +621,11 @@ EMAIL;
                 INNER JOIN
                     profissionalsaude.tb_tipo_profissional tp ON tp.id = pr.tipo_profissional_id AND tp.excluido IS FALSE
                 INNER JOIN
-                    estabelecimentosaude.tb_estabelecimento est ON est.id = eep.estabelecimento_id AND est.excluido IS FALSE
+                    estabelecimento.tb_estabelecimento est ON est.id = eep.estabelecimento_id AND est.excluido IS FALSE
                 INNER JOIN
-                    estabelecimentosaude.tb_valor_procedimento vp ON vp.id = epa.valor_procedimento_id AND vp.excluido IS FALSE
+                    estabelecimento.tb_valor_procedimento vp ON vp.id = epa.valor_procedimento_id AND vp.excluido IS FALSE
                 INNER JOIN
-                    estabelecimentosaude.tb_procedimento p ON p.id = vp.procedimento_id AND p.excluido IS FALSE
+                    estabelecimento.tb_procedimento p ON p.id = vp.procedimento_id AND p.excluido IS FALSE
                 INNER JOIN
                   workflow.documento doc ON epa.documento_id = doc.docid AND doc.esdid = " . EstabelecimentoProfissionalAgenda::WF_ESTADO_REALIZADA . "
                 WHERE

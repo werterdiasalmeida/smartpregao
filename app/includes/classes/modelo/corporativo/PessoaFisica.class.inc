@@ -290,11 +290,11 @@ class PessoaFisica extends Modelo
         $wherePaciente = $verificarPaciente ? "({$aliasTabela}{$coluna} IN (SELECT
                                                              repa.pessoa_paciente_id
                                                        FROM
-                                                             estabelecimentosaude.tb_estabelecimento_profissional_agenda repa
+                                                             estabelecimento.tb_estabelecimento_profissional_agenda repa
                                                        INNER JOIN
-                                                             estabelecimentosaude.tb_estabelecimento_especialidade_profissional reep ON repa.estabelecimento_especialidade_profissional_id = reep.id
+                                                             estabelecimento.tb_estabelecimento_especialidade_profissional reep ON repa.estabelecimento_especialidade_profissional_id = reep.id
                                                        INNER JOIN
-                                                             estabelecimentosaude.tb_estabelecimento rest ON reep.estabelecimento_id = rest.id
+                                                             estabelecimento.tb_estabelecimento rest ON reep.estabelecimento_id = rest.id
                                                        WHERE
                                                              " . UsuarioResponsabilidadeEstabelecimento::gerarWhereResponsabilidadeEstabelecimento('rest') . "))" : 'false';
 
@@ -404,9 +404,9 @@ HTML;
             (SELECT DISTINCT
                 epa.pessoa_paciente_id
             FROM
-                  estabelecimentosaude.tb_estabelecimento_profissional_agenda epa
+                  estabelecimento.tb_estabelecimento_profissional_agenda epa
                 INNER JOIN
-                  estabelecimentosaude.tb_estabelecimento_especialidade_profissional eep ON epa.estabelecimento_especialidade_profissional_id = eep.id
+                  estabelecimento.tb_estabelecimento_especialidade_profissional eep ON epa.estabelecimento_especialidade_profissional_id = eep.id
                                                                                         AND eep.excluido IS FALSE
                 INNER JOIN
                   profissionalsaude.tb_especialidade_profissional ep ON eep.especialidade_profissional_id = ep.id

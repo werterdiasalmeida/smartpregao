@@ -23,8 +23,8 @@ class CDCCliente extends Modelo
      */
     protected $arAtributos = array(
         'id' => null,
-        'estabelecimento_id' => null,
         'cdc_id' => null,
+        'estabelecimento_id' => null,
         'docid' => null,
         'comentarios' => null,
         'valor_estimado' => null,
@@ -80,14 +80,13 @@ class CDCCliente extends Modelo
      * @param $params
      * @throws Exception
      */
-    public function salvarEditalCliente($params)
+    public function salvarCDCCliente($params)
     {
-      list($params, $camposNulos) = $this->limparDadosVazios($params);
-        $dados = $params;
-        // Carimbo de alteração
-        //$dados = $this->getDadosCarimbo($params, $dados);
-        $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
+        // tratamento dos dados
 
+        $params['valor_estimado'] = formata_valor_sql($params['valor_estimado']);
+
+        $id = $this->popularDadosObjeto($params)->salvar();
         return $id;
     }
 

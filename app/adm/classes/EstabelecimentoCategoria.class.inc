@@ -7,7 +7,7 @@ class EstabelecimentoCategoria extends Modelo
    * @var string
    * @access protected
    */
-  protected $stNomeTabela = "estabelecimentosaude.tb_estabelecimento_categoria";
+  protected $stNomeTabela = "estabelecimento.tb_estabelecimento_categoria";
 
   /**
    * Chave primaria.
@@ -29,10 +29,10 @@ class EstabelecimentoCategoria extends Modelo
 
   public function salvarCategorias($params)
   {
-   $sql = "DELETE FROM estabelecimentosaude.tb_estabelecimento_categoria WHERE estabelecimento_id = {$params['id']}";
+   $sql = "DELETE FROM estabelecimento.tb_estabelecimento_categoria WHERE estabelecimento_id = {$params['id']}";
    $this->executar($sql);
     foreach ($params['categorias'] as $dado) {
-      $sql = "INSERT INTO  estabelecimentosaude.tb_estabelecimento_categoria (estabelecimento_id, categoria) VALUES ({$params['id']}, '{$dado}')";
+      $sql = "INSERT INTO  estabelecimento.tb_estabelecimento_categoria (estabelecimento_id, categoria) VALUES ({$params['id']}, '{$dado}')";
       $gravou  = $this->executar($sql);
     }
     return $gravou;
@@ -45,7 +45,7 @@ class EstabelecimentoCategoria extends Modelo
     SELECT
        categoria
     FROM
-        estabelecimentosaude.tb_estabelecimento_categoria
+        estabelecimento.tb_estabelecimento_categoria
     WHERE
     {$where}";
     $retorno = $this->carregar($sql);

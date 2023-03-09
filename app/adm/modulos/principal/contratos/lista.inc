@@ -120,7 +120,7 @@ getStrMsgWarning();
                 unset($arConfig, $acao);
                 $acao = <<<ACAO
                                 <div style="min-width: 20px;">
-                                    <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Edital">
+                                    <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Contrato">
                                         <i class="fa fa-edit"></i> 
                                 </a>
                                 </div>
@@ -172,7 +172,7 @@ getStrMsgWarning();
     }
 
     function selecionarEdital(id) {
-        window.location = '?modulo=principal/cdcclientes/selecionado&acao=C&p=' + id;
+        window.location = '?modulo=principal/contratos/formulario&acao=C&p=' + id;
     }
 
     function participarEdital() {
@@ -180,7 +180,7 @@ getStrMsgWarning();
     }
 
     function cadastraroportunidade(id) {
-        url = '?modulo=principal/cotacao-dispensa/formulario&acao=C&est_id=' + id;
+        url = '?modulo=principal/contratos/formulario&acao=C&est_id=' + id;
         window.open(url);
     }
 </script>

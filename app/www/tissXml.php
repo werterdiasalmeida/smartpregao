@@ -70,17 +70,17 @@ $sqlConsultas = "SELECT
                     999999 AS codigo_procedimento, /* TODO */
                     vlr.valor AS valor_procedimento
                 FROM
-                    estabelecimentosaude.tb_estabelecimento_profissional_agenda epa
+                    estabelecimento.tb_estabelecimento_profissional_agenda epa
                 LEFT JOIN
-                    estabelecimentosaude.tb_valor_procedimento vlr ON epa.valor_procedimento_id = vlr.id
+                    estabelecimento.tb_valor_procedimento vlr ON epa.valor_procedimento_id = vlr.id
                 LEFT JOIN
-                    estabelecimentosaude.tb_tabela_procedimento_convenio tpc ON vlr.tabela_procedimento_convenio_id = tpc.id
+                    estabelecimento.tb_tabela_procedimento_convenio tpc ON vlr.tabela_procedimento_convenio_id = tpc.id
                 LEFT JOIN
-                    estabelecimentosaude.tb_convenio_estabelecimento coe ON tpc.convenio_id = coe.id
+                    estabelecimento.tb_convenio_estabelecimento coe ON tpc.convenio_id = coe.id
                 LEFT JOIN
-                    estabelecimentosaude.tb_tipo_consulta tco ON epa.tipo_consulta_id = tco.id
+                    estabelecimento.tb_tipo_consulta tco ON epa.tipo_consulta_id = tco.id
                 INNER JOIN
-                    estabelecimentosaude.tb_estabelecimento_especialidade_profissional eep ON epa.estabelecimento_especialidade_profissional_id = eep.id
+                    estabelecimento.tb_estabelecimento_especialidade_profissional eep ON epa.estabelecimento_especialidade_profissional_id = eep.id
                 INNER JOIN
                     profissionalsaude.tb_especialidade_profissional ep ON eep.especialidade_profissional_id = ep.id
                 INNER JOIN
@@ -90,13 +90,13 @@ $sqlConsultas = "SELECT
                 LEFT JOIN
                     corporativo.tb_pessoafisica paciente ON epa.pessoa_paciente_id = paciente.id
                 INNER JOIN
-                    estabelecimentosaude.tb_estabelecimento est ON eep.estabelecimento_id = est.id
+                    estabelecimento.tb_estabelecimento est ON eep.estabelecimento_id = est.id
                 INNER JOIN
                     corporativo.tb_pessoajuridica pje ON est.pessoajuridica_id = pje.id
                 INNER JOIN
                     profissionalsaude.tb_tipo_profissional tpr ON tpr.id = pro.tipo_profissional_id
                 LEFT JOIN
-                    estabelecimentosaude.tb_convenio_estabelecimento_paciente cep ON coe.id = cep.convenio_estabelecimento_id 
+                    estabelecimento.tb_convenio_estabelecimento_paciente cep ON coe.id = cep.convenio_estabelecimento_id 
                                                                                  AND cep.pessoa_paciente_id = epa.pessoa_paciente_id
                                                                                  AND cep.excluido IS FALSE
                 WHERE

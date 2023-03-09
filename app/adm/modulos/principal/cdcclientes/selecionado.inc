@@ -4,20 +4,21 @@ ini_set("memory_limit", "10240M");
 $mEstabelecimento = new Estabelecimento();
 $mCotacaoDispensa = new CotacaoDispensa();
 $mCDCCliente = new CDCCliente();
-//$mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
+$mCDCClienteAcompanhamento = new CDCClienteAcompanhamento();
 $fileSimec = new FilesSimec();
 $p = getParam();
 /* Carrega os dados da tela */
-$editalCliente = $_REQUEST['p'];
-if (!is_int($editalCliente)) {
-    $editalCliente = getParam();
-    $editalCliente = $editalCliente['id'];
+$CDCCliente = $_REQUEST['p'];
+if (!is_int($CDCCliente)) {
+    $CDCCliente = getParam();
+    $CDCCliente = $CDCCliente['id'];
 }
-$mCDCCliente->carregarPorId($editalCliente);
-$dadosEditalCliente = $mCDCCliente->getDados();
-$dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
-$dados = $mCotacaoDispensa->getDadosCompletos($editalCliente);
+$mCDCCliente->carregarPorId($CDCCliente);
+$dadosCDCCliente = $mCDCCliente->getDados();
+$dadosCliente = $mEstabelecimento->getTodosDados($dadosCDCCliente['estabelecimento_id']);
+$dados = $mCotacaoDispensa->getDadosCompletos($CDCCliente);
 extract($dados);
+$valor_estimado = formata_valor($valor_estimado);
 /* Ações da tela */
 
 if ($_REQUEST && isset($_REQUEST['act'])) {
@@ -26,8 +27,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
         case 'salvarCadastro':
             $params = array_merge($_POST, getParam());
             $params['valor_estimado'] = floatval(formata_valor_sql($params['valor_estimado']));
-            ver($params,d);
-            $params['id'] = $mCDCCliente->salvarEditalCliente($params);
+            $params['id'] = $mCDCCliente->salvarCDCCliente($params);
             $mCDCCliente->commit();
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $params['id'])));
             break;
@@ -35,12 +35,12 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             /* Acompanhamentos */
         case 'salvarAcompanhamento':
             $params = $_POST;
-            $mEditalClienteAcompanhamento->salvarAcompanhamento($params, $_FILES);
-            $mEditalClienteAcompanhamento->commit();
+            $mCDCClienteAcompanhamento->salvarAcompanhamento($params, $_FILES);
+            $mCDCClienteAcompanhamento->commit();
 
             /* Adiciona agenda, caso esteja preenchido o horário de início */
             if ($params['hora_inicio']) {
-                $params['estabelecimento_id'] = $dadosEditalCliente['estabelecimento_id'];
+                $params['estabelecimento_id'] = $dadosCDCCliente['estabelecimento_id'];
                 $params['data_agenda'] = $params['data'];
                 if (!$params['hora_fim']) {
                     $params['hora_fim'] = substr($params['hora_inicio'], 0, 2) . ':59';
@@ -55,8 +55,8 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             break;
         case 'excluirAcompanhamento':
             $params = $_REQUEST;
-            $mEditalClienteAcompanhamento->excluir(intval($params['id_acompanhamento']));
-            $mEditalClienteAcompanhamento->commit();
+            $mCDCClienteAcompanhamento->excluir(intval($params['id_acompanhamento']));
+            $mCDCClienteAcompanhamento->commit();
             $db->sucessom($_REQUEST['modulo'], setParam(array('id' => $p['id'])));
             break;
 
@@ -68,13 +68,13 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
 }
 
 /* Verifica se já possui um DOCID, senão, atribui um */
-if (empty($dadosEditalCliente['docid'])) {
-    $dadosEditalCliente['docid'] = wf_cadastrarDocumento(18, 'Fluxo do CDC');
-    $docid = $mEditalCliente->popularDadosObjeto($dadosEditalCliente)->salvar(true, true, $camposNulos);
+if (empty($dadosCDCCliente['docid'])) {
+    $dadosCDCCliente['docid'] = wf_cadastrarDocumento(18, 'Fluxo do CDC');
+    $docid = $mCDCCliente->popularDadosObjeto($dadosCDCCliente)->salvar(true, true, $camposNulos);
 } else {
-    $docid = $dadosEditalCliente['docid'];
+    $docid = $dadosCDCCliente['docid'];
 }
-$editalCliente = setParam(array('id' => $editalCliente), false);
+$CDCCliente = setParam(array('id' => $CDCCliente), false);
 $param['id'] = $dados['id_edital'];
 $p = setParam($param, true);
 
@@ -197,7 +197,7 @@ getStrMsgWarning();
     }
 
     function editar(id) {
-        url = '?modulo=principal/cotacao-dispensa/formulario&acao=C' + id + '&C&est_id=<?php echo $dadosEditalCliente['estabelecimento_id'] ?>';
+        url = '?modulo=principal/cotacao-dispensa/formulario&acao=C' + id + '&C&est_id=<?php echo $dadosCDCCliente['estabelecimento_id'] ?>';
         window.open(url);
     }
 </script>
@@ -238,7 +238,7 @@ getStrMsgWarning();
                     <h4 class="modal-title" id="titulo_acompanhamento"></h4>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="editalcliente_id" value="<?php echo $dadosEditalCliente['id'] ?>" />
+                    <input type="hidden" name="cdc_id" value="<?php echo $dadosCDCCliente['cdc_id'] ?>" />
                     <input type="hidden" name="tipo_acompanhamento" id="tipo_acompanhamento" value="" />
                     <input type="hidden" name="act" value="salvarAcompanhamento" />
                     <div id="div_novo-acompanhamento">

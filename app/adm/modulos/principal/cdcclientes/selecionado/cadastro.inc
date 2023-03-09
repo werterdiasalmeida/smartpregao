@@ -9,6 +9,11 @@
                 ?>
             </div>
             <div class="col-md-6">
+                <?php
+                $_REQUEST['docid'] = $docid;
+                $ocultar['historico'] = false;
+                wf_desenhaBarraNavegacaoHorizontalM($docid, array('id' => $editalCliente), $ocultar, null, null, null);
+                ?>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#div_comentarios">
@@ -51,9 +56,9 @@
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#habilitaca_documentacao">
                             <b>
                                 <?php
-                                $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
-                                $where = " tipo_acompanhamento = 'Documentação de Habilitação' AND editalcliente_id = {$dadosEditalCliente['id']}";
-                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                                $mCDCClienteAcompanhamento = new CDCClienteAcompanhamento();
+                                $where = " tipo_acompanhamento = 'Acompanhamento' AND cdc_id = {$dados['id']}";
+                                $rs = $mCDCClienteAcompanhamento->getList($where);
                                 if (count($rs['dados'])) {
                                     echo '<i class="bi bi-journals accordion_com_conteudo"></i>';
                                 } else {
@@ -66,9 +71,9 @@
                     </div>
                     <div id="habilitaca_documentacao" class="collapse">
                         <div class="card-body">
-                            <a onclick="exibirModalNovoAcompanhamento('Documentação de Habilitação')">
-                                <i class="bi bi-plus-square" title="Novo Documento"></i>
-                                Novo Documento de Habilitação
+                            <a onclick="exibirModalNovoAcompanhamento('Acompanhamento')">
+                                <i class="bi bi-plus-square" title="Novo Acompanhamento"></i>
+                                Novo Acompanhamento
                             </a>
                             <?php
                             unset($arConfig, $acoes);
@@ -82,21 +87,22 @@
                             $arConfig[2]['html'] = <<<HTML
                                 <a onclick="baixarAnexo({arqid})">{arquivo}</a>
                             HTML;
-                            $mEditalClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
-                            $mEditalClienteAcompanhamento->setCabecalho(array(
+                            $mCDCClienteAcompanhamento = new Listam(array("style" => "width: 100%;"));
+                            $mCDCClienteAcompanhamento->setCabecalho(array(
                                 'Data',
                                 'Informação',
                                 'Arquivo',
                                 'Ação'
                             ));
-                            $mEditalClienteAcompanhamento->setCorpo($rs, $arConfig);
-                            $mEditalClienteAcompanhamento->setAcao($acao);
-                            $mEditalClienteAcompanhamento->show();
+                            $mCDCClienteAcompanhamento->setCorpo($rs, $arConfig);
+                            $mCDCClienteAcompanhamento->setAcao($acao);
+                            $mCDCClienteAcompanhamento->show();
                             ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </form>
