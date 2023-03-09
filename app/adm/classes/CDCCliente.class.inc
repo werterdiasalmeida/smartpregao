@@ -85,7 +85,7 @@ class CDCCliente extends Modelo
         // tratamento dos dados
 
         $params['valor_estimado'] = formata_valor_sql($params['valor_estimado']);
-
+        if (!$params['valor_estimado']) $params['valor_estimado'] = 0;
         $id = $this->popularDadosObjeto($params)->salvar();
         return $id;
     }
