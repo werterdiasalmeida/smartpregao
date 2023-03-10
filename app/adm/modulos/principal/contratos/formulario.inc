@@ -9,17 +9,16 @@ $mEditalClienteFinanceiro = new EditalClienteFinanceiro();
 $fileSimec = new FilesSimec();
 $p = getParam();
 /* Carrega os dados da tela */
-$editalCliente = $_REQUEST['p'];
+$editalClienteContrato = $p['id'];
 if (!is_int($editalCliente)) {
     $editalCliente = getParam();
     $editalCliente = $editalCliente['id'];
 }
-$mEditalCliente->carregarPorId($editalCliente);
-$dadosEditalCliente = $mEditalCliente->getDados();
-$dadosCliente = $mEstabelecimento->getTodosDados($dadosEditalCliente['estabelecimento_id']);
-$dados = $mEdital->getDadosCompletos($editalCliente);
+//$dadosEditalCliente = $mEditalCliente->getDados();
+$dados = $mEditalClienteContrato->getTodosDados($editalClienteContrato);
+$dadosCliente = $mEstabelecimento->getTodosDados($dados['estabelecimento_id']);
 extract($dados);
-$dadosFinanceiroGLobal = $mEditalClienteFinanceiro->getDadosFinanceiroGlobal($editalCliente);
+//$dadosFinanceiroGLobal = $mEditalClienteFinanceiro->getDadosFinanceiroGlobal($editalCliente);
 
 /* Ações da tela */
 if ($_REQUEST && isset($_REQUEST['act'])) {
@@ -40,7 +39,7 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             break;
         case 'salvarContrato':
             $params = array_merge($_POST, getParam());
-            $params['editalcliente_id'] = $params['id'];
+            
             $params['estabelecimento_id'] = $dadosEditalCliente['estabelecimento_id'];
             $params['editalcliente_contrato_id'] = $mEditalClienteContrato->salvarContrato($params);
             $mEditalClienteContrato->commit();
@@ -126,34 +125,20 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
 }
 
 /* Verifica se já possui um DOCID, senão, atribui um */
-if (empty($dadosEditalCliente['docid'])) {
-    $dadosEditalCliente['docid'] = wf_cadastrarDocumento(17, 'Fluxo do Edital');
-    $docid = $mEditalCliente->popularDadosObjeto($dadosEditalCliente)->salvar(true, true, $camposNulos);
+if (empty($dados['docid'])) {
+    $dadosEditalClienteContrato['docid'] = wf_cadastrarDocumento(19, 'Fluxo do Edital');
+    $dadosEditalClienteContrato['estabelecimento_id'] = $estabelecimento_id;
+    $docid = $mEditalClienteContrato->popularDadosObjeto($dadosEditalClienteContrato)->salvar(true, true, $camposNulos);
 } else {
     $docid = $dadosEditalCliente['docid'];
 }
-$editalCliente = setParam(array('id' => $editalCliente), false);
+$editalClienteContrato = setParam(array('id' => $editalClienteContrato), false);
 $param['id'] = $dados['id_edital'];
 $p = setParam($param, true);
 
 /* Escolhe qual a aba será selecionada ao abrir */
-$abaSelecionada = 'btn_tab_pre_pregao';
-switch (true) {
-    case ($dados['situacao'] == 'Participação Realizada'
-        || $dados['situacao'] == '<i>Participação Não Realizada</i>'
-        || $dados['situacao'] == '<i> Ajustar a DOCUMENTAÇÃO </i>'):
-        $abaSelecionada = 'btn_tab_pos_pregao';
-        break;
-    case ($dados['situacao'] == 'Em Monitoramento'):
-        $abaSelecionada = 'btn_tab_pos_pregao';
-        break;
-    case ($dados['situacao'] == 'Em processo de contratação'):
-        $abaSelecionada = 'btn_tab_contratacao';
-        break;
-    case ($dados['situacao'] == 'Contratado'):
-        $abaSelecionada = 'btn_tab_gestao_contrato';
-        break;
-}
+$abaSelecionada = 'btn_tab_gestao_contrato';
+
 /* Caeçalho */
 include APPRAIZ . "includes/cabecalhom.inc";
 getStrMsgDanger();
@@ -340,8 +325,7 @@ getStrMsgWarning();
     <button type="button" class="btn btn-voltar" onclick="history.go(-1)">
         <i class="fa fa-arrow-left"></i> Voltar
     </button>
-    <b><?php echo $dados['orgao'] ?></b>
-    <i style="cursor: pointer;" title="Alterar informações do Edital" class="fa fa-edit" onclick="editar('<?= $p ?>')"></i>
+    <b><?php echo $dados['nome_contratante'] ;?></b>
     <spam class="badge badge-primary"><b><?php echo $dados['situacao'] ?></b></spam>
 </h4>
 <ul class="nav nav-tabs nav-fill">
@@ -350,16 +334,10 @@ getStrMsgWarning();
             <span class="nav-text"> Gestão do contrato</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_tramitacao_anexos">
-            <span class="nav-text">Tramitações, Anexos e Alertas</span>
-        </a>
-    </li>
 </ul>
 <div class="tab-content bordered">
     <?php
-    require_once('selecionado/gestao_contato.inc');
-    require_once('selecionado/tramitacoes_anexos.inc');
+    require_once('formulario/gestao_contato.inc');
     ?>
 </div>
 <!-- MODAL de Monitoramento -->

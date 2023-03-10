@@ -1,6 +1,25 @@
+<?php
+
+?>
 <form role="form" name="formulario" id="form-contrato" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="act" value="salvarContrato" />
-    <input type="hidden" name="editalcliente_contrato_id" value="<?php echo $editalcliente_contrato_id?>" />
+    <input type="hidden" name="editalcliente_contrato_id" value="<?php echo $editalcliente_contrato_id ?>" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label><b>CNPJ Contratante</b></label>
+                <br />
+                <?= campo_textom('cnpj_contratante', 'S', 'S', '', 255, 255, '', '', '', '', 0); ?>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label><b>Nome Contratante</b></label>
+                <br />
+                <?= campo_textom('nome_contratante', 'S', 'S', '', 255, 255, '', '', '', '', 0); ?>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -18,7 +37,7 @@
         </div>
     </div>
     <div class="row">
-    <div class="col-md-3">
+        <div class="col-md-3">
             <div class="form-group">
                 <label><b>Início</b></label>
                 <br />
@@ -57,6 +76,14 @@
                 <b class="font-blue-sharp">
                     <?= campo_textom('valor_total', 'S', 'S', '', 255, 255, '', '', '', '', 0); ?>
                 </b>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Objeto</label>
+                <?= campo_textaream('objeto_contratante', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
             </div>
         </div>
     </div>

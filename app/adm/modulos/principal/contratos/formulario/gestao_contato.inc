@@ -6,6 +6,11 @@
                 ?>
             </div>
             <div class="col-md-6">
+                <?php
+               
+                $ocultar['historico'] = false;
+                wf_desenhaBarraNavegacaoHorizontalM($dados['docid'], array('id' => $editalCliente), $ocultar, null, null, null);
+                ?>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title collapsed" data-toggle="collapse" data-target="#contrato_documentacao">
@@ -13,7 +18,7 @@
                                 <?php
                                 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
                                 $where = " tipo_acompanhamento = 'Documentação do Contrato e Aditivos' AND editalcliente_id = {$dadosEditalCliente['id']}";
-                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                               // $rs = $mEditalClienteAcompanhamento->getList($where);
                                 if (count($rs['dados'])) {
                                     echo '<i class="bi bi-file-earmark-check accordion_com_conteudo"></i>';
                                 } else {
@@ -62,7 +67,7 @@
                                 <?php
                                 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
                                 $where = " tipo_acompanhamento = 'Acompanhamento (problemas e soluções)' AND editalcliente_id = {$dadosEditalCliente['id']}";
-                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                               // $rs = $mEditalClienteAcompanhamento->getList($where);
                                 if (count($rs['dados'])) {
                                     echo '<i class="bi bi-sun accordion_com_conteudo"></i>';
                                 } else {
@@ -123,7 +128,7 @@
                                 <?php
                                 $mEditalClienteAcompanhamento = new EditalClienteAcompanhamento();
                                 $where = " tipo_acompanhamento = 'Evidências e Entregas' AND editalcliente_id = {$dadosEditalCliente['id']}";
-                                $rs = $mEditalClienteAcompanhamento->getList($where);
+                                //$rs = $mEditalClienteAcompanhamento->getList($where);
                                 if (count($rs['dados'])) {
                                     echo '<i class="bi bi-bookmark-check accordion_com_conteudo"></i>';
                                 } else {

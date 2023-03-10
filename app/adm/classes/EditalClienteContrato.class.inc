@@ -34,6 +34,7 @@ class EditalClienteContrato extends Modelo
         'cnpj_contratante' => null,
         'nome_contratante' => null,
         'objeto_contratante' => null,
+        'docid' => null,
     );
 
     public function salvarContrato($params, $arquivos = null)
@@ -41,7 +42,7 @@ class EditalClienteContrato extends Modelo
         //ver($params,d);
         // Tratamento dos dados
         $dados = array(
-            'id' => $params['editalcliente_contrato_id'],
+            'id' => $params['id'],
             'numero_contrato' => $params['numero_contrato'],
             'tipo_acompanhamento' => $params['tipo_acompanhamento'],
             'vencimento_contrato' => formata_data_sql($params['vencimento_contrato']),
@@ -54,6 +55,7 @@ class EditalClienteContrato extends Modelo
             'cnpj_contratante' => $params['cnpj_contratante'],
             'nome_contratante' => $params['nome_contratante'],
             'objeto_contratante' => $params['objeto_contratante'],
+            'docid' => $params['docid'],
         );
         $id = $this->popularDadosObjeto($dados)->salvar();
         return $id;
