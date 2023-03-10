@@ -100,7 +100,11 @@ class CDCCliente extends Modelo
 
         $saida = array();
 
-        $saida['cotacoes_recebidas'] = 0;
+        $sql = "SELECT COUNT (0) 
+        FROM edital.cotacao_dispensa_credenciamentoempresa ccl
+        JOIN  edital.cotacao_dispensa_credenciamento  cdc ON cdc.id = ccl.cdc_id
+        WHERE estabelecimento_id = {$id} AND tipo = 'Cotação'";
+        $saida['cotacoes_recebidas'] = $this->pegaUm($sql);
         $saida['cotacoes_enviadas'] = 0;
         $sql = "SELECT COUNT (0) 
             FROM edital.cotacao_dispensa_credenciamentoempresa ccl
@@ -108,7 +112,11 @@ class CDCCliente extends Modelo
             WHERE estabelecimento_id = {$id} AND tipo = 'Dispensa eletrônica'";
         $saida['dispensas_recebidas'] = $this->pegaUm($sql);
         $saida['dispensas_enviadas'] = 0;
-        $saida['credenciamentos_cadastrados'] = 0;
+        $sql = "SELECT COUNT (0) 
+        FROM edital.cotacao_dispensa_credenciamentoempresa ccl
+        JOIN  edital.cotacao_dispensa_credenciamento  cdc ON cdc.id = ccl.cdc_id
+        WHERE estabelecimento_id = {$id} AND tipo = 'Credenciamento'";
+        $saida['credenciamentos_cadastrados'] = $this->pegaUm($sql);
         $saida['credenciamentos_pendentes'] = 0;
 
         return $saida;

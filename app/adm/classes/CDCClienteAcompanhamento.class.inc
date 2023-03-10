@@ -62,6 +62,7 @@ class CDCClienteAcompanhamento extends Modelo
     public function salvarAcompanhamento($params, $arquivos = null)
     {
         list($params, $camposNulos) = $this->limparDadosVazios($params);
+       
         if (
             isset($arquivos['arquivo'])
             && isset($arquivos['arquivo']['name']) && !empty($arquivos['arquivo']['name'])

@@ -1,5 +1,8 @@
 <?php
-ini_set("memory_limit", "10240M");
+ini_set("memory_limit", "100M");
+ini_set("upload_max_filesize", "100M");
+ini_set("post_max_size", "100M");
+
 /* Objetos usados na tela */
 $mEstabelecimento = new Estabelecimento();
 $mCotacaoDispensa = new CotacaoDispensa();
@@ -34,6 +37,8 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
         
             /* Acompanhamentos */
         case 'salvarAcompanhamento':
+            phpinfo(); 
+            ver($_FILES,d);
             $params = $_POST;
             $mCDCClienteAcompanhamento->salvarAcompanhamento($params, $_FILES);
             $mCDCClienteAcompanhamento->commit();
@@ -215,16 +220,11 @@ getStrMsgWarning();
             <span class="nav-text"> Cadastro</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#kt_tab_tramitacao_anexos">
-            <span class="nav-text">Tramitações e Anexos</span>
-        </a>
-    </li>
 </ul>
 <div class="tab-content bordered">
     <?php
     require_once('selecionado/cadastro.inc');
-    require_once('selecionado/tramitacoes_anexos.inc');
+    //require_once('selecionado/tramitacoes_anexos.inc');
     ?>
 </div>
 

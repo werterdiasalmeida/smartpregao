@@ -2,6 +2,7 @@
 $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
 $mEditalCliente = new EditalCliente();
+$mServicoAnaliseContratado = new ServicoAnaliseContratado();
 $params = getParam();
 $atalho_pesquisa = $_REQUEST['atalho_pesquisa'];
 
