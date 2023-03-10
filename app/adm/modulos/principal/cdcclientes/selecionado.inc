@@ -37,8 +37,6 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
         
             /* Acompanhamentos */
         case 'salvarAcompanhamento':
-            phpinfo(); 
-            ver($_FILES,d);
             $params = $_POST;
             $mCDCClienteAcompanhamento->salvarAcompanhamento($params, $_FILES);
             $mCDCClienteAcompanhamento->commit();
