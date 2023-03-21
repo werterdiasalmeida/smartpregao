@@ -140,6 +140,7 @@ class Edital extends Modelo
                  WHERE
                  edc.id = {$id}";
         $dados = $this->carregar($sql);
+        
         return $dados[0];
     }
 }

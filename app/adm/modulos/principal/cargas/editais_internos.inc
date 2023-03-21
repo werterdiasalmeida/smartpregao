@@ -41,6 +41,9 @@ if ($_POST && isset($_POST['act'])) {
                             $salvar['id_origem'] = $dado['codigo'];
                             if (!$salvar['id_origem']) $salvar['id_origem'] = NULL;
                             $salvar['categoria'] = $_POST['categoria'];
+
+                            ver($salvar);
+                            
                             $existe = $mEdital->pegaLinha(" SELECT id FROM edital.edital  WHERE id_externo = {$salvar['id_externo']}");
                             if (!$existe) {
                                 $params['id'] = $mEdital->salvarEdital($salvar);
