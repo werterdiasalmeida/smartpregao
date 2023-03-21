@@ -85,6 +85,19 @@ class CargaEstabelecimento extends Modelo
         $retorno = $this->carregar($sql);
         return $retorno ? $retorno : array();
     }
+    public function getListCNPJDadosBasicos($arWhere = array())
+    {
+        $arWhere[] = "cnpj IS NOT NULL";
+        $sql = "SELECT
+                    id,
+                    cnpj
+                FROM
+                    cargas.tb_carga_estabelecimento car
+                WHERE
+                  " . implode(' AND ', $arWhere);
+        $retorno = $this->carregar($sql);
+        return $retorno ? $retorno : array();
+    }
 
     public function salvarBasico($params)
     {

@@ -4,8 +4,9 @@ $mEdital = new Edital();
 $data_inicio =  date('Y-m-d');
 $data_fim =  date('Y-m-d');
 $pagina = '0';
-$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk={"id":"9bab0df0-d5d3-4d3e-9aae-6ee9770548c1"}; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gcl_au=1.1.426049715.1675162045; _gid=GA1.3.819801154.1676290110; JSESSIONID=8EBE1DB78D0060CD86A89E85F671740E; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjc3NTg3NTgyMzY5OmFlMmI1YzYxYzc4YWQ5NDVmNmE4NDI1OTUwMDkxOTIx; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjc2Mzc4NDQ3MDYzfQ==; _gat=1';
+$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk=%7B%22id%22%3A%229bab0df0-d5d3-4d3e-9aae-6ee9770548c1%22%7D; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gcl_au=1.1.426049715.1675162045; _gid=GA1.3.1433514182.1678874095; JSESSIONID=E2467743536CD5F65BEABF3B38595178; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjgwMDgzNzI1Mzc2Ojc2MTZkZmU5ZDVkZDcwNmM3NWVhMzc2ZGVmOThlN2Fl; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjc4ODc0MTIzOTA3fQ==';
 $tipo_pesquisa = $_POST['tipo_pesquisa'];
+//ver($_POST);
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {
         case 'gravar-selecionados':
@@ -17,13 +18,16 @@ if ($_POST && isset($_POST['act'])) {
                     foreach ($return['content'] as $dados) {
                         $dado = array_map("utf8_decode", $dados);
                         if ($dado['id'] == $selecionado) {
-                            if ($dado['nomePortal'] == 'COMPRASNET') $dado['nomePortal'] = 'ComprasNet';
-                            if ($dado['nomePortal'] == 'LICITAÇÕES-E') $dado['nomePortal'] = 'BB';
-                            if ($dado['nomePortal'] <> 'LICITAÇÕES-E' && $dado['nomePortal'] <> 'COMPRASNET') {
+
+                            if ($dado['portal'] == 'CN') $salvar['portal'] = 'ComprasNet';
+
+                            if ($dado['nomePortal'] == 'LICITAÇÕES-E') $salvar['portal'] = 'BB';
+
+                            if ($dado['portal'] <> 'LICITAÇÕES-E' && $dado['portal'] <> 'CN') {
                                 $salvar['comentarios'] = 'Baixar em: ' . $dado['nomePortal'];
-                                $dado['nomePortal'] = 'Outros';
+                                $salvar['portal'] = 'Outros';
                             }
-                            $salvar['portal'] = $dado['nomePortal'];
+
                             $salvar['orgao'] = $dado['orgao'];
                             $salvar['edital'] = 'Pregão Eletrônico Nº 0' . $dado['numero'] . ' UASG: ' . $dado['uasg'];
                             $dataHora = explode(' às ', $dado['aberturaFormatada']);
