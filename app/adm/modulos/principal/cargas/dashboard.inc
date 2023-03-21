@@ -58,10 +58,13 @@ getStrMsgWarning();
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span data-counter="counterup" data-value="<?php echo $dados['clientes_captacao'] ?>"><?php echo $dados['clientes_captacao'] ?></span>
+                        <span data-counter="counterup" data-value="<?php echo formata_valor($dados['clientes_captacao'], 0, false) ?>"><?php echo $dados['clientes_captacao'] ?></span>
                     </div>
                     <div class="desc"> <b>Cientes cadastrados na Captação</b></div>
-                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['clientes_captacao_update']) ?></div>
+                    <div class="desc"> 
+                        Atualizados API: <?php echo formata_valor($dados['clientes_autalizados_api'], 0, false) ?>
+                        | Falta: <?php echo formata_valor($dados['clientes_captacao'] - $dados['clientes_autalizados_api'], 0, false) ?>
+                </div>
                 </div>
             </a>
             <button type="button" class="btn blue" onclick="window.open('?modulo=principal/cargas/clientes_potencial&acao=C')">
