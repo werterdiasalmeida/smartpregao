@@ -92,7 +92,7 @@ class Edital extends Modelo
      */
     public function salvarEdital($params)
     {
-        //list($params, $camposNulos) = $this->limparDadosVazios($params);
+        list($params, $camposNulos) = $this->limparDadosVazios($params);
         $dados = $params;
 
         // Tratamento dos dados
@@ -100,9 +100,7 @@ class Edital extends Modelo
 
         // Carimbo de alteração
         $dados = $this->getDadosCarimbo($params, $dados);
-       
-        $id = $this->popularDadosObjeto($dados)->salvar();
-
+        $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
         return $id;
     }
 

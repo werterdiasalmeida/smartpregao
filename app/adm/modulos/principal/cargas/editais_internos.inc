@@ -4,9 +4,8 @@ $mEdital = new Edital();
 $data_inicio =  date('Y-m-d');
 $data_fim =  date('Y-m-d');
 $pagina = '0';
-$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk=%7B%22id%22%3A%229bab0df0-d5d3-4d3e-9aae-6ee9770548c1%22%7D; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gcl_au=1.1.426049715.1675162045; _gid=GA1.3.1433514182.1678874095; JSESSIONID=E2467743536CD5F65BEABF3B38595178; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjgwMDgzNzI1Mzc2Ojc2MTZkZmU5ZDVkZDcwNmM3NWVhMzc2ZGVmOThlN2Fl; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjc4ODc0MTIzOTA3fQ==';
+$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk={"id":"9bab0df0-d5d3-4d3e-9aae-6ee9770548c1"}; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gid=GA1.3.31290459.1680088272; _gat=1; _gcl_au=1.1.426049715.1675162045.1666100696.1680088281.1680088282; JSESSIONID=71147DD98A358BD1D4805871C34A0D2D; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjgxMjk3ODgyMjI3OjdkZmFlYmZhYTdlY2FlYjUzNTAzMDNhNGQxMjM1OGZl; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjgwMDg4MjgzMzg4fQ==';
 $tipo_pesquisa = $_POST['tipo_pesquisa'];
-//ver($_POST);
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {
         case 'gravar-selecionados':
@@ -19,35 +18,34 @@ if ($_POST && isset($_POST['act'])) {
                         $dado = array_map("utf8_decode", $dados);
                         if ($dado['id'] == $selecionado) {
 
+                            $salvar['edital'] = 'Pregão Eletrônico Nº 0' . $dado['numero'] . ' UASG: ' . $dado['uasg'];
                             if ($dado['portal'] == 'CN') $salvar['portal'] = 'ComprasNet';
-
-                            if ($dado['nomePortal'] == 'LICITAÇÕES-E') $salvar['portal'] = 'BB';
-
+                            if ($dado['nomePortal'] == 'LICITAÇÕES-E') {
+                                $salvar['edital'] = 'Pregão Eletrônico Nº ' . $dado['codigo'];
+                                $salvar['portal'] = 'BB';
+                            }
                             if ($dado['portal'] <> 'LICITAÇÕES-E' && $dado['portal'] <> 'CN') {
                                 $salvar['comentarios'] = 'Baixar em: ' . $dado['nomePortal'];
                                 $salvar['portal'] = 'Outros';
                             }
-
                             $salvar['orgao'] = $dado['orgao'];
-                            $salvar['edital'] = 'Pregão Eletrônico Nº 0' . $dado['numero'] . ' UASG: ' . $dado['uasg'];
                             $dataHora = explode(' às ', $dado['aberturaFormatada']);
                             $salvar['data_limite'] = $dataHora[0];
                             $salvar['hora_limite'] = $dataHora[1];
+                            $salvar['data_limite'] = formata_data_sql($salvar['data_limite']);
                             $salvar['objeto'] = str_replace('"', '', $dado['descricao']);
                             $salvar['objeto'] = str_replace('<strong>', '', $salvar['objeto']);
                             $salvar['objeto'] = str_replace('</strong>', '', $salvar['objeto']);
+                            $salvar['objeto'] = str_replace('...', ' ', $salvar['objeto']);
+                            $salvar['objeto'] = str_replace('*', '', $salvar['objeto']);
                             $salvar['valor_estimado'] = 'R$ -';
                             $salvar['id_externo'] = $dado['id'];
                             $salvar['id_origem'] = $dado['codigo'];
-                            if (!$salvar['id_origem']) $salvar['id_origem'] = NULL;
                             $salvar['categoria'] = $_POST['categoria'];
-
-                            //ver($salvar);
-
                             $existe = $mEdital->pegaLinha(" SELECT id FROM edital.edital  WHERE id_externo = {$salvar['id_externo']}");
                             if (!$existe) {
-                                $params['id'] = $mEdital->salvarEdital($salvar);
-                                $mEdital->commit();
+                                $id = $mCargaEditais->salvarEditalCarga($salvar);
+                                
                                 $resultadoCarga .= 'Carregado: ' .  $dado['titulo'] . ' <br/>';
                             } else {
                                 $resultadoCarga .= 'Já esta cadastrado: ' .  $dado['titulo'] . ' <br/>';
@@ -55,6 +53,8 @@ if ($_POST && isset($_POST['act'])) {
                         }
                     }
                 }
+                
+                $mEdital->commit();
                 $db->sucessom($_REQUEST['modulo'], '', $resultadoCarga);
             } else {
                 $db->insucessom($_REQUEST['modulo'], '', 'Nenhum registro selecionado');
@@ -137,14 +137,16 @@ getStrMsgWarning();
                     </div>
                     <div class="col-md-8">
                         <label>Pesquisa</label>
-                        <br /><input type="radio" name="tipo_pesquisa" value="desenvolvimento de solucoes;desenvolvimento de solucao;manutencao em software;fabrica de software;manutencaoo evolutiva;manutencaoo corretiva;desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; Java; PHP; DOTNET; Python; praticas ageis; scrum">
+                        <br /><input type="radio" name="tipo_pesquisa" value="desenvolvimento de solucoes;desenvolvimento de solucao;manutencao em software;fabrica de software;manutencao evolutiva, corretiva, adaptativa; desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; portal web; Java; PHP; DOTNET; Python; praticas ageis; scrum">
                         <label for="html">Desenvolvimento de Softwares</label>
                         <input type="radio" name="tipo_pesquisa" value="manutencao de servidores; manutencao de computadores; devops; formatacao; infraestrutura tecnologica; infraestrutura de tecnologia">
                         | <label for="html">Manutenção / Infraetrutura de Tecnologia</label>
                         <input type="radio" name="tipo_pesquisa" value="mensuracao de pontos de funcao; mensuracao de pf; pontos de funcao">
-                        | <label for="html">Contagem de PF</label>
+                        | <label for="html">Mensuração de PF</label>
+                        <input type="radio" name="tipo_pesquisa" value="teste de sistema; testes unitarios; ferramenta de teste; teste de software">
+                        | <label for="html">Teste de Software </label>
                         <br>
-                        <?= campo_textaream('pesquisa', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                        <?= campo_textaream('pesquisa', 'N', 'S', '', 3, 3, '', '', '', '', 0); ?>
                         <br />
                     </div>
 
@@ -175,17 +177,6 @@ getStrMsgWarning();
                         <label for="html">4</label>
                         <input type="radio" name="pagina" value="5" <?php if ($pagina == '5') echo 'checked=checked;' ?>>
                         <label for="html">5</label>
-                        <input type="radio" name="pagina" value="6" <?php if ($pagina == '6') echo 'checked=checked;' ?>>
-                        <label for="html">6</label>
-                        <input type="radio" name="pagina" value="7" <?php if ($pagina == '7') echo 'checked=checked;' ?>>
-                        <label for="html">7</label>
-                        <input type="radio" name="pagina" value="8" <?php if ($pagina == '8') echo 'checked=checked;' ?>>
-                        <label for="html">8</label>
-                        <input type="radio" name="pagina" value="9" <?php if ($pagina == '9') echo 'checked=checked;' ?>>
-                        <label for="html">9</label>
-                        <input type="radio" name="pagina" value="10" <?php if ($pagina == '10') echo 'checked=checked;' ?>>
-                        <label for="html">10</label>
-
                     </div>
                 </div>
             </form>
@@ -195,6 +186,8 @@ getStrMsgWarning();
                 <form role="form" name="gravar" class="edital-form" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="act" value="gravar-selecionados" />
                     <textarea name="json_resultados" style="display: none;"><?php echo $response; ?></textarea>
+                    <br/>
+                    <button id="selecionar-todos" class="btn blue">Selecionar Todos</button>
                     <?php
                     unset($arConfig, $acao);
                     $acao = <<<ACAO
@@ -228,7 +221,8 @@ getStrMsgWarning();
                     $opcoes = array(
                         array('codigo' => 'Desenvolvimento de Softwares', 'descricao' => 'Desenvolvimento de Softwares'),
                         array('codigo' => 'Manutenção / Infraetrutura de Tecnologia', 'descricao' => 'Manutenção / Infraetrutura de Tecnologia'),
-                        array('codigo' => 'Contagem de PF', 'descricao' => 'Contagem de PF'),
+                        array('codigo' => 'Mensuração de PF', 'descricao' => 'Mensuração de PF'),
+                        array('codigo' => 'Teste de Software', 'descricao' => 'Teste de Software'),
                     );
                     echo $db->monta_radiom('categoria', $opcoes, 'S', 'S', 'Habilitação Jurídica');
                     ?>
@@ -246,5 +240,8 @@ getStrMsgWarning();
 
         $('#pesquisa').val(this.value);
 
+    });
+    $('#selecionar-todos').click(function() {
+        $(':checkbox').prop('checked', true);
     });
 </script>

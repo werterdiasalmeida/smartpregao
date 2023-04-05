@@ -194,32 +194,36 @@ getStrMsgWarning();
                 unset($arConfig, $acao);
                 $rs = $mEditalCliente->getList($arWhereEditaisCliente);
                 $acao = <<<ACAO
-                                <div style="min-width: 20px;">
                                     <a class="btn btn-circle btn-icon-only btn-default blue" href="javascript:selecionarEdital('<php> return setParam(array('id' => '{id}'), false); </php>');" data-toggle="tooltip"  title="Detalhes do Edital">
                                         <i class="fa fa-edit"></i> 
                                 </a>
-                                </div>
                     ACAO;
                 $arConfig = array();
-                $arConfig[1]['html'] = <<<HTML
+                $arConfig[0]['html'] = <<<HTML
                     <a href="?modulo=principal/editaisclientes/selecionado&acao=C&p=' . <php> return setParam(array('id' => '{id}'), false); </php> . '" data-toggle="tooltip" title="Serviços do Edital">
                         {orgao}
                     </a>
                     HTML;
-                $arConfig[3]['html'] = <<<HTML
-                        <spam class="badge badge-primary"><b>{dias}</b></spam>
+                $arConfig[1]['html'] = <<<HTML
+                         <spam class="badge badge-primary"><b>{dias}</b></spam><br/><br/><small>{data_limite_formatada}</small>
                     HTML;
-                $arConfig[3]['style'] = "width: 10%; text-align: center;";
+                $arConfig[1]['style'] = "text-align: center;";
+                $arConfig[2]['html'] = <<<HTML
+                         <small>{objeto}</small>
+                    HTML;
+                $arConfig[3]['html'] = <<<HTML
+                    {municipio}
+               HTML;
+               $arConfig[4]['html'] = <<<HTML
+                    {situacao}
+               HTML;
                 if ($ordernar) {
                     $rs = $mEditalCliente->getList($arWhereEditaisCliente, true, $ordernar);
                 }
-
                 $mEditalCliente = new Listam(array("style" => "width: 100%;"));
                 $mEditalCliente->setCabecalho(array(
-                    'Categoria',
                     'Órgão Licitante',
-                    'Data do pregão',
-                    'Dias restantes',
+                    'Data',
                     'Objeto',
                     'Local',
                     'Situação',

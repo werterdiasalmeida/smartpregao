@@ -39,7 +39,6 @@ class EditalCliente extends Modelo
         $arWhere[] = "edi.excluido IS FALSE";
 
         $sql = "SELECT
-                    edi.categoria,
                     edi.orgao || ' [' || edi.portal || ']' as orgao,
                     TO_CHAR(edi.data_limite, 'DD/MM/YYYY') AS data_limite_formatada,
                     data_limite - current_date || ' (' || COALESCE(temperatura, '-') || ')' as dias,

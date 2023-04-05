@@ -108,6 +108,39 @@ class CargaEditais extends Modelo
         return $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
     }
 
+    public function salvarEditalCarga($params)
+    {
+
+        $sql = "INSERT INTO edital.edital 
+        (
+            edital,
+            portal,
+            orgao,
+            data_limite,
+            hora_limite,
+            objeto,
+            valor_estimado,
+            id_externo,
+            id_origem,
+            categoria
+        ) VALUES
+        (
+            '{$params['edital']}',
+            '{$params['portal']}',
+            '{$params['orgao']}',
+            '{$params['data_limite']}',
+            '{$params['hora_limite']}',
+            '{$params['objeto']}',
+            '{$params['valor_estimado']}',
+            {$params['id_externo']},
+            {$params['id_origem']},
+            '{$params['categoria']}'
+        )
+        RETURNING id;
+    ";
+        return $this->pegaUm($sql);
+    }
+
     public function excluirAnexo($id)
     {
         return $this->excluir($id);
