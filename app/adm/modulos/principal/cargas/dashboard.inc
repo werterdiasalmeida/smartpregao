@@ -24,7 +24,7 @@ getStrMsgWarning();
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span data-counter="counterup" data-value="<?php echo $dados['editais_cadastrados'] ?>"><?php echo $dados['editais_cadastrados'] ?></span>
+                        <span data-counter="counterup" data-value="<?php echo formata_valor($dados['editais_cadastrados'], 0, false) ?>"><?php echo $dados['editais_cadastrados'] ?></span>
                     </div>
                     <div class="desc"><b>Editais Cadastrados</b></div>
                     <div class="desc"> Atualizado em: <?php echo formata_data($dados['editais_cadastrados_update']) ?></div>
@@ -41,7 +41,7 @@ getStrMsgWarning();
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span data-counter="counterup" data-value="<?php echo $dados['editais_captacao'] ?>"><?php echo $dados['editais_captacao'] ?></span>
+                        <span data-counter="counterup" data-value="<?php echo formata_valor($dados['editais_captacao'], 0, false) ?>"><?php echo $dados['editais_captacao'] ?></span>
                     </div>
                     <div class="desc"> <b>Editais para Captação de Clientes</b></div>
                     <div class="desc"> Atualizado em: <?php echo formata_data($dados['editais_captacao_update']) ?></div>
