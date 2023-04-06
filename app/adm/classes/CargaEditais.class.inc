@@ -138,6 +138,7 @@ class CargaEditais extends Modelo
         )
         RETURNING id;
     ";
+   
         return $this->pegaUm($sql);
     }
 

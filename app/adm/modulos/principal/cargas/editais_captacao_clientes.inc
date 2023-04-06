@@ -2,7 +2,7 @@
 $mCargaEditaisCaptacao = new CargaEditaisCaptacao();
 $data_inicio =  date('Y-m-d');
 $data_fim =  date('Y-m-d');
-$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk={"id":"9bab0df0-d5d3-4d3e-9aae-6ee9770548c1"}; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gcl_au=1.1.426049715.1675162045; _gid=GA1.3.819801154.1676290110; JSESSIONID=8EBE1DB78D0060CD86A89E85F671740E; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjc3NTg3NTgyMzY5OmFlMmI1YzYxYzc4YWQ5NDVmNmE4NDI1OTUwMDkxOTIx; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjc2Mzc4NDQ3MDYzfQ==; _gat=1';
+$txt_cookie = '_ga=GA1.3.165147413.1659353544; rdtrk={"id":"9bab0df0-d5d3-4d3e-9aae-6ee9770548c1"}; stonlyWidget_autolaunchTriggered_13538=1; stonlyWidget_triggerShown_13538=1; _ltuid=t1XwT; _gid=GA1.3.31290459.1680088272; _gat=1; _gcl_au=1.1.426049715.1675162045.1666100696.1680088281.1680088282; JSESSIONID=71147DD98A358BD1D4805871C34A0D2D; remember-me=Y29tZXJjaWFsJTQwd2Vic2lzLmNvbS5icjoxNjgxMjk3ODgyMjI3OjdkZmFlYmZhYTdlY2FlYjUzNTAzMDNhNGQxMjM1OGZl; __trf.src=encoded_eyJmaXJzdF9zZXNzaW9uIjp7InZhbHVlIjoiKG5vbmUpIiwiZXh0cmFfcGFyYW1zIjp7fX0sImN1cnJlbnRfc2Vzc2lvbiI6eyJ2YWx1ZSI6Iihub25lKSIsImV4dHJhX3BhcmFtcyI6e319LCJjcmVhdGVkX2F0IjoxNjgwMDg4MjgzMzg4fQ==';
 
 if ($_POST && isset($_POST['act'])) {
     switch ($_POST['act']) {

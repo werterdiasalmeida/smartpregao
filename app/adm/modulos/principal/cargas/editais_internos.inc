@@ -41,6 +41,7 @@ if ($_POST && isset($_POST['act'])) {
                             $salvar['valor_estimado'] = 'R$ -';
                             $salvar['id_externo'] = $dado['id'];
                             $salvar['id_origem'] = $dado['codigo'];
+                            if(!$salvar['id_origem']) $salvar['id_origem'] = 'NULL';
                             $salvar['categoria'] = $_POST['categoria'];
                             $existe = $mEdital->pegaLinha(" SELECT id FROM edital.edital  WHERE id_externo = {$salvar['id_externo']}");
                             if (!$existe) {
@@ -137,7 +138,7 @@ getStrMsgWarning();
                     </div>
                     <div class="col-md-8">
                         <label>Pesquisa</label>
-                        <br /><input type="radio" name="tipo_pesquisa" value="desenvolvimento de solucoes;desenvolvimento de solucao;manutencao em software;fabrica de software;manutencao evolutiva, corretiva, adaptativa; desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; portal web; Java; PHP; DOTNET; Python; praticas ageis; scrum">
+                        <br /><input type="radio" name="tipo_pesquisa" value="desenvolvimento de solucoes;desenvolvimento de solucao;manutencao em software;fabrica de software;manutencao evolutiva, corretiva, adaptativa; desenvolvimento de sistema; desenvolvimento de software; website; portal institucional; portal web; Java; PHP; DOTNET; Python; praticas ageis; scrum; sistema web; software web">
                         <label for="html">Desenvolvimento de Softwares</label>
                         <input type="radio" name="tipo_pesquisa" value="manutencao de servidores; manutencao de computadores; devops; formatacao; infraestrutura tecnologica; infraestrutura de tecnologia">
                         | <label for="html">Manutenção / Infraetrutura de Tecnologia</label>
