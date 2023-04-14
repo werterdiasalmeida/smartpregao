@@ -192,7 +192,6 @@ class CargaEstabelecimento extends Modelo
         if ($rsDadosBaixados['nome_fantasia'] == '') {
             $rsDadosBaixados['nome_fantasia'] = 'Serviço indisponível';
         } else {
-            
             $sql = "UPDATE cargas.tb_carga_estabelecimento SET 
                 nome_fantasia = '{$rsDadosBaixados['nome_fantasia']}',
                 cnae = '{$rsDadosBaixados['cnae']}',
@@ -202,7 +201,6 @@ class CargaEstabelecimento extends Modelo
                 telefone_1 = '{$rsDadosBaixados['telefone_1']}',
                 situacao_carga = 'Atualizado API'
                 WHERE cnpj = '{$cnpj}'";
-                ver($sql, $dadosComplementares,d);
             $this->executar($sql);
         }
         $retorno = 'Atualizado API: ' .  $cnpj . ' ( ' . $rsDadosBaixados['nome_fantasia']  . ') <br/>';
