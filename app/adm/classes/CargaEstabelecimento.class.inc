@@ -1,5 +1,7 @@
 <?php
 
+use Respect\Validation\Rules\TrueVal;
+
 class CargaEstabelecimento extends Modelo
 {
     /**
@@ -142,32 +144,38 @@ class CargaEstabelecimento extends Modelo
         $cnpj = str_replace('/', '', $cnpj);
         $cnpj = str_replace('.', '', $cnpj);
         $cnpj = str_replace('-', '', $cnpj);
-        $url = "https://comercial.cnpj.ws/cnpj/{$cnpj}";
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $url = "https://apibus.fabricawebsis.com.br/services-bar/api-atualizar-dados-empresa-cnpj/index.php";
+        $apikey = '7d75a34f365a17df69592f96567552016dd023630bad8a5820d91db9559d7845b723233984efeecc731ae2fed43398ce';
+        $ch = curl_init();
+        $cnpj = '21883166000173';
+        curl_setopt($ch, CURLOPT_URL, $url);
+        // Configura
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            'api_key' => $apikey,
+            'cnpj' => $cnpj,
+        ));
+        // Define a opção CURLOPT_FOLLOWLOCATION para permitir o redirecionamento
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        // Envio
+        $resp = curl_exec($ch);
+        curl_close($ch);
+        $resp = json_decode($resp,true);
 
-        $headers = array(
-            "x_api_token: Ia1UkT4X20wPVtEzyttS4atv7cskelt4Q5alyzZOdUAC",
-        );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        $resp = curl_exec($curl);
-        curl_close($curl);
-        $resp = json_decode($resp, true);
+        $estabelecimento = array_map("utf8_decode", $resp['company']);
+        $atividade = array_map("utf8_decode", $resp['mainActivity']);
+        $cidade = array_map("utf8_decode", $resp['address']);
+        $estado = array_map("utf8_decode", $resp['address']);
 
-        $estabelecimento = array_map("utf8_decode", $resp['estabelecimento']);
-        $atividade = array_map("utf8_decode", $resp['estabelecimento']['atividade_principal']);
-        $cidade = array_map("utf8_decode", $resp['estabelecimento']['cidade']);
-        $estado = array_map("utf8_decode", $resp['estabelecimento']['estado']);
-
-        $saida['nome_fantasia'] = $estabelecimento['nome_fantasia'];
-        $saida['atividade_principal'] = $atividade['id'] . ' - ' . $atividade['descricao'];
-        $saida['email'] = $estabelecimento['email'];
-        $saida['data_abertura'] = formata_data($estabelecimento['data_inicio_atividade']);
-        $saida['municipio_uf'] = $cidade['nome'] . ' (' . $estado['sigla'] . ')';
-        $saida['email_1'] = $estabelecimento['email'];
-        $saida['telefone_1'] = '(' . $estabelecimento['ddd1'] . ') ' . $estabelecimento['telefone1'];
-
+        $saida['nome_fantasia'] = $estabelecimento['name'];
+        $saida['atividade_principal'] = $atividade['id'] . ' - ' . $atividade['text'];
+        $saida['data_abertura'] = $resp['founded'];
+        $saida['municipio_uf'] = $cidade['city'] . ' (' . $estado['state'] . ')';
+        $saida['email_1'] = $resp['emails'][0]['address'];
+        $saida['telefone_1'] = '(' . $resp['phones'][0]['area'] . ') ' . $resp['phones'][0]['number'];
+        
         return $saida;
     }
     public function salvarDadosAPICNPJ($cnpj)
@@ -175,10 +183,10 @@ class CargaEstabelecimento extends Modelo
         $retorno = '';
         // Baixa os dados complementares da API
         $dadosComplementares = $this->consutlaAPICNPJ($cnpj);
-        $rsDadosBaixados['nome_fantasia'] = str_replace("'", ' ',$dadosComplementares['nome_fantasia']);
-        $rsDadosBaixados['cnae'] = str_replace("'", ' ',$dadosComplementares['atividade_principal']);
+        $rsDadosBaixados['nome_fantasia'] = str_replace("'", ' ', $dadosComplementares['nome_fantasia']);
+        $rsDadosBaixados['cnae'] = str_replace("'", ' ', $dadosComplementares['atividade_principal']);
         $rsDadosBaixados['data_abertura'] = $dadosComplementares['data_abertura'];
-        $rsDadosBaixados['municipio_uf'] = str_replace("'", ' ',$dadosComplementares['municipio_uf']);
+        $rsDadosBaixados['municipio_uf'] = str_replace("'", ' ', $dadosComplementares['municipio_uf']);
         $rsDadosBaixados['email_1'] = $dadosComplementares['email_1'];
         $rsDadosBaixados['telefone_1'] = $dadosComplementares['telefone_1'];
         if ($rsDadosBaixados['nome_fantasia'] == '') {
