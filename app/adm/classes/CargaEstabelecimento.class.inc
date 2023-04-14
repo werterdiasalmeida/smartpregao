@@ -183,6 +183,9 @@ class CargaEstabelecimento extends Modelo
         $retorno = '';
         // Baixa os dados complementares da API
         $dadosComplementares = $this->consutlaAPICNPJ($cnpj);
+
+//        ver($dadosComplementares,d);
+
         $rsDadosBaixados['nome_fantasia'] = str_replace("'", ' ', $dadosComplementares['nome_fantasia']);
         $rsDadosBaixados['cnae'] = str_replace("'", ' ', $dadosComplementares['atividade_principal']);
         $rsDadosBaixados['data_abertura'] = $dadosComplementares['data_abertura'];
