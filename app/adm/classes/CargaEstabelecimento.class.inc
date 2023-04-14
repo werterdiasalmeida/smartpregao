@@ -183,9 +183,6 @@ class CargaEstabelecimento extends Modelo
         $retorno = '';
         // Baixa os dados complementares da API
         $dadosComplementares = $this->consutlaAPICNPJ($cnpj);
-
-        ver($dadosComplementares,d);
-
         $rsDadosBaixados['nome_fantasia'] = str_replace("'", ' ', $dadosComplementares['nome_fantasia']);
         $rsDadosBaixados['cnae'] = str_replace("'", ' ', $dadosComplementares['atividade_principal']);
         $rsDadosBaixados['data_abertura'] = $dadosComplementares['data_abertura'];
@@ -195,6 +192,7 @@ class CargaEstabelecimento extends Modelo
         if ($rsDadosBaixados['nome_fantasia'] == '') {
             $rsDadosBaixados['nome_fantasia'] = 'Serviço indisponível';
         } else {
+            
             $sql = "UPDATE cargas.tb_carga_estabelecimento SET 
                 nome_fantasia = '{$rsDadosBaixados['nome_fantasia']}',
                 cnae = '{$rsDadosBaixados['cnae']}',
@@ -204,6 +202,7 @@ class CargaEstabelecimento extends Modelo
                 telefone_1 = '{$rsDadosBaixados['telefone_1']}',
                 situacao_carga = 'Atualizado API'
                 WHERE cnpj = '{$cnpj}'";
+                ver($sql, $dadosComplementares,d);
             $this->executar($sql);
         }
         $retorno = 'Atualizado API: ' .  $cnpj . ' ( ' . $rsDadosBaixados['nome_fantasia']  . ') <br/>';
