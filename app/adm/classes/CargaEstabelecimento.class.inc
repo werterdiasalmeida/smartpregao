@@ -147,7 +147,7 @@ class CargaEstabelecimento extends Modelo
         $url = "https://apibus.fabricawebsis.com.br/services-bar/api-atualizar-dados-empresa-cnpj/index.php";
         $apikey = '7d75a34f365a17df69592f96567552016dd023630bad8a5820d91db9559d7845b723233984efeecc731ae2fed43398ce';
         $ch = curl_init();
-        $cnpj = '21883166000173';
+        
         curl_setopt($ch, CURLOPT_URL, $url);
         // Configura
         curl_setopt($ch, CURLOPT_URL, $url);
