@@ -84,6 +84,7 @@ class CargaEstabelecimento extends Modelo
                     cargas.tb_carga_estabelecimento car
                 WHERE
                   " . implode(' AND ', $arWhere);
+        $sql .=" LIMIT 100";          
         $retorno = $this->carregar($sql);
         return $retorno ? $retorno : array();
     }
