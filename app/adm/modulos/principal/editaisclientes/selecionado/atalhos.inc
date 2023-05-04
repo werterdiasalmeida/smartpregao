@@ -1,4 +1,17 @@
 <?php
+// Gera o link para a agenda
+//ver($dados);
+$agAssunto = $orgao." [PREGÃO]";
+$agAssunto = removeAcentos($agAssunto);
+$agAssunto = strtoupper($agAssunto);
+$agLink = 'Pregão Eletrônico';
+$agInicio = $data_limite.'T'.$hora_limite;
+$agInicio = str_replace('-', '', $agInicio);
+$agInicio = str_replace(':', '', $agInicio);
+$url = "https://calendar.google.com/calendar/u/0/r/eventedit?dates={$agInicio}/20230505T1200&text={$agAssunto}&add=werter@gmail.com,malosso@gmail.com&location=http://sistema.smartpregao.com.br/";
+$link =  "<br><br> <a class=\"btn btn-success\"  href=\"{$url}\" target=\"_blank\"> <i class=\"fa fa-calendar\"></i> Criar Agenda para o Pregão</a>";
+echo $link;
+
 if ($dados['link_g_drive']) {
     echo "<br><a class='btn btn-warning' href=\"{$dados['link_g_drive']}\" target=\"_blank\"> <i class=\"bi bi-google\"></i> Google Drive</a>";
 }
@@ -32,5 +45,7 @@ if($dados['id_externo']){
     $link =  '<br><br> <a class="btn btn-danger"  href="https://app.sigapregao.com.br/oportunidade/' . $dados['id_externo'] .'" target="_blank"> <i class="fa fa-cloud"></i> Siga Pregão</a>';
     echo $link;
 }
+
+
 ?>
 <br /><br />
