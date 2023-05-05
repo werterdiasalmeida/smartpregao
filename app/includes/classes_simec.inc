@@ -3900,7 +3900,7 @@ ABA;
             if ($obrig == 'S')
                 $select .= " required ";
 
-            $select .= " class='$class' ";
+            $select .= " class='select2 $class' ";
 
             if($pesquisa){
                 $select .= " data-live-search='true' ";

@@ -10,7 +10,7 @@ $agInicio = str_replace('-', '', $agInicio);
 $agInicio = str_replace(':', '', $agInicio);
 $url = "https://calendar.google.com/calendar/u/0/r/eventedit?dates={$agInicio}/20230505T1200&text={$agAssunto}&add=werter@gmail.com,malosso@gmail.com&location=http://sistema.smartpregao.com.br/";
 $link =  "<br><br> <a class=\"btn btn-success\"  href=\"{$url}\" target=\"_blank\"> <i class=\"fa fa-calendar\"></i> Criar Agenda para o Pregão</a>";
-echo $link;
+echo $link . '<br/>';
 
 if ($dados['link_g_drive']) {
     echo "<br><a class='btn btn-warning' href=\"{$dados['link_g_drive']}\" target=\"_blank\"> <i class=\"bi bi-google\"></i> Google Drive</a>";
