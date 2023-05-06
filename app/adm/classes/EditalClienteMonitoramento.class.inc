@@ -68,9 +68,9 @@ class EditalClienteMonitoramento extends Modelo
         $sql = "
                 SELECT
                     to_char(TO_TIMESTAMP(data || ' ' || hora || ':00', 'YYYY-MM-DD HH24:MI:SS')  - CURRENT_TIMESTAMP, 'DD HH24:MI') as falta,
-                    edi.orgao || ' [' || edital || '] <br/>' || edi.valor_estimado as edital,
+                    edi.orgao || ' <br/>' || edi.valor_estimado as edital,
                     TO_CHAR(data, 'DD/MM/YYYY') || ' ' || hora AS data_hora,
-                    comentario,
+                    substring(comentario, 0, 100) || ' ...',
                     editalcliente_id as id
                 FROM
                     edital.editalcliente_monitoramento mon 

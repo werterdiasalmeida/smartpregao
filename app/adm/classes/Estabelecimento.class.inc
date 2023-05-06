@@ -221,12 +221,7 @@ class Estabelecimento extends Modelo
                                 <strong>{$dados['cnpj']}</strong>
                             </div>
                         </div>
-                        <div class="col-sm-2 col-md-2">
-                            <div class="form-group">
-                                Situação:
-                                <strong>Ativa <spam class="badge badge-primary"><b>Plano Free</b></spam></strong>
-                            </div>
-                        </div>
+                        
                         <div class="col-sm-2 col-md-2">
                             <div class="form-group">
                                 <a class="btn btn-circle btn-icon-only btn-default purple-plum " href="?modulo=principal/editaisclientes/inicio&acao=C{$pParam}" data-toggle="tooltip" title="Painel" target="_top">
@@ -518,7 +513,7 @@ HTML;
             <i class="bi bi-gear"></i>
                     </a>';
         }
-        $plano = "<i class=\"badge badge-light\" title=\"Plano atual da empresa\">Plano Free</i>";
+        //$plano = "<i class=\"badge badge-light\" title=\"Plano atual da empresa\">Plano Free</i>";
         $atalhos = " <div style=\"min-width: 200px;\">
             
             {$acaoPainelEmpresa} 
@@ -527,7 +522,7 @@ HTML;
             {$acaoMonitoramento}
             {$acaoAgenda}
             {$acaoEdicao}
-            {$plano}
+           
             </div>";
         
         $saida = "<div style=\"float:right; padding-bottom:10px;\">{$atalhos}</div>";
