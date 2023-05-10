@@ -409,8 +409,7 @@ getStrMsgWarning();
                             <div class="form-group">
                                 <label>Horário da ação</label>
                                 <?php
-                                $hora = '00:00';
-                                echo campo_textom('hora', 'S', 'S', '', 5, 5, '', '', '', '', 0); ?>
+                                echo campo_textom('hora', 'S', 'S', '', 5, 5, '##:##', '', '', '', 0); ?>
                             </div>
                         </div>
                         <div class="col-md-12">

@@ -83,7 +83,25 @@ class EstabelecimentoAgenda extends Modelo
 
   public function criarGoogleCalendar($params = array())
   {
-    $return = true;
+    // Gera o link para a agenda
+    $params['data'] = formata_data_sql($params['data']);
+    $agAssunto = " [>] " . $params['compromisso'] ;
+    $agAssunto = removeAcentos($agAssunto);
+    $agAssunto = strtoupper($agAssunto);
+    $agInicio = $params['data'] . 'T' . $params['hora_inicio'];
+    $agInicio = str_replace('-', '', $agInicio);
+    $agInicio = str_replace(':', '', $agInicio);
+    $hora_fim = explode(':', $params['hora_inicio']);
+    $hora_fim = $hora_fim[0];
+    $agFim = $params['data'] . 'T' . $hora_fim . ':59';
+    $agFim = str_replace('-', '', $agFim);
+    $agFim = str_replace(':', '', $agFim);
+    $convidados = 'werter@gmail.com,malosso@gmail.com';
+    $url = "https://calendar.google.com/calendar/u/0/r/eventedit?dates={$agInicio}/{$agFim}&text={$agAssunto}&add={$convidados}&location=http://sistema.smartpregao.com.br/";
+    echo '<script type="text/javascript">';
+    echo 'window.open("' . $url . '", "_blank");';
+    echo '</script>';
+
     /*
     1. Registrar
 
@@ -113,6 +131,6 @@ class EstabelecimentoAgenda extends Modelo
 
     //ver($params, $response, d);
 
-    return $return;
+    return true;
   }
 }
