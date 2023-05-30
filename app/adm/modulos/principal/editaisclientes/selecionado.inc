@@ -1,5 +1,5 @@
 <?php
-ini_set("memory_limit", "10240M");
+
 /* Objetos usados na tela */
 $mEstabelecimento = new Estabelecimento();
 $mEdital = new Edital();
