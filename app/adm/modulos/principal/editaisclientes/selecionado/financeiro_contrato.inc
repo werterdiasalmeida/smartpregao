@@ -206,7 +206,6 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
     <script>
         $('#valor').mask('#.##0,00', {
             reverse: true

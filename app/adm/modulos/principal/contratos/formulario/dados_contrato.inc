@@ -89,7 +89,6 @@
     </div>
     <button type="submit" class="btn green">Salvar</button>
 </form>
-<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
 <script>
     $('#valor_total').mask('#.##0,00', {
         reverse: true
