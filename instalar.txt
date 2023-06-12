@@ -5,8 +5,7 @@
 
 endereço:
 http://localhost:87
-cpf: 70353441104
-senha: 55603099
+
 
 Arvore do menu
 
