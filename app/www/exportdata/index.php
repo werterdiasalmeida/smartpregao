@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '256M');
+ini_set('memory_limit', '2048M');
 include "config.inc";
 header('Content-Type: application/json; charset=iso-8859-1');
 include APPRAIZ . "includes/classes_simec.inc";
