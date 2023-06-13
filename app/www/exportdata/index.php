@@ -1,9 +1,9 @@
 <?php
-ini_set('memory_limit', '2048M');
 include "config.inc";
 header('Content-Type: application/json; charset=iso-8859-1');
 include APPRAIZ . "includes/classes_simec.inc";
 include APPRAIZ . "includes/funcoes.inc";
+ini_set('memory_limit', '2048M');
 $db = new cls_banco();
 
 $tipo = $_REQUEST['tipo'];
