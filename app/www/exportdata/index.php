@@ -3,8 +3,11 @@ include "config.inc";
 header('Content-Type: application/json; charset=iso-8859-1');
 include APPRAIZ . "includes/classes_simec.inc";
 include APPRAIZ . "includes/funcoes.inc";
+include APPRAIZ . "includes/classes/Paginacao.class.inc";
+//C:\smartpregao\app\includes\classes\Paginacao.class.inc
 ini_set('memory_limit', '2048M');
 $db = new cls_banco();
+//$pag =  new Paginacao();
 
 $tipo = $_REQUEST['tipo'];
 if (!$tipo) $tipo = 'pregao_e_empresas';
@@ -19,10 +22,9 @@ switch ($tipo) {
                 join cargas.tb_carga_estabelecimento_pregao pr on pr.prgcod::integer = ed.codigo::integer 
                 join cargas.tb_carga_estabelecimento es on es.cnpj = pr.cnpj
                 where codigo is not null and codigo <>'' AND {$filtro}";
-
         break;
 }
-
+//$result = $pag->getPaginacao($db, $sql, 2);
 $result = $db->carregarArray($sql);
 $saida .= "[";
 foreach ($result as $item) {
