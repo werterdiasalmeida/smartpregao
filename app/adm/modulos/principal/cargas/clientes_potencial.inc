@@ -41,6 +41,49 @@ if ($_POST && isset($_POST['act'])) {
                 $db->insucessom($_REQUEST['modulo'], 'Sem dados para Baixar.', 'Sem dados para Baixar.');
             }
             break;
+        case 'download-completo':
+            $arrWhere[] = " emp.situacao_carga  =  'Atualizado API'";
+            $rs = $mCargaEditaisCaptacao->getListEditaisDownloadCompleto($arrWhere);
+            header("Content-type: application/octet-stream");
+            header("Content-Disposition: attachment; filename=download_completo.xls");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            echo "<table border=\"1\"><tr>
+                    <td>orgao</td>
+                    <td>edital</td>
+                    <td>objeto</td>
+                    <td>uf_edital</td>
+                    <td>data_edital</td>
+                    <td>cnpj_empresa</td>
+                    <td>nome_fantasia</td>
+                    <td>razao_social</td>
+                    <td>email</td>
+                    <td>telefone</td>
+                    <td>municipio_empresa</td>
+                    <td>cnae_empresa</td>                    
+                    </tr>";
+
+            foreach ($rs as $linha) {
+                echo "<tr>
+                    <td style=\"white-space: nowrap\">{$linha['orgao']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['edital']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['objeto']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['uf']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['aberturaformatada']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['cnpj']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['nome_fantasia']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['razao_social']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['email_1']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['telefone_1']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['municipio_uf']}</td>
+                    <td style=\"white-space: nowrap\">{$linha['cnae']}</td>
+                </tr>";
+            }
+
+
+            echo '</table>';
+            die;
+            break;
     }
 }
 include APPRAIZ . "includes/cabecalhom.inc";
@@ -71,6 +114,7 @@ getStrMsgWarning();
                             <i class="bi bi-download"></i> Baixar dados do ComprasNet
                         </button>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -85,6 +129,10 @@ getStrMsgWarning();
                         <br /><br />
                         <button type="submit" class="btn red">
                             <i class="bi bi-download"></i> Baixar participantes de TODOS OS Pregões (situação Cadastrado)
+                        </button>
+                        <br /><br />
+                        <button type="button" class="btn green" onclick="downloadCompleto()">
+                            <i class="bi bi-download"></i> Download Completo
                         </button>
                     </div>
                 </div>
@@ -126,6 +174,11 @@ getStrMsgWarning();
 <script>
     function atualizarClientesCnpj() {
         $("#act_clientes").val('atualizar-dados-cnpj-completo');
+        $("#from_clientes").submit();
+    }
+
+    function downloadCompleto() {
+        $("#act_clientes").val('download-completo');
         $("#from_clientes").submit();
     }
 </script>

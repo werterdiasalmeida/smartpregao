@@ -93,6 +93,36 @@ class CargaEditaisCaptacao extends Modelo
         return $retorno ? $retorno : array();
     }
 
+    public function getListEditaisDownloadCompleto($arWhere = array())
+    {
+        $arWhere[] = "id_siga IS NOT NULL";
+        $arWhere[] = "codigo IS NOT NULL";
+        $arWhere[] = "codigo <> ''";
+        $sql = "SELECT
+                    car.orgao as orgao,
+                    car.titulo as edital,
+                    car.descricao as objeto,
+                    car.uf as uf,
+                    car.aberturaformatada,
+                    emp.cnpj,
+                    emp.nome_fantasia,
+                    emp.razao_social,
+                    emp.email_1,
+                    emp.telefone_1,
+                    emp.municipio_uf,
+                    emp.cnae
+                FROM
+                    cargas.tb_carga_editais_captacao car
+                    JOIN cargas.tb_carga_estabelecimento_pregao est ON est.prgcod::integer = car.codigo::integer
+                    JOIN cargas.tb_carga_estabelecimento emp ON emp.cnpj = est.cnpj
+                WHERE
+                  " . implode(' AND ', $arWhere);
+                  //ver($sql);
+        $retorno = $this->carregar($sql);
+        return $retorno ? $retorno : array();
+    }
+
+
     public function salvarEditalCaptacao($params)
     {
         $dados['id_siga'] = $params['id_siga'];
