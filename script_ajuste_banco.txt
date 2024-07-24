@@ -1,0 +1,77 @@
+CREATE TABLE cargas.tb_carga_palavra_chave (
+	id serial NOT NULL,
+	tipo_carga varchar NULL,
+	palavra varchar NULL
+);
+ALTER TABLE edital.edital ALTER COLUMN id_externo TYPE varchar USING id_externo::varchar;
+
+DELETE FROM cargas.tb_carga_palavra_chave;
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','desenvolvimento de software');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','desenvolvimento de soluções');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','desenvolvimento de solução');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','manutenção em software');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','fábrica de software');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','manutenção evolutiva, corretiva, adaptativa');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','desenvolvimento de sistema');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','desenvolvimento de software');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','website');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','portal web');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','Java');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','PHP');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','DOTNET');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','Python');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','praticas ágeis');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','scrum');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','sistema web');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','software web');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','desenvolvimento web');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','FSW');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','.net');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','sustentação de sistema');
+
+INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
+	VALUES ('Desenvolvimento de Softwares','sustentação de software');

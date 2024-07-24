@@ -160,7 +160,7 @@ getStrMsgWarning();
                         <?= campo_textaream('txt_cookie', 'N', 'S', '', 5, 5, '', '', '', '', 0); ?>
                         <br />
                         <button type="submit" class="btn blue">
-                            <i class="bi bi-download"></i> Baixar dados do Siga Pregão
+                            <i class="bi bi-download"></i> Baixar dados do ConLicitação
                         </button>
                     </div>
                     <div class="col-md-4">

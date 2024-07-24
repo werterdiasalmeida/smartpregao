@@ -38,7 +38,15 @@ class CargaEditaisCaptacao extends Modelo
         'datapublicacaoformatada' => null,
         'situacao' => null,
     );
-
+    public function utf8_decode_recursive($data)
+    {
+        if (is_array($data)) {
+            return array_map('utf8_decode_recursive', $data);
+        } elseif (is_string($data)) {
+            return utf8_decode($data);
+        }
+        return $data;
+    }
     public function getList($arWhere = array(), $paginacao = true, $order = null)
     {
 
@@ -117,7 +125,7 @@ class CargaEditaisCaptacao extends Modelo
                     JOIN cargas.tb_carga_estabelecimento emp ON emp.cnpj = est.cnpj
                 WHERE
                   " . implode(' AND ', $arWhere);
-                  //ver($sql);
+        //ver($sql);
         $retorno = $this->carregar($sql);
         return $retorno ? $retorno : array();
     }
@@ -131,15 +139,16 @@ class CargaEditaisCaptacao extends Modelo
         $dados['uasg'] = $params['uasg'];
         $dados['numero'] = $params['numero'];
         $dados['codigo'] = $params['codigo'];
-        $dados['titulo'] = $params['titulo'];
-        $dados['descricao'] = $params['descricao'];
+        $dados['titulo'] = str_replace(array("'", '"'), ' ', $params['titulo']);
+        $dados['descricao'] = str_replace(array("'", '"'), ' ', $params['descricao']);
         $dados['uf'] = $params['uf'];
-        $dados['orgao'] = $params['orgao'];
+        $dados['orgao'] = str_replace(array("'", '"'), ' ', $params['orgao']);;
         $dados['aberturaformatada'] = $params['aberturaformatada'];
         $dados['encerramentoformatado'] = $params['encerramentoformatado'];
         $dados['datapublicacaoformatada'] = $params['datapublicacaoformatada'];
         $campos = implode("','", $dados);
-        $sql = "INSERT INTO cargas.tb_carga_editais_captacao VALUES ('{$campos}')";
+        $sql = "INSERT INTO cargas.tb_carga_editais_captacao VALUES ('{$campos}') ON CONFLICT (id_siga) DO NOTHING RETURNING id_siga;";
+        $this->commit();
         $retorno = $this->carregar($sql);
 
         return $retorno;
@@ -148,5 +157,87 @@ class CargaEditaisCaptacao extends Modelo
     public function excluirEditalCaptacao($id)
     {
         return $this->excluir($id);
+    }
+
+    public function baixarPNCP($pesquisa)
+    {
+
+        $pesquisa = str_replace(" ", "%20", $pesquisa);
+        $url = 'https://pncp.gov.br/api/search/?q=' . $pesquisa . '&tipos_documento=edital&ordenacao=-data&pagina=1&tam_pagina=10000&status=recebendo_proposta';
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json;',
+                'Accept: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $data = json_decode($response, true);
+        if ($data) {
+            // Verifique se a resposta foi decodificada corretamente
+            if (json_last_error() === JSON_ERROR_NONE) {
+                // Converte todos os campos de string para ISO-8859-1
+                $data = $this->convert_to_iso($data);
+            } else {
+                echo "Erro ao decodificar JSON: " . json_last_error_msg();
+                ver($data, d);
+            }
+        }
+        $reg = 0;
+        foreach ($data['items'] as $dadoPncp) {
+
+            $dado['id_siga'] = $dadoPncp['id'];
+            $dado['nomeportal'] = 'PNCP';
+            $dado['nomemodalidade'] = $dadoPncp['modalidade_licitacao_nome'];
+            $dado['uasg'] = $dadoPncp['unidade_codigo'];
+            $numero = explode('nº', $dadoPncp['title']);
+            $dado['numero'] = trim($numero[1]);
+            $dado['codigo'] = $dadoPncp['numero_controle_pncp'];
+            $dado['titulo'] = $dadoPncp['title'];
+
+            $dado['uf'] = $dadoPncp['uf'];
+            $dado['orgao'] = $dadoPncp['orgao_nome'];
+
+            $dado['aberturaformatada'] = str_replace('T', ' às ', $dadoPncp['data_inicio_vigencia']);
+            $dado['encerramentoformatado'] = str_replace('T', ' às ', $dadoPncp['data_fim_vigencia']);
+            $dado['datapublicacaoformatada'] = $dadoPncp['data_atualizacao_pncp'];
+            $comp = explode('compras', $dadoPncp['item_url']);
+            $link = 'https://pncp.gov.br/app/editais' . $comp[1];
+            $link = "<a href='{$link}' target='_blank'> Link PNCP </a>";
+            $dado['descricao'] = $dadoPncp['description'];
+            $dado['descricao'] = trim($dado['descricao']);
+
+            $gravou = $this->salvarEditalCaptacao($dado);
+
+            if ($gravou) {
+                $reg++;
+            }
+        }
+        $resultadoCarga = "Foram baixados <b>{$reg}</b> registros ";
+
+        return $resultadoCarga;
+    }
+
+    // Função para converter recursivamente strings para ISO-8859-1
+    public function convert_to_iso($data)
+    {
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $data[$key] = $this->convert_to_iso($value);
+            }
+        } elseif (is_string($data)) {
+            return mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
+        }
+        return $data;
     }
 }

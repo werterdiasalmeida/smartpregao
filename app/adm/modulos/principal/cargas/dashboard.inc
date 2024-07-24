@@ -61,10 +61,10 @@ getStrMsgWarning();
                         <span data-counter="counterup" data-value="<?php echo formata_valor($dados['clientes_captacao'], 0, false) ?>"><?php echo $dados['clientes_captacao'] ?></span>
                     </div>
                     <div class="desc"> <b>Cientes cadastrados na Captação</b></div>
-                    <div class="desc"> 
+                    <div class="desc">
                         Atualizados API: <?php echo formata_valor($dados['clientes_autalizados_api'], 0, false) ?>
                         | Falta: <?php echo formata_valor($dados['clientes_captacao'] - $dados['clientes_autalizados_api'], 0, false) ?>
-                </div>
+                    </div>
                 </div>
             </a>
             <button type="button" class="btn blue" onclick="window.open('?modulo=principal/cargas/clientes_potencial&acao=C')">
@@ -80,14 +80,18 @@ getStrMsgWarning();
                 </div>
                 <div class="details">
                     <div class="number">
-                        <span data-counter="counterup" data-value="<?php echo formata_valor($dados['editais_comprasnet'], 0, false) ?>"><?php echo $dados['editais_cadastrados'] ?></span>
+                        <span data-counter="counterup" data-value="<?php echo formata_valor($dados['editais_pncp'], 0, false) ?>"><?php echo $dados['editais_cadastrados'] ?></span>
                     </div>
-                    <div class="desc"><b>Editais ComprasNet Direto</b></div>
-                    <div class="desc"> Atualizado em: <?php echo formata_data($dados['editais_comprasnet_update']) ?></div>
+                    <div class="desc"><b>Editais Baixados PNCP</b></div>
+
+                    <div class="desc">
+                        Atualizado em: <?php echo formata_data($dados['editais_pncp_update']) ?>
+                        | Processados: <?php echo formata_valor($dados['pncp_processados'], 0, false) ?>
+                    </div>
                 </div>
             </a>
             <button type="button" class="btn red" onclick="window.open('?modulo=principal/cargas/comprasnet&acao=C')">
-                <i class="bi bi-download"></i> Carga ComprasNet Direto
+                <i class="bi bi-download"></i> Carga PNCP
             </button>
         </div>
     </div>

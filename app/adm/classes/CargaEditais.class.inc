@@ -132,14 +132,18 @@ class CargaEditais extends Modelo
             '{$params['hora_limite']}',
             '{$params['objeto']}',
             '{$params['valor_estimado']}',
-            {$params['id_externo']},
+            '{$params['id_externo']}',
             {$params['id_origem']},
             '{$params['categoria']}'
         )
         RETURNING id;
     ";
    
-        return $this->pegaUm($sql);
+    $salvou = $this->pegaUm($sql);
+    if(!$salvou){
+        ver($sql,d);
+    }
+        return $salvou;
     }
 
     public function excluirAnexo($id)

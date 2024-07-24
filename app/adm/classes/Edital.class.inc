@@ -75,8 +75,6 @@ class Edital extends Modelo
                 $sql .= " ORDER BY edi.data_limite ";
             }
         }
-
-
         if ($paginacao) {
             $dado = Paginacao::getPaginacao($this, $sql, 15);
             return $dado;

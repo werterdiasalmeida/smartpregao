@@ -31,7 +31,7 @@ class EditalCliente extends Modelo
         'atualizado_em' => null,
         'atualizado_por' => null,
         'excluido' => null,
-        
+
     );
 
     public function getList($arWhere = array(), $paginacao = true, $order = null)
@@ -69,6 +69,9 @@ class EditalCliente extends Modelo
                 $sql .= " ORDER BY edi.data_limite";
             }
         }
+
+        //ver($sql);
+
         if ($paginacao) {
             $dado = Paginacao::getPaginacao($this, $sql, 10);
             return $dado;
@@ -84,24 +87,23 @@ class EditalCliente extends Modelo
      */
     public function salvarEditalCliente($params)
     {
-       
-       unset($params['id']);
+
+        unset($params['id']);
 
         list($params, $camposNulos) = $this->limparDadosVazios($params);
         $dados = $params;
-        // Carimbo de alteração
+        // Carimbo de alteraï¿½ï¿½o
         //$dados = $this->getDadosCarimbo($params, $dados);
         $id = $this->popularDadosObjeto($dados)->salvar(true, true, $camposNulos);
 
         return $id;
-       
     }
 
     public function excluirEditalCliente($id)
     {
         $this->excluirLogicamente($id);
     }
-    
+
     public function retornaListaStatusWF()
     {
 
@@ -129,15 +131,13 @@ class EditalCliente extends Modelo
                     JOIN workflow.documento doc ON doc.docid = edc.docid
                     WHERE  estabelecimento_id = {$params['id']} AND esdid IN (98) ";
         $saida['pregoes_monitorados'] = $this->pegaUm($sql);
-      
-      $sql = " SELECT COUNT(0) 
+
+        $sql = " SELECT COUNT(0) 
                     FROM edital.editalcliente edc
                     JOIN workflow.documento doc ON doc.docid = edc.docid
                     WHERE  estabelecimento_id = {$params['id']} AND esdid IN (101) ";
         $saida['contratos_assinados'] = $this->pegaUm($sql);
-        
+
         return $saida;
     }
-    
-
 }

@@ -218,6 +218,12 @@ class CargaEstabelecimento extends Modelo
         $saida['editais_captacao_update'] = $this->pegaUm(" SELECT MAX(data_atualizacao) FROM cargas.tb_carga_editais_captacao car");
         $saida['clientes_autalizados_api'] = $this->pegaUm(" SELECT COUNT(0) FROM cargas.tb_carga_estabelecimento WHERE situacao_carga = 'Atualizado API'");
 
+        $saida['editais_pncp'] = $this->pegaUm(" SELECT COUNT(0) FROM cargas.tb_carga_editais_captacao");
+        $saida['editais_pncp_update'] = $this->pegaUm(" SELECT MAX(data_atualizacao) FROM cargas.tb_carga_editais_captacao ");
+        $saida['pncp_processados'] = $this->pegaUm(" SELECT COUNT(0) FROM cargas.tb_carga_editais_captacao WHERE situacao <> 'Cadastrado'");
+
+
+        
         return $saida;
     }
 
