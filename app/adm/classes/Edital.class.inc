@@ -56,7 +56,7 @@ class Edital extends Modelo
                     edi.orgao,
                     TO_CHAR(edi.data_limite, 'DD/MM/YYYY') AS data_limite_formatada,
                     data_limite - current_date as dias,
-                    '<b>' || valor_estimado || '</b> <br/> ' || substring(edi.objeto, 0, 300) || ' ...' as objeto,
+                    objeto,
                     mun.municipio || '/' || uf.uf_sigla AS municipio,
                     edi.id
                 FROM

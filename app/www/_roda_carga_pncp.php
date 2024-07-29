@@ -38,6 +38,13 @@ $mCargaEditaisCaptacao = new CargaEditaisCaptacao();
 $mCargaEditais = new CargaEditais();
 $mEdital = new Edital();
 
+/*
+    Baixar um xls dos processados
+*/
+if($_GET['download']){
+    $mCargaEditaisCaptacao->donwloadXslProcessados($_GET['download']);
+}
+
 $sql = "select DISTINCT tipo_carga from cargas.tb_carga_palavra_chave ORDER BY tipo_carga";
 $tipo = $mCargaEditaisCaptacao->carregar($sql);
 foreach ($tipo as $dado_tipo) {
@@ -64,7 +71,7 @@ foreach ($tipo as $dado_tipo) {
                 WHERE situacao ILIKE '%{$tipo_carga}%' 
                 AND DATE(data_atualizacao) = CURRENT_DATE";
     $num = $mCargaEditaisCaptacao->pegaUm($sql);
-    echo "<br>Foram processados <b>{$num}</b> registros para <b>{$tipo_carga}</b> pelo Objeto.";
+    echo "<br>Foram processados <b>{$num}</b> registros para <b><a href='?download={$tipo_carga}'>{$tipo_carga}</a></b> pelo Objeto.";
 
     //Carrega para a base de Editais 
     $sql = "SELECT *
@@ -92,7 +99,7 @@ foreach ($tipo as $dado_tipo) {
         if (!$salvar['id_origem']) $salvar['id_origem'] = 'NULL';
         $salvar['categoria'] = $tipo_carga;
         $existe = $mEdital->pegaLinha(" SELECT id FROM edital.edital  WHERE id_externo::TEXT = '{$salvar['id_externo']}'");
-      //ver($salvar, $existe,d);
+      
         if (!$existe) {
             $id = $mCargaEditais->salvarEditalCarga($salvar);
             $mCargaEditais->commit();

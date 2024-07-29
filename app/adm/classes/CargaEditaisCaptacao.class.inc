@@ -213,9 +213,9 @@ class CargaEditaisCaptacao extends Modelo
             $dado['datapublicacaoformatada'] = $dadoPncp['data_atualizacao_pncp'];
             $comp = explode('compras', $dadoPncp['item_url']);
             $link = 'https://pncp.gov.br/app/editais' . $comp[1];
-            $link = "<a href='{$link}' target='_blank'> Link PNCP </a>";
+            $link = " <a href='{$link}' target='_blank'>[Link PNCP}</a>";
             $dado['descricao'] = $dadoPncp['description'];
-            $dado['descricao'] = trim($dado['descricao']);
+            $dado['descricao'] = trim($dado['descricao']) . "{$link}";
 
             $gravou = $this->salvarEditalCaptacao($dado);
 
@@ -239,5 +239,55 @@ class CargaEditaisCaptacao extends Modelo
             return mb_convert_encoding($data, 'ISO-8859-1', 'UTF-8');
         }
         return $data;
+    }
+
+    public function donwloadXslProcessados($tipo_carga)
+    {
+
+        //Carrega para a base de Editais 
+        $sql = "SELECT *
+            FROM cargas.tb_carga_editais_captacao 
+            WHERE situacao ILIKE '%{$tipo_carga}%' 
+            --AND DATE(data_atualizacao) = CURRENT_DATE
+            ";
+        $dados = (array) $this->carregar($sql);
+        header("Content-type: application/octet-stream");
+        header("Content-Disposition: attachment; filename=carga.xls");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+ 
+        echo "<table border=\"1\"><tr>
+        <td>Portal</td>
+        <td>Modalidade</td>
+        <td>Código</td>
+        <td>Título</td>
+        <td>Data</td>
+        <td>Órgão</td>
+        <td>UF</td>
+        <td>Descrição</td>
+        </tr>";
+        
+        foreach ($dados as $linha) {
+        
+            $linha['encerramentoformatado'] = explode('às', $linha['encerramentoformatado']);
+            $linha['encerramentoformatado'] = formata_data($linha['encerramentoformatado'][0]);
+            
+            echo "<tr>
+            <td style=\"white-space: nowrap\">{$linha['nomeportal']}</td>
+            <td style=\"white-space: nowrap\">{$linha['nomemodalidade']}</td>
+            <td style=\"white-space: nowrap\">{$linha['codigo']}</td>
+            <td style=\"white-space: nowrap\">{$linha['titulo']}</td>
+            <td style=\"white-space: nowrap\">{$linha['encerramentoformatado']}</td>
+            <td style=\"white-space: nowrap\">{$linha['orgao']}</td>
+            <td style=\"white-space: nowrap\">{$linha['uf']}</td>
+            <td style=\"white-space: nowrap\">{$linha['descricao']}</td>
+
+            </tr>";
+        }
+        
+        
+        echo '</table>';
+        die();
+        
     }
 }

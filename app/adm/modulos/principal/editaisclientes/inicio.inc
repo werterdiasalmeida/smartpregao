@@ -77,6 +77,15 @@ if ($_REQUEST && isset($_REQUEST['act'])) {
             require APPRAIZ . "adm/modulos/principal/editaisclientes/detalhe_edital.inc";
             die;
             break;
+        case 'excluirEdital':
+            $params = $_GET;
+
+            /* TROCAR DEPOIS PARA VINCULAR COMO DESCARTADO */
+        
+            $mEdital->excluirEdital(intval($params['id_edital']));
+            $mEdital->commit();         
+            $db->sucessom($_REQUEST['modulo'], '&p=' . $params['p'], 'Edital descartado com sucesso!');
+            break;
     }
 }
 
@@ -214,7 +223,7 @@ getStrMsgWarning();
                 $arConfig[3]['html'] = <<<HTML
                     {municipio}
                HTML;
-               $arConfig[4]['html'] = <<<HTML
+                $arConfig[4]['html'] = <<<HTML
                     {situacao}
                HTML;
                 if ($ordernar) {
@@ -292,11 +301,15 @@ HTML;
                 <?php
                 unset($arConfig, $acao);
                 $acao = <<<ACAO
-                    <div style="min-width: 20px;">
-                        <a class="btn btn-circle btn-icon-only btn-default yellow" href="javascript:exibirModalParticipar('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}');" data-toggle="tooltip"  title="Quero Participar!">
+                    <div style="min-width: 90px;">
+                        <a class="btn btn-circle btn-icon-only btn-default yellow" href="javascript:exibirModalParticipar('<php> return setParam(array('id' => '{id}'), false); </php>', '{orgao}', '{objeto}');" data-toggle="tooltip"  title="Quero Participar!">
                             <i class="glyphicon glyphicon-star-empty"></i>
                         </a>
+                         <a class="btn btn-circle btn-icon-only btn-default red" href="javascript:excluirEdital({id});" data-toggle="tooltip"  title="Descartar">
+                                <i class="bi bi-x-square"></i>
+                        </a>
                     </div>
+                    
                     ACAO;
                 $arConfig[4]['html'] = <<<HTML
                         <spam class="badge badge-primary"><b>{dias}</b></spam>
@@ -345,6 +358,7 @@ HTML;
             </div>
             <div class="modal-body">
                 Confirma a participação no Edital <strong id="nome"></strong>?
+                <div id="div_detalhe_edital"></div>
                 <form role="form" name="formulario" class="form-participar" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="act" value="participar">
                     <input type="hidden" name="p" value="">
@@ -393,11 +407,12 @@ HTML;
 
     }
 
-    function exibirModalParticipar(p, nome) {
+    function exibirModalParticipar(p, nome, div_detalhe_edital) {
         var modal = $('#modal-participar');
 
         $('form.form-participar [name=p]').val(p);
         modal.find('strong#nome').html(nome);
+        modal.find('#div_detalhe_edital').html(div_detalhe_edital);
         modal.modal('show');
     }
 
@@ -411,5 +426,12 @@ HTML;
 
     function solicitarServico(id) {
         window.location = '?modulo=principal/editaisclientes/servicos_pregao&acao=C&p=' + id;
+    }
+
+    function excluirEdital(id) {
+        if (confirm('Deseja Descartar este Edital?')) {
+            url = '?modulo=principal/editaisclientes/inicio&acao=C&p=<?= $_REQUEST['p'] ?>&act=excluirEdital&id_edital=' + id;
+            location.href = url;
+        }
     }
 </script>
