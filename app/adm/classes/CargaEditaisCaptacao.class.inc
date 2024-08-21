@@ -213,7 +213,7 @@ class CargaEditaisCaptacao extends Modelo
             $dado['datapublicacaoformatada'] = $dadoPncp['data_atualizacao_pncp'];
             $comp = explode('compras', $dadoPncp['item_url']);
             $link = 'https://pncp.gov.br/app/editais' . $comp[1];
-            $link = " <a href='{$link}' target='_blank'>[Link PNCP}</a>";
+            $link = " <a href='{$link}' target='_blank'>[Link PNCP]</a>";
             $dado['descricao'] = $dadoPncp['description'];
             $dado['descricao'] = trim($dado['descricao']) . "{$link}";
 

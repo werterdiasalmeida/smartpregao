@@ -42,8 +42,8 @@ class Edital extends Modelo
         'atualizado_por' => null,
         'excluido' => null,
         'id_externo' => null,
-        'id_origem' => null,                
-        'categoria' => null,                
+        'id_origem' => null,
+        'categoria' => null,
     );
 
     public function getList($arWhere = array(), $paginacao = true, $order = null)
@@ -136,7 +136,7 @@ class Edital extends Modelo
                  WHERE
                  edc.id = {$id}";
         $dados = $this->carregar($sql);
-        
+
         return $dados[0];
     }
 }

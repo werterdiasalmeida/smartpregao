@@ -93,6 +93,9 @@ getStrMsgWarning();
             <button type="button" class="btn red" onclick="window.open('?modulo=principal/cargas/comprasnet&acao=C')">
                 <i class="bi bi-download"></i> Carga PNCP
             </button>
+            <button type="button" class="btn red" onclick="window.open('?modulo=principal/cargas/carga_cadastro&acao=C')">
+                <i class="bi bi-file-earmark"></i> Cadastro de Cargas
+            </button>
         </div>
     </div>
 </div>

@@ -75,3 +75,11 @@ INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
 
 INSERT INTO cargas.tb_carga_palavra_chave (tipo_carga,palavra)
 	VALUES ('Desenvolvimento de Softwares','sustentação de software');
+
+INSERT INTO seguranca.menu (mnucod,mnudsc,mnustatus,mnulink,mnutipo,mnustile,mnuhtml,mnusnsubmenu,mnutransacao,mnushow,sisid,mnuidpai,mnuordem)
+	VALUES (3006,'Cadastro de Cargas','A','adm.php?modulo=principal/cargas/carga_cadastro&acao=C',2,'','',false,'carga_cadastro',false,72,6624,1);
+
+INSERT INTO seguranca.perfilmenu (pflcod,pmnstatus,mnuid)
+	VALUES (435,'A',6797);
+
+
